@@ -2,6 +2,11 @@
 
 All notable changes to the MediaKit Lite theme will be documented in this file.
 
+## [1.3.11] - 2025-06-22
+
+### Changed
+- Add navigation background color, fix font preview, and section order disabled state
+
 ## [1.3.10] - 2025-06-22
 
 ### Fixed
