@@ -2,6 +2,11 @@
 
 All notable changes to the MediaKit Lite theme will be documented in this file.
 
+## [1.7.2] - 2025-06-22
+
+### Changed
+- Update bump script to sync root version.json file
+
 ## [1.7.1] - 2025-06-22
 
 ### Changed

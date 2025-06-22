@@ -1,8 +1,8 @@
 {
-  "version": "1.7.1",
-  "description": "Fix version detection in update checker",
-  "download_url": "https://github.com/Finish-Line-Media/DMK_Lite/releases/download/v1.7.1/mediakit-lite.zip",
-  "changelog_url": "https://github.com/Finish-Line-Media/DMK_Lite/releases/tag/v1.7.1",
+  "version": "1.7.2",
+  "description": "Update bump script to sync root version.json file",
+  "download_url": "https://github.com/Finish-Line-Media/DMK_Lite/releases/download/v1.7.2/mediakit-lite.zip",
+  "changelog_url": "https://github.com/Finish-Line-Media/DMK_Lite/releases/tag/v1.7.2",
   "release_date": "2025-06-22",
   "min_wp_version": "5.8",
   "tested_up_to": "6.5",
