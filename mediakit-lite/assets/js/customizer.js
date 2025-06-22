@@ -38,25 +38,6 @@
         } );
     } );
     
-    // Background overlay
-    wp.customize( 'mkp_background_overlay', function( value ) {
-        value.bind( function( to ) {
-            // Check if overlay element exists, create if not
-            if ( ! $( '.mkp-background-overlay' ).length ) {
-                $( 'body' ).prepend( '<div class="mkp-background-overlay"></div>' );
-                $( '.mkp-background-overlay' ).css({
-                    'position': 'fixed',
-                    'top': '0',
-                    'left': '0',
-                    'width': '100%',
-                    'height': '100%',
-                    'z-index': '-1',
-                    'pointer-events': 'none'
-                });
-            }
-            $( '.mkp-background-overlay' ).css( 'background-color', to );
-        } );
-    } );
     
     // Brand Colors
     wp.customize( 'mkp_primary_color', function( value ) {
@@ -245,26 +226,43 @@
         ( function( bookNum ) {
             wp.customize( 'mkp_book_' + bookNum + '_title', function( value ) {
                 value.bind( function( to ) {
-                    $( '.mkp-book--' + bookNum + ' .mkp-book__title' ).text( to );
+                    const $book = $( '.mkp-books__grid .mkp-book-card:nth-child(' + bookNum + ')' );
                     if ( to ) {
-                        $( '.mkp-book--' + bookNum ).show();
+                        $book.find( '.mkp-book-card__title' ).text( to );
+                        $book.show();
                     } else {
-                        $( '.mkp-book--' + bookNum ).hide();
+                        $book.hide();
                     }
                 } );
             } );
             
             wp.customize( 'mkp_book_' + bookNum + '_cover', function( value ) {
                 value.bind( function( to ) {
+                    const $book = $( '.mkp-books__grid .mkp-book-card:nth-child(' + bookNum + ')' );
                     if ( to ) {
-                        $( '.mkp-book--' + bookNum + ' .mkp-book__cover img' ).attr( 'src', to );
+                        $book.find( '.mkp-book-card__cover img' ).attr( 'src', to );
+                        $book.find( '.mkp-book-card__cover' ).show();
+                    } else {
+                        $book.find( '.mkp-book-card__cover' ).hide();
                     }
                 } );
             } );
             
             wp.customize( 'mkp_book_' + bookNum + '_description', function( value ) {
                 value.bind( function( to ) {
-                    $( '.mkp-book--' + bookNum + ' .mkp-book__description' ).text( to );
+                    const $book = $( '.mkp-books__grid .mkp-book-card:nth-child(' + bookNum + ')' );
+                    $book.find( '.mkp-book-card__description' ).html( wpautop( to ) );
+                } );
+            } );
+            
+            wp.customize( 'mkp_book_' + bookNum + '_link', function( value ) {
+                value.bind( function( to ) {
+                    const $book = $( '.mkp-books__grid .mkp-book-card:nth-child(' + bookNum + ')' );
+                    if ( to ) {
+                        $book.find( 'a.mkp-btn' ).attr( 'href', to ).show();
+                    } else {
+                        $book.find( 'a.mkp-btn' ).hide();
+                    }
                 } );
             } );
         } )( i );

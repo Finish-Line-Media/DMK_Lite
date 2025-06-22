@@ -2,6 +2,27 @@
 
 All notable changes to the MediaKit Lite theme will be documented in this file.
 
+## [1.2.9] - 2025-06-22
+
+### Removed
+- Background Settings section from Customizer
+- WordPress default Menus panel
+- WordPress default Widgets panel
+- Homepage Settings section
+- Additional CSS section
+- Contact Section from bottom of website (redundant with Social Media section)
+- Custom background support from theme
+
+### Improved
+- Book cover images now have padding and use object-fit: contain for better display
+- Book section changes now auto-update in Customizer preview
+- Book purchase links now update instantly in preview
+- Cleaner Customizer interface with fewer unnecessary options
+
+### Fixed
+- Book section live preview now uses correct CSS selectors
+- Book cards properly show/hide based on content
+
 ## [1.2.8] - 2025-06-22
 
 ### Added

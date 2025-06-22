@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Define Constants
  */
-define( 'MKP_THEME_VERSION', '1.2.8' );
+define( 'MKP_THEME_VERSION', '1.2.9' );
 define( 'MKP_THEME_DIR', get_template_directory() );
 define( 'MKP_THEME_URI', get_template_directory_uri() );
 
@@ -48,10 +48,6 @@ function mkp_theme_setup() {
     // Add support for responsive embedded content
     add_theme_support( 'responsive-embeds' );
     
-    // Add support for custom background
-    add_theme_support( 'custom-background', array(
-        'default-color' => 'ffffff',
-    ) );
     
     // Register navigation menus
     register_nav_menus( array(

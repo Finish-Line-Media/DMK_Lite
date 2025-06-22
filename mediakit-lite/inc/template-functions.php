@@ -504,14 +504,6 @@ function mkp_get_front_page_nav_items() {
         );
     }
     
-    // Contact Section
-    if ( get_theme_mod( 'mkp_enable_section_contact', true ) ) {
-        $nav_items[] = array(
-            'id'    => 'contact',
-            'label' => __( 'Contact', 'mediakit-lite' ),
-            'url'   => '#contact',
-        );
-    }
     
     return $nav_items;
 }

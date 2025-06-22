@@ -13,9 +13,13 @@ function mkp_customize_register( $wp_customize ) {
     $wp_customize->get_setting( 'blogdescription' )->transport  = 'postMessage';
     $wp_customize->get_setting( 'header_textcolor' )->transport = 'postMessage';
     
-    // Remove default WordPress sections we're replacing
+    // Remove default WordPress sections
     $wp_customize->remove_section( 'colors' );
     $wp_customize->remove_section( 'background_image' );
+    $wp_customize->remove_panel( 'nav_menus' );
+    $wp_customize->remove_panel( 'widgets' );
+    $wp_customize->remove_section( 'static_front_page' );
+    $wp_customize->remove_section( 'custom_css' );
     
     // Remove site title and tagline controls
     $wp_customize->remove_control( 'blogname' );
@@ -173,105 +177,6 @@ function mkp_customize_register( $wp_customize ) {
         'priority'    => 100,
     ) ) );
     
-    /**
-     * Background Settings Section
-     */
-    $wp_customize->add_section( 'mkp_background_settings', array(
-        'title'       => __( 'Background Settings', 'mediakit-lite' ),
-        'priority'    => 32,
-        'description' => __( 'Control the overall site background. Use a solid color for a clean look, or add a pattern/image for more visual interest. Background images work best at 1920x1080 pixels or larger.', 'mediakit-lite' ),
-    ) );
-    
-    // Move WordPress background color control to our section
-    if ( $wp_customize->get_control( 'background_color' ) ) {
-        $wp_customize->get_control( 'background_color' )->section = 'mkp_background_settings';
-        $wp_customize->get_control( 'background_color' )->priority = 10;
-        $wp_customize->get_control( 'background_color' )->description = __( 'Choose a background color for your entire site. This color will show behind all content areas.', 'mediakit-lite' );
-    }
-    
-    // Move WordPress background image control to our section
-    if ( $wp_customize->get_control( 'background_image' ) ) {
-        $wp_customize->get_control( 'background_image' )->section = 'mkp_background_settings';
-        $wp_customize->get_control( 'background_image' )->priority = 20;
-        $wp_customize->get_control( 'background_image' )->description = __( 'Upload a background image or pattern. For best results, use images at least 1920x1080 pixels. Subtle patterns or blurred images work well.', 'mediakit-lite' );
-    }
-    
-    // Move background preset control
-    if ( $wp_customize->get_control( 'background_preset' ) ) {
-        $wp_customize->get_control( 'background_preset' )->section = 'mkp_background_settings';
-        $wp_customize->get_control( 'background_preset' )->priority = 30;
-    }
-    
-    // Move background position controls
-    if ( $wp_customize->get_control( 'background_position_x' ) ) {
-        $wp_customize->get_control( 'background_position_x' )->section = 'mkp_background_settings';
-        $wp_customize->get_control( 'background_position_x' )->priority = 40;
-    }
-    
-    // Move background size control
-    if ( $wp_customize->get_control( 'background_size' ) ) {
-        $wp_customize->get_control( 'background_size' )->section = 'mkp_background_settings';
-        $wp_customize->get_control( 'background_size' )->priority = 50;
-    }
-    
-    // Move background repeat control
-    if ( $wp_customize->get_control( 'background_repeat' ) ) {
-        $wp_customize->get_control( 'background_repeat' )->section = 'mkp_background_settings';
-        $wp_customize->get_control( 'background_repeat' )->priority = 60;
-    }
-    
-    // Move background attachment control
-    if ( $wp_customize->get_control( 'background_attachment' ) ) {
-        $wp_customize->get_control( 'background_attachment' )->section = 'mkp_background_settings';
-        $wp_customize->get_control( 'background_attachment' )->priority = 70;
-    }
-    
-    // Background overlay color
-    $wp_customize->add_setting( 'mkp_background_overlay_color', array(
-        'default'           => '#ffffff',
-        'sanitize_callback' => 'sanitize_hex_color',
-        'transport'         => 'postMessage',
-    ) );
-    
-    $wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'mkp_background_overlay_color', array(
-        'label'       => __( 'Background Overlay Color', 'mediakit-lite' ),
-        'description' => __( 'Color for the overlay on background image.', 'mediakit-lite' ),
-        'section'     => 'mkp_background_settings',
-        'settings'    => 'mkp_background_overlay_color',
-        'priority'    => 80,
-    ) ) );
-    
-    // Background overlay opacity
-    $wp_customize->add_setting( 'mkp_background_overlay_opacity', array(
-        'default'           => '0',
-        'sanitize_callback' => 'absint',
-        'transport'         => 'postMessage',
-    ) );
-    
-    $wp_customize->add_control( 'mkp_background_overlay_opacity', array(
-        'label'       => __( 'Background Overlay Opacity', 'mediakit-lite' ),
-        'description' => __( 'Opacity of the overlay (0 = transparent, 100 = opaque).', 'mediakit-lite' ),
-        'section'     => 'mkp_background_settings',
-        'type'        => 'range',
-        'input_attrs' => array(
-            'min'  => 0,
-            'max'  => 100,
-            'step' => 5,
-        ),
-        'priority'    => 81,
-    ) );
-    
-    // Reset Button for Background Settings
-    $wp_customize->add_setting( 'mkp_reset_background_settings', array(
-        'default'           => '',
-        'sanitize_callback' => 'sanitize_text_field',
-    ) );
-    
-    $wp_customize->add_control( new MKP_Reset_Control( $wp_customize, 'mkp_reset_background_settings', array(
-        'label'       => __( 'Reset Background Settings', 'mediakit-lite' ),
-        'section'     => 'mkp_background_settings',
-        'priority'    => 100,
-    ) ) );
     
     /**
      * Hero Section
@@ -666,6 +571,7 @@ function mkp_customize_register( $wp_customize ) {
         $wp_customize->add_setting( 'mkp_book_' . $i . '_link', array(
             'default'           => '',
             'sanitize_callback' => 'esc_url_raw',
+            'transport'         => 'postMessage',
         ) );
         
         $wp_customize->add_control( 'mkp_book_' . $i . '_link', array(
