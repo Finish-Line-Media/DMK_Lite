@@ -33,7 +33,10 @@ jobs:
         echo "Current version: $CURRENT_VERSION"
         
         # Get the latest release version from GitHub
-        LATEST_RELEASE=$(curl -s https://api.github.com/repos/${{ github.repository }}/releases/latest | grep '"tag_name"' | sed -E 's/.*"v([^"]+)".*/\1/' || echo "0.0.0")
+        LATEST_RELEASE=$(curl -s https://api.github.com/repos/${{ github.repository }}/releases/latest | jq -r '.tag_name // "v0.0.0"' | sed 's/^v//')
+        if [ -z "$LATEST_RELEASE" ] || [ "$LATEST_RELEASE" = "null" ]; then
+          LATEST_RELEASE="0.0.0"
+        fi
         echo "Latest release version: $LATEST_RELEASE"
         
         # Check if version changed
