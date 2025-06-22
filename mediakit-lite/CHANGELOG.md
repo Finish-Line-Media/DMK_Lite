@@ -2,6 +2,11 @@
 
 All notable changes to the MediaKit Lite theme will be documented in this file.
 
+## [1.7.9] - 2025-06-22
+
+### Changed
+- Fix Contact section dynamic preview with class-based visibility
+
 ## [1.7.8] - 2025-06-22
 
 ### Changed
