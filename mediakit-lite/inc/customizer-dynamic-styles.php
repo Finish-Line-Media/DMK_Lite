@@ -88,14 +88,28 @@ function mkp_generate_dynamic_styles() {
         }
         
         /* Speaker Topics Section Auto-Contrast */
-        .mkp-speaker-topics-section {
+        .mkp-speaker-section {
             background-color: <?php echo esc_attr( $speaker_bg ); ?>;
             color: <?php echo esc_attr( mkp_get_contrast_color( $speaker_bg ) ); ?>;
         }
         
-        .mkp-speaker-topics-section h2,
-        .mkp-speaker-topics-section h3 {
+        .mkp-speaker-section h2,
+        .mkp-speaker-section h3,
+        .mkp-speaker-section .mkp-speaker__topic-title {
             color: <?php echo esc_attr( mkp_get_contrast_color_rgba( $speaker_bg, 'heading' ) ); ?>;
+        }
+        
+        .mkp-speaker-section .mkp-speaker__topic-number {
+            color: <?php echo esc_attr( mkp_get_contrast_color_rgba( $speaker_bg, 'muted' ) ); ?>;
+        }
+        
+        /* List styles for speaker topics */
+        .mkp-speaker-section .mkp-speaker__list {
+            color: <?php echo esc_attr( mkp_get_contrast_color( $speaker_bg ) ); ?>;
+        }
+        
+        .mkp-speaker-section .mkp-speaker__list-item::marker {
+            color: <?php echo esc_attr( mkp_get_contrast_color_rgba( $speaker_bg, 'muted' ) ); ?>;
         }
         
         /* Podcast Section Auto-Contrast */
