@@ -132,91 +132,7 @@ function mkp_comment_form_fields( $fields ) {
 }
 add_filter( 'comment_form_default_fields', 'mkp_comment_form_fields' );
 
-/**
- * Get attachment ID from URL
- */
-function mkp_get_attachment_id_from_url( $attachment_url = '' ) {
-    global $wpdb;
-    $attachment_id = false;
-    
-    if ( '' == $attachment_url ) {
-        return;
-    }
-    
-    $upload_dir_paths = wp_upload_dir();
-    
-    if ( false !== strpos( $attachment_url, $upload_dir_paths['baseurl'] ) ) {
-        $attachment_url = preg_replace( '/-\d+x\d+(?=\.(jpg|jpeg|png|gif)$)/i', '', $attachment_url );
-        $attachment_url = str_replace( $upload_dir_paths['baseurl'] . '/', '', $attachment_url );
-        $attachment_id = $wpdb->get_var( $wpdb->prepare( "SELECT wposts.ID FROM $wpdb->posts wposts, $wpdb->postmeta wpostmeta WHERE wposts.ID = wpostmeta.post_id AND wpostmeta.meta_key = '_wp_attached_file' AND wpostmeta.meta_value = '%s' AND wposts.post_type = 'attachment'", $attachment_url ) );
-    }
-    
-    return $attachment_id;
-}
 
-/**
- * Get related posts
- */
-function mkp_get_related_posts( $post_id = null, $number = 3 ) {
-    if ( ! $post_id ) {
-        $post_id = get_the_ID();
-    }
-    
-    $post_type = get_post_type( $post_id );
-    $related_posts = array();
-    
-    // For custom post types, get posts from the same taxonomy
-    if ( in_array( $post_type, array( 'speaking_topic', 'media_appearance', 'portfolio_item' ) ) ) {
-        $taxonomies = get_object_taxonomies( $post_type );
-        
-        if ( ! empty( $taxonomies ) ) {
-            $terms = wp_get_object_terms( $post_id, $taxonomies[0], array( 'fields' => 'ids' ) );
-            
-            if ( ! empty( $terms ) && ! is_wp_error( $terms ) ) {
-                $args = array(
-                    'post_type' => $post_type,
-                    'posts_per_page' => $number,
-                    'post__not_in' => array( $post_id ),
-                    'tax_query' => array(
-                        array(
-                            'taxonomy' => $taxonomies[0],
-                            'field' => 'term_id',
-                            'terms' => $terms,
-                        ),
-                    ),
-                );
-                
-                $related_posts = get_posts( $args );
-            }
-        }
-    } else {
-        // For regular posts, get posts from the same category
-        $categories = wp_get_post_categories( $post_id, array( 'fields' => 'ids' ) );
-        
-        if ( ! empty( $categories ) ) {
-            $args = array(
-                'category__in' => $categories,
-                'posts_per_page' => $number,
-                'post__not_in' => array( $post_id ),
-            );
-            
-            $related_posts = get_posts( $args );
-        }
-    }
-    
-    // If no related posts found, get recent posts
-    if ( empty( $related_posts ) ) {
-        $args = array(
-            'post_type' => $post_type,
-            'posts_per_page' => $number,
-            'post__not_in' => array( $post_id ),
-        );
-        
-        $related_posts = get_posts( $args );
-    }
-    
-    return $related_posts;
-}
 
 /**
  * Display star rating
@@ -237,18 +153,6 @@ function mkp_star_rating( $rating, $max = 5 ) {
     return $output;
 }
 
-/**
- * Format large numbers
- */
-function mkp_format_number( $number ) {
-    if ( $number >= 1000000 ) {
-        return round( $number / 1000000, 1 ) . 'M';
-    } elseif ( $number >= 1000 ) {
-        return round( $number / 1000, 1 ) . 'K';
-    }
-    
-    return $number;
-}
 
 /**
  * Get file size in human readable format
@@ -270,20 +174,6 @@ function mkp_get_file_size( $file_url ) {
     return __( 'Unknown', 'mediakit-lite' );
 }
 
-/**
- * Check if current page is using a specific template
- */
-function mkp_is_page_template( $template ) {
-    global $post;
-    
-    if ( ! $post ) {
-        return false;
-    }
-    
-    $page_template = get_page_template_slug( $post->ID );
-    
-    return $page_template === $template;
-}
 
 /**
  * Get social share links

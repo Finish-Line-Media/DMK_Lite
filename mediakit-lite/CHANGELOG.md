@@ -2,6 +2,20 @@
 
 All notable changes to the MediaKit Lite theme will be documented in this file.
 
+## [1.3.1] - 2025-06-22
+
+### Refactored
+- Front page structure with centralized section configuration
+- Social icons functionality moved to dedicated module
+- Removed unused template functions for cleaner codebase
+- Fixed class naming convention (MKP_Walker_Nav_Menu to Mkp_Walker_Nav_Menu)
+
+### Added
+- Customizer helper functions for cleaner code
+
+### Improved
+- Overall code organization and maintainability
+
 ## [1.3.0] - 2025-06-22
 
 ### Fixed

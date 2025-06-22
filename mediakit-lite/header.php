@@ -55,7 +55,7 @@
                             'menu_class'     => 'mkp-nav',
                             'container'      => false,
                             'fallback_cb'    => false,
-                            'walker'         => new MKP_Walker_Nav_Menu(),
+                            'walker'         => new Mkp_Walker_Nav_Menu(),
                         )
                     );
                 }
