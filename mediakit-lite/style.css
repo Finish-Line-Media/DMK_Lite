@@ -1122,21 +1122,34 @@ img {
 }
 
 .mkp-book-card__cover {
-    aspect-ratio: 3/4;
+    max-height: 25vh; /* Maximum 1/4 of viewport height */
+    height: 200px; /* Default height */
     overflow: hidden;
     background-color: var(--mkp-bg-alt);
-    padding: var(--mkp-spacing-lg);
+    padding: var(--mkp-spacing-md);
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
 .mkp-book-card__cover img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
+    width: auto;
+    height: auto;
     max-width: 100%;
     max-height: 100%;
+    object-fit: contain;
+}
+
+.mkp-book-card__cover-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--mkp-text-muted);
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
 }
 
 .mkp-book-card__content {
@@ -1547,5 +1560,15 @@ img {
     .mkp-contact__info {
         grid-template-columns: 1fr;
         text-align: center;
+    }
+    
+    /* Book covers smaller on mobile */
+    .mkp-book-card__cover {
+        height: 150px;
+        max-height: 20vh;
+    }
+    
+    .mkp-books__grid {
+        grid-template-columns: 1fr;
     }
 } 

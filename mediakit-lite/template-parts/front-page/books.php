@@ -41,7 +41,11 @@ $section_title = ( $actual_book_count === 1 ) ? __( 'Book', 'mediakit-lite' ) : 
                 <div class="mkp-book-card mkp-book--<?php echo esc_attr( $i ); ?>" style="display: <?php echo esc_attr( $display ); ?>;">
                     <div class="mkp-book-card__cover">
                         <?php if ( $cover ) : ?>
-                            <img src="<?php echo esc_url( $cover ); ?>" alt="<?php echo esc_attr( $title ); ?> cover" />
+                            <img src="<?php echo esc_url( $cover ); ?>" alt="<?php echo esc_attr( $title ); ?> cover" loading="lazy" />
+                        <?php else : ?>
+                            <div class="mkp-book-card__cover-placeholder">
+                                <span><?php esc_html_e( 'Book Cover', 'mediakit-lite' ); ?></span>
+                            </div>
                         <?php endif; ?>
                     </div>
                     
