@@ -81,7 +81,7 @@ function mkp_check_for_updates() {
     }
     
     // Fallback method: Check version.json in repository
-    $version_url = 'https://raw.githubusercontent.com/Finish-Line-Media/DMK_Lite/main/mediakit-lite/version.json';
+    $version_url = 'https://raw.githubusercontent.com/Finish-Line-Media/DMK_Lite/main/version.json';
     
     $response = wp_remote_get( $version_url, array(
         'timeout' => 10,

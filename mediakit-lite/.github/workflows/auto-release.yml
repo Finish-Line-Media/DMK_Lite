@@ -5,8 +5,8 @@ on:
     branches:
       - main
     paths:
-      - 'mediakit-lite/style.css'
-      - 'mediakit-lite/version.json'
+      - 'style.css'
+      - 'version.json'
 
 jobs:
   check-version:
@@ -24,12 +24,12 @@ jobs:
       id: version_check
       run: |
         # Get current version from style.css
-        CURRENT_VERSION=$(grep "Version:" mediakit-lite/style.css | sed 's/.*Version: //' | tr -d '[:space:]')
+        CURRENT_VERSION=$(grep "Version:" style.css | sed 's/.*Version: //' | tr -d '[:space:]')
         echo "Current version: $CURRENT_VERSION"
         
         # Get previous version
         git checkout HEAD~1
-        PREVIOUS_VERSION=$(grep "Version:" mediakit-lite/style.css 2>/dev/null | sed 's/.*Version: //' | tr -d '[:space:]' || echo "0.0.0")
+        PREVIOUS_VERSION=$(grep "Version:" style.css 2>/dev/null | sed 's/.*Version: //' | tr -d '[:space:]' || echo "0.0.0")
         echo "Previous version: $PREVIOUS_VERSION"
         
         # Check if version changed
@@ -53,17 +53,16 @@ jobs:
     - name: Create theme ZIP
       run: |
         # Create a clean copy
-        mkdir -p build
-        cp -r mediakit-lite build/mediakit-lite
-        cd build/mediakit-lite
+        mkdir -p build/mediakit-lite
         
-        # Remove development files
-        rm -rf .git .gitignore .github .DS_Store
-        rm -f REFACTORING-SUMMARY.md
-        find . -name "*.md" ! -name "readme.txt" -delete
+        # Copy all theme files except development files
+        rsync -av --exclude='.git' --exclude='.github' --exclude='.gitignore' \
+          --exclude='*.md' --exclude='.DS_Store' --exclude='build' \
+          --exclude='bump-version.sh' --exclude='node_modules' \
+          ./ build/mediakit-lite/
         
-        # Go back and create ZIP
-        cd ..
+        # Create ZIP
+        cd build
         zip -r mediakit-lite.zip mediakit-lite -x "*.DS_Store" "*.git*"
         mv mediakit-lite.zip ../mediakit-lite.zip
     
@@ -74,11 +73,11 @@ jobs:
         echo "Extracting changelog for version $VERSION"
         
         # Extract the changelog section for this version
-        CHANGELOG=$(awk "/## \[$VERSION\]/{flag=1; next} /## \[/{flag=0} flag" mediakit-lite/CHANGELOG.md | sed '/^$/d')
+        CHANGELOG=$(awk "/## \[$VERSION\]/{flag=1; next} /## \[/{flag=0} flag" CHANGELOG.md | sed '/^$/d')
         
         # If no specific version section found, get the latest entry
         if [ -z "$CHANGELOG" ]; then
-          CHANGELOG=$(awk '/## \[/{if(++count==1)flag=1; if(count==2)exit} flag' mediakit-lite/CHANGELOG.md | sed '/^$/d' | tail -n +2)
+          CHANGELOG=$(awk '/## \[/{if(++count==1)flag=1; if(count==2)exit} flag' CHANGELOG.md | sed '/^$/d' | tail -n +2)
         fi
         
         # Format for GitHub
