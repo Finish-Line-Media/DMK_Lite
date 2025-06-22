@@ -21,7 +21,12 @@
       "Bash(gh workflow:*)",
       "Bash(curl:*)",
       "Bash(./bump-version.sh:*)",
-      "Bash(bash:*)"
+      "Bash(bash:*)",
+      "Bash(cp:*)",
+      "Bash(unzip:*)",
+      "Bash(git rm:*)",
+      "Bash(comm:*)",
+      "Bash(echo:*)"
     ],
     "deny": []
   }

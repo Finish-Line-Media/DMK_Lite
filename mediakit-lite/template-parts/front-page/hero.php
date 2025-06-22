@@ -27,27 +27,24 @@ if ( $hero_background ) {
     <div class="mkp-container" style="position: relative; z-index: 2;">
         <div class="mkp-hero__wrapper">
             <?php 
-            // Get images and positions
-            $profile_photo = get_theme_mod( 'mkp_hero_profile_photo' );
-            $profile_photo_position = get_theme_mod( 'mkp_hero_profile_photo_position', 'left' );
-            $family_crest = get_theme_mod( 'mkp_hero_family_crest' );
-            $family_crest_position = get_theme_mod( 'mkp_hero_family_crest_position', 'right' );
+            // Get all images on the left side
+            $left_images = array();
+            for ( $i = 1; $i <= 4; $i++ ) {
+                $image = get_theme_mod( 'mkp_hero_image_' . $i );
+                $position = get_theme_mod( 'mkp_hero_image_' . $i . '_position', 'left' );
+                if ( $image && $position === 'left' ) {
+                    $left_images[] = $image;
+                }
+            }
             
-            // Display profile photo on left
-            if ( $profile_photo && $profile_photo_position === 'left' ) : ?>
+            // Display left images
+            if ( ! empty( $left_images ) ) : ?>
                 <div class="mkp-hero__images mkp-hero__images--left">
-                    <div class="mkp-hero__image">
-                        <img src="<?php echo esc_url( $profile_photo ); ?>" alt="<?php esc_attr_e( 'Profile Photo', 'mediakit-lite' ); ?>" />
-                    </div>
-                </div>
-            <?php endif; ?>
-            
-            <?php // Display family crest on left
-            if ( $family_crest && $family_crest_position === 'left' ) : ?>
-                <div class="mkp-hero__images mkp-hero__images--left">
-                    <div class="mkp-hero__image">
-                        <img src="<?php echo esc_url( $family_crest ); ?>" alt="<?php esc_attr_e( 'Family Crest', 'mediakit-lite' ); ?>" />
-                    </div>
+                    <?php foreach ( $left_images as $image ) : ?>
+                        <div class="mkp-hero__image">
+                            <img src="<?php echo esc_url( $image ); ?>" alt="<?php echo esc_attr( get_theme_mod( 'mkp_hero_name', get_bloginfo( 'name' ) ) ); ?>" />
+                        </div>
+                    <?php endforeach; ?>
                 </div>
             <?php endif; ?>
             
@@ -102,21 +99,25 @@ if ( $hero_background ) {
             
             </div>
             
-            <?php // Display profile photo on right
-            if ( $profile_photo && $profile_photo_position === 'right' ) : ?>
-                <div class="mkp-hero__images mkp-hero__images--right">
-                    <div class="mkp-hero__image">
-                        <img src="<?php echo esc_url( $profile_photo ); ?>" alt="<?php esc_attr_e( 'Profile Photo', 'mediakit-lite' ); ?>" />
-                    </div>
-                </div>
-            <?php endif; ?>
+            <?php 
+            // Get all images on the right side
+            $right_images = array();
+            for ( $i = 1; $i <= 4; $i++ ) {
+                $image = get_theme_mod( 'mkp_hero_image_' . $i );
+                $position = get_theme_mod( 'mkp_hero_image_' . $i . '_position', 'left' );
+                if ( $image && $position === 'right' ) {
+                    $right_images[] = $image;
+                }
+            }
             
-            <?php // Display family crest on right
-            if ( $family_crest && $family_crest_position === 'right' ) : ?>
+            // Display right images
+            if ( ! empty( $right_images ) ) : ?>
                 <div class="mkp-hero__images mkp-hero__images--right">
-                    <div class="mkp-hero__image">
-                        <img src="<?php echo esc_url( $family_crest ); ?>" alt="<?php esc_attr_e( 'Family Crest', 'mediakit-lite' ); ?>" />
-                    </div>
+                    <?php foreach ( $right_images as $image ) : ?>
+                        <div class="mkp-hero__image">
+                            <img src="<?php echo esc_url( $image ); ?>" alt="<?php echo esc_attr( get_theme_mod( 'mkp_hero_name', get_bloginfo( 'name' ) ) ); ?>" />
+                        </div>
+                    <?php endforeach; ?>
                 </div>
             <?php endif; ?>
             

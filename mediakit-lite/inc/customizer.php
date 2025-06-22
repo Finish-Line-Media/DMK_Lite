@@ -228,7 +228,7 @@ function mkp_customize_register( $wp_customize ) {
         $wp_customize->add_setting( 'mkp_hero_image_' . $i, array(
             'default'           => '',
             'sanitize_callback' => 'esc_url_raw',
-            'transport'         => 'postMessage',
+            'transport'         => 'refresh',
         ) );
         
         $wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'mkp_hero_image_' . $i, array(
@@ -242,7 +242,7 @@ function mkp_customize_register( $wp_customize ) {
         $wp_customize->add_setting( 'mkp_hero_image_' . $i . '_position', array(
             'default'           => 'left',
             'sanitize_callback' => 'mkp_sanitize_position_choice',
-            'transport'         => 'postMessage',
+            'transport'         => 'refresh',
         ) );
         
         $wp_customize->add_control( 'mkp_hero_image_' . $i . '_position', array(

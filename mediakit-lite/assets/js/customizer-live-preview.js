@@ -172,6 +172,7 @@
         } )( i );
     }
     
+    
     // Companies (Corporations) section updates
     const maxCorps = 4;
     for ( let i = 1; i <= maxCorps; i++ ) {
