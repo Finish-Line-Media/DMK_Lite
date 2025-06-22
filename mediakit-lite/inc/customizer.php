@@ -305,7 +305,7 @@ function mkp_customize_register( $wp_customize ) {
     
     // Primary Button Link
     $wp_customize->add_setting( 'mkp_hero_button_primary_link', array(
-        'default'           => '#contact',
+        'default'           => '#about',
         'sanitize_callback' => 'esc_url_raw',
     ) );
     
