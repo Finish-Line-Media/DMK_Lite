@@ -2,6 +2,11 @@
 
 All notable changes to the MediaKit Lite theme will be documented in this file.
 
+## [1.4.2] - 2025-06-22
+
+### Changed
+- Actually remove duplicate function declarations this time
+
 ## [1.4.1] - 2025-06-22
 
 ### Changed
