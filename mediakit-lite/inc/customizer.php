@@ -1414,6 +1414,7 @@ function mkp_customize_partial_blogdescription() {
  */
 function mkp_customize_preview_js() {
     wp_enqueue_script( 'mkp-customizer', get_template_directory_uri() . '/assets/js/customizer.js', array( 'customize-preview' ), MKP_THEME_VERSION, true );
+    wp_enqueue_script( 'mkp-customizer-live-preview', get_template_directory_uri() . '/assets/js/customizer-live-preview.js', array( 'customize-preview', 'jquery' ), MKP_THEME_VERSION, true );
 }
 add_action( 'customize_preview_init', 'mkp_customize_preview_js' );
 

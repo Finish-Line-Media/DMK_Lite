@@ -4,7 +4,7 @@ Theme URI: https://mediakitpro.com
 Author: Finish Line Media
 Author URI: https://finishline.media
 Description: A professional WordPress theme designed for individual digital media kits that showcases multiple professional facets, emphasizes storytelling, and provides easy media access to booking agents and journalists. Features full Gutenberg block support and Elementor compatibility.
-Version: 1.2.2
+Version: 1.2.3
 License: GPL v2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: mediakit-lite
@@ -265,11 +265,16 @@ a:hover {
 .mkp-btn--primary {
     background-color: var(--mkp-secondary);
     color: white;
+    border: 2px solid var(--mkp-secondary);
 }
 
-.mkp-btn--primary:hover {
+.mkp-btn--primary:hover,
+.mkp-btn--primary:focus {
     background-color: var(--mkp-accent);
+    color: white;
+    border-color: var(--mkp-accent);
     text-decoration: none;
+    opacity: 1;
 }
 
 .mkp-btn--secondary {
@@ -278,10 +283,13 @@ a:hover {
     border: 2px solid var(--mkp-secondary);
 }
 
-.mkp-btn--secondary:hover {
+.mkp-btn--secondary:hover,
+.mkp-btn--secondary:focus {
     background-color: var(--mkp-accent);
     color: white;
     border-color: var(--mkp-accent);
+    text-decoration: none;
+    opacity: 1;
 }
 
 /* ==========================================================================
@@ -1023,19 +1031,26 @@ img {
 .mkp-hero__tags {
     display: flex;
     flex-wrap: wrap;
-    gap: var(--mkp-spacing-sm);
+    gap: 0;
     justify-content: center;
+    align-items: center;
     margin-bottom: var(--mkp-spacing-xl);
 }
 
 .mkp-hero__tag {
     display: inline-block;
-    padding: var(--mkp-spacing-xs) var(--mkp-spacing-md);
-    background-color: var(--mkp-secondary);
-    color: white;
-    border-radius: 20px;
-    font-size: 0.875rem;
-    font-weight: 500;
+    padding: 0;
+    background-color: transparent;
+    color: inherit;
+    border-radius: 0;
+    font-size: 1rem;
+    font-weight: 400;
+}
+
+.mkp-hero__tag:not(:last-child)::after {
+    content: '\00B7'; /* Middle dot */
+    margin: 0 0.75em;
+    opacity: 0.5;
 }
 
 .mkp-hero__buttons {

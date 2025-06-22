@@ -1,0 +1,181 @@
+/**
+ * Enhanced live preview with auto-contrast
+ *
+ * @package MediaKit_Lite
+ */
+
+( function( $ ) {
+    
+    // Helper function to calculate luminance
+    function getLuminance( hex ) {
+        // Remove # if present
+        hex = hex.replace( '#', '' );
+        
+        // Convert to RGB
+        const r = parseInt( hex.substr( 0, 2 ), 16 ) / 255;
+        const g = parseInt( hex.substr( 2, 2 ), 16 ) / 255;
+        const b = parseInt( hex.substr( 4, 2 ), 16 ) / 255;
+        
+        // Calculate luminance
+        const rLinear = r <= 0.03928 ? r / 12.92 : Math.pow( ( r + 0.055 ) / 1.055, 2.4 );
+        const gLinear = g <= 0.03928 ? g / 12.92 : Math.pow( ( g + 0.055 ) / 1.055, 2.4 );
+        const bLinear = b <= 0.03928 ? b / 12.92 : Math.pow( ( b + 0.055 ) / 1.055, 2.4 );
+        
+        return 0.2126 * rLinear + 0.7152 * gLinear + 0.0722 * bLinear;
+    }
+    
+    // Helper function to determine if color is light
+    function isLightColor( hex ) {
+        return getLuminance( hex ) > 0.5;
+    }
+    
+    // Helper function to get contrast color
+    function getContrastColor( bgColor ) {
+        return isLightColor( bgColor ) ? '#000000' : '#ffffff';
+    }
+    
+    // Helper function to get contrast color with opacity
+    function getContrastColorRGBA( bgColor, type ) {
+        const isLight = isLightColor( bgColor );
+        
+        switch ( type ) {
+            case 'heading':
+                return isLight ? 'rgba(0, 0, 0, 0.9)' : 'rgba(255, 255, 255, 0.95)';
+            case 'muted':
+                return isLight ? 'rgba(0, 0, 0, 0.6)' : 'rgba(255, 255, 255, 0.7)';
+            case 'border':
+                return isLight ? 'rgba(0, 0, 0, 0.1)' : 'rgba(255, 255, 255, 0.15)';
+            default: // text
+                return isLight ? 'rgba(0, 0, 0, 0.8)' : 'rgba(255, 255, 255, 0.9)';
+        }
+    }
+    
+    // Hero Background Color with auto-contrast
+    wp.customize( 'mkp_hero_background_color', function( value ) {
+        value.bind( function( to ) {
+            const $hero = $( '.mkp-hero' );
+            
+            // Update background color
+            $hero.css( 'background-color', to );
+            
+            // Update text colors based on background
+            const textColor = getContrastColor( to );
+            const headingColor = getContrastColorRGBA( to, 'heading' );
+            const mutedColor = getContrastColorRGBA( to, 'muted' );
+            
+            $hero.css( 'color', textColor );
+            $hero.find( '.mkp-hero__name' ).css( 'color', headingColor );
+            $hero.find( '.mkp-hero__tag' ).css( 'color', getContrastColorRGBA( to, 'text' ) );
+        } );
+    } );
+    
+    // Other section background colors with auto-contrast
+    const sections = [
+        { setting: 'mkp_bio_background_color', selector: '.mkp-bio-section' },
+        { setting: 'mkp_books_background_color', selector: '.mkp-books-section' },
+        { setting: 'mkp_speaker_topics_background_color', selector: '.mkp-speaker-topics-section' },
+        { setting: 'mkp_podcast_background_color', selector: '.mkp-podcast-section' },
+        { setting: 'mkp_corporations_background_color', selector: '.mkp-corporations-section' },
+        { setting: 'mkp_media_questions_background_color', selector: '.mkp-media-questions-section' },
+        { setting: 'mkp_investor_background_color', selector: '.mkp-investor-section' },
+        { setting: 'mkp_in_the_media_background_color', selector: '.mkp-in-the-media-section' },
+        { setting: 'mkp_contact_background_color', selector: '.mkp-contact-section' }
+    ];
+    
+    sections.forEach( function( section ) {
+        wp.customize( section.setting, function( value ) {
+            value.bind( function( to ) {
+                const $section = $( section.selector );
+                
+                // Update background color
+                $section.css( 'background-color', to );
+                
+                // Update text colors based on background
+                const textColor = getContrastColor( to );
+                const headingColor = getContrastColorRGBA( to, 'heading' );
+                
+                $section.css( 'color', textColor );
+                $section.find( 'h2, h3' ).css( 'color', headingColor );
+            } );
+        } );
+    } );
+    
+    // Button color updates with proper hover states
+    wp.customize( 'mkp_secondary_color', function( value ) {
+        value.bind( function( to ) {
+            // Update CSS variables
+            document.documentElement.style.setProperty( '--mkp-secondary', to );
+            
+            // Update primary button
+            const btnTextColor = getContrastColor( to );
+            $( '.mkp-btn--primary' ).css({
+                'background-color': to,
+                'color': btnTextColor,
+                'border-color': to
+            });
+            
+            // Update secondary button
+            $( '.mkp-btn--secondary' ).css({
+                'color': to,
+                'border-color': to
+            });
+        } );
+    } );
+    
+    wp.customize( 'mkp_accent_color', function( value ) {
+        value.bind( function( to ) {
+            // Update CSS variables
+            document.documentElement.style.setProperty( '--mkp-accent', to );
+            
+            // Create hover styles
+            const hoverTextColor = getContrastColor( to );
+            const hoverStyles = `
+                .mkp-btn--primary:hover,
+                .mkp-btn--primary:focus {
+                    background-color: ${to} !important;
+                    color: ${hoverTextColor} !important;
+                    border-color: ${to} !important;
+                }
+                .mkp-btn--secondary:hover,
+                .mkp-btn--secondary:focus {
+                    background-color: ${to} !important;
+                    color: ${hoverTextColor} !important;
+                    border-color: ${to} !important;
+                }
+            `;
+            
+            // Remove old hover styles and add new ones
+            $( '#mkp-button-hover-styles' ).remove();
+            $( '<style id="mkp-button-hover-styles">' + hoverStyles + '</style>' ).appendTo( 'head' );
+        } );
+    } );
+    
+    // Hero tags update
+    for ( let i = 1; i <= 5; i++ ) {
+        ( function( tagNum ) {
+            wp.customize( 'mkp_hero_tag_' + tagNum, function( value ) {
+                value.bind( function( to ) {
+                    const $tags = $( '.mkp-hero__tags' );
+                    const $existingTags = $tags.find( '.mkp-hero__tag' );
+                    const tags = [];
+                    
+                    // Collect all tag values
+                    for ( let j = 1; j <= 5; j++ ) {
+                        const tagValue = j === tagNum ? to : ( wp.customize( 'mkp_hero_tag_' + j ).get() || '' );
+                        if ( tagValue ) {
+                            tags.push( tagValue );
+                        }
+                    }
+                    
+                    // Rebuild tags with proper spacing
+                    $tags.empty();
+                    tags.forEach( function( tag, index ) {
+                        const $tag = $( '<span class="mkp-hero__tag">' + tag + '</span>' );
+                        $tags.append( $tag );
+                    } );
+                } );
+            } );
+        } )( i );
+    }
+    
+} )( jQuery );

@@ -2,6 +2,25 @@
 
 All notable changes to the MediaKit Lite theme will be documented in this file.
 
+## [1.2.3] - 2025-06-22
+
+### Added
+- Auto-contrast functionality for all sections - text automatically adjusts to light/dark based on background color
+- Live preview for section background colors in the Customizer
+
+### Changed
+- Hero tags now display as simple text with middle dot separators instead of button-style badges
+- Professional tags now appear as "Tag1 · Tag2 · Tag3" format
+
+### Fixed
+- Hero section background color now updates immediately in Customizer preview
+- Button hover states now maintain proper text color contrast
+- Primary and secondary buttons now have consistent hover behavior with accent color
+
+### Improved
+- All sections now have automatic text color adjustment for better readability
+- Button text remains visible on all hover states regardless of color choices
+
 ## [1.2.2] - 2025-06-22
 
 ### Changed
