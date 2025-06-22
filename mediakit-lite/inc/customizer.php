@@ -68,6 +68,20 @@ function mkp_customize_register( $wp_customize ) {
         ),
     ) );
     
+    // Navigation Background Color
+    $wp_customize->add_setting( 'mkp_nav_background_color', array(
+        'default'           => '#ffffff',
+        'sanitize_callback' => 'sanitize_hex_color',
+        'transport'         => 'postMessage',
+    ) );
+    
+    $wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'mkp_nav_background_color', array(
+        'label'       => __( 'Navigation Background Color', 'mediakit-lite' ),
+        'description' => __( 'Background color for the navigation bar. Click the color picker to use the eyedropper tool to copy colors from other sections.', 'mediakit-lite' ),
+        'section'     => 'title_tagline',
+        'priority'    => 15,
+    ) ) );
+    
     // Section Colors section removed - merged into Brand Settings
     
     /**
@@ -76,7 +90,7 @@ function mkp_customize_register( $wp_customize ) {
     $wp_customize->add_section( 'mkp_brand_settings', array(
         'title'       => __( 'Brand Settings', 'mediakit-lite' ),
         'priority'    => 30,
-        'description' => __( 'Customize your brand colors, section backgrounds, and typography to match your professional identity. These settings will be applied throughout your media kit.', 'mediakit-lite' ),
+        'description' => __( 'Customize your brand colors, section backgrounds, and typography to match your professional identity. These settings will be applied throughout your media kit. Tip: Use the eyedropper tool in any color picker to copy colors from other sections!', 'mediakit-lite' ),
     ) );
     
     // Primary Color

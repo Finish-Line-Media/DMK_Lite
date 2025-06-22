@@ -349,4 +349,46 @@
         } );
     } );
     
+    // Navigation Background Color
+    wp.customize( 'mkp_nav_background_color', function( value ) {
+        value.bind( function( to ) {
+            $( '.mkp-header' ).css( 'background-color', to );
+            
+            // Update text color based on background
+            const contrastColor = getContrastColor( to );
+            $( '.mkp-nav__link' ).css( 'color', contrastColor );
+        } );
+    } );
+    
+    // Navigation Font
+    wp.customize( 'mkp_nav_font', function( value ) {
+        value.bind( function( to ) {
+            // Define font stacks
+            const fontStacks = {
+                'system': '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif',
+                'inter': '"Inter", sans-serif',
+                'roboto': '"Roboto", sans-serif',
+                'open-sans': '"Open Sans", sans-serif',
+                'lato': '"Lato", sans-serif',
+                'montserrat': '"Montserrat", sans-serif',
+                'poppins': '"Poppins", sans-serif',
+                'raleway': '"Raleway", sans-serif'
+            };
+            
+            if ( fontStacks[to] ) {
+                $( '.mkp-nav, .mkp-nav__link' ).css( 'font-family', fontStacks[to] );
+                
+                // Load Google font if needed
+                if ( to !== 'system' ) {
+                    const fontName = to.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join('+');
+                    const fontUrl = 'https://fonts.googleapis.com/css2?family=' + fontName + ':wght@400;500;600;700&display=swap';
+                    
+                    if ( ! $( 'link[href*="' + fontName + '"]' ).length ) {
+                        $( 'head' ).append( '<link rel="stylesheet" href="' + fontUrl + '">' );
+                    }
+                }
+            }
+        } );
+    } );
+    
 } )( jQuery );

@@ -18,6 +18,9 @@ function mkp_generate_dynamic_styles() {
     $secondary_color = get_theme_mod( 'mkp_secondary_color', '#3498db' );
     $accent_color = get_theme_mod( 'mkp_accent_color', '#e74c3c' );
     
+    // Get navigation background
+    $nav_bg = get_theme_mod( 'mkp_nav_background_color', '#ffffff' );
+    
     // Get section background colors
     $hero_bg = get_theme_mod( 'mkp_hero_background_color', '#f8f9fa' );
     $bio_bg = get_theme_mod( 'mkp_bio_background_color', '#ffffff' );
@@ -33,6 +36,20 @@ function mkp_generate_dynamic_styles() {
     ob_start();
     ?>
     <style id="mkp-dynamic-styles">
+        /* Navigation Background and Auto-Contrast */
+        .mkp-header {
+            background-color: <?php echo esc_attr( $nav_bg ); ?>;
+        }
+        
+        .mkp-nav__link {
+            color: <?php echo esc_attr( mkp_get_contrast_color( $nav_bg ) ); ?>;
+        }
+        
+        .mkp-nav__link:hover,
+        .mkp-nav__link:focus {
+            color: <?php echo esc_attr( $accent_color ); ?>;
+        }
+        
         /* Hero Section Auto-Contrast */
         .mkp-hero {
             color: <?php echo esc_attr( mkp_get_contrast_color( $hero_bg ) ); ?>;
