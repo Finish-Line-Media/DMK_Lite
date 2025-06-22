@@ -341,7 +341,7 @@ function mkp_customize_register( $wp_customize ) {
     
     // Bio Content
     $wp_customize->add_setting( 'mkp_bio_content', array(
-        'default'           => mkp_get_default_bio(),
+        'default'           => mkp_get_default_bio_content(),
         'sanitize_callback' => 'wp_kses_post',
         'transport'         => 'postMessage',
     ) );
