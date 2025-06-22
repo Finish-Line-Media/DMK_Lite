@@ -572,21 +572,6 @@ function mkp_sanitize_position_choice( $value ) {
     return 'left';
 }
 
-/**
- * Sanitize checkbox
- */
-function mkp_sanitize_checkbox( $checked ) {
-    return ( ( isset( $checked ) && true == $checked ) ? true : false );
-}
-
-/**
- * Sanitize select
- */
-function mkp_sanitize_select( $input, $setting ) {
-    $input = sanitize_key( $input );
-    $choices = $setting->manager->get_control( $setting->id )->choices;
-    return ( array_key_exists( $input, $choices ) ? $input : $setting->default );
-}
 
 /**
  * Render the site title for the selective refresh partial.
