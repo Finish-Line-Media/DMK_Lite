@@ -36,20 +36,6 @@ function mkp_should_display_section( $section_name, $content_checks = array() ) 
     return true;
 }
 
-/**
- * Check if books section has content
- *
- * @return bool
- */
-function mkp_has_books() {
-    $books_count = get_theme_mod( 'mkp_books_count', 3 );
-    for ( $i = 1; $i <= $books_count; $i++ ) {
-        if ( get_theme_mod( 'mkp_book_' . $i . '_title' ) ) {
-            return true;
-        }
-    }
-    return false;
-}
 
 /**
  * Check if speaker topics section has content
@@ -65,14 +51,6 @@ function mkp_has_speaker_topics() {
     return false;
 }
 
-/**
- * Check if podcast section has content
- *
- * @return bool
- */
-function mkp_has_podcast() {
-    return (bool) get_theme_mod( 'mkp_podcast_name' );
-}
 
 /**
  * Check if corporations/companies section has content
@@ -89,45 +67,6 @@ function mkp_has_companies() {
     return false;
 }
 
-/**
- * Check if media questions section has content
- *
- * @return bool
- */
-function mkp_has_media_questions() {
-    for ( $i = 1; $i <= 12; $i++ ) {
-        if ( get_theme_mod( 'mkp_media_question_' . $i ) ) {
-            return true;
-        }
-    }
-    return false;
-}
-
-/**
- * Check if investor section has content
- *
- * @return bool
- */
-function mkp_has_investor_content() {
-    return get_theme_mod( 'mkp_investment_people' ) || 
-           get_theme_mod( 'mkp_investment_products' ) || 
-           get_theme_mod( 'mkp_investment_markets' );
-}
-
-/**
- * Check if media items section has content
- *
- * @return bool
- */
-function mkp_has_media_items() {
-    $media_count = get_theme_mod( 'mkp_media_items_count', 6 );
-    for ( $i = 1; $i <= $media_count; $i++ ) {
-        if ( get_theme_mod( 'mkp_media_item_' . $i . '_title' ) ) {
-            return true;
-        }
-    }
-    return false;
-}
 
 /**
  * Get front page sections configuration
@@ -144,37 +83,13 @@ function mkp_get_front_page_sections() {
             'template' => 'template-parts/front-page/bio',
             'always_show' => true,
         ),
-        'books' => array(
-            'template' => 'template-parts/front-page/books',
-            'check_function' => 'mkp_has_books',
-        ),
-        'speaker_topics' => array(
-            'template' => 'template-parts/front-page/speaker-topics',
-            'check_function' => 'mkp_has_speaker_topics',
-        ),
-        'podcast' => array(
-            'template' => 'template-parts/front-page/podcast',
-            'check_function' => 'mkp_has_podcast',
-        ),
         'corporations' => array(
             'template' => 'template-parts/front-page/corporations',
             'check_function' => 'mkp_has_companies',
         ),
-        'media_questions' => array(
-            'template' => 'template-parts/front-page/media-questions',
-            'check_function' => 'mkp_has_media_questions',
-        ),
-        'investor' => array(
-            'template' => 'template-parts/front-page/investor',
-            'check_function' => 'mkp_has_investor_content',
-        ),
-        'in_the_media' => array(
-            'template' => 'template-parts/front-page/in-the-media',
-            'check_function' => 'mkp_has_media_items',
-        ),
-        'contact' => array(
-            'template' => 'template-parts/front-page/contact',
-            'always_show' => false,
+        'speaker_topics' => array(
+            'template' => 'template-parts/front-page/speaker-topics',
+            'check_function' => 'mkp_has_speaker_topics',
         ),
     );
 }

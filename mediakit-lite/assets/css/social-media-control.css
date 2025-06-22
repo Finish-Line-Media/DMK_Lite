@@ -1,0 +1,64 @@
+/**
+ * Social Media Control Styles
+ */
+
+.mkp-social-control {
+    margin-bottom: 20px;
+}
+
+.mkp-social-control .customize-control-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+}
+
+.mkp-social-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+}
+
+.mkp-social-icon svg {
+    width: 20px;
+    height: 20px;
+    fill: currentColor;
+}
+
+.mkp-social-input {
+    width: 100%;
+    padding: 6px 10px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    font-size: 13px;
+}
+
+.mkp-social-input:focus {
+    border-color: #0073aa;
+    box-shadow: 0 0 0 1px #0073aa;
+    outline: none;
+}
+
+/* Contact Section Divider */
+.mkp-contact-divider {
+    margin: 30px 0 20px;
+    padding: 15px 0 5px;
+    border-top: 1px solid #ddd;
+    position: relative;
+}
+
+.mkp-contact-divider .customize-control-title {
+    text-align: center;
+    font-weight: 600;
+    color: #555;
+    background: #f1f1f1;
+    display: inline-block;
+    padding: 0 15px;
+    position: relative;
+    top: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+}

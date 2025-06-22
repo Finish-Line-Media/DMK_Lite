@@ -72,14 +72,8 @@
     // Other section background colors with auto-contrast
     const sections = [
         { setting: 'mkp_bio_background_color', selector: '.mkp-bio-section' },
-        { setting: 'mkp_books_background_color', selector: '.mkp-books-section' },
         { setting: 'mkp_speaker_topics_background_color', selector: '.mkp-speaker-section' },
-        { setting: 'mkp_podcast_background_color', selector: '.mkp-podcast-section' },
-        { setting: 'mkp_corporations_background_color', selector: '.mkp-corporations-section' },
-        { setting: 'mkp_media_questions_background_color', selector: '.mkp-media-questions-section' },
-        { setting: 'mkp_investor_background_color', selector: '.mkp-investor-section' },
-        { setting: 'mkp_in_the_media_background_color', selector: '.mkp-in-the-media-section' },
-        { setting: 'mkp_contact_background_color', selector: '.mkp-contact-section' }
+        { setting: 'mkp_corporations_background_color', selector: '.mkp-corporations-section' }
     ];
     
     sections.forEach( function( section ) {
@@ -223,29 +217,6 @@
         } )( i );
     }
     
-    // Media Questions section updates
-    const maxQuestions = 12;
-    for ( let i = 1; i <= maxQuestions; i++ ) {
-        ( function( questionNum ) {
-            wp.customize( 'mkp_media_question_' + questionNum, function( value ) {
-                value.bind( function( to ) {
-                    const $questions = $( '.mkp-media-questions__list' );
-                    const $question = $questions.find( 'li:nth-child(' + questionNum + ')' );
-                    
-                    if ( to ) {
-                        if ( $question.length ) {
-                            $question.text( to );
-                        } else {
-                            // Add new question
-                            $questions.append( '<li>' + to + '</li>' );
-                        }
-                    } else {
-                        $question.remove();
-                    }
-                } );
-            } );
-        } )( i );
-    }
     
     // Speaker Topics List Style
     wp.customize( 'mkp_speaker_topics_list_style', function( value ) {
@@ -309,45 +280,6 @@
         } )( i );
     }
     
-    // Investor section updates
-    wp.customize( 'mkp_investment_people', function( value ) {
-        value.bind( function( to ) {
-            $( '.mkp-investor__category--people .mkp-investor__description' ).html( to );
-            // Show/hide category
-            const $category = $( '.mkp-investor__category--people' );
-            if ( to ) {
-                $category.show();
-            } else {
-                $category.hide();
-            }
-        } );
-    } );
-    
-    wp.customize( 'mkp_investment_products', function( value ) {
-        value.bind( function( to ) {
-            $( '.mkp-investor__category--products .mkp-investor__description' ).html( to );
-            // Show/hide category
-            const $category = $( '.mkp-investor__category--products' );
-            if ( to ) {
-                $category.show();
-            } else {
-                $category.hide();
-            }
-        } );
-    } );
-    
-    wp.customize( 'mkp_investment_markets', function( value ) {
-        value.bind( function( to ) {
-            $( '.mkp-investor__category--markets .mkp-investor__description' ).html( to );
-            // Show/hide category
-            const $category = $( '.mkp-investor__category--markets' );
-            if ( to ) {
-                $category.show();
-            } else {
-                $category.hide();
-            }
-        } );
-    } );
     
     // Navigation Background Color
     wp.customize( 'mkp_nav_background_color', function( value ) {

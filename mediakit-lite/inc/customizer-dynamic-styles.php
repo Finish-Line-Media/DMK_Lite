@@ -24,14 +24,8 @@ function mkp_generate_dynamic_styles() {
     // Get section background colors
     $hero_bg = get_theme_mod( 'mkp_hero_background_color', '#f8f9fa' );
     $bio_bg = get_theme_mod( 'mkp_bio_background_color', '#ffffff' );
-    $books_bg = get_theme_mod( 'mkp_books_background_color', '#f8f9fa' );
-    $speaker_bg = get_theme_mod( 'mkp_speaker_topics_background_color', '#ffffff' );
-    $podcast_bg = get_theme_mod( 'mkp_podcast_background_color', '#f8f9fa' );
+    $speaker_bg = get_theme_mod( 'mkp_speaker_topics_background_color', '#f8f9fa' );
     $corps_bg = get_theme_mod( 'mkp_corporations_background_color', '#ffffff' );
-    $media_questions_bg = get_theme_mod( 'mkp_media_questions_background_color', '#f8f9fa' );
-    $investor_bg = get_theme_mod( 'mkp_investor_background_color', '#ffffff' );
-    $in_media_bg = get_theme_mod( 'mkp_in_the_media_background_color', '#f8f9fa' );
-    $contact_bg = get_theme_mod( 'mkp_contact_background_color', '#ffffff' );
     
     ob_start();
     ?>
@@ -93,16 +87,6 @@ function mkp_generate_dynamic_styles() {
             color: <?php echo esc_attr( mkp_get_contrast_color_rgba( $bio_bg, 'heading' ) ); ?>;
         }
         
-        /* Books Section Auto-Contrast */
-        .mkp-books-section {
-            background-color: <?php echo esc_attr( $books_bg ); ?>;
-            color: <?php echo esc_attr( mkp_get_contrast_color( $books_bg ) ); ?>;
-        }
-        
-        .mkp-books-section h2,
-        .mkp-books-section h3 {
-            color: <?php echo esc_attr( mkp_get_contrast_color_rgba( $books_bg, 'heading' ) ); ?>;
-        }
         
         /* Speaker Topics Section Auto-Contrast */
         .mkp-speaker-section {
@@ -139,16 +123,6 @@ function mkp_generate_dynamic_styles() {
             color: <?php echo esc_attr( mkp_get_contrast_color_rgba( $speaker_bg, 'heading' ) ); ?>;
         }
         
-        /* Podcast Section Auto-Contrast */
-        .mkp-podcast-section {
-            background-color: <?php echo esc_attr( $podcast_bg ); ?>;
-            color: <?php echo esc_attr( mkp_get_contrast_color( $podcast_bg ) ); ?>;
-        }
-        
-        .mkp-podcast-section h2,
-        .mkp-podcast-section h3 {
-            color: <?php echo esc_attr( mkp_get_contrast_color_rgba( $podcast_bg, 'heading' ) ); ?>;
-        }
         
         /* Companies Section Auto-Contrast */
         .mkp-corporations-section {
@@ -174,49 +148,9 @@ function mkp_generate_dynamic_styles() {
             color: <?php echo esc_attr( mkp_get_contrast_color( $corps_bg ) ); ?>;
         }
         
-        /* Media Questions Section Auto-Contrast */
-        .mkp-media-questions-section {
-            background-color: <?php echo esc_attr( $media_questions_bg ); ?>;
-            color: <?php echo esc_attr( mkp_get_contrast_color( $media_questions_bg ) ); ?>;
-        }
         
-        .mkp-media-questions-section h2,
-        .mkp-media-questions-section h3 {
-            color: <?php echo esc_attr( mkp_get_contrast_color_rgba( $media_questions_bg, 'heading' ) ); ?>;
-        }
         
-        /* Investor Section Auto-Contrast */
-        .mkp-investor-section {
-            background-color: <?php echo esc_attr( $investor_bg ); ?>;
-            color: <?php echo esc_attr( mkp_get_contrast_color( $investor_bg ) ); ?>;
-        }
         
-        .mkp-investor-section h2,
-        .mkp-investor-section h3 {
-            color: <?php echo esc_attr( mkp_get_contrast_color_rgba( $investor_bg, 'heading' ) ); ?>;
-        }
-        
-        /* In The Media Section Auto-Contrast */
-        .mkp-in-the-media-section {
-            background-color: <?php echo esc_attr( $in_media_bg ); ?>;
-            color: <?php echo esc_attr( mkp_get_contrast_color( $in_media_bg ) ); ?>;
-        }
-        
-        .mkp-in-the-media-section h2,
-        .mkp-in-the-media-section h3 {
-            color: <?php echo esc_attr( mkp_get_contrast_color_rgba( $in_media_bg, 'heading' ) ); ?>;
-        }
-        
-        /* Contact Section Auto-Contrast */
-        .mkp-contact-section {
-            background-color: <?php echo esc_attr( $contact_bg ); ?>;
-            color: <?php echo esc_attr( mkp_get_contrast_color( $contact_bg ) ); ?>;
-        }
-        
-        .mkp-contact-section h2,
-        .mkp-contact-section h3 {
-            color: <?php echo esc_attr( mkp_get_contrast_color_rgba( $contact_bg, 'heading' ) ); ?>;
-        }
         
         /* Button styles with proper hover states */
         .mkp-btn--primary {
@@ -262,6 +196,12 @@ function mkp_generate_dynamic_styles() {
             z-index: 2;
         }
         <?php endif; ?>
+        
+        /* Add subtle shadows to all cards */
+        .mkp-speaker__topic,
+        .mkp-corp-card {
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
     </style>
     <?php
     

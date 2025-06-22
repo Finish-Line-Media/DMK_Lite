@@ -14,14 +14,8 @@ function mkp_get_default_section_order() {
     return array(
         'hero',
         'bio',
-        'books',
-        'speaker_topics',
-        'podcast',
         'corporations',
-        'media_questions',
-        'investor',
-        'in_the_media',
-        'contact',
+        'speaker_topics',
     );
 }
 
@@ -152,14 +146,8 @@ class Mkp_Section_Order_Control extends WP_Customize_Control {
         $sections = array(
             'hero'            => __( 'Hero Section', 'mediakit-lite' ),
             'bio'             => __( 'About/Bio Section', 'mediakit-lite' ),
-            'books'           => __( 'Books Section', 'mediakit-lite' ),
-            'speaker_topics'  => __( 'Speaker Topics Section', 'mediakit-lite' ),
-            'podcast'         => __( 'Podcast/Show Section', 'mediakit-lite' ),
             'corporations'    => __( 'Companies Section', 'mediakit-lite' ),
-            'media_questions' => __( 'Questions for the Media', 'mediakit-lite' ),
-            'investor'        => __( 'Investor Section', 'mediakit-lite' ),
-            'in_the_media'    => __( 'In The Media Section', 'mediakit-lite' ),
-            'contact'         => __( 'Contact Section', 'mediakit-lite' ),
+            'speaker_topics'  => __( 'Speaker Topics Section', 'mediakit-lite' ),
         );
         
         $current_order = mkp_get_section_order();

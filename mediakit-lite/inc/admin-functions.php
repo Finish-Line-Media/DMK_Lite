@@ -184,7 +184,7 @@ function mkp_admin_page_display() {
                 <h2><?php esc_html_e( 'Welcome to MediaKit Lite', 'mediakit-lite' ); ?></h2>
                 <p><strong><?php esc_html_e( 'Create your professional digital media kit in minutes!', 'mediakit-lite' ); ?></strong></p>
                 
-                <p><?php esc_html_e( 'MediaKit Lite is a streamlined version of our professional media kit theme, perfect for showcasing your personal brand, books, speaking topics, and media appearances. Simply use the WordPress Customizer below to add your content - no coding required!', 'mediakit-lite' ); ?></p>
+                <p><?php esc_html_e( 'MediaKit Lite is your digital media kit solution for building personal leverage. Perfect for showcasing your expertise, publications, speaking topics, and media appearances. Set up everything through the simple WordPress Customizer - no coding required. Need a custom-built media kit? Ask about our tailored design services.', 'mediakit-lite' ); ?></p>
                 
                 <p><strong><?php esc_html_e( 'Quick Start Guide:', 'mediakit-lite' ); ?></strong></p>
                 <ol style="margin-left: 20px;">
@@ -228,9 +228,9 @@ function mkp_admin_page_display() {
                 </div>
                 
                 <div class="mkp-admin-card">
-                    <h3>4. <?php esc_html_e( 'Add Social Links', 'mediakit-lite' ); ?></h3>
-                    <p><?php esc_html_e( 'Connect your social media profiles.', 'mediakit-lite' ); ?></p>
-                    <a href="<?php echo esc_url( admin_url( 'customize.php?autofocus[section]=mkp_social_media' ) ); ?>" class="button"><?php esc_html_e( 'Add Social Links', 'mediakit-lite' ); ?></a>
+                    <h3>4. <?php esc_html_e( 'Section Order', 'mediakit-lite' ); ?></h3>
+                    <p><?php esc_html_e( 'Drag and drop to reorder your front page sections.', 'mediakit-lite' ); ?></p>
+                    <a href="<?php echo esc_url( admin_url( 'customize.php?autofocus[section]=mkp_section_order' ) ); ?>" class="button"><?php esc_html_e( 'Manage Sections', 'mediakit-lite' ); ?></a>
                 </div>
             </div>
             
