@@ -176,12 +176,26 @@ class Mkp_Section_Order_Control extends WP_Customize_Control {
                 <?php foreach ( $current_order as $section_id ) : 
                     if ( ! isset( $sections[ $section_id ] ) ) continue;
                     $is_fixed = in_array( $section_id, array( 'hero', 'bio' ) );
+                    
+                    // Check if section is enabled
+                    $is_enabled = true;
+                    if ( ! $is_fixed ) {
+                        $is_enabled = get_theme_mod( 'mkp_enable_' . $section_id, true );
+                    }
+                    
+                    $item_classes = array( 'mkp-section-order-item' );
+                    $item_classes[] = $is_fixed ? 'mkp-section-fixed' : 'mkp-section-sortable';
+                    if ( ! $is_enabled ) {
+                        $item_classes[] = 'mkp-section-disabled';
+                    }
                     ?>
-                    <li class="mkp-section-order-item <?php echo $is_fixed ? 'mkp-section-fixed' : 'mkp-section-sortable'; ?>" data-section="<?php echo esc_attr( $section_id ); ?>">
+                    <li class="<?php echo esc_attr( implode( ' ', $item_classes ) ); ?>" data-section="<?php echo esc_attr( $section_id ); ?>">
                         <span class="mkp-section-order-handle dashicons dashicons-menu"></span>
                         <span class="mkp-section-order-label"><?php echo esc_html( $sections[ $section_id ] ); ?></span>
                         <?php if ( $is_fixed ) : ?>
                             <span class="mkp-section-order-fixed"><?php esc_html_e( '(Fixed)', 'mediakit-lite' ); ?></span>
+                        <?php elseif ( ! $is_enabled ) : ?>
+                            <span class="mkp-section-order-status"><?php esc_html_e( '(Hidden)', 'mediakit-lite' ); ?></span>
                         <?php endif; ?>
                     </li>
                 <?php endforeach; ?>

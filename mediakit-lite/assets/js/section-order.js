@@ -35,6 +35,27 @@
             ui.placeholder.height( ui.item.height() );
         });
         
+        // Listen for section enable/disable changes
+        var sections = ['books', 'speaker_topics', 'podcast', 'corporations', 'media_questions', 'investor', 'in_the_media', 'contact'];
+        
+        $.each( sections, function( index, section ) {
+            wp.customize( 'mkp_enable_' + section, function( setting ) {
+                setting.bind( function( enabled ) {
+                    var $item = $( '.mkp-section-order-item[data-section="' + section + '"]' );
+                    
+                    if ( enabled ) {
+                        $item.removeClass( 'mkp-section-disabled' );
+                        $item.find( '.mkp-section-order-status' ).remove();
+                    } else {
+                        $item.addClass( 'mkp-section-disabled' );
+                        if ( ! $item.find( '.mkp-section-order-status' ).length ) {
+                            $item.append( '<span class="mkp-section-order-status">(Hidden)</span>' );
+                        }
+                    }
+                });
+            });
+        });
+        
     });
     
     // Also register as a custom control for compatibility
