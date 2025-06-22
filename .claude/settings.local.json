@@ -11,7 +11,8 @@
       "Bash(chmod:*)",
       "Bash(./export-theme.sh:*)",
       "Bash(rg:*)",
-      "Bash(mv:*)"
+      "Bash(mv:*)",
+      "Bash(git add:*)"
     ],
     "deny": []
   }

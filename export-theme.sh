@@ -1,15 +1,15 @@
 #!/bin/bash
 
-# MediaKit Pro Theme Export Script
+# MediaKit Lite Theme Export Script
 # This script creates a properly named theme ZIP file for updates
 
-echo "MediaKit Pro Theme Export Script"
+echo "MediaKit Lite Theme Export Script"
 echo "================================"
 
 # Get the directory of this script
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-THEME_DIR="$SCRIPT_DIR/mediakit-pro"
-OUTPUT_FILE="$SCRIPT_DIR/mediakit-pro.zip"
+THEME_DIR="$SCRIPT_DIR/mediakit-lite"
+OUTPUT_FILE="$SCRIPT_DIR/mediakit-lite.zip"
 
 # Check if theme directory exists
 if [ ! -d "$THEME_DIR" ]; then
@@ -19,12 +19,12 @@ fi
 
 # Remove old zip if exists
 if [ -f "$OUTPUT_FILE" ]; then
-    echo "Removing old mediakit-pro.zip..."
+    echo "Removing old mediakit-lite.zip..."
     rm "$OUTPUT_FILE"
 fi
 
 # Create new zip file
-echo "Creating mediakit-pro.zip..."
+echo "Creating mediakit-lite.zip..."
 cd "$THEME_DIR"
 zip -r "$OUTPUT_FILE" . \
     -x "*.DS_Store" \

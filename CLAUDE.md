@@ -4,13 +4,13 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-MediaKit Pro is a professional WordPress theme designed for individual digital media kits. It showcases multiple professional facets, emphasizes storytelling, and provides easy media access to booking agents and journalists.
+MediaKit Lite is a professional WordPress theme designed for individual digital media kits. It showcases multiple professional facets, emphasizes storytelling, and provides easy media access to booking agents and journalists.
 
 ## Development Commands
 
 ### Local Development
 - **WordPress Local Setup**: Use Local by Flywheel, MAMP, or similar for local WordPress development
-- **Theme Location**: Install theme in `/wp-content/themes/mediakit-pro/`
+- **Theme Location**: Install theme in `/wp-content/themes/mediakit-lite/`
 - **Activate Theme**: Go to WordPress Admin > Appearance > Themes
 
 ### Build Commands
@@ -41,7 +41,7 @@ composer fix-cs
 
 ### Theme Structure
 ```
-mediakit-pro/
+mediakit-lite/
 ├── assets/              # CSS, JS, images
 ├── inc/                 # PHP includes
 │   ├── customizer.php   # Theme customizer settings
