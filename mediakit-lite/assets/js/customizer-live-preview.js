@@ -173,6 +173,20 @@
     }
     
     
+    // Function to update companies section title
+    function updateCompaniesSectionTitle() {
+        let companyCount = 0;
+        for ( let i = 1; i <= 4; i++ ) {
+            const name = wp.customize( 'mkp_corp_' + i + '_name' ).get();
+            if ( name ) {
+                companyCount++;
+            }
+        }
+        
+        const title = companyCount === 1 ? 'Company' : 'Companies';
+        $( '.mkp-corporations-section .mkp-section__title' ).text( title );
+    }
+    
     // Companies (Corporations) section updates
     const maxCorps = 4;
     for ( let i = 1; i <= maxCorps; i++ ) {
@@ -180,38 +194,76 @@
             // Company name
             wp.customize( 'mkp_corp_' + corpNum + '_name', function( value ) {
                 value.bind( function( to ) {
-                    $( '.mkp-corp-card:nth-child(' + corpNum + ') .mkp-corp-card__name' ).text( to );
+                    // Update the company name
+                    const $card = $( '.mkp-corp-card.mkp-corp--' + corpNum );
+                    $card.find( '.mkp-corp-card__name' ).text( to );
+                    
                     // Show/hide card based on content
-                    const $card = $( '.mkp-corp-card:nth-child(' + corpNum + ')' );
                     if ( to ) {
                         $card.show();
                     } else {
                         $card.hide();
                     }
+                    
+                    // Update section title
+                    updateCompaniesSectionTitle();
                 } );
             } );
             
             // Company bio
             wp.customize( 'mkp_corp_' + corpNum + '_bio', function( value ) {
                 value.bind( function( to ) {
-                    $( '.mkp-corp-card:nth-child(' + corpNum + ') .mkp-corp-card__bio' ).html( to );
+                    const $card = $( '.mkp-corp-card.mkp-corp--' + corpNum );
+                    const $bio = $card.find( '.mkp-corp-card__bio' );
+                    
+                    if ( to ) {
+                        // Simple wpautop implementation for live preview
+                        const formattedBio = '<p>' + to.replace(/\n\n/g, '</p><p>').replace(/\n/g, '<br />') + '</p>';
+                        $bio.html( formattedBio );
+                    } else {
+                        $bio.empty();
+                    }
                 } );
             } );
             
             // Company logo
             wp.customize( 'mkp_corp_' + corpNum + '_logo', function( value ) {
                 value.bind( function( to ) {
-                    const $logo = $( '.mkp-corp-card:nth-child(' + corpNum + ') .mkp-corp-card__logo img' );
+                    const $card = $( '.mkp-corp-card.mkp-corp--' + corpNum );
+                    const $logoContainer = $card.find( '.mkp-corp-card__logo' );
+                    
                     if ( to ) {
                         // If attachment ID, fetch URL
                         if ( $.isNumeric( to ) ) {
                             wp.media.attachment( to ).fetch().then( function() {
                                 const attachment = wp.media.attachment( to );
-                                $logo.attr( 'src', attachment.get( 'url' ) );
+                                const logoHtml = '<img src="' + attachment.get( 'url' ) + '" alt="" />';
+                                $logoContainer.html( logoHtml );
                             } );
                         }
                     } else {
-                        $logo.attr( 'src', '' );
+                        // Remove the image when logo is cleared
+                        $logoContainer.empty();
+                    }
+                } );
+            } );
+            
+            // Company link
+            wp.customize( 'mkp_corp_' + corpNum + '_link', function( value ) {
+                value.bind( function( to ) {
+                    const $card = $( '.mkp-corp-card.mkp-corp--' + corpNum );
+                    const $link = $card.find( '.mkp-btn' );
+                    
+                    if ( to ) {
+                        if ( $link.length ) {
+                            $link.attr( 'href', to );
+                        } else {
+                            // Create the link if it doesn't exist
+                            $card.append( '<a href="' + to + '" class="mkp-btn mkp-btn--secondary mkp-btn--small" target="_blank" rel="noopener">Visit Website</a>' );
+                        }
+                    } else {
+                        // Remove the link if URL is empty
+                        $link.remove();
                     }
                 } );
             } );

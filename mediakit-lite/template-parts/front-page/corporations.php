@@ -31,30 +31,29 @@ $section_title = ( $actual_company_count === 1 ) ? __( 'Company', 'mediakit-lite
                 $logo = get_theme_mod( 'mkp_corp_' . $i . '_logo' );
                 $bio = get_theme_mod( 'mkp_corp_' . $i . '_bio' );
                 $link = get_theme_mod( 'mkp_corp_' . $i . '_link' );
-                
-                if ( $name ) : ?>
-                    <div class="mkp-corp-card mkp-corp--<?php echo esc_attr( $i ); ?>">
+                $display = $name ? 'block' : 'none';
+                ?>
+                <div class="mkp-corp-card mkp-corp--<?php echo esc_attr( $i ); ?>" style="display: <?php echo esc_attr( $display ); ?>;">
+                    <div class="mkp-corp-card__logo">
                         <?php if ( $logo ) : ?>
-                            <div class="mkp-corp-card__logo">
-                                <img src="<?php echo esc_url( $logo ); ?>" alt="<?php echo esc_attr( $name ); ?>" />
-                            </div>
-                        <?php endif; ?>
-                        
-                        <h3 class="mkp-corp-card__name"><?php echo esc_html( $name ); ?></h3>
-                        
-                        <?php if ( $bio ) : ?>
-                            <div class="mkp-corp-card__bio">
-                                <?php echo wp_kses_post( wpautop( $bio ) ); ?>
-                            </div>
-                        <?php endif; ?>
-                        
-                        <?php if ( $link ) : ?>
-                            <a href="<?php echo esc_url( $link ); ?>" class="mkp-btn mkp-btn--secondary mkp-btn--small" target="_blank" rel="noopener">
-                                <?php esc_html_e( 'Visit Website', 'mediakit-lite' ); ?>
-                            </a>
+                            <img src="<?php echo esc_url( $logo ); ?>" alt="<?php echo esc_attr( $name ); ?>" />
                         <?php endif; ?>
                     </div>
-                <?php endif; ?>
+                    
+                    <h3 class="mkp-corp-card__name"><?php echo esc_html( $name ); ?></h3>
+                    
+                    <div class="mkp-corp-card__bio">
+                        <?php if ( $bio ) : ?>
+                            <?php echo wp_kses_post( wpautop( $bio ) ); ?>
+                        <?php endif; ?>
+                    </div>
+                    
+                    <?php if ( $link ) : ?>
+                        <a href="<?php echo esc_url( $link ); ?>" class="mkp-btn mkp-btn--secondary mkp-btn--small" target="_blank" rel="noopener">
+                            <?php esc_html_e( 'Visit Website', 'mediakit-lite' ); ?>
+                        </a>
+                    <?php endif; ?>
+                </div>
             <?php endfor; ?>
         </div>
     </div>
