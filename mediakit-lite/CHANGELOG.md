@@ -4,8 +4,11 @@ All notable changes to the MediaKit Lite theme will be documented in this file.
 
 ## [1.3.10] - 2025-06-22
 
-### Changed
-- Fix GitHub Actions workflow version detection
+### Fixed
+- GitHub Actions workflow version detection using jq
+- Section Order drag-and-drop functionality
+- Speaker topics auto-contrast for dark backgrounds
+- Social media links horizontal layout
 
 ## [1.3.9] - 2025-06-22
 
