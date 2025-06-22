@@ -2,6 +2,11 @@
 
 All notable changes to the MediaKit Lite theme will be documented in this file.
 
+## [1.3.13] - 2025-06-22
+
+### Changed
+- Merged Social Media and Contact sections, verified enable/disable and auto-contrast for all sections
+
 ## [1.3.12] - 2025-06-22
 
 ### Fixed
