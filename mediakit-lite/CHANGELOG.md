@@ -4,8 +4,19 @@ All notable changes to the MediaKit Lite theme will be documented in this file.
 
 ## [1.3.11] - 2025-06-22
 
+### Added
+- Navigation background color with auto-contrast text
+- Visual indicators for disabled sections in Section Order
+- Eyedropper tool instructions for color pickers
+
+### Fixed
+- Navigation font live preview in customizer
+- Section Order drag-and-drop functionality
+- Speaker topics auto-contrast for dark backgrounds
+
 ### Changed
-- Add navigation background color, fix font preview, and section order disabled state
+- Speaker topics card style from numbers to arrows
+- Social media links to horizontal layout
 
 ## [1.3.10] - 2025-06-22
 
