@@ -51,6 +51,23 @@
     
     wp.customize.bind( 'ready', function() {
         
+        // Initialize color pickers with eyedropper
+        setTimeout( function() {
+            $( '.customize-control-color input[type="text"]' ).each( function() {
+                var $this = $( this );
+                if ( ! $this.hasClass( 'wp-color-picker' ) ) {
+                    $this.wpColorPicker({
+                        change: function( event, ui ) {
+                            $this.trigger( 'change' );
+                        },
+                        clear: function() {
+                            $this.trigger( 'change' );
+                        }
+                    });
+                }
+            });
+        }, 100 );
+        
         // Handle reset button clicks
         $( document ).on( 'click', '.mkp-reset-section', function( e ) {
             e.preventDefault();

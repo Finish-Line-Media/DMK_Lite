@@ -77,7 +77,7 @@ function mkp_customize_register( $wp_customize ) {
     
     $wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'mkp_nav_background_color', array(
         'label'       => __( 'Navigation Background Color', 'mediakit-lite' ),
-        'description' => __( 'Background color for the navigation bar. Click the color picker to use the eyedropper tool to copy colors from other sections.', 'mediakit-lite' ),
+        'description' => __( 'Background color for the navigation bar. Click "Select Color" to open the full picker. In modern browsers, look for the eyedropper icon to pick colors from anywhere on screen.', 'mediakit-lite' ),
         'section'     => 'title_tagline',
         'priority'    => 15,
     ) ) );
@@ -1325,7 +1325,14 @@ add_action( 'customize_preview_init', 'mkp_customize_preview_js' );
  * Enqueue customizer control scripts
  */
 function mkp_customize_controls_js() {
-    wp_enqueue_script( 'mkp-customizer-controls', get_template_directory_uri() . '/assets/js/customizer-controls.js', array( 'customize-controls', 'jquery' ), MKP_THEME_VERSION, true );
+    // Enqueue color picker styles and scripts
+    wp_enqueue_style( 'wp-color-picker' );
+    wp_enqueue_script( 'wp-color-picker' );
+    
+    // Enqueue Iris color picker (includes eyedropper in newer WP versions)
+    wp_enqueue_script( 'iris', admin_url( 'js/iris.min.js' ), array( 'jquery-ui-draggable', 'jquery-ui-slider', 'jquery-touch-punch' ), false, 1 );
+    
+    wp_enqueue_script( 'mkp-customizer-controls', get_template_directory_uri() . '/assets/js/customizer-controls.js', array( 'customize-controls', 'jquery', 'wp-color-picker' ), MKP_THEME_VERSION, true );
     
     // Add localization
     wp_localize_script( 'mkp-customizer-controls', 'mkpCustomizer', array(
