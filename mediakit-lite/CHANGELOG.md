@@ -2,6 +2,25 @@
 
 All notable changes to the MediaKit Lite theme will be documented in this file.
 
+## [1.2.8] - 2025-06-22
+
+### Added
+- Manual "Check for Updates" button in Media Kit Overview dashboard
+- Manual "Check for Updates" button in WordPress dashboard widget
+- Update status display in both admin locations
+- Shows last checked time for updates
+
+### Removed
+- Download Stats menu item and functionality
+- Import/Export menu item and functionality
+- Download tracking AJAX handler
+- Recent downloads display from dashboard widget
+
+### Improved
+- Simplified admin menu structure
+- Cleaner dashboard interface
+- Theme Updates section in Media Kit Overview
+
 ## [1.2.7] - 2025-06-22
 
 ### Added

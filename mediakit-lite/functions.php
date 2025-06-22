@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Define Constants
  */
-define( 'MKP_THEME_VERSION', '1.2.7' );
+define( 'MKP_THEME_VERSION', '1.2.8' );
 define( 'MKP_THEME_DIR', get_template_directory() );
 define( 'MKP_THEME_URI', get_template_directory_uri() );
 
@@ -311,26 +311,6 @@ function mkp_sanitize_svg( $file ) {
 add_filter( 'wp_handle_upload_prefilter', 'mkp_sanitize_svg' );
 
 
-/**
- * AJAX handler for download tracking
- */
-function mkp_track_download() {
-    check_ajax_referer( 'mkp_nonce', 'nonce' );
-    
-    $file_id = isset( $_POST['file_id'] ) ? intval( $_POST['file_id'] ) : 0;
-    
-    if ( $file_id ) {
-        $current_count = get_post_meta( $file_id, '_mkp_download_count', true );
-        $new_count = $current_count ? $current_count + 1 : 1;
-        update_post_meta( $file_id, '_mkp_download_count', $new_count );
-        
-        wp_send_json_success( array( 'count' => $new_count ) );
-    } else {
-        wp_send_json_error( 'Invalid file ID' );
-    }
-}
-add_action( 'wp_ajax_mkp_track_download', 'mkp_track_download' );
-add_action( 'wp_ajax_nopriv_mkp_track_download', 'mkp_track_download' );
 
 /**
  * Add Open Graph meta tags

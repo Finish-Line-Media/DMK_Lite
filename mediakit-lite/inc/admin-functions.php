@@ -26,31 +26,40 @@ add_action( 'wp_dashboard_setup', 'mkp_custom_dashboard_widgets' );
  * Display custom dashboard widget
  */
 function mkp_dashboard_widget_display() {
+    // Get update info
+    $remote_data = get_transient( 'mkp_remote_version' );
+    $update_available = false;
+    
+    if ( ! empty( $remote_data['version'] ) ) {
+        $current_version = MKP_THEME_VERSION;
+        $remote_version = $remote_data['version'];
+        $update_available = version_compare( $current_version, $remote_version, '<' );
+    }
     ?>
     <div class="mkp-dashboard-widget">
         <h3><?php esc_html_e( 'Welcome to MediaKit Lite', 'mediakit-lite' ); ?></h3>
         <p><?php esc_html_e( 'Your professional media kit theme is ready. Use the Customizer to configure your content.', 'mediakit-lite' ); ?></p>
         
+        <?php if ( $update_available ) : ?>
+            <div class="mkp-update-alert" style="background: #fff3cd; border: 1px solid #ffeaa7; padding: 10px; margin: 15px 0; border-radius: 3px;">
+                <strong><?php esc_html_e( 'Update Available!', 'mediakit-lite' ); ?></strong>
+                <?php printf( esc_html__( 'Version %s is now available.', 'mediakit-lite' ), esc_html( $remote_version ) ); ?>
+                <?php if ( ! empty( $remote_data['download_url'] ) ) : ?>
+                    <a href="<?php echo esc_url( $remote_data['download_url'] ); ?>" target="_blank"><?php esc_html_e( 'Download', 'mediakit-lite' ); ?></a>
+                <?php endif; ?>
+            </div>
+        <?php endif; ?>
+        
         <h3><?php esc_html_e( 'Quick Actions', 'mediakit-lite' ); ?></h3>
         <div class="mkp-dashboard-actions">
             <a href="<?php echo esc_url( admin_url( 'customize.php' ) ); ?>" class="button button-primary"><?php esc_html_e( 'Customize Theme', 'mediakit-lite' ); ?></a>
             <a href="<?php echo esc_url( site_url() ); ?>" class="button" target="_blank"><?php esc_html_e( 'View Site', 'mediakit-lite' ); ?></a>
+            <button type="button" class="button mkp-check-updates-dashboard"><?php esc_html_e( 'Check for Updates', 'mediakit-lite' ); ?></button>
         </div>
         
-        <?php
-        // Get recent downloads if tracking is enabled
-        $recent_downloads = get_option( 'mkp_recent_downloads', array() );
-        if ( ! empty( $recent_downloads ) ) : ?>
-            <h3><?php esc_html_e( 'Recent Downloads', 'mediakit-lite' ); ?></h3>
-            <ul class="mkp-recent-downloads">
-                <?php foreach ( array_slice( $recent_downloads, 0, 5 ) as $download ) : ?>
-                    <li>
-                        <?php echo esc_html( $download['file'] ); ?> - 
-                        <time><?php echo esc_html( human_time_diff( $download['time'], current_time( 'timestamp' ) ) ); ?> <?php esc_html_e( 'ago', 'mediakit-lite' ); ?></time>
-                    </li>
-                <?php endforeach; ?>
-            </ul>
-        <?php endif; ?>
+        <div class="mkp-version-info" style="margin-top: 15px; padding-top: 15px; border-top: 1px solid #eee;">
+            <small><?php printf( esc_html__( 'Current Version: %s', 'mediakit-lite' ), MKP_THEME_VERSION ); ?></small>
+        </div>
     </div>
     
     <style>
@@ -89,6 +98,22 @@ function mkp_dashboard_widget_display() {
             font-size: 13px;
         }
     </style>
+    
+    <script>
+    jQuery(document).ready(function($) {
+        $('.mkp-check-updates-dashboard').on('click', function() {
+            var $button = $(this);
+            $button.prop('disabled', true).text('<?php esc_html_e( 'Checking...', 'mediakit-lite' ); ?>');
+            
+            $.post(ajaxurl, {
+                action: 'mkp_force_update_check',
+                nonce: '<?php echo wp_create_nonce( 'mkp_force_check' ); ?>'
+            }, function() {
+                location.reload();
+            });
+        });
+    });
+    </script>
     <?php
 }
 
@@ -117,35 +142,6 @@ function mkp_add_admin_menu() {
         'mkp_admin_page_display'
     );
     
-    // Add a divider
-    add_submenu_page(
-        'mediakit-lite',
-        '<span style="display:block; margin:1px 0 1px -5px; padding:0; height:1px; line-height:1px; background:#CCC;"></span>',
-        '',
-        'read',
-        '#',
-        ''
-    );
-    
-    // Stats submenu
-    add_submenu_page(
-        'mediakit-lite',
-        __( 'Download Statistics', 'mediakit-lite' ),
-        __( 'Download Stats', 'mediakit-lite' ),
-        'manage_options',
-        'mediakit-lite-stats',
-        'mkp_stats_page_display'
-    );
-    
-    // Import/Export submenu
-    add_submenu_page(
-        'mediakit-lite',
-        __( 'Import/Export', 'mediakit-lite' ),
-        __( 'Import/Export', 'mediakit-lite' ),
-        'manage_options',
-        'mediakit-lite-import-export',
-        'mkp_import_export_page_display'
-    );
 }
 add_action( 'admin_menu', 'mkp_add_admin_menu', 5 );
 
@@ -154,6 +150,15 @@ add_action( 'admin_menu', 'mkp_add_admin_menu', 5 );
  * Display main admin page
  */
 function mkp_admin_page_display() {
+    // Get update info
+    $remote_data = get_transient( 'mkp_remote_version' );
+    $update_available = false;
+    
+    if ( ! empty( $remote_data['version'] ) ) {
+        $current_version = MKP_THEME_VERSION;
+        $remote_version = $remote_data['version'];
+        $update_available = version_compare( $current_version, $remote_version, '<' );
+    }
     ?>
     <div class="wrap">
         <h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
@@ -162,6 +167,18 @@ function mkp_admin_page_display() {
             <div class="mkp-admin-welcome">
                 <h2><?php esc_html_e( 'Welcome to MediaKit Lite', 'mediakit-lite' ); ?></h2>
                 <p><?php esc_html_e( 'Your professional media kit theme is ready to showcase your work. Follow these steps to get started:', 'mediakit-lite' ); ?></p>
+                
+                <?php if ( $update_available ) : ?>
+                    <div class="notice notice-warning inline" style="margin: 20px 0;">
+                        <p>
+                            <strong><?php esc_html_e( 'Update Available!', 'mediakit-lite' ); ?></strong>
+                            <?php printf( esc_html__( 'Version %s is now available.', 'mediakit-lite' ), esc_html( $remote_version ) ); ?>
+                            <?php if ( ! empty( $remote_data['download_url'] ) ) : ?>
+                                <a href="<?php echo esc_url( $remote_data['download_url'] ); ?>" class="button button-primary" target="_blank" style="margin-left: 10px;"><?php esc_html_e( 'Download Update', 'mediakit-lite' ); ?></a>
+                            <?php endif; ?>
+                        </p>
+                    </div>
+                <?php endif; ?>
             </div>
             
             <div class="mkp-admin-cards">
@@ -197,6 +214,20 @@ function mkp_admin_page_display() {
                     <li><a href="#" target="_blank"><?php esc_html_e( 'Video Tutorials', 'mediakit-lite' ); ?></a></li>
                     <li><a href="#" target="_blank"><?php esc_html_e( 'Support Forum', 'mediakit-lite' ); ?></a></li>
                 </ul>
+            </div>
+            
+            <div class="mkp-admin-updates" style="background: #f0f0f1; padding: 20px; margin-top: 20px; border: 1px solid #ccd0d4; border-radius: 3px;">
+                <h3 style="margin-top: 0;"><?php esc_html_e( 'Theme Updates', 'mediakit-lite' ); ?></h3>
+                <p>
+                    <?php printf( esc_html__( 'Current Version: %s', 'mediakit-lite' ), '<strong>' . MKP_THEME_VERSION . '</strong>' ); ?>
+                    <?php 
+                    $last_checked = get_transient( 'mkp_update_last_checked' );
+                    if ( $last_checked ) {
+                        echo '<br><small>' . sprintf( esc_html__( 'Last checked: %s', 'mediakit-lite' ), human_time_diff( $last_checked ) . ' ' . esc_html__( 'ago', 'mediakit-lite' ) ) . '</small>';
+                    }
+                    ?>
+                </p>
+                <button type="button" class="button button-secondary mkp-check-updates-main"><?php esc_html_e( 'Check for Updates', 'mediakit-lite' ); ?></button>
             </div>
         </div>
     </div>
@@ -247,142 +278,25 @@ function mkp_admin_page_display() {
             padding-left: 20px;
         }
     </style>
-    <?php
-}
-
-/**
- * Display statistics page
- */
-function mkp_stats_page_display() {
-    ?>
-    <div class="wrap">
-        <h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
-        
-        <div class="mkp-stats-page">
-            <?php
-            // Get download statistics
-            $downloads = get_option( 'mkp_download_stats', array() );
-            
-            if ( empty( $downloads ) ) {
-                echo '<p>' . esc_html__( 'No download statistics available yet.', 'mediakit-lite' ) . '</p>';
-            } else {
-                ?>
-                <table class="wp-list-table widefat fixed striped">
-                    <thead>
-                        <tr>
-                            <th><?php esc_html_e( 'File', 'mediakit-lite' ); ?></th>
-                            <th><?php esc_html_e( 'Downloads', 'mediakit-lite' ); ?></th>
-                            <th><?php esc_html_e( 'Last Downloaded', 'mediakit-lite' ); ?></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach ( $downloads as $file_id => $data ) : ?>
-                            <tr>
-                                <td><?php echo esc_html( get_the_title( $file_id ) ); ?></td>
-                                <td><?php echo esc_html( $data['count'] ); ?></td>
-                                <td>
-                                    <?php 
-                                    if ( isset( $data['last_download'] ) ) {
-                                        echo esc_html( human_time_diff( $data['last_download'], current_time( 'timestamp' ) ) . ' ' . __( 'ago', 'mediakit-lite' ) );
-                                    } else {
-                                        echo '-';
-                                    }
-                                    ?>
-                                </td>
-                            </tr>
-                        <?php endforeach; ?>
-                    </tbody>
-                </table>
-                <?php
-            }
-            ?>
-        </div>
-    </div>
-    <?php
-}
-
-/**
- * Display import/export page
- */
-function mkp_import_export_page_display() {
-    ?>
-    <div class="wrap">
-        <h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
-        
-        <div class="mkp-import-export-page">
-            <div class="mkp-export-section">
-                <h2><?php esc_html_e( 'Export Media Kit', 'mediakit-lite' ); ?></h2>
-                <p><?php esc_html_e( 'Export your media kit content to a file that can be imported into another WordPress site.', 'mediakit-lite' ); ?></p>
-                <form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
-                    <?php wp_nonce_field( 'mkp_export_nonce' ); ?>
-                    <input type="hidden" name="action" value="mkp_export_media_kit">
-                    <p>
-                        <label>
-                            <input type="checkbox" name="export_settings" value="1" checked>
-                            <?php esc_html_e( 'Include Theme Settings', 'mediakit-lite' ); ?>
-                        </label>
-                    </p>
-                    <p>
-                        <label>
-                            <input type="checkbox" name="export_customizer" value="1" checked>
-                            <?php esc_html_e( 'Include Customizer Settings', 'mediakit-lite' ); ?>
-                        </label>
-                    </p>
-                    <p class="submit">
-                        <input type="submit" class="button button-primary" value="<?php esc_attr_e( 'Export Media Kit', 'mediakit-lite' ); ?>">
-                    </p>
-                </form>
-            </div>
-            
-            <hr>
-            
-            <div class="mkp-import-section">
-                <h2><?php esc_html_e( 'Import Media Kit', 'mediakit-lite' ); ?></h2>
-                <p><?php esc_html_e( 'Import media kit content from an export file.', 'mediakit-lite' ); ?></p>
-                <form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" enctype="multipart/form-data">
-                    <?php wp_nonce_field( 'mkp_import_nonce' ); ?>
-                    <input type="hidden" name="action" value="mkp_import_media_kit">
-                    <p>
-                        <label for="import_file"><?php esc_html_e( 'Choose file:', 'mediakit-lite' ); ?></label>
-                        <input type="file" name="import_file" id="import_file" accept=".json">
-                    </p>
-                    <p class="submit">
-                        <input type="submit" class="button button-primary" value="<?php esc_attr_e( 'Import Media Kit', 'mediakit-lite' ); ?>">
-                    </p>
-                </form>
-            </div>
-            
-            <hr>
-            
-            <div class="mkp-demo-content-section">
-                <h2><?php esc_html_e( 'Demo Content', 'mediakit-lite' ); ?></h2>
-                <p><?php esc_html_e( 'Install demo content to see how the theme works.', 'mediakit-lite' ); ?></p>
-                <form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
-                    <?php wp_nonce_field( 'mkp_demo_content_nonce' ); ?>
-                    <input type="hidden" name="action" value="mkp_install_demo_content">
-                    <p class="submit">
-                        <input type="submit" class="button" value="<?php esc_attr_e( 'Install Demo Content', 'mediakit-lite' ); ?>" onclick="return confirm('<?php esc_attr_e( 'This will create sample posts and pages. Continue?', 'mediakit-lite' ); ?>');">
-                    </p>
-                </form>
-            </div>
-        </div>
-    </div>
     
-    <style>
-        .mkp-import-export-page {
-            max-width: 800px;
-            background: #fff;
-            padding: 20px;
-            margin-top: 20px;
-            border: 1px solid #ccd0d4;
-            box-shadow: 0 1px 1px rgba(0,0,0,.04);
-        }
-        .mkp-import-export-page hr {
-            margin: 30px 0;
-        }
-    </style>
+    <script>
+    jQuery(document).ready(function($) {
+        $('.mkp-check-updates-main').on('click', function() {
+            var $button = $(this);
+            $button.prop('disabled', true).text('<?php esc_html_e( 'Checking...', 'mediakit-lite' ); ?>');
+            
+            $.post(ajaxurl, {
+                action: 'mkp_force_update_check',
+                nonce: '<?php echo wp_create_nonce( 'mkp_force_check' ); ?>'
+            }, function() {
+                location.reload();
+            });
+        });
+    });
+    </script>
     <?php
 }
+
 
 
 /**

@@ -155,20 +155,6 @@
         });
     });
     
-    // Download tracking
-    $('[data-track-download]').on('click', function(e) {
-        const fileId = $(this).attr('data-track-download');
-        
-        $.ajax({
-            url: mkp_ajax.ajax_url,
-            type: 'POST',
-            data: {
-                action: 'mkp_track_download',
-                file_id: fileId,
-                nonce: mkp_ajax.nonce
-            }
-        });
-    });
     
     // Lazy Loading for images
     if ('IntersectionObserver' in window) {
