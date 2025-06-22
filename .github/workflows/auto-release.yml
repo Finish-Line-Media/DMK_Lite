@@ -32,14 +32,13 @@ jobs:
         CURRENT_VERSION=$(grep "Version:" mediakit-lite/style.css | sed 's/.*Version: //' | tr -d '[:space:]')
         echo "Current version: $CURRENT_VERSION"
         
-        # Get previous version
-        git checkout HEAD~1
-        PREVIOUS_VERSION=$(grep "Version:" mediakit-lite/style.css 2>/dev/null | sed 's/.*Version: //' | tr -d '[:space:]' || echo "0.0.0")
-        echo "Previous version: $PREVIOUS_VERSION"
+        # Get the latest release version from GitHub
+        LATEST_RELEASE=$(curl -s https://api.github.com/repos/${{ github.repository }}/releases/latest | grep '"tag_name"' | sed -E 's/.*"v([^"]+)".*/\1/' || echo "0.0.0")
+        echo "Latest release version: $LATEST_RELEASE"
         
         # Check if version changed
-        if [ "$CURRENT_VERSION" != "$PREVIOUS_VERSION" ]; then
-          echo "Version changed from $PREVIOUS_VERSION to $CURRENT_VERSION"
+        if [ "$CURRENT_VERSION" != "$LATEST_RELEASE" ]; then
+          echo "Version changed from $LATEST_RELEASE to $CURRENT_VERSION"
           echo "changed=true" >> $GITHUB_OUTPUT
           echo "version=$CURRENT_VERSION" >> $GITHUB_OUTPUT
         else
