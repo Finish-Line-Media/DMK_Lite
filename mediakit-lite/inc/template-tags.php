@@ -176,7 +176,6 @@ if ( ! function_exists( 'mkp_social_icons' ) ) :
      */
     function mkp_social_icons( $class = '' ) {
         $social_links = mkp_get_social_links();
-        $icon_style = get_theme_mod( 'mkp_social_icon_style', 'circle' );
         
         if ( empty( $social_links ) ) {
             return;
@@ -195,9 +194,9 @@ if ( ! function_exists( 'mkp_social_icons' ) ) :
         );
         
         ?>
-        <div class="mkp-social <?php echo esc_attr( $class ); ?> mkp-social--<?php echo esc_attr( $icon_style ); ?>">
+        <div class="mkp-social <?php echo esc_attr( $class ); ?>">
             <?php foreach ( $social_links as $platform => $url ) : ?>
-                <a href="<?php echo esc_url( $url ); ?>" class="mkp-social__link mkp-social__link--<?php echo esc_attr( $icon_style ); ?> mkp-social__link--<?php echo esc_attr( $platform ); ?>" target="_blank" rel="noopener noreferrer" aria-label="<?php echo esc_attr( ucfirst( $platform ) ); ?>">
+                <a href="<?php echo esc_url( $url ); ?>" class="mkp-social__link mkp-social__link--<?php echo esc_attr( $platform ); ?>" target="_blank" rel="noopener noreferrer" aria-label="<?php echo esc_attr( ucfirst( $platform ) ); ?>">
                     <?php echo $icons[ $platform ]; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
                 </a>
             <?php endforeach; ?>

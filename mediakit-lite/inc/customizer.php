@@ -500,7 +500,7 @@ function mkp_customize_register( $wp_customize ) {
      */
     $wp_customize->add_section( 'mkp_social_media', array(
         'title'       => __( 'Social Media', 'mediakit-lite' ),
-        'priority'    => 40,
+        'priority'    => 56,
         'description' => __( 'Connect your social media profiles. Only filled URLs will display. Icons will appear in your header, footer, and contact sections.', 'mediakit-lite' ),
     ) );
     
@@ -527,26 +527,6 @@ function mkp_customize_register( $wp_customize ) {
             'type'        => 'url',
         ) );
     }
-    
-    // Social Icon Style
-    $wp_customize->add_setting( 'mkp_social_icon_style', array(
-        'default'           => 'circle',
-        'sanitize_callback' => 'mkp_sanitize_social_style',
-        'transport'         => 'postMessage',
-    ) );
-    
-    $wp_customize->add_control( 'mkp_social_icon_style', array(
-        'label'       => __( 'Social Icon Style', 'mediakit-lite' ),
-        'description' => __( 'Choose how your social media icons appear throughout the site.', 'mediakit-lite' ),
-        'section'     => 'mkp_social_media',
-        'type'        => 'select',
-        'choices'     => array(
-            'circle'   => __( 'Circle (Modern & friendly)', 'mediakit-lite' ),
-            'square'   => __( 'Square (Bold & structured)', 'mediakit-lite' ),
-            'rounded'  => __( 'Rounded Square (Soft & approachable)', 'mediakit-lite' ),
-            'minimal'  => __( 'Minimal (Clean & simple)', 'mediakit-lite' ),
-        ),
-    ) );
     
     /**
      * About/Bio Section
@@ -1349,19 +1329,6 @@ function mkp_sanitize_font_choice( $value ) {
     }
     
     return 'system';
-}
-
-/**
- * Sanitize social icon style
- */
-function mkp_sanitize_social_style( $value ) {
-    $valid = array( 'circle', 'square', 'rounded', 'minimal' );
-    
-    if ( in_array( $value, $valid, true ) ) {
-        return $value;
-    }
-    
-    return 'circle';
 }
 
 /**

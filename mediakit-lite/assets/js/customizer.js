@@ -399,49 +399,6 @@
         } );
     } );
     
-    // Social Icon Style
-    wp.customize( 'mkp_social_icon_style', function( value ) {
-        value.bind( function( to ) {
-            // Remove all style classes
-            $( '.mkp-social__link' ).removeClass( 'mkp-social__link--circle mkp-social__link--square mkp-social__link--rounded mkp-social__link--minimal' );
-            
-            // Add new style class
-            $( '.mkp-social__link' ).addClass( 'mkp-social__link--' + to );
-            
-            // Update CSS based on style
-            switch( to ) {
-                case 'circle':
-                    $( '.mkp-social__link' ).css({
-                        'border-radius': '50%',
-                        'background-color': 'rgba(255,255,255,0.1)',
-                        'border': 'none'
-                    });
-                    break;
-                case 'square':
-                    $( '.mkp-social__link' ).css({
-                        'border-radius': '0',
-                        'background-color': 'rgba(255,255,255,0.1)',
-                        'border': 'none'
-                    });
-                    break;
-                case 'rounded':
-                    $( '.mkp-social__link' ).css({
-                        'border-radius': '8px',
-                        'background-color': 'rgba(255,255,255,0.1)',
-                        'border': 'none'
-                    });
-                    break;
-                case 'minimal':
-                    $( '.mkp-social__link' ).css({
-                        'border-radius': '0',
-                        'background-color': 'transparent',
-                        'border': '1px solid currentColor'
-                    });
-                    break;
-            }
-        } );
-    } );
-    
     // Contact Emails
     wp.customize( 'mkp_contact_email_primary', function( value ) {
         value.bind( function( to ) {

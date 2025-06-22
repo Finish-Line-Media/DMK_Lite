@@ -2,6 +2,19 @@
 
 All notable changes to the MediaKit Lite theme will be documented in this file.
 
+## [1.2.4] - 2025-06-22
+
+### Changed
+- Moved Social Media section below Contact Information in the Customizer for better organization
+
+### Removed
+- Social Icon Style option that wasn't functioning properly
+- Social icons now use a consistent circular style
+
+### Simplified
+- Social media icon display code for better reliability
+- Removed unnecessary CSS classes for different icon styles
+
 ## [1.2.3] - 2025-06-22
 
 ### Added
