@@ -2,6 +2,11 @@
 
 All notable changes to the MediaKit Lite theme will be documented in this file.
 
+## [1.7.11] - 2025-06-22
+
+### Changed
+- Fix Contact section background color dynamic preview by removing inline style
+
 ## [1.7.10] - 2025-06-22
 
 ### Changed
