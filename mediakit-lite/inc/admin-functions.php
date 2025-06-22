@@ -103,13 +103,28 @@ function mkp_dashboard_widget_display() {
     jQuery(document).ready(function($) {
         $('.mkp-check-updates-dashboard').on('click', function() {
             var $button = $(this);
+            var originalText = $button.text();
             $button.prop('disabled', true).text('<?php esc_html_e( 'Checking...', 'mediakit-lite' ); ?>');
             
             $.post(ajaxurl, {
                 action: 'mkp_force_update_check',
                 nonce: '<?php echo wp_create_nonce( 'mkp_force_check' ); ?>'
-            }, function() {
-                location.reload();
+            }, function(response) {
+                if (response.success) {
+                    if (response.data.update_available) {
+                        alert(response.data.message);
+                        location.reload();
+                    } else {
+                        alert(response.data.message);
+                        $button.prop('disabled', false).text(originalText);
+                    }
+                } else {
+                    alert(response.data || '<?php esc_html_e( 'Error checking for updates.', 'mediakit-lite' ); ?>');
+                    $button.prop('disabled', false).text(originalText);
+                }
+            }).fail(function() {
+                alert('<?php esc_html_e( 'Network error. Please try again.', 'mediakit-lite' ); ?>');
+                $button.prop('disabled', false).text(originalText);
             });
         });
     });
@@ -283,13 +298,28 @@ function mkp_admin_page_display() {
     jQuery(document).ready(function($) {
         $('.mkp-check-updates-main').on('click', function() {
             var $button = $(this);
+            var originalText = $button.text();
             $button.prop('disabled', true).text('<?php esc_html_e( 'Checking...', 'mediakit-lite' ); ?>');
             
             $.post(ajaxurl, {
                 action: 'mkp_force_update_check',
                 nonce: '<?php echo wp_create_nonce( 'mkp_force_check' ); ?>'
-            }, function() {
-                location.reload();
+            }, function(response) {
+                if (response.success) {
+                    if (response.data.update_available) {
+                        alert(response.data.message);
+                        location.reload();
+                    } else {
+                        alert(response.data.message);
+                        $button.prop('disabled', false).text(originalText);
+                    }
+                } else {
+                    alert(response.data || '<?php esc_html_e( 'Error checking for updates.', 'mediakit-lite' ); ?>');
+                    $button.prop('disabled', false).text(originalText);
+                }
+            }).fail(function() {
+                alert('<?php esc_html_e( 'Network error. Please try again.', 'mediakit-lite' ); ?>');
+                $button.prop('disabled', false).text(originalText);
             });
         });
     });
