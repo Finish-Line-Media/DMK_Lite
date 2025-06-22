@@ -2,6 +2,11 @@
 
 All notable changes to the MediaKit Lite theme will be documented in this file.
 
+## [1.3.20] - 2025-06-22
+
+### Changed
+- Removed backup customizer files that were causing removed sections to still appear
+
 ## [1.3.19] - 2025-06-22
 
 ### Changed
