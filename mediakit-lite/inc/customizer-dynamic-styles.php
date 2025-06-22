@@ -129,6 +129,16 @@ function mkp_generate_dynamic_styles() {
             color: <?php echo esc_attr( mkp_get_contrast_color_rgba( $speaker_bg, 'muted' ) ); ?>;
         }
         
+        /* Card style for speaker topics */
+        .mkp-speaker-section .mkp-speaker__topic {
+            background-color: <?php echo mkp_is_light_color( $speaker_bg ) ? 'rgba(255, 255, 255, 0.8)' : 'rgba(0, 0, 0, 0.2)'; ?>;
+            color: <?php echo esc_attr( mkp_get_contrast_color( $speaker_bg ) ); ?>;
+        }
+        
+        .mkp-speaker-section--cards .mkp-speaker__topic-title {
+            color: <?php echo esc_attr( mkp_get_contrast_color_rgba( $speaker_bg, 'heading' ) ); ?>;
+        }
+        
         /* Podcast Section Auto-Contrast */
         .mkp-podcast-section {
             background-color: <?php echo esc_attr( $podcast_bg ); ?>;
@@ -149,6 +159,19 @@ function mkp_generate_dynamic_styles() {
         .mkp-corporations-section h2,
         .mkp-corporations-section h3 {
             color: <?php echo esc_attr( mkp_get_contrast_color_rgba( $corps_bg, 'heading' ) ); ?>;
+        }
+        
+        /* Company names and cards */
+        .mkp-corporations-section .mkp-corp-card__name {
+            color: <?php echo esc_attr( mkp_get_contrast_color_rgba( $corps_bg, 'heading' ) ); ?>;
+        }
+        
+        .mkp-corporations-section .mkp-corp-card {
+            background-color: <?php echo mkp_is_light_color( $corps_bg ) ? 'rgba(255, 255, 255, 0.8)' : 'rgba(0, 0, 0, 0.2)'; ?>;
+        }
+        
+        .mkp-corporations-section .mkp-corp-card__bio {
+            color: <?php echo esc_attr( mkp_get_contrast_color( $corps_bg ) ); ?>;
         }
         
         /* Media Questions Section Auto-Contrast */
