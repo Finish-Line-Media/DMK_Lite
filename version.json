@@ -1,8 +1,8 @@
 {
-  "version": "1.7.9",
-  "description": "Fix Contact section dynamic preview with class-based visibility",
-  "download_url": "https://github.com/Finish-Line-Media/DMK_Lite/releases/download/v1.7.9/mediakit-lite.zip",
-  "changelog_url": "https://github.com/Finish-Line-Media/DMK_Lite/releases/tag/v1.7.9",
+  "version": "1.7.10",
+  "description": "Remove update notice section, add upload button, fix Contact dynamic preview",
+  "download_url": "https://github.com/Finish-Line-Media/DMK_Lite/releases/download/v1.7.10/mediakit-lite.zip",
+  "changelog_url": "https://github.com/Finish-Line-Media/DMK_Lite/releases/tag/v1.7.10",
   "release_date": "2025-06-22",
   "min_wp_version": "5.8",
   "tested_up_to": "6.5",

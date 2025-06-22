@@ -2,6 +2,11 @@
 
 All notable changes to the MediaKit Lite theme will be documented in this file.
 
+## [1.7.10] - 2025-06-22
+
+### Changed
+- Remove update notice section, add upload button, fix Contact dynamic preview
+
 ## [1.7.9] - 2025-06-22
 
 ### Changed
