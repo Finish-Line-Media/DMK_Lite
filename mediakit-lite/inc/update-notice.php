@@ -71,6 +71,7 @@ function mkp_check_for_updates() {
                 'changelog_url' => $release_data['html_url'] ?? '',
                 'release_date' => $release_data['published_at'] ?? '',
                 'prerelease' => $release_data['prerelease'] ?? false,
+                'source' => 'github_api',
             );
             
             // Store the remote version info
@@ -95,6 +96,9 @@ function mkp_check_for_updates() {
         $data = json_decode( $body, true );
         
         if ( ! empty( $data['version'] ) ) {
+            // Add source indicator
+            $data['source'] = 'version_json';
+            
             // Store the remote version info
             set_transient( 'mkp_remote_version', $data, DAY_IN_SECONDS );
             set_transient( 'mkp_update_last_checked', time(), DAY_IN_SECONDS );
@@ -276,6 +280,11 @@ function mkp_force_update_check() {
     delete_transient( 'mkp_update_last_checked' );
     delete_transient( 'mkp_remote_version' );
     
+    // Clear object cache if available
+    if ( function_exists( 'wp_cache_flush' ) ) {
+        wp_cache_flush();
+    }
+    
     // Run update check
     mkp_check_for_updates();
     
@@ -286,23 +295,41 @@ function mkp_force_update_check() {
         $current_version = MKP_THEME_VERSION;
         $remote_version = $remote_data['version'];
         
+        // Add debug information
+        $debug_info = array(
+            'current_version' => $current_version,
+            'remote_version' => $remote_version,
+            'php_version' => PHP_VERSION,
+            'wp_version' => get_bloginfo( 'version' ),
+            'transient_data' => $remote_data,
+        );
+        
         if ( version_compare( $current_version, $remote_version, '<' ) ) {
             wp_send_json_success( array(
                 'update_available' => true,
                 'current_version' => $current_version,
                 'remote_version' => $remote_version,
-                'message' => sprintf( __( 'Update available! Version %s is now available (you have %s).', 'mediakit-lite' ), $remote_version, $current_version )
+                'message' => sprintf( __( 'Update available! Version %s is now available (you have %s).', 'mediakit-lite' ), $remote_version, $current_version ),
+                'debug' => $debug_info
             ) );
         } else {
             wp_send_json_success( array(
                 'update_available' => false,
                 'current_version' => $current_version,
                 'remote_version' => $remote_version,
-                'message' => __( 'You are running the latest version!', 'mediakit-lite' )
+                'message' => sprintf( __( 'You are running the latest version! (Local: %s, Remote: %s)', 'mediakit-lite' ), $current_version, $remote_version ),
+                'debug' => $debug_info
             ) );
         }
     } else {
-        wp_send_json_error( __( 'Unable to check for updates. Please try again later.', 'mediakit-lite' ) );
+        wp_send_json_error( array(
+            'message' => __( 'Unable to check for updates. Please try again later.', 'mediakit-lite' ),
+            'debug' => array(
+                'current_version' => MKP_THEME_VERSION,
+                'transient_exists' => false,
+                'last_checked' => get_transient( 'mkp_update_last_checked' )
+            )
+        ) );
     }
 }
 add_action( 'wp_ajax_mkp_force_update_check', 'mkp_force_update_check' );

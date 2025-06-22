@@ -327,6 +327,11 @@ function mkp_admin_page_display() {
                 action: 'mkp_force_update_check',
                 nonce: '<?php echo wp_create_nonce( 'mkp_force_check' ); ?>'
             }, function(response) {
+                // Log debug information
+                if (response.data && response.data.debug) {
+                    console.log('MediaKit Lite Update Check Debug:', response.data.debug);
+                }
+                
                 if (response.success) {
                     if (response.data.update_available) {
                         alert(response.data.message);
@@ -336,10 +341,15 @@ function mkp_admin_page_display() {
                         $button.prop('disabled', false).text(originalText);
                     }
                 } else {
-                    alert(response.data || '<?php esc_html_e( 'Error checking for updates.', 'mediakit-lite' ); ?>');
+                    var errorMsg = response.data && response.data.message ? response.data.message : '<?php esc_html_e( 'Error checking for updates.', 'mediakit-lite' ); ?>';
+                    alert(errorMsg);
+                    if (response.data && response.data.debug) {
+                        console.error('Update check error debug:', response.data.debug);
+                    }
                     $button.prop('disabled', false).text(originalText);
                 }
-            }).fail(function() {
+            }).fail(function(xhr, status, error) {
+                console.error('Update check network error:', status, error);
                 alert('<?php esc_html_e( 'Network error. Please try again.', 'mediakit-lite' ); ?>');
                 $button.prop('disabled', false).text(originalText);
             });
