@@ -2,6 +2,11 @@
 
 All notable changes to the MediaKit Lite theme will be documented in this file.
 
+## [1.4.5] - 2025-06-22
+
+### Changed
+- Fixed hero images not updating in customizer
+
 ## [1.4.4] - 2025-06-22
 
 ### Changed
