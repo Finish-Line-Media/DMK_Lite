@@ -39,7 +39,7 @@
         var sections = ['books', 'speaker_topics', 'podcast', 'corporations', 'media_questions', 'investor', 'in_the_media', 'contact'];
         
         $.each( sections, function( index, section ) {
-            wp.customize( 'mkp_enable_' + section, function( setting ) {
+            wp.customize( 'mkp_enable_section_' + section, function( setting ) {
                 setting.bind( function( enabled ) {
                     var $item = $( '.mkp-section-order-item[data-section="' + section + '"]' );
                     

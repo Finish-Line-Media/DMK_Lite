@@ -180,7 +180,7 @@ class Mkp_Section_Order_Control extends WP_Customize_Control {
                     // Check if section is enabled
                     $is_enabled = true;
                     if ( ! $is_fixed ) {
-                        $is_enabled = get_theme_mod( 'mkp_enable_' . $section_id, true );
+                        $is_enabled = get_theme_mod( 'mkp_enable_section_' . $section_id, true );
                     }
                     
                     $item_classes = array( 'mkp-section-order-item' );
