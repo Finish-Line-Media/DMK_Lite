@@ -402,6 +402,45 @@ function mkp_add_update_check_link( $links, $theme ) {
 add_filter( 'theme_action_links', 'mkp_add_update_check_link', 10, 2 );
 
 /**
+ * Add debug info to theme details on themes page
+ */
+function mkp_add_update_debug_info() {
+    $screen = get_current_screen();
+    if ( $screen->id !== 'themes' ) {
+        return;
+    }
+    
+    $theme = wp_get_theme( 'mediakit-lite' );
+    if ( ! $theme->exists() ) {
+        return;
+    }
+    
+    $last_checked = get_transient( 'mkp_update_last_checked' );
+    $remote_data = get_transient( 'mkp_remote_version' );
+    ?>
+    <script>
+    jQuery(document).ready(function($) {
+        // Add debug info to MediaKit Lite theme
+        var $theme = $('.theme[data-slug="mediakit-lite"]');
+        if ($theme.length) {
+            var debugInfo = '<div style="position: absolute; bottom: 10px; left: 10px; font-size: 11px; color: #666;">';
+            debugInfo += 'v<?php echo esc_js( MKP_THEME_VERSION ); ?>';
+            <?php if ( $last_checked ) : ?>
+                debugInfo += ' | Last check: <?php echo esc_js( human_time_diff( $last_checked ) . ' ago' ); ?>';
+            <?php endif; ?>
+            <?php if ( ! empty( $remote_data['version'] ) ) : ?>
+                debugInfo += ' | Remote: v<?php echo esc_js( $remote_data['version'] ); ?>';
+            <?php endif; ?>
+            debugInfo += '</div>';
+            $theme.find('.theme-screenshot').append(debugInfo);
+        }
+    });
+    </script>
+    <?php
+}
+add_action( 'admin_footer', 'mkp_add_update_debug_info' );
+
+/**
  * Handle manual update check from theme page
  */
 function mkp_handle_manual_update_check() {

@@ -71,10 +71,25 @@ sed -i '' "s/Stable tag: .*/Stable tag: ${VERSION}/" readme.txt
 # Update functions.php
 sed -i '' "s/define( 'MKP_THEME_VERSION', '.*' );/define( 'MKP_THEME_VERSION', '${VERSION}' );/" functions.php
 
+# Update version.json
+if [ -f "version.json" ]; then
+    sed -i '' "s/\"version\": \".*\"/\"version\": \"${VERSION}\"/" version.json
+    sed -i '' "s/\"description\": \"MediaKit Lite v.*\"/\"description\": \"MediaKit Lite v${VERSION}\"/" version.json
+    sed -i '' "s/download\/v[0-9.]*\/mediakit-lite.zip/download\/v${VERSION}\/mediakit-lite.zip/" version.json
+    sed -i '' "s/tag\/v[0-9.]*\"/tag\/v${VERSION}\"/" version.json
+    # Update release date to today
+    TODAY=$(date +%Y-%m-%d)
+    sed -i '' "s/\"release_date\": \".*\"/\"release_date\": \"${TODAY}\"/" version.json
+fi
+
 echo -e "${GREEN}Version bumped to ${VERSION}${NC}"
 
 # Git operations
 git add style.css readme.txt functions.php
+# Add version.json if it exists
+if [ -f "version.json" ]; then
+    git add version.json
+fi
 git commit -m "Bump version to ${VERSION}"
 
 # Create and push tag

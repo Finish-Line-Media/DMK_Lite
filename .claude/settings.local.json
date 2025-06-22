@@ -27,7 +27,8 @@
       "Bash(git rm:*)",
       "Bash(comm:*)",
       "Bash(echo:*)",
-      "Bash(./create-release.sh:*)"
+      "Bash(./create-release.sh:*)",
+      "Bash(gh run list:*)"
     ],
     "deny": []
   }
