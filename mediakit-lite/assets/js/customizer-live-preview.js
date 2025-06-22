@@ -588,7 +588,9 @@
         ( function( questionNum ) {
             wp.customize( 'mkp_media_question_' + questionNum, function( value ) {
                 value.bind( function( to ) {
+                    const $section = $( '.mkp-media-questions-section' );
                     const $item = $( '.mkp-media-questions__item--' + questionNum );
+                    const $placeholder = $( '.mkp-media-questions__placeholder' );
                     
                     if ( to ) {
                         // Update text
@@ -609,15 +611,36 @@
                         }
                     }
                     
-                    // Show/hide section based on content
-                    if ( hasQuestions && wp.customize( 'mkp_enable_section_media_questions' ).get() ) {
-                        $( '.mkp-media-questions-section' ).show();
+                    // Show/hide section and placeholder based on content
+                    if ( hasQuestions ) {
+                        $placeholder.hide();
+                        if ( wp.customize( 'mkp_enable_section_media_questions' ).get() ) {
+                            $section.show();
+                        }
                     } else {
-                        $( '.mkp-media-questions-section' ).hide();
+                        $placeholder.show();
+                        // Still show section in customizer even if no questions
+                        if ( wp.customize( 'mkp_enable_section_media_questions' ).get() ) {
+                            $section.show();
+                        } else {
+                            $section.hide();
+                        }
                     }
                 } );
             } );
         } )( i );
     }
+    
+    // Handle enable/disable section toggle
+    wp.customize( 'mkp_enable_section_media_questions', function( value ) {
+        value.bind( function( to ) {
+            const $section = $( '.mkp-media-questions-section' );
+            if ( to ) {
+                $section.show();
+            } else {
+                $section.hide();
+            }
+        } );
+    } );
     
 } )( jQuery );
