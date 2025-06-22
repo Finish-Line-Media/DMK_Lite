@@ -212,10 +212,6 @@ function mkp_generate_dynamic_styles() {
             color: <?php echo esc_attr( mkp_get_contrast_color( $media_questions_bg ) ); ?>;
         }
         
-        .mkp-media-questions__arrow {
-            color: <?php echo esc_attr( $secondary_color ); ?>;
-        }
-        
         
         
         

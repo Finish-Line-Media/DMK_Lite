@@ -52,10 +52,7 @@ if ( ! $has_questions && ! $is_customizer ) {
                         continue;
                     }
                     ?>
-                    <li class="mkp-media-questions__item mkp-media-questions__item--<?php echo esc_attr( $i ); ?><?php echo $list_style === 'arrows' ? ' mkp-media-questions__item--arrows' : ''; ?>" <?php echo ( ! $question && $is_customizer ) ? 'style="display: none;"' : ''; ?>>
-                        <?php if ( $list_style === 'arrows' ) : ?>
-                            <span class="mkp-media-questions__arrow">➤</span>
-                        <?php endif; ?>
+                    <li class="mkp-media-questions__item mkp-media-questions__item--<?php echo esc_attr( $i ); ?>" <?php echo ( ! $question && $is_customizer ) ? 'style="display: none;"' : ''; ?>>
                         <span class="mkp-media-questions__text"><?php echo esc_html( $question ); ?></span>
                     </li>
                 <?php endfor; ?>

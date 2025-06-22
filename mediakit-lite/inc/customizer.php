@@ -768,7 +768,6 @@ function mkp_customize_register( $wp_customize ) {
         'choices'     => array(
             'bullets' => __( 'Bullet Points', 'mediakit-lite' ),
             'numbers' => __( 'Numbered List', 'mediakit-lite' ),
-            'arrows'  => __( 'Arrows', 'mediakit-lite' ),
         ),
         'priority'    => 3,
     ) );

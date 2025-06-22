@@ -1378,27 +1378,10 @@ img {
     padding-left: 1.5em;
 }
 
-.mkp-media-questions__list--arrows {
-    padding-left: 0;
-}
-
 .mkp-media-questions__item {
     margin-bottom: var(--mkp-spacing-md);
     font-size: 1.125rem;
     line-height: 1.6;
-    position: relative;
-}
-
-.mkp-media-questions__item--arrows {
-    padding-left: 2em;
-}
-
-.mkp-media-questions__arrow {
-    position: absolute;
-    left: 0;
-    top: 0.1em;
-    color: var(--mkp-secondary);
-    font-size: 1.2em;
 }
 
 .mkp-media-questions__text {
