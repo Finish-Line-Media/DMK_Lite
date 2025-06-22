@@ -21,7 +21,7 @@ jobs:
       new_version: ${{ steps.version_check.outputs.version }}
       
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
       with:
         fetch-depth: 2
     
@@ -52,7 +52,7 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     
     - name: Create theme ZIP
       run: |
@@ -93,13 +93,12 @@ jobs:
         } >> $GITHUB_OUTPUT
     
     - name: Create Release
-      uses: actions/create-release@v1
-      id: create_release
+      uses: softprops/action-gh-release@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         tag_name: v${{ needs.check-version.outputs.new_version }}
-        release_name: MediaKit Lite v${{ needs.check-version.outputs.new_version }}
+        name: MediaKit Lite v${{ needs.check-version.outputs.new_version }}
         body: |
           # MediaKit Lite v${{ needs.check-version.outputs.new_version }}
           
@@ -124,13 +123,4 @@ jobs:
           *This release was automatically created by GitHub Actions*
         draft: false
         prerelease: false
-    
-    - name: Upload Release Asset
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./mediakit-lite.zip
-        asset_name: mediakit-lite.zip
-        asset_content_type: application/zip
+        files: ./mediakit-lite.zip
