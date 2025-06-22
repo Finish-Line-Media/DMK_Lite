@@ -2,6 +2,11 @@
 
 All notable changes to the MediaKit Lite theme will be documented in this file.
 
+## [1.3.19] - 2025-06-22
+
+### Changed
+- Updated theme description to emphasize personal leverage and tailored design services
+
 ## [1.3.18] - 2025-06-22
 
 ### Changed

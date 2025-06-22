@@ -3,31 +3,27 @@ Contributors: finishlinemedia
 Requires at least: 5.8
 Tested up to: 6.5
 Requires PHP: 7.4
-Stable tag: 1.3.18
+Stable tag: 1.3.19
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-A streamlined WordPress theme for creating professional digital media kits.
+MediaKit Lite is your digital media kit solution for building personal leverage.
 
 == Description ==
 
-MediaKit Lite is the perfect WordPress theme for speakers, authors, podcasters, and entrepreneurs who need a professional online media kit. Showcase your work, books, speaking topics, and media appearances with style.
+MediaKit Lite is your digital media kit solution for building personal leverage. Perfect for showcasing your expertise, publications, speaking topics, and media appearances. Set up everything through the simple WordPress Customizer - no coding required. Need a custom-built media kit? Ask about our tailored design services.
 
 = Key Features =
 
 * Professional hero section with auto-contrast text
-* Books showcase with cover images
-* Speaking topics section
-* Podcast/show promotion area
+* About/Bio section for your story
+* Speaking topics showcase
 * Companies/affiliations display
-* Media questions for journalists
-* Investor information section
-* Media appearances showcase
 * Customizable section ordering (drag & drop)
 * Auto-contrast color system for accessibility
 * Mobile-responsive design
-* Social media integration
-* Contact/booking information
+* Clean, focused design
+* Easy setup through WordPress Customizer
 
 = Perfect For =
 
