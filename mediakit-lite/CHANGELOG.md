@@ -4,8 +4,13 @@ All notable changes to the MediaKit Lite theme will be documented in this file.
 
 ## [1.3.12] - 2025-06-22
 
-### Changed
-- Enhance color picker functionality and fix section order disabled state
+### Fixed
+- Section order disabled state detection (correct setting names)
+- Color picker initialization with proper script enqueuing
+
+### Enhanced
+- Color picker functionality with better browser support
+- Navigation background color instructions
 
 ## [1.3.11] - 2025-06-22
 
