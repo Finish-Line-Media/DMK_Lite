@@ -2,6 +2,11 @@
 
 All notable changes to the MediaKit Lite theme will be documented in this file.
 
+## [1.3.9] - 2025-06-22
+
+### Changed
+- Fix Section Order drag-drop, speaker topics arrows, and social links layout
+
 ## [1.3.8] - 2025-06-22
 
 ### Changed
