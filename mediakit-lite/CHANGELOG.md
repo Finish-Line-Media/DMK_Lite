@@ -2,6 +2,11 @@
 
 All notable changes to the MediaKit Lite theme will be documented in this file.
 
+## [1.3.17] - 2025-06-22
+
+### Changed
+- Removed all sections except Hero, About, Companies, and Speaker Topics. Major architectural cleanup to simplify theme.
+
 ## [1.3.16] - 2025-06-22
 
 ### Changed
