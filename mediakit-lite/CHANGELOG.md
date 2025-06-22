@@ -2,6 +2,11 @@
 
 All notable changes to the MediaKit Lite theme will be documented in this file.
 
+## [1.3.14] - 2025-06-22
+
+### Changed
+- Added card styling with darker backgrounds to all content sections for better visual hierarchy
+
 ## [1.3.13] - 2025-06-22
 
 ### Changed
