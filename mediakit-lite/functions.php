@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Define Constants
  */
-define( 'MKP_THEME_VERSION', '1.3.17' );
+define( 'MKP_THEME_VERSION', '1.3.18' );
 define( 'MKP_THEME_DIR', get_template_directory() );
 define( 'MKP_THEME_URI', get_template_directory_uri() );
 
@@ -67,45 +67,52 @@ add_action( 'after_setup_theme', 'mkp_theme_setup' );
  * Register widget areas
  */
 function mkp_widgets_init() {
-    register_sidebar( array(
-        'name'          => esc_html__( 'Sidebar', 'mediakit-lite' ),
-        'id'            => 'sidebar-1',
-        'description'   => esc_html__( 'Add widgets here.', 'mediakit-lite' ),
-        'before_widget' => '<section id="%1$s" class="widget %2$s">',
-        'after_widget'  => '</section>',
-        'before_title'  => '<h2 class="widget-title">',
-        'after_title'   => '</h2>',
-    ) );
+    // Ensure we have valid widget area data
+    $widget_areas = array(
+        array(
+            'name'          => esc_html__( 'Sidebar', 'mediakit-lite' ),
+            'id'            => 'sidebar-1',
+            'description'   => esc_html__( 'Add widgets here.', 'mediakit-lite' ),
+            'before_widget' => '<section id="%1$s" class="widget %2$s">',
+            'after_widget'  => '</section>',
+            'before_title'  => '<h2 class="widget-title">',
+            'after_title'   => '</h2>',
+        ),
+        array(
+            'name'          => esc_html__( 'Footer 1', 'mediakit-lite' ),
+            'id'            => 'footer-1',
+            'description'   => esc_html__( 'Footer widget area 1', 'mediakit-lite' ),
+            'before_widget' => '<section id="%1$s" class="widget %2$s">',
+            'after_widget'  => '</section>',
+            'before_title'  => '<h3 class="widget-title">',
+            'after_title'   => '</h3>',
+        ),
+        array(
+            'name'          => esc_html__( 'Footer 2', 'mediakit-lite' ),
+            'id'            => 'footer-2',
+            'description'   => esc_html__( 'Footer widget area 2', 'mediakit-lite' ),
+            'before_widget' => '<section id="%1$s" class="widget %2$s">',
+            'after_widget'  => '</section>',
+            'before_title'  => '<h3 class="widget-title">',
+            'after_title'   => '</h3>',
+        ),
+        array(
+            'name'          => esc_html__( 'Footer 3', 'mediakit-lite' ),
+            'id'            => 'footer-3',
+            'description'   => esc_html__( 'Footer widget area 3', 'mediakit-lite' ),
+            'before_widget' => '<section id="%1$s" class="widget %2$s">',
+            'after_widget'  => '</section>',
+            'before_title'  => '<h3 class="widget-title">',
+            'after_title'   => '</h3>',
+        ),
+    );
     
-    register_sidebar( array(
-        'name'          => esc_html__( 'Footer 1', 'mediakit-lite' ),
-        'id'            => 'footer-1',
-        'description'   => esc_html__( 'Footer widget area 1', 'mediakit-lite' ),
-        'before_widget' => '<section id="%1$s" class="widget %2$s">',
-        'after_widget'  => '</section>',
-        'before_title'  => '<h3 class="widget-title">',
-        'after_title'   => '</h3>',
-    ) );
-    
-    register_sidebar( array(
-        'name'          => esc_html__( 'Footer 2', 'mediakit-lite' ),
-        'id'            => 'footer-2',
-        'description'   => esc_html__( 'Footer widget area 2', 'mediakit-lite' ),
-        'before_widget' => '<section id="%1$s" class="widget %2$s">',
-        'after_widget'  => '</section>',
-        'before_title'  => '<h3 class="widget-title">',
-        'after_title'   => '</h3>',
-    ) );
-    
-    register_sidebar( array(
-        'name'          => esc_html__( 'Footer 3', 'mediakit-lite' ),
-        'id'            => 'footer-3',
-        'description'   => esc_html__( 'Footer widget area 3', 'mediakit-lite' ),
-        'before_widget' => '<section id="%1$s" class="widget %2$s">',
-        'after_widget'  => '</section>',
-        'before_title'  => '<h3 class="widget-title">',
-        'after_title'   => '</h3>',
-    ) );
+    // Register each widget area with proper error checking
+    foreach ( $widget_areas as $widget_area ) {
+        if ( ! empty( $widget_area['id'] ) && ! empty( $widget_area['name'] ) ) {
+            register_sidebar( $widget_area );
+        }
+    }
 }
 add_action( 'widgets_init', 'mkp_widgets_init' );
 
@@ -208,6 +215,7 @@ $required_files = array(
     '/inc/bio-defaults.php',
     '/inc/customizer-helpers.php',
     '/inc/customizer-social-control.php',
+    '/inc/customizer-widget-fix.php',
     '/inc/customizer.php',
     '/inc/customizer-dynamic-styles.php',
     '/inc/template-tags.php',

@@ -2,6 +2,11 @@
 
 All notable changes to the MediaKit Lite theme will be documented in this file.
 
+## [1.3.18] - 2025-06-22
+
+### Changed
+- Fixed PHP warning about widget title property in Customizer
+
 ## [1.3.17] - 2025-06-22
 
 ### Changed
