@@ -99,8 +99,8 @@ function mkp_generate_dynamic_styles() {
             color: <?php echo esc_attr( mkp_get_contrast_color_rgba( $speaker_bg, 'heading' ) ); ?>;
         }
         
-        .mkp-speaker-section .mkp-speaker__topic-number {
-            color: <?php echo esc_attr( mkp_get_contrast_color_rgba( $speaker_bg, 'muted' ) ); ?>;
+        .mkp-speaker-section .mkp-speaker__topic-arrow {
+            color: <?php echo esc_attr( mkp_get_contrast_color_rgba( $speaker_bg, 'heading' ) ); ?>;
         }
         
         /* List styles for speaker topics */

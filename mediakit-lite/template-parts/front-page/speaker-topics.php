@@ -40,16 +40,12 @@ if ( empty( $topics ) ) {
             </<?php echo $tag; ?>>
         <?php else : // cards style ?>
             <div class="mkp-speaker__topics">
-                <?php 
-                $index = 1;
-                foreach ( $topics as $topic ) : ?>
+                <?php foreach ( $topics as $topic ) : ?>
                     <div class="mkp-speaker__topic">
-                        <span class="mkp-speaker__topic-number"><?php echo esc_html( $index ); ?></span>
+                        <span class="mkp-speaker__topic-arrow">➤</span>
                         <h3 class="mkp-speaker__topic-title"><?php echo esc_html( $topic ); ?></h3>
                     </div>
-                <?php 
-                $index++;
-                endforeach; ?>
+                <?php endforeach; ?>
             </div>
         <?php endif; ?>
     </div>
