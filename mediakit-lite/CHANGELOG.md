@@ -2,6 +2,11 @@
 
 All notable changes to the MediaKit Lite theme will be documented in this file.
 
+## [1.7.4] - 2025-06-22
+
+### Changed
+- Fix Contact section visibility in customizer (0->1 transition)
+
 ## [1.7.3] - 2025-06-22
 
 ### Changed
