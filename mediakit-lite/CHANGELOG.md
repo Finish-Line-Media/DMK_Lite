@@ -2,6 +2,11 @@
 
 All notable changes to the MediaKit Lite theme will be documented in this file.
 
+## [1.4.4] - 2025-06-22
+
+### Changed
+- Code cleanup and verification - fixed hero button default link
+
 ## [1.4.3] - 2025-06-22
 
 ### Changed
