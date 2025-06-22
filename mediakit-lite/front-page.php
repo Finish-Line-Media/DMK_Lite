@@ -14,10 +14,8 @@ get_header();
     // Hero Section
     get_template_part( 'template-parts/front-page/hero' );
     
-    // About/Bio Section (Always shown if content exists)
-    if ( get_theme_mod( 'mkp_bio_content' ) ) {
-        get_template_part( 'template-parts/front-page/bio' );
-    }
+    // About/Bio Section (Always shown)
+    get_template_part( 'template-parts/front-page/bio' );
     
     // Books Section
     $books_count = get_theme_mod( 'mkp_books_count', 3 );

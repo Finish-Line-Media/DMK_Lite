@@ -2,6 +2,19 @@
 
 All notable changes to the MediaKit Lite theme will be documented in this file.
 
+## [1.2.5] - 2025-06-22
+
+### Added
+- Default Lorem Ipsum content for Bio section when empty
+- Bio section now always displays (no longer hides when empty)
+
+### Fixed
+- Bio content selector in customizer preview (was using wrong class name)
+- Bio section now properly shows Lorem Ipsum in live preview when content is cleared
+
+### Improved
+- Bio section is now permanent like Hero section, ensuring consistent page structure
+
 ## [1.2.4] - 2025-06-22
 
 ### Changed

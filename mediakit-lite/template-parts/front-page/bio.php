@@ -7,7 +7,7 @@
 
 $section_class = 'mkp-bio-section';
 $section_color = get_theme_mod( 'mkp_bio_background_color', '#ffffff' );
-$bio_content = get_theme_mod( 'mkp_bio_content' );
+$bio_content = mkp_get_bio_content(); // This will return default Lorem Ipsum if empty
 ?>
 
 <section id="about" class="<?php echo esc_attr( $section_class ); ?>" style="background-color: <?php echo esc_attr( $section_color ); ?>">
