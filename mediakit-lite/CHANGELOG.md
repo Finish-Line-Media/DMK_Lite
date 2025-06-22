@@ -2,6 +2,11 @@
 
 All notable changes to the MediaKit Lite theme will be documented in this file.
 
+## [1.3.10] - 2025-06-22
+
+### Changed
+- Fix GitHub Actions workflow version detection
+
 ## [1.3.9] - 2025-06-22
 
 ### Changed
