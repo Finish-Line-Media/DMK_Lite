@@ -1,8 +1,8 @@
 {
-  "version": "1.7.6",
-  "description": "Fix Contact section dynamic preview functionality",
-  "download_url": "https://github.com/Finish-Line-Media/DMK_Lite/releases/download/v1.7.6/mediakit-lite.zip",
-  "changelog_url": "https://github.com/Finish-Line-Media/DMK_Lite/releases/tag/v1.7.6",
+  "version": "1.7.7",
+  "description": "Fix Contact section dynamic preview to match Investor section pattern",
+  "download_url": "https://github.com/Finish-Line-Media/DMK_Lite/releases/download/v1.7.7/mediakit-lite.zip",
+  "changelog_url": "https://github.com/Finish-Line-Media/DMK_Lite/releases/tag/v1.7.7",
   "release_date": "2025-06-22",
   "min_wp_version": "5.8",
   "tested_up_to": "6.5",

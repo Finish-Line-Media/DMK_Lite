@@ -2,6 +2,11 @@
 
 All notable changes to the MediaKit Lite theme will be documented in this file.
 
+## [1.7.7] - 2025-06-22
+
+### Changed
+- Fix Contact section dynamic preview to match Investor section pattern
+
 ## [1.7.6] - 2025-06-22
 
 ### Changed
