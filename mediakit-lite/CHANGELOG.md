@@ -483,4 +483,4 @@ All notable changes to the MediaKit Lite theme will be documented in this file.
 This theme follows [Semantic Versioning](https://semver.org/):
 - MAJOR version (1.x.x) - Incompatible changes
 - MINOR version (x.1.x) - New functionality, backwards compatible
-- PATCH version (x.x.1) - Bug fixes, backwards compatible
+- PATCH version (x.x.1) - Bug fixes, backwards compatible 
