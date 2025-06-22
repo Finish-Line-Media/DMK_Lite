@@ -2,6 +2,12 @@
 
 All notable changes to the MediaKit Lite theme will be documented in this file.
 
+## [1.3.8] - 2025-06-22
+
+### Changed
+- Move promotional content to less prominent position in admin area
+- Improve GitHub Actions workflow version detection
+
 ## [1.3.7] - 2025-06-22
 
 ### Changed

@@ -1,0 +1,80 @@
+name: Create Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Get version from tag
+      id: get_version
+      run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
+    
+    - name: Create theme ZIP
+      run: |
+        # Create a clean copy
+        cp -r mediakit-lite mediakit-lite-temp
+        cd mediakit-lite-temp
+        
+        # Remove development files
+        rm -rf .git .gitignore .github .DS_Store
+        rm -f REFACTORING-SUMMARY.md create-release.sh
+        
+        # Go back and create ZIP
+        cd ..
+        zip -r mediakit-lite.zip mediakit-lite-temp -x "*.DS_Store" "*.git*"
+    
+    - name: Read changelog for version
+      id: changelog
+      run: |
+        # Extract the changelog section for this version
+        VERSION=${{ steps.get_version.outputs.VERSION }}
+        CHANGELOG=$(awk "/## \[$VERSION\]/{flag=1; next} /## \[/{flag=0} flag" mediakit-lite/CHANGELOG.md)
+        echo "CHANGELOG<<EOF" >> $GITHUB_OUTPUT
+        echo "$CHANGELOG" >> $GITHUB_OUTPUT
+        echo "EOF" >> $GITHUB_OUTPUT
+    
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ github.ref }}
+        release_name: MediaKit Lite v${{ steps.get_version.outputs.VERSION }}
+        body: |
+          # MediaKit Lite v${{ steps.get_version.outputs.VERSION }}
+          
+          ## Installation
+          1. Download `mediakit-lite.zip` from the assets below
+          2. In WordPress admin, go to Appearance > Themes > Add New > Upload Theme
+          3. Choose the downloaded ZIP file and click Install Now
+          4. Activate the theme
+          
+          ## What's New
+          ${{ steps.changelog.outputs.CHANGELOG }}
+          
+          ## Requirements
+          - WordPress 5.8 or higher
+          - PHP 7.4 or higher
+          
+          ## Support
+          Report issues at: https://github.com/Finish-Line-Media/DMK_Lite/issues
+        draft: false
+        prerelease: false
+    
+    - name: Upload Release Asset
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./mediakit-lite.zip
+        asset_name: mediakit-lite.zip
+        asset_content_type: application/zip
