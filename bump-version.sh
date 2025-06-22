@@ -134,9 +134,7 @@ git add mediakit-lite/style.css mediakit-lite/functions.php mediakit-lite/versio
 
 git commit -m "Bump version to $NEW_VERSION
 
-- $CHANGELOG_MESSAGE
-
-[skip ci]"
+- $CHANGELOG_MESSAGE"
 
 echo -e "${GREEN}✓${NC} Changes committed"
 
