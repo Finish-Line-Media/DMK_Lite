@@ -58,8 +58,7 @@ function mkp_has_speaker_topics() {
  * @return bool
  */
 function mkp_has_companies() {
-    $corps_count = get_theme_mod( 'mkp_corporations_count', 2 );
-    for ( $i = 1; $i <= $corps_count; $i++ ) {
+    for ( $i = 1; $i <= 4; $i++ ) {
         if ( get_theme_mod( 'mkp_corp_' . $i . '_name' ) ) {
             return true;
         }

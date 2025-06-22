@@ -7,15 +7,26 @@
 
 $section_class = 'mkp-corporations-section';
 $section_color = get_theme_mod( 'mkp_corporations_background_color', '#ffffff' );
-$corps_count = get_theme_mod( 'mkp_corporations_count', 2 );
+
+// Count actual companies with names
+$actual_company_count = 0;
+for ( $i = 1; $i <= 4; $i++ ) {
+    $name = get_theme_mod( 'mkp_corp_' . $i . '_name' );
+    if ( $name ) {
+        $actual_company_count++;
+    }
+}
+
+// Determine section title based on count
+$section_title = ( $actual_company_count === 1 ) ? __( 'Company', 'mediakit-lite' ) : __( 'Companies', 'mediakit-lite' );
 ?>
 
 <section id="corporations" class="<?php echo esc_attr( $section_class ); ?>" style="background-color: <?php echo esc_attr( $section_color ); ?>">
     <div class="mkp-container">
-        <h2 class="mkp-section__title"><?php esc_html_e( 'Companies', 'mediakit-lite' ); ?></h2>
+        <h2 class="mkp-section__title"><?php echo esc_html( $section_title ); ?></h2>
         
         <div class="mkp-corporations__grid">
-            <?php for ( $i = 1; $i <= $corps_count; $i++ ) : 
+            <?php for ( $i = 1; $i <= 4; $i++ ) : 
                 $name = get_theme_mod( 'mkp_corp_' . $i . '_name' );
                 $logo = get_theme_mod( 'mkp_corp_' . $i . '_logo' );
                 $bio = get_theme_mod( 'mkp_corp_' . $i . '_bio' );

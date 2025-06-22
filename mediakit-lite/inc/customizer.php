@@ -394,24 +394,6 @@ function mkp_customize_register( $wp_customize ) {
         'priority'    => 2,
     ) ) );
     
-    // Number of corporations
-    $wp_customize->add_setting( 'mkp_corporations_count', array(
-        'default'           => 2,
-        'sanitize_callback' => 'absint',
-    ) );
-    
-    $wp_customize->add_control( 'mkp_corporations_count', array(
-        'label'       => __( 'Number of Companies', 'mediakit-lite' ),
-        'description' => __( 'How many companies to display? (1-4)', 'mediakit-lite' ),
-        'section'     => 'mkp_corporations_section',
-        'type'        => 'number',
-        'input_attrs' => array(
-            'min'  => 1,
-            'max'  => 4,
-            'step' => 1,
-        ),
-        'priority'    => 3,
-    ) );
     
     // Corporation entries
     for ( $i = 1; $i <= 4; $i++ ) {

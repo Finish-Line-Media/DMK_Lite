@@ -291,9 +291,8 @@ function mkp_get_front_page_nav_items() {
     }
     
     // Companies Section
-    $corps_count = get_theme_mod( 'mkp_corporations_count', 2 );
     $has_corps = false;
-    for ( $i = 1; $i <= $corps_count; $i++ ) {
+    for ( $i = 1; $i <= 4; $i++ ) {
         if ( get_theme_mod( 'mkp_corp_' . $i . '_name' ) ) {
             $has_corps = true;
             break;
