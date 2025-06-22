@@ -1,0 +1,507 @@
+/**
+ * Live preview customizer updates
+ *
+ * @package MediaKit_Pro
+ */
+
+( function( $ ) {
+    // Site title and description
+    wp.customize( 'blogname', function( value ) {
+        value.bind( function( to ) {
+            $( '.site-title a' ).text( to );
+        } );
+    } );
+    
+    wp.customize( 'blogdescription', function( value ) {
+        value.bind( function( to ) {
+            $( '.site-description' ).text( to );
+        } );
+    } );
+    
+    // Header text color
+    wp.customize( 'header_textcolor', function( value ) {
+        value.bind( function( to ) {
+            if ( 'blank' === to ) {
+                $( '.site-title, .site-description' ).css( {
+                    'clip': 'rect(1px, 1px, 1px, 1px)',
+                    'position': 'absolute'
+                } );
+            } else {
+                $( '.site-title, .site-description' ).css( {
+                    'clip': 'auto',
+                    'position': 'relative'
+                } );
+                $( '.site-title a, .site-description' ).css( {
+                    'color': to
+                } );
+            }
+        } );
+    } );
+    
+    // Background overlay
+    wp.customize( 'mkp_background_overlay', function( value ) {
+        value.bind( function( to ) {
+            // Check if overlay element exists, create if not
+            if ( ! $( '.mkp-background-overlay' ).length ) {
+                $( 'body' ).prepend( '<div class="mkp-background-overlay"></div>' );
+                $( '.mkp-background-overlay' ).css({
+                    'position': 'fixed',
+                    'top': '0',
+                    'left': '0',
+                    'width': '100%',
+                    'height': '100%',
+                    'z-index': '-1',
+                    'pointer-events': 'none'
+                });
+            }
+            $( '.mkp-background-overlay' ).css( 'background-color', to );
+        } );
+    } );
+    
+    // Brand Colors
+    wp.customize( 'mkp_primary_color', function( value ) {
+        value.bind( function( to ) {
+            document.documentElement.style.setProperty( '--mkp-primary', to );
+            
+            // Update specific elements that use primary color
+            $( '.mkp-btn--primary' ).css( 'background-color', to );
+            $( '.mkp-footer' ).css( 'background-color', to );
+            $( '.mkp-nav__link:hover' ).css( 'color', to );
+        } );
+    } );
+    
+    wp.customize( 'mkp_secondary_color', function( value ) {
+        value.bind( function( to ) {
+            document.documentElement.style.setProperty( '--mkp-secondary', to );
+            
+            // Update specific elements that use secondary color
+            $( 'a' ).css( 'color', to );
+            $( '.mkp-btn--secondary' ).css( {
+                'color': to,
+                'border-color': to
+            } );
+            $( 'input:focus, textarea:focus, select:focus' ).css( 'border-color', to );
+        } );
+    } );
+    
+    wp.customize( 'mkp_accent_color', function( value ) {
+        value.bind( function( to ) {
+            document.documentElement.style.setProperty( '--mkp-accent', to );
+            
+            // Update specific elements that use accent color
+            $( '.required' ).css( 'color', to );
+            $( '.mkp-form-control.error' ).css( 'border-color', to );
+        } );
+    } );
+    
+    // Typography - Font mapping
+    const fontMap = {
+        'system': '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif',
+        'inter': '"Inter", sans-serif',
+        'roboto': '"Roboto", sans-serif',
+        'opensans': '"Open Sans", sans-serif',
+        'lato': '"Lato", sans-serif',
+        'montserrat': '"Montserrat", sans-serif',
+        'playfair': '"Playfair Display", serif',
+        'merriweather': '"Merriweather", serif',
+        'georgia': 'Georgia, "Times New Roman", serif',
+        'poppins': '"Poppins", sans-serif',
+        'raleway': '"Raleway", sans-serif'
+    };
+    
+    // Primary Font
+    wp.customize( 'mkp_primary_font', function( value ) {
+        value.bind( function( to ) {
+            const fontFamily = fontMap[to] || fontMap['system'];
+            document.documentElement.style.setProperty( '--mkp-font-primary', fontFamily );
+            $( 'body' ).css( 'font-family', fontFamily );
+            
+            // Load Google Font if needed
+            if ( to !== 'system' && to !== 'georgia' ) {
+                loadGoogleFont( to );
+            }
+        } );
+    } );
+    
+    // Heading Font
+    wp.customize( 'mkp_heading_font', function( value ) {
+        value.bind( function( to ) {
+            const fontFamily = fontMap[to] || fontMap['playfair'];
+            document.documentElement.style.setProperty( '--mkp-font-heading', fontFamily );
+            $( 'h1, h2, h3, h4, h5, h6' ).css( 'font-family', fontFamily );
+            
+            // Load Google Font if needed
+            if ( to !== 'system' && to !== 'georgia' ) {
+                loadGoogleFont( to );
+            }
+        } );
+    } );
+    
+    // Section Colors
+    wp.customize( 'mkp_section_color_1', function( value ) {
+        value.bind( function( to ) {
+            document.documentElement.style.setProperty( '--mkp-section-color-1', to );
+            $( '.mkp-bio-section' ).css( 'background-color', to );
+            $( '.mkp-speaker-section' ).css( 'background-color', to );
+            $( '.mkp-corporations-section' ).css( 'background-color', to );
+        } );
+    } );
+    
+    wp.customize( 'mkp_section_color_2', function( value ) {
+        value.bind( function( to ) {
+            document.documentElement.style.setProperty( '--mkp-section-color-2', to );
+            $( '.mkp-books-section' ).css( 'background-color', to );
+            $( '.mkp-podcast-section' ).css( 'background-color', to );
+            $( '.mkp-investor-section' ).css( 'background-color', to );
+            $( '.mkp-contact-section' ).css( 'background-color', to );
+        } );
+    } );
+    
+    wp.customize( 'mkp_section_color_3', function( value ) {
+        value.bind( function( to ) {
+            document.documentElement.style.setProperty( '--mkp-section-color-3', to );
+            $( '.mkp-media-questions-section' ).css( 'background-color', to );
+            $( '.mkp-in-media-section' ).css( 'background-color', to );
+        } );
+    } );
+    
+    // Hero Section - Updated Structure
+    wp.customize( 'mkp_hero_name', function( value ) {
+        value.bind( function( to ) {
+            $( '.mkp-hero__name' ).text( to );
+        } );
+    } );
+    
+    // Profile Photo and Family Crest live updates would require complex DOM manipulation
+    // These will require a page refresh to see changes
+    wp.customize( 'mkp_hero_profile_photo', function( value ) {
+        value.bind( function( to ) {
+            // Requires refresh to properly position images
+            wp.customize.previewer.refresh();
+        } );
+    } );
+    
+    wp.customize( 'mkp_hero_family_crest', function( value ) {
+        value.bind( function( to ) {
+            // Requires refresh to properly position images
+            wp.customize.previewer.refresh();
+        } );
+    } );
+    
+    wp.customize( 'mkp_hero_profile_photo_position', function( value ) {
+        value.bind( function( to ) {
+            // Requires refresh to properly position images
+            wp.customize.previewer.refresh();
+        } );
+    } );
+    
+    wp.customize( 'mkp_hero_family_crest_position', function( value ) {
+        value.bind( function( to ) {
+            // Requires refresh to properly position images
+            wp.customize.previewer.refresh();
+        } );
+    } );
+    
+    // Hero Tags (1-5)
+    for ( let i = 1; i <= 5; i++ ) {
+        ( function( tagNum ) {
+            wp.customize( 'mkp_hero_tag_' + tagNum, function( value ) {
+                value.bind( function( to ) {
+                    const $tag = $( '.mkp-hero__tag--' + tagNum );
+                    if ( to ) {
+                        if ( $tag.length ) {
+                            $tag.text( to ).show();
+                        } else {
+                            $( '.mkp-hero__tags' ).append( '<span class="mkp-hero__tag mkp-hero__tag--' + tagNum + '">' + to + '</span>' );
+                        }
+                    } else {
+                        $tag.hide();
+                    }
+                } );
+            } );
+        } )( i );
+    }
+    
+    // Bio Section
+    wp.customize( 'mkp_bio_content', function( value ) {
+        value.bind( function( to ) {
+            if ( to ) {
+                $( '.mkp-bio__content' ).html( wpautop( to ) );
+                $( '.mkp-bio-section' ).show();
+            } else {
+                $( '.mkp-bio-section' ).hide();
+            }
+        } );
+    } );
+    
+    // Books Section
+    for ( let i = 1; i <= 6; i++ ) {
+        ( function( bookNum ) {
+            wp.customize( 'mkp_book_' + bookNum + '_title', function( value ) {
+                value.bind( function( to ) {
+                    $( '.mkp-book--' + bookNum + ' .mkp-book__title' ).text( to );
+                    if ( to ) {
+                        $( '.mkp-book--' + bookNum ).show();
+                    } else {
+                        $( '.mkp-book--' + bookNum ).hide();
+                    }
+                } );
+            } );
+            
+            wp.customize( 'mkp_book_' + bookNum + '_cover', function( value ) {
+                value.bind( function( to ) {
+                    if ( to ) {
+                        $( '.mkp-book--' + bookNum + ' .mkp-book__cover img' ).attr( 'src', to );
+                    }
+                } );
+            } );
+            
+            wp.customize( 'mkp_book_' + bookNum + '_description', function( value ) {
+                value.bind( function( to ) {
+                    $( '.mkp-book--' + bookNum + ' .mkp-book__description' ).text( to );
+                } );
+            } );
+        } )( i );
+    }
+    
+    // Speaker Topics
+    for ( let i = 1; i <= 5; i++ ) {
+        ( function( topicNum ) {
+            wp.customize( 'mkp_speaker_topic_' + topicNum, function( value ) {
+                value.bind( function( to ) {
+                    const $topic = $( '.mkp-speaker__topic--' + topicNum );
+                    if ( to ) {
+                        if ( $topic.length ) {
+                            $topic.text( to ).show();
+                        } else {
+                            $( '.mkp-speaker__topics' ).append( '<li class="mkp-speaker__topic mkp-speaker__topic--' + topicNum + '">' + to + '</li>' );
+                        }
+                    } else {
+                        $topic.hide();
+                    }
+                } );
+            } );
+        } )( i );
+    }
+    
+    // Podcast Section
+    wp.customize( 'mkp_podcast_name', function( value ) {
+        value.bind( function( to ) {
+            $( '.mkp-podcast__name' ).text( to );
+        } );
+    } );
+    
+    wp.customize( 'mkp_podcast_logo', function( value ) {
+        value.bind( function( to ) {
+            if ( to ) {
+                $( '.mkp-podcast__logo img' ).attr( 'src', to );
+                $( '.mkp-podcast__logo' ).show();
+            } else {
+                $( '.mkp-podcast__logo' ).hide();
+            }
+        } );
+    } );
+    
+    wp.customize( 'mkp_podcast_synopsis', function( value ) {
+        value.bind( function( to ) {
+            $( '.mkp-podcast__synopsis' ).html( wpautop( to ) );
+        } );
+    } );
+    
+    // Media Questions
+    for ( let i = 1; i <= 12; i++ ) {
+        ( function( questionNum ) {
+            wp.customize( 'mkp_media_question_' + questionNum, function( value ) {
+                value.bind( function( to ) {
+                    const $question = $( '.mkp-media-question--' + questionNum );
+                    if ( to ) {
+                        if ( $question.length ) {
+                            $question.text( to ).show();
+                        } else {
+                            $( '.mkp-media-questions__list' ).append( '<li class="mkp-media-question mkp-media-question--' + questionNum + '">' + to + '</li>' );
+                        }
+                    } else {
+                        $question.hide();
+                    }
+                } );
+            } );
+        } )( i );
+    }
+    
+    // Investor Section
+    wp.customize( 'mkp_investment_people', function( value ) {
+        value.bind( function( to ) {
+            if ( to ) {
+                $( '.mkp-investor__lane--people .mkp-investor__lane-content' ).html( wpautop( to ) );
+                $( '.mkp-investor__lane--people' ).show();
+            } else {
+                $( '.mkp-investor__lane--people' ).hide();
+            }
+        } );
+    } );
+    
+    wp.customize( 'mkp_investment_products', function( value ) {
+        value.bind( function( to ) {
+            if ( to ) {
+                $( '.mkp-investor__lane--products .mkp-investor__lane-content' ).html( wpautop( to ) );
+                $( '.mkp-investor__lane--products' ).show();
+            } else {
+                $( '.mkp-investor__lane--products' ).hide();
+            }
+        } );
+    } );
+    
+    wp.customize( 'mkp_investment_markets', function( value ) {
+        value.bind( function( to ) {
+            if ( to ) {
+                $( '.mkp-investor__lane--markets .mkp-investor__lane-content' ).html( wpautop( to ) );
+                $( '.mkp-investor__lane--markets' ).show();
+            } else {
+                $( '.mkp-investor__lane--markets' ).hide();
+            }
+        } );
+    } );
+    
+    // Social Media Links
+    wp.customize( 'mkp_social_facebook', function( value ) {
+        value.bind( function( to ) {
+            updateSocialLink( 'facebook', to );
+        } );
+    } );
+    
+    wp.customize( 'mkp_social_twitter', function( value ) {
+        value.bind( function( to ) {
+            updateSocialLink( 'twitter', to );
+        } );
+    } );
+    
+    wp.customize( 'mkp_social_linkedin', function( value ) {
+        value.bind( function( to ) {
+            updateSocialLink( 'linkedin', to );
+        } );
+    } );
+    
+    wp.customize( 'mkp_social_instagram', function( value ) {
+        value.bind( function( to ) {
+            updateSocialLink( 'instagram', to );
+        } );
+    } );
+    
+    wp.customize( 'mkp_social_youtube', function( value ) {
+        value.bind( function( to ) {
+            updateSocialLink( 'youtube', to );
+        } );
+    } );
+    
+    wp.customize( 'mkp_social_tiktok', function( value ) {
+        value.bind( function( to ) {
+            updateSocialLink( 'tiktok', to );
+        } );
+    } );
+    
+    // Social Icon Style
+    wp.customize( 'mkp_social_icon_style', function( value ) {
+        value.bind( function( to ) {
+            // Remove all style classes
+            $( '.mkp-social__link' ).removeClass( 'mkp-social__link--circle mkp-social__link--square mkp-social__link--rounded mkp-social__link--minimal' );
+            
+            // Add new style class
+            $( '.mkp-social__link' ).addClass( 'mkp-social__link--' + to );
+            
+            // Update CSS based on style
+            switch( to ) {
+                case 'circle':
+                    $( '.mkp-social__link' ).css({
+                        'border-radius': '50%',
+                        'background-color': 'rgba(255,255,255,0.1)',
+                        'border': 'none'
+                    });
+                    break;
+                case 'square':
+                    $( '.mkp-social__link' ).css({
+                        'border-radius': '0',
+                        'background-color': 'rgba(255,255,255,0.1)',
+                        'border': 'none'
+                    });
+                    break;
+                case 'rounded':
+                    $( '.mkp-social__link' ).css({
+                        'border-radius': '8px',
+                        'background-color': 'rgba(255,255,255,0.1)',
+                        'border': 'none'
+                    });
+                    break;
+                case 'minimal':
+                    $( '.mkp-social__link' ).css({
+                        'border-radius': '0',
+                        'background-color': 'transparent',
+                        'border': '1px solid currentColor'
+                    });
+                    break;
+            }
+        } );
+    } );
+    
+    // Contact Emails
+    wp.customize( 'mkp_contact_email_primary', function( value ) {
+        value.bind( function( to ) {
+            $( '.mkp-contact-email-primary' ).attr( 'href', 'mailto:' + to ).text( to );
+        } );
+    } );
+    
+    // Helper function to load Google Fonts
+    function loadGoogleFont( fontKey ) {
+        const fontNames = {
+            'inter': 'Inter:wght@300;400;500;600;700',
+            'roboto': 'Roboto:wght@300;400;500;700',
+            'opensans': 'Open+Sans:wght@300;400;600;700',
+            'lato': 'Lato:wght@300;400;700',
+            'montserrat': 'Montserrat:wght@300;400;500;600;700',
+            'playfair': 'Playfair+Display:wght@400;700',
+            'merriweather': 'Merriweather:wght@300;400;700',
+            'poppins': 'Poppins:wght@300;400;500;600;700',
+            'raleway': 'Raleway:wght@300;400;500;600;700'
+        };
+        
+        if ( fontNames[fontKey] ) {
+            const fontLink = 'https://fonts.googleapis.com/css2?family=' + fontNames[fontKey] + '&display=swap';
+            
+            // Remove existing font link if any
+            $( '#mkp-google-font-' + fontKey ).remove();
+            
+            // Add new font link
+            $( '<link>' )
+                .attr( 'id', 'mkp-google-font-' + fontKey )
+                .attr( 'rel', 'stylesheet' )
+                .attr( 'href', fontLink )
+                .appendTo( 'head' );
+        }
+    }
+    
+    // Helper function to update social links
+    function updateSocialLink( platform, url ) {
+        const $link = $( '.mkp-social__link--' + platform );
+        if ( url ) {
+            $link.attr( 'href', url ).parent().show();
+        } else {
+            $link.parent().hide();
+        }
+    }
+    
+    // Helper function to convert text to paragraphs (similar to PHP wpautop)
+    function wpautop( text ) {
+        if ( ! text ) return '';
+        
+        // Replace double line breaks with paragraph tags
+        text = '<p>' + text.replace( /\n\n+/g, '</p><p>' ) + '</p>';
+        
+        // Replace single line breaks with <br>
+        text = text.replace( /\n/g, '<br>' );
+        
+        // Remove empty paragraphs
+        text = text.replace( /<p>\s*<\/p>/g, '' );
+        
+        return text;
+    }
+    
+} )( jQuery );

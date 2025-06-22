@@ -1,0 +1,234 @@
+<?php
+/**
+ * Template Name: Download Center
+ * Template Post Type: page
+ * Description: Central location for downloadable media assets
+ *
+ * @package MediaKit_Pro
+ */
+
+get_header();
+?>
+
+<main id="primary" class="mkp-main mkp-main--resources">
+    
+    <?php while ( have_posts() ) : the_post(); ?>
+        
+        <!-- Page Header -->
+        <section class="mkp-page-header mkp-page-header--centered">
+            <div class="mkp-container">
+                <h1 class="mkp-page-title"><?php the_title(); ?></h1>
+                <?php if ( has_excerpt() ) : ?>
+                    <div class="mkp-page-subtitle"><?php the_excerpt(); ?></div>
+                <?php endif; ?>
+            </div>
+        </section>
+        
+        <!-- Page Content -->
+        <?php if ( get_the_content() ) : ?>
+            <section class="mkp-section">
+                <div class="mkp-container">
+                    <div class="mkp-resources-intro">
+                        <?php the_content(); ?>
+                    </div>
+                </div>
+            </section>
+        <?php endif; ?>
+        
+        <!-- Professional Photos -->
+        <?php if ( function_exists( 'get_field' ) && get_field( 'headshots_gallery', 'option' ) ) : ?>
+            <section class="mkp-section mkp-resources-photos">
+                <div class="mkp-container">
+                    <header class="mkp-section__header">
+                        <h2 class="mkp-section__title"><?php esc_html_e( 'Professional Photos', 'mediakit-pro' ); ?></h2>
+                        <p class="mkp-section__subtitle"><?php esc_html_e( 'High-resolution headshots and event photos available for download', 'mediakit-pro' ); ?></p>
+                    </header>
+                    
+                    <?php
+                    $headshots = get_field( 'headshots_gallery', 'option' );
+                    if ( $headshots ) :
+                        ?>
+                        <div class="mkp-photos-grid">
+                            <?php foreach ( $headshots as $photo ) : ?>
+                                <div class="mkp-photo-item">
+                                    <div class="mkp-photo-item__image">
+                                        <img src="<?php echo esc_url( $photo['sizes']['medium'] ); ?>" 
+                                             alt="<?php echo esc_attr( $photo['alt'] ); ?>">
+                                        <div class="mkp-photo-item__overlay">
+                                            <a href="<?php echo esc_url( $photo['url'] ); ?>" 
+                                               class="mkp-btn mkp-btn--white mkp-btn--small" 
+                                               download>
+                                                <?php esc_html_e( 'Download', 'mediakit-pro' ); ?>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <?php if ( $photo['caption'] ) : ?>
+                                        <p class="mkp-photo-item__caption"><?php echo esc_html( $photo['caption'] ); ?></p>
+                                    <?php endif; ?>
+                                </div>
+                            <?php endforeach; ?>
+                        </div>
+                    <?php endif; ?>
+                </div>
+            </section>
+        <?php endif; ?>
+        
+        <!-- Bio Versions -->
+        <?php if ( function_exists( 'get_field' ) ) : ?>
+            <section class="mkp-section mkp-section--alt">
+                <div class="mkp-container">
+                    <header class="mkp-section__header">
+                        <h2 class="mkp-section__title"><?php esc_html_e( 'Professional Bio', 'mediakit-pro' ); ?></h2>
+                        <p class="mkp-section__subtitle"><?php esc_html_e( 'Available in multiple lengths for different purposes', 'mediakit-pro' ); ?></p>
+                    </header>
+                    
+                    <div class="mkp-bio-versions">
+                        <?php
+                        $bio_short = get_field( 'bio_short', 'option' );
+                        $bio_long = get_field( 'bio_long', 'option' );
+                        ?>
+                        
+                        <?php if ( $bio_short ) : ?>
+                            <div class="mkp-bio-version">
+                                <h3><?php esc_html_e( 'Short Bio (50-100 words)', 'mediakit-pro' ); ?></h3>
+                                <div class="mkp-bio-version__content">
+                                    <?php echo wpautop( esc_html( $bio_short ) ); ?>
+                                </div>
+                                <button class="mkp-btn mkp-btn--secondary mkp-btn--small mkp-copy-bio" data-bio="short">
+                                    <?php esc_html_e( 'Copy to Clipboard', 'mediakit-pro' ); ?>
+                                </button>
+                            </div>
+                        <?php endif; ?>
+                        
+                        <?php if ( $bio_long ) : ?>
+                            <div class="mkp-bio-version">
+                                <h3><?php esc_html_e( 'Long Bio (200-500 words)', 'mediakit-pro' ); ?></h3>
+                                <div class="mkp-bio-version__content">
+                                    <?php echo wp_kses_post( $bio_long ); ?>
+                                </div>
+                                <button class="mkp-btn mkp-btn--secondary mkp-btn--small mkp-copy-bio" data-bio="long">
+                                    <?php esc_html_e( 'Copy to Clipboard', 'mediakit-pro' ); ?>
+                                </button>
+                            </div>
+                        <?php endif; ?>
+                    </div>
+                </div>
+            </section>
+        <?php endif; ?>
+        
+        <!-- Interview Resources -->
+        <?php if ( function_exists( 'get_field' ) ) : ?>
+            <section class="mkp-section">
+                <div class="mkp-container">
+                    <header class="mkp-section__header">
+                        <h2 class="mkp-section__title"><?php esc_html_e( 'Interview Resources', 'mediakit-pro' ); ?></h2>
+                    </header>
+                    
+                    <div class="mkp-interview-resources">
+                        <?php
+                        $suggested_questions = get_field( 'suggested_questions', 'option' );
+                        if ( $suggested_questions ) :
+                            ?>
+                            <div class="mkp-resource-block">
+                                <h3><?php esc_html_e( 'Suggested Interview Questions', 'mediakit-pro' ); ?></h3>
+                                <ol class="mkp-questions-list">
+                                    <?php foreach ( $suggested_questions as $question ) : ?>
+                                        <li><?php echo esc_html( $question['question'] ); ?></li>
+                                    <?php endforeach; ?>
+                                </ol>
+                                <button class="mkp-btn mkp-btn--secondary mkp-copy-questions">
+                                    <?php esc_html_e( 'Copy All Questions', 'mediakit-pro' ); ?>
+                                </button>
+                            </div>
+                        <?php endif; ?>
+                        
+                        <?php
+                        $one_sheet = get_field( 'one_sheet_pdf', 'option' );
+                        if ( $one_sheet ) :
+                            ?>
+                            <div class="mkp-resource-block">
+                                <h3><?php esc_html_e( 'Speaker One-Sheet', 'mediakit-pro' ); ?></h3>
+                                <p><?php esc_html_e( 'A comprehensive overview of speaking topics, bio, and testimonials.', 'mediakit-pro' ); ?></p>
+                                <a href="<?php echo esc_url( $one_sheet['url'] ); ?>" 
+                                   class="mkp-btn mkp-btn--primary" 
+                                   download>
+                                    <?php esc_html_e( 'Download One-Sheet PDF', 'mediakit-pro' ); ?>
+                                </a>
+                            </div>
+                        <?php endif; ?>
+                    </div>
+                </div>
+            </section>
+        <?php endif; ?>
+        
+        <!-- Logos & Brand Assets -->
+        <section class="mkp-section mkp-section--alt">
+            <div class="mkp-container">
+                <header class="mkp-section__header">
+                    <h2 class="mkp-section__title"><?php esc_html_e( 'Logos & Brand Assets', 'mediakit-pro' ); ?></h2>
+                </header>
+                
+                <div class="mkp-brand-assets">
+                    <?php
+                    $custom_logo_id = get_theme_mod( 'custom_logo' );
+                    if ( $custom_logo_id ) :
+                        $logo_url = wp_get_attachment_url( $custom_logo_id );
+                        ?>
+                        <div class="mkp-logo-variations">
+                            <div class="mkp-logo-item">
+                                <div class="mkp-logo-preview">
+                                    <?php echo wp_get_attachment_image( $custom_logo_id, 'medium' ); ?>
+                                </div>
+                                <h4><?php esc_html_e( 'Primary Logo', 'mediakit-pro' ); ?></h4>
+                                <div class="mkp-logo-formats">
+                                    <a href="<?php echo esc_url( $logo_url ); ?>" class="mkp-btn mkp-btn--small" download>
+                                        <?php esc_html_e( 'Download PNG', 'mediakit-pro' ); ?>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    <?php endif; ?>
+                    
+                    <?php
+                    $brand_guidelines = get_field( 'brand_guidelines_pdf', 'option' );
+                    if ( $brand_guidelines ) :
+                        ?>
+                        <div class="mkp-brand-guidelines">
+                            <h3><?php esc_html_e( 'Brand Guidelines', 'mediakit-pro' ); ?></h3>
+                            <p><?php esc_html_e( 'Complete brand guidelines including colors, fonts, and usage instructions.', 'mediakit-pro' ); ?></p>
+                            <a href="<?php echo esc_url( $brand_guidelines['url'] ); ?>" 
+                               class="mkp-btn mkp-btn--secondary" 
+                               download>
+                                <?php esc_html_e( 'Download Brand Guidelines PDF', 'mediakit-pro' ); ?>
+                            </a>
+                        </div>
+                    <?php endif; ?>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Contact for Custom Requests -->
+        <section class="mkp-section mkp-resources-cta">
+            <div class="mkp-container">
+                <div class="mkp-resources-cta__content">
+                    <h2><?php esc_html_e( 'Need Something Else?', 'mediakit-pro' ); ?></h2>
+                    <p><?php esc_html_e( 'If you need specific assets or have custom requirements, please get in touch.', 'mediakit-pro' ); ?></p>
+                    
+                    <?php
+                    $press_email = get_theme_mod( 'mkp_contact_email_press' );
+                    if ( $press_email ) :
+                        ?>
+                        <a href="mailto:<?php echo esc_attr( $press_email ); ?>" class="mkp-btn mkp-btn--primary">
+                            <?php esc_html_e( 'Contact for Custom Assets', 'mediakit-pro' ); ?>
+                        </a>
+                    <?php endif; ?>
+                </div>
+            </div>
+        </section>
+        
+    <?php endwhile; ?>
+    
+</main>
+
+<?php
+get_footer();

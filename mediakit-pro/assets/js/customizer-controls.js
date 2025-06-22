@@ -1,0 +1,215 @@
+/**
+ * Customizer Controls Script
+ *
+ * @package MediaKit_Pro
+ */
+
+( function( $ ) {
+    'use strict';
+    
+    // Default values for settings
+    const defaultValues = {
+        // Brand Settings
+        'mkp_primary_color': '#2c3e50',
+        'mkp_secondary_color': '#3498db',
+        'mkp_accent_color': '#e74c3c',
+        'mkp_primary_font': 'system',
+        'mkp_heading_font': 'playfair',
+        
+        // Background Settings
+        'background_color': '#ffffff',
+        'background_image': '',
+        'mkp_background_overlay': 'rgba(255,255,255,0)',
+        
+        // Hero Section
+        'mkp_hero_background': '',
+        'mkp_hero_video': '',
+        'mkp_hero_overlay_color': 'rgba(0,0,0,0.5)',
+        'mkp_hero_title': 'Welcome to My Media Kit',
+        'mkp_hero_subtitle': 'Professional Speaker, Author, and Thought Leader',
+        'mkp_hero_bio': '',
+        'mkp_hero_cta1_text': 'Book Me',
+        'mkp_hero_cta1_url': '#contact',
+        'mkp_hero_cta2_text': 'Download Media Kit',
+        'mkp_hero_cta2_url': '#download',
+        
+        // Social Media
+        'mkp_social_facebook': '',
+        'mkp_social_twitter': '',
+        'mkp_social_instagram': '',
+        'mkp_social_linkedin': '',
+        'mkp_social_youtube': '',
+        'mkp_social_tiktok': '',
+        
+        // Contact Settings
+        'mkp_contact_email_primary': '',
+        'mkp_contact_email_booking': '',
+        'mkp_contact_email_press': '',
+        'mkp_contact_phone': '',
+        'mkp_contact_address': ''
+    };
+    
+    wp.customize.bind( 'ready', function() {
+        
+        // Handle reset button clicks
+        $( document ).on( 'click', '.mkp-reset-section', function( e ) {
+            e.preventDefault();
+            
+            const $button = $( this );
+            const section = $button.data( 'section' );
+            
+            // Confirm reset
+            if ( ! confirm( wp.customize.l10n.confirmReset || 'Are you sure you want to reset all settings in this section to their defaults?' ) ) {
+                return;
+            }
+            
+            // Find all controls in this section
+            wp.customize.section( section ).controls().forEach( function( control ) {
+                const settingId = control.id;
+                
+                // Skip the reset button itself
+                if ( settingId.indexOf( '_reset_' ) !== -1 ) {
+                    return;
+                }
+                
+                // Reset to default value if available
+                if ( defaultValues.hasOwnProperty( settingId ) ) {
+                    wp.customize( settingId ).set( defaultValues[settingId] );
+                }
+            });
+            
+            // Show success message
+            showNotification( 'Section reset to defaults', 'success' );
+        });
+        
+        // Add individual reset buttons for each control
+        wp.customize.control.each( function( control ) {
+            // Skip if it's already a reset control or doesn't have a default
+            if ( control.params.type === 'reset_button' || ! defaultValues.hasOwnProperty( control.id ) ) {
+                return;
+            }
+            
+            // Add reset button to control
+            wp.customize.control( control.id ).container.find( '.customize-control-title' ).first().append(
+                '<button type="button" class="mkp-reset-single" data-setting="' + control.id + '" title="Reset to default">' +
+                '<span class="dashicons dashicons-image-rotate"></span>' +
+                '</button>'
+            );
+        });
+        
+        // Handle individual reset button clicks
+        $( document ).on( 'click', '.mkp-reset-single', function( e ) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            const settingId = $( this ).data( 'setting' );
+            
+            if ( defaultValues.hasOwnProperty( settingId ) ) {
+                wp.customize( settingId ).set( defaultValues[settingId] );
+                showNotification( 'Setting reset to default', 'success' );
+            }
+        });
+        
+        // Add custom styles for reset buttons
+        addCustomStyles();
+        
+        // Show/hide controls based on other control values
+        setupConditionalControls();
+        
+    });
+    
+    // Show notification
+    function showNotification( message, type = 'info' ) {
+        const $notification = $( '<div class="mkp-customizer-notification mkp-notification-' + type + '">' + message + '</div>' );
+        
+        $( '#customize-header-actions' ).append( $notification );
+        
+        setTimeout( function() {
+            $notification.fadeOut( function() {
+                $( this ).remove();
+            });
+        }, 3000 );
+    }
+    
+    // Add custom styles for reset buttons
+    function addCustomStyles() {
+        const styles = `
+            <style>
+                .mkp-reset-single {
+                    background: none;
+                    border: none;
+                    color: #a0a5aa;
+                    cursor: pointer;
+                    padding: 0;
+                    margin-left: 5px;
+                    vertical-align: middle;
+                }
+                
+                .mkp-reset-single:hover {
+                    color: #0073aa;
+                }
+                
+                .mkp-reset-single .dashicons {
+                    font-size: 16px;
+                    width: 16px;
+                    height: 16px;
+                }
+                
+                .mkp-reset-section {
+                    width: 100%;
+                    margin-top: 10px;
+                }
+                
+                .mkp-customizer-notification {
+                    position: fixed;
+                    top: 46px;
+                    right: 0;
+                    left: 300px;
+                    padding: 10px 15px;
+                    background: #fff;
+                    border-left: 4px solid #46b450;
+                    box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
+                    z-index: 10000;
+                }
+                
+                .mkp-notification-success {
+                    border-left-color: #46b450;
+                }
+                
+                .mkp-notification-error {
+                    border-left-color: #dc3232;
+                }
+                
+                .mkp-notification-info {
+                    border-left-color: #00a0d2;
+                }
+                
+                /* Improve color picker layout */
+                .customize-control-color .wp-picker-container {
+                    display: block;
+                }
+                
+                .customize-control-color .wp-picker-container .wp-color-result {
+                    margin-bottom: 5px;
+                }
+            </style>
+        `;
+        
+        $( 'head' ).append( styles );
+    }
+    
+    // Setup conditional control visibility
+    function setupConditionalControls() {
+        // Example: Show video URL field only when background image is not set
+        wp.customize( 'mkp_hero_background', function( value ) {
+            value.bind( function( to ) {
+                if ( to ) {
+                    wp.customize.control( 'mkp_hero_video' ).container.slideUp();
+                } else {
+                    wp.customize.control( 'mkp_hero_video' ).container.slideDown();
+                }
+            });
+        });
+    }
+    
+} )( jQuery );

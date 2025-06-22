@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mkdir:*)",
+      "Bash(rm:*)",
+      "Bash(find:*)",
+      "Bash(zip:*)",
+      "Bash(php:*)",
+      "Bash(ls:*)",
+      "Bash(grep:*)",
+      "Bash(chmod:*)",
+      "Bash(./export-theme.sh:*)",
+      "Bash(rg:*)",
+      "Bash(mv:*)"
+    ],
+    "deny": []
+  }
+}

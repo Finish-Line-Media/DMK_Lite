@@ -1,0 +1,47 @@
+<?php
+/**
+ * Template Name: Media Kit Homepage
+ * Template Post Type: page
+ * Description: Full-width, section-based layout for media kit homepage
+ *
+ * @package MediaKit_Pro
+ */
+
+get_header();
+?>
+
+<main id="primary" class="mkp-main mkp-main--media-kit">
+    
+    <?php
+    // Hero Section
+    get_template_part( 'template-parts/media-kit/hero' );
+    
+    // Bio Section
+    get_template_part( 'template-parts/media-kit/bio' );
+    
+    // Stats Section
+    get_template_part( 'template-parts/media-kit/stats' );
+    
+    // Speaking Topics
+    get_template_part( 'template-parts/media-kit/speaking-topics' );
+    
+    // Media Appearances
+    get_template_part( 'template-parts/media-kit/media-appearances' );
+    
+    // Testimonials
+    get_template_part( 'template-parts/media-kit/testimonials' );
+    
+    // Press Mentions
+    get_template_part( 'template-parts/media-kit/press' );
+    
+    // Download Resources
+    get_template_part( 'template-parts/media-kit/downloads' );
+    
+    // Contact Section
+    get_template_part( 'template-parts/media-kit/contact' );
+    ?>
+    
+</main>
+
+<?php
+get_footer();
