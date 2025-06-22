@@ -1,8 +1,8 @@
 {
-  "version": "1.7.12",
-  "description": "Fix Contact section enable/disable toggle in customizer",
-  "download_url": "https://github.com/Finish-Line-Media/DMK_Lite/releases/download/v1.7.12/mediakit-lite.zip",
-  "changelog_url": "https://github.com/Finish-Line-Media/DMK_Lite/releases/tag/v1.7.12",
+  "version": "1.7.13",
+  "description": "Match Contact section enable/disable behavior with Investor section",
+  "download_url": "https://github.com/Finish-Line-Media/DMK_Lite/releases/download/v1.7.13/mediakit-lite.zip",
+  "changelog_url": "https://github.com/Finish-Line-Media/DMK_Lite/releases/tag/v1.7.13",
   "release_date": "2025-06-22",
   "min_wp_version": "5.8",
   "tested_up_to": "6.5",

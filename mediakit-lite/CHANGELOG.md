@@ -2,6 +2,11 @@
 
 All notable changes to the MediaKit Lite theme will be documented in this file.
 
+## [1.7.13] - 2025-06-22
+
+### Changed
+- Match Contact section enable/disable behavior with Investor section
+
 ## [1.7.12] - 2025-06-22
 
 ### Changed
