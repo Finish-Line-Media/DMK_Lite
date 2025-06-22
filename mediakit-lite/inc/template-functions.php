@@ -274,84 +274,116 @@ add_filter( 'the_password_form', 'mkp_password_form' );
 function mkp_get_front_page_nav_items() {
     $nav_items = array();
     
-    // Always include Hero
-    $nav_items[] = array(
-        'id'    => 'hero',
-        'label' => __( 'Home', 'mediakit-lite' ),
-        'url'   => '#hero',
-    );
+    // Get the section order
+    $section_order = mkp_get_section_order();
     
-    // Bio Section (Always shown if content exists)
-    if ( get_theme_mod( 'mkp_bio_content' ) ) {
-        $nav_items[] = array(
+    // Define section properties
+    $section_config = array(
+        'hero' => array(
+            'id'    => 'hero',
+            'label' => __( 'Home', 'mediakit-lite' ),
+            'url'   => '#hero',
+            'check' => true, // Always show
+        ),
+        'bio' => array(
             'id'    => 'about',
             'label' => __( 'About', 'mediakit-lite' ),
             'url'   => '#about',
-        );
-    }
-    
-    // Books Section
-    $has_books = false;
-    for ( $i = 1; $i <= 4; $i++ ) {
-        if ( get_theme_mod( 'mkp_book_' . $i . '_title' ) ) {
-            $has_books = true;
-            break;
-        }
-    }
-    if ( get_theme_mod( 'mkp_enable_section_books', true ) && $has_books ) {
-        $nav_items[] = array(
+            'check' => function() {
+                return get_theme_mod( 'mkp_bio_content' );
+            },
+        ),
+        'books' => array(
             'id'    => 'books',
             'label' => __( 'Books', 'mediakit-lite' ),
             'url'   => '#books',
-        );
-    }
-    
-    // Podcasts Section
-    $has_podcasts = false;
-    for ( $i = 1; $i <= 3; $i++ ) {
-        if ( get_theme_mod( 'mkp_podcast_' . $i . '_title' ) ) {
-            $has_podcasts = true;
-            break;
-        }
-    }
-    if ( get_theme_mod( 'mkp_enable_section_podcasts', true ) && $has_podcasts ) {
-        $nav_items[] = array(
+            'check' => function() {
+                if ( ! get_theme_mod( 'mkp_enable_section_books', true ) ) {
+                    return false;
+                }
+                for ( $i = 1; $i <= 4; $i++ ) {
+                    if ( get_theme_mod( 'mkp_book_' . $i . '_title' ) ) {
+                        return true;
+                    }
+                }
+                return false;
+            },
+        ),
+        'podcasts' => array(
             'id'    => 'podcasts',
             'label' => __( 'Podcasts', 'mediakit-lite' ),
             'url'   => '#podcasts',
-        );
-    }
-    
-    // Companies Section
-    $has_corps = false;
-    for ( $i = 1; $i <= 4; $i++ ) {
-        if ( get_theme_mod( 'mkp_corp_' . $i . '_name' ) ) {
-            $has_corps = true;
-            break;
-        }
-    }
-    if ( get_theme_mod( 'mkp_enable_section_corporations', true ) && $has_corps ) {
-        $nav_items[] = array(
+            'check' => function() {
+                if ( ! get_theme_mod( 'mkp_enable_section_podcasts', true ) ) {
+                    return false;
+                }
+                for ( $i = 1; $i <= 3; $i++ ) {
+                    if ( get_theme_mod( 'mkp_podcast_' . $i . '_title' ) ) {
+                        return true;
+                    }
+                }
+                return false;
+            },
+        ),
+        'corporations' => array(
             'id'    => 'corporations',
             'label' => __( 'Companies', 'mediakit-lite' ),
             'url'   => '#corporations',
-        );
-    }
-    
-    // Speaker Topics Section
-    $has_topics = false;
-    for ( $i = 1; $i <= 5; $i++ ) {
-        if ( get_theme_mod( 'mkp_speaker_topic_' . $i ) ) {
-            $has_topics = true;
-            break;
-        }
-    }
-    if ( get_theme_mod( 'mkp_enable_section_speaker_topics', true ) && $has_topics ) {
-        $nav_items[] = array(
+            'check' => function() {
+                if ( ! get_theme_mod( 'mkp_enable_section_corporations', true ) ) {
+                    return false;
+                }
+                for ( $i = 1; $i <= 4; $i++ ) {
+                    if ( get_theme_mod( 'mkp_corp_' . $i . '_name' ) ) {
+                        return true;
+                    }
+                }
+                return false;
+            },
+        ),
+        'speaker_topics' => array(
             'id'    => 'speaking',
             'label' => __( 'Speaking', 'mediakit-lite' ),
             'url'   => '#speaking',
-        );
+            'check' => function() {
+                if ( ! get_theme_mod( 'mkp_enable_section_speaker_topics', true ) ) {
+                    return false;
+                }
+                for ( $i = 1; $i <= 5; $i++ ) {
+                    if ( get_theme_mod( 'mkp_speaker_topic_' . $i ) ) {
+                        return true;
+                    }
+                }
+                return false;
+            },
+        ),
+    );
+    
+    // Build nav items in the order specified
+    foreach ( $section_order as $section ) {
+        if ( ! isset( $section_config[ $section ] ) ) {
+            continue;
+        }
+        
+        $config = $section_config[ $section ];
+        
+        // Check if section should be included
+        $should_include = false;
+        if ( isset( $config['check'] ) ) {
+            if ( is_callable( $config['check'] ) ) {
+                $should_include = call_user_func( $config['check'] );
+            } else {
+                $should_include = $config['check'];
+            }
+        }
+        
+        if ( $should_include ) {
+            $nav_items[] = array(
+                'id'    => $config['id'],
+                'label' => $config['label'],
+                'url'   => $config['url'],
+            );
+        }
     }
     
     return $nav_items;
