@@ -98,6 +98,23 @@ cat > mediakit-lite/version.json << EOF
 EOF
 echo -e "${GREEN}✓${NC} Updated version.json"
 
+# Update root version.json if it exists
+if [ -f "version.json" ]; then
+    cat > version.json << EOF
+{
+  "version": "$NEW_VERSION",
+  "description": "$CHANGELOG_MESSAGE",
+  "download_url": "https://github.com/Finish-Line-Media/DMK_Lite/releases/download/v$NEW_VERSION/mediakit-lite.zip",
+  "changelog_url": "https://github.com/Finish-Line-Media/DMK_Lite/releases/tag/v$NEW_VERSION",
+  "release_date": "$(date +%Y-%m-%d)",
+  "min_wp_version": "5.8",
+  "tested_up_to": "6.5",
+  "php_version": "7.4"
+}
+EOF
+    echo -e "${GREEN}✓${NC} Updated root version.json"
+fi
+
 # Update readme.txt if it exists
 if [ -f "mediakit-lite/readme.txt" ]; then
     sed -i.bak "s/Stable tag: .*/Stable tag: $NEW_VERSION/" mediakit-lite/readme.txt && rm mediakit-lite/readme.txt.bak
@@ -131,6 +148,7 @@ echo -e "${GREEN}✓${NC} Updated CHANGELOG.md"
 echo -e "\n${BLUE}Committing changes...${NC}"
 git add mediakit-lite/style.css mediakit-lite/functions.php mediakit-lite/version.json mediakit-lite/CHANGELOG.md
 [ -f "mediakit-lite/readme.txt" ] && git add mediakit-lite/readme.txt
+[ -f "version.json" ] && git add version.json
 
 git commit -m "Bump version to $NEW_VERSION
 
