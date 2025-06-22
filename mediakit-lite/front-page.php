@@ -47,7 +47,7 @@ get_header();
         get_template_part( 'template-parts/front-page/podcast' );
     }
     
-    // Corporations Section
+    // Companies Section
     $corps_count = get_theme_mod( 'mkp_corporations_count', 2 );
     $has_corps = false;
     for ( $i = 1; $i <= $corps_count; $i++ ) {

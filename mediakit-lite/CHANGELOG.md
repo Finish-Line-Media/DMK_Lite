@@ -2,6 +2,21 @@
 
 All notable changes to the MediaKit Lite theme will be documented in this file.
 
+## [1.2.7] - 2025-06-22
+
+### Added
+- Live preview for Companies (Corporations) section in Customizer
+- Image transport for Podcast/Show Logo and Company logos
+
+### Changed
+- Renamed "Corporations" to "Companies" throughout the theme
+- Renamed "Podcast/Show" to "Your Podcast/Show" in Customizer
+- All sections now update immediately in Customizer preview
+
+### Improved
+- Speaker Topics, Podcast/Show, Companies, Media Questions, and Investor sections now auto-update without page refresh
+- Better real-time editing experience in WordPress Customizer
+
 ## [1.2.6] - 2025-06-22
 
 ### Fixed

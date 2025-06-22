@@ -1,6 +1,6 @@
 <?php
 /**
- * Corporations Section Template Part
+ * Companies Section Template Part
  *
  * @package MediaKit_Lite
  */
@@ -12,7 +12,7 @@ $corps_count = get_theme_mod( 'mkp_corporations_count', 2 );
 
 <section id="corporations" class="<?php echo esc_attr( $section_class ); ?>" style="background-color: <?php echo esc_attr( $section_color ); ?>">
     <div class="mkp-container">
-        <h2 class="mkp-section__title"><?php esc_html_e( 'Corporations', 'mediakit-lite' ); ?></h2>
+        <h2 class="mkp-section__title"><?php esc_html_e( 'Companies', 'mediakit-lite' ); ?></h2>
         
         <div class="mkp-corporations__grid">
             <?php for ( $i = 1; $i <= $corps_count; $i++ ) : 
@@ -22,7 +22,7 @@ $corps_count = get_theme_mod( 'mkp_corporations_count', 2 );
                 $link = get_theme_mod( 'mkp_corp_' . $i . '_link' );
                 
                 if ( $name ) : ?>
-                    <div class="mkp-corp-card">
+                    <div class="mkp-corp-card mkp-corp--<?php echo esc_attr( $i ); ?>">
                         <?php if ( $logo ) : ?>
                             <div class="mkp-corp-card__logo">
                                 <img src="<?php echo esc_url( $logo ); ?>" alt="<?php echo esc_attr( $name ); ?>" />

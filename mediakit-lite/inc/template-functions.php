@@ -442,7 +442,7 @@ function mkp_get_front_page_nav_items() {
         );
     }
     
-    // Corporations Section
+    // Companies Section
     $corps_count = get_theme_mod( 'mkp_corporations_count', 2 );
     $has_corps = false;
     for ( $i = 1; $i <= $corps_count; $i++ ) {
@@ -454,7 +454,7 @@ function mkp_get_front_page_nav_items() {
     if ( get_theme_mod( 'mkp_enable_section_corporations', true ) && $has_corps ) {
         $nav_items[] = array(
             'id'    => 'corporations',
-            'label' => __( 'Corporations', 'mediakit-lite' ),
+            'label' => __( 'Companies', 'mediakit-lite' ),
             'url'   => '#corporations',
         );
     }

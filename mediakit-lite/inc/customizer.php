@@ -733,7 +733,7 @@ function mkp_customize_register( $wp_customize ) {
      * Podcast/Show Section
      */
     $wp_customize->add_section( 'mkp_podcast_section', array(
-        'title'       => __( 'Podcast/Show', 'mediakit-lite' ),
+        'title'       => __( 'Your Podcast/Show', 'mediakit-lite' ),
         'priority'    => 44,
         'description' => __( 'Information about your podcast or show.', 'mediakit-lite' ),
     ) );
@@ -784,6 +784,7 @@ function mkp_customize_register( $wp_customize ) {
     $wp_customize->add_setting( 'mkp_podcast_logo', array(
         'default'           => '',
         'sanitize_callback' => 'esc_url_raw',
+        'transport'         => 'postMessage',
     ) );
     
     $wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'mkp_podcast_logo', array(
@@ -820,10 +821,10 @@ function mkp_customize_register( $wp_customize ) {
     ) );
     
     /**
-     * Corporations Section
+     * Companies Section
      */
     $wp_customize->add_section( 'mkp_corporations_section', array(
-        'title'       => __( 'Corporations', 'mediakit-lite' ),
+        'title'       => __( 'Companies', 'mediakit-lite' ),
         'priority'    => 45,
         'description' => __( 'Companies or organizations you own or are affiliated with.', 'mediakit-lite' ),
     ) );
@@ -835,8 +836,8 @@ function mkp_customize_register( $wp_customize ) {
     ) );
     
     $wp_customize->add_control( 'mkp_enable_section_corporations', array(
-        'label'       => __( 'Enable Corporations Section', 'mediakit-lite' ),
-        'description' => __( 'Show or hide the corporations section on your landing page.', 'mediakit-lite' ),
+        'label'       => __( 'Enable Companies Section', 'mediakit-lite' ),
+        'description' => __( 'Show or hide the companies section on your landing page.', 'mediakit-lite' ),
         'section'     => 'mkp_corporations_section',
         'type'        => 'checkbox',
         'priority'    => 1,
@@ -851,7 +852,7 @@ function mkp_customize_register( $wp_customize ) {
     
     $wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'mkp_corporations_background_color', array(
         'label'       => __( 'Background Color', 'mediakit-lite' ),
-        'description' => __( 'Background color for the corporations section.', 'mediakit-lite' ),
+        'description' => __( 'Background color for the companies section.', 'mediakit-lite' ),
         'section'     => 'mkp_corporations_section',
         'settings'    => 'mkp_corporations_background_color',
         'priority'    => 2,
@@ -864,8 +865,8 @@ function mkp_customize_register( $wp_customize ) {
     ) );
     
     $wp_customize->add_control( 'mkp_corporations_count', array(
-        'label'       => __( 'Number of Corporations', 'mediakit-lite' ),
-        'description' => __( 'How many corporations to display? (1-4)', 'mediakit-lite' ),
+        'label'       => __( 'Number of Companies', 'mediakit-lite' ),
+        'description' => __( 'How many companies to display? (1-4)', 'mediakit-lite' ),
         'section'     => 'mkp_corporations_section',
         'type'        => 'number',
         'input_attrs' => array(
@@ -885,7 +886,7 @@ function mkp_customize_register( $wp_customize ) {
         ) );
         
         $wp_customize->add_control( 'mkp_corp_' . $i . '_name', array(
-            'label'       => sprintf( __( 'Corporation %d Name', 'mediakit-lite' ), $i ),
+            'label'       => sprintf( __( 'Company %d Name', 'mediakit-lite' ), $i ),
             'section'     => 'mkp_corporations_section',
             'type'        => 'text',
         ) );
@@ -894,10 +895,11 @@ function mkp_customize_register( $wp_customize ) {
         $wp_customize->add_setting( 'mkp_corp_' . $i . '_logo', array(
             'default'           => '',
             'sanitize_callback' => 'esc_url_raw',
+            'transport'         => 'postMessage',
         ) );
         
         $wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'mkp_corp_' . $i . '_logo', array(
-            'label'       => sprintf( __( 'Corporation %d Logo', 'mediakit-lite' ), $i ),
+            'label'       => sprintf( __( 'Company %d Logo', 'mediakit-lite' ), $i ),
             'section'     => 'mkp_corporations_section',
             'settings'    => 'mkp_corp_' . $i . '_logo',
         ) ) );
@@ -910,7 +912,7 @@ function mkp_customize_register( $wp_customize ) {
         ) );
         
         $wp_customize->add_control( 'mkp_corp_' . $i . '_bio', array(
-            'label'       => sprintf( __( 'Corporation %d Bio/Synopsis', 'mediakit-lite' ), $i ),
+            'label'       => sprintf( __( 'Company %d Bio/Synopsis', 'mediakit-lite' ), $i ),
             'section'     => 'mkp_corporations_section',
             'type'        => 'textarea',
         ) );
@@ -922,7 +924,7 @@ function mkp_customize_register( $wp_customize ) {
         ) );
         
         $wp_customize->add_control( 'mkp_corp_' . $i . '_link', array(
-            'label'       => sprintf( __( 'Corporation %d Website', 'mediakit-lite' ), $i ),
+            'label'       => sprintf( __( 'Company %d Website', 'mediakit-lite' ), $i ),
             'section'     => 'mkp_corporations_section',
             'type'        => 'url',
         ) );

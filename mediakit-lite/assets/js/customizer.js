@@ -314,6 +314,36 @@
         } );
     } );
     
+    // Companies (Corporations) Section
+    for ( let i = 1; i <= 4; i++ ) {
+        ( function( corpNum ) {
+            wp.customize( 'mkp_corp_' + corpNum + '_name', function( value ) {
+                value.bind( function( to ) {
+                    $( '.mkp-corp--' + corpNum + ' .mkp-corp-card__name' ).text( to );
+                    if ( to ) {
+                        $( '.mkp-corp--' + corpNum ).show();
+                    } else {
+                        $( '.mkp-corp--' + corpNum ).hide();
+                    }
+                } );
+            } );
+            
+            wp.customize( 'mkp_corp_' + corpNum + '_logo', function( value ) {
+                value.bind( function( to ) {
+                    if ( to ) {
+                        $( '.mkp-corp--' + corpNum + ' .mkp-corp-card__logo img' ).attr( 'src', to );
+                    }
+                } );
+            } );
+            
+            wp.customize( 'mkp_corp_' + corpNum + '_bio', function( value ) {
+                value.bind( function( to ) {
+                    $( '.mkp-corp--' + corpNum + ' .mkp-corp-card__bio' ).html( wpautop( to ) );
+                } );
+            } );
+        } )( i );
+    }
+    
     // Media Questions
     for ( let i = 1; i <= 12; i++ ) {
         ( function( questionNum ) {

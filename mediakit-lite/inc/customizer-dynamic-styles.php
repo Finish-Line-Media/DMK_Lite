@@ -109,7 +109,7 @@ function mkp_generate_dynamic_styles() {
             color: <?php echo esc_attr( mkp_get_contrast_color_rgba( $podcast_bg, 'heading' ) ); ?>;
         }
         
-        /* Corporations Section Auto-Contrast */
+        /* Companies Section Auto-Contrast */
         .mkp-corporations-section {
             background-color: <?php echo esc_attr( $corps_bg ); ?>;
             color: <?php echo esc_attr( mkp_get_contrast_color( $corps_bg ) ); ?>;
