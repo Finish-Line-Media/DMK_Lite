@@ -80,6 +80,20 @@ function mkp_has_books() {
     return false;
 }
 
+/**
+ * Check if podcasts section has content
+ *
+ * @return bool
+ */
+function mkp_has_podcasts() {
+    for ( $i = 1; $i <= 3; $i++ ) {
+        if ( get_theme_mod( 'mkp_podcast_' . $i . '_title' ) ) {
+            return true;
+        }
+    }
+    return false;
+}
+
 
 /**
  * Get front page sections configuration
@@ -99,6 +113,10 @@ function mkp_get_front_page_sections() {
         'books' => array(
             'template' => 'template-parts/front-page/books',
             'check_function' => 'mkp_has_books',
+        ),
+        'podcasts' => array(
+            'template' => 'template-parts/front-page/podcasts',
+            'check_function' => 'mkp_has_podcasts',
         ),
         'corporations' => array(
             'template' => 'template-parts/front-page/corporations',

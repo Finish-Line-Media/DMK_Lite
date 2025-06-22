@@ -73,6 +73,7 @@
     const sections = [
         { setting: 'mkp_bio_background_color', selector: '.mkp-bio-section' },
         { setting: 'mkp_books_background_color', selector: '.mkp-books-section' },
+        { setting: 'mkp_podcasts_background_color', selector: '.mkp-podcasts-section' },
         { setting: 'mkp_speaker_topics_background_color', selector: '.mkp-speaker-section' },
         { setting: 'mkp_corporations_background_color', selector: '.mkp-corporations-section' }
     ];
@@ -385,6 +386,106 @@
                         } else {
                             // Create the link if it doesn't exist
                             $card.find( '.mkp-book-card__content' ).append( '<a href="' + to + '" class="mkp-btn mkp-btn--primary mkp-btn--small" target="_blank" rel="noopener">Learn More</a>' );
+                        }
+                    } else {
+                        // Remove the link if URL is empty
+                        $link.remove();
+                    }
+                } );
+            } );
+        } )( i );
+    }
+    
+    // Function to update podcasts section title
+    function updatePodcastsSectionTitle() {
+        let podcastCount = 0;
+        for ( let i = 1; i <= 3; i++ ) {
+            const title = wp.customize( 'mkp_podcast_' + i + '_title' ).get();
+            if ( title ) {
+                podcastCount++;
+            }
+        }
+        
+        const title = podcastCount === 1 ? 'Podcast/Show' : 'Podcasts/Shows';
+        $( '.mkp-podcasts-section .mkp-section__title' ).text( title );
+    }
+    
+    // Podcasts section updates
+    const maxPodcasts = 3;
+    for ( let i = 1; i <= maxPodcasts; i++ ) {
+        ( function( podcastNum ) {
+            // Podcast title
+            wp.customize( 'mkp_podcast_' + podcastNum + '_title', function( value ) {
+                value.bind( function( to ) {
+                    const $card = $( '.mkp-podcast-card.mkp-podcast--' + podcastNum );
+                    $card.find( '.mkp-podcast-card__title' ).text( to );
+                    
+                    // Show/hide card based on content
+                    if ( to ) {
+                        $card.show();
+                    } else {
+                        $card.hide();
+                    }
+                    
+                    // Update section title
+                    updatePodcastsSectionTitle();
+                } );
+            } );
+            
+            // Podcast description
+            wp.customize( 'mkp_podcast_' + podcastNum + '_description', function( value ) {
+                value.bind( function( to ) {
+                    const $card = $( '.mkp-podcast-card.mkp-podcast--' + podcastNum );
+                    const $description = $card.find( '.mkp-podcast-card__description' );
+                    
+                    if ( to ) {
+                        // Simple wpautop implementation for live preview
+                        const formattedDesc = '<p>' + to.replace(/\n\n/g, '</p><p>').replace(/\n/g, '<br />') + '</p>';
+                        $description.html( formattedDesc );
+                    } else {
+                        $description.empty();
+                    }
+                } );
+            } );
+            
+            // Podcast logo
+            wp.customize( 'mkp_podcast_' + podcastNum + '_logo', function( value ) {
+                value.bind( function( to ) {
+                    const $card = $( '.mkp-podcast-card.mkp-podcast--' + podcastNum );
+                    const $logoContainer = $card.find( '.mkp-podcast-card__logo' );
+                    
+                    if ( to ) {
+                        // If attachment ID, fetch URL
+                        if ( $.isNumeric( to ) ) {
+                            wp.media.attachment( to ).fetch().then( function() {
+                                const attachment = wp.media.attachment( to );
+                                const logoHtml = '<img src="' + attachment.get( 'url' ) + '" alt="" loading="lazy" />';
+                                $logoContainer.html( logoHtml );
+                            } );
+                        } else {
+                            // Direct URL
+                            const logoHtml = '<img src="' + to + '" alt="" loading="lazy" />';
+                            $logoContainer.html( logoHtml );
+                        }
+                    } else {
+                        // Show placeholder when logo is cleared
+                        $logoContainer.html( '<div class="mkp-podcast-card__logo-placeholder"><span>Podcast Logo</span></div>' );
+                    }
+                } );
+            } );
+            
+            // Podcast link
+            wp.customize( 'mkp_podcast_' + podcastNum + '_link', function( value ) {
+                value.bind( function( to ) {
+                    const $card = $( '.mkp-podcast-card.mkp-podcast--' + podcastNum );
+                    const $link = $card.find( '.mkp-btn' );
+                    
+                    if ( to ) {
+                        if ( $link.length ) {
+                            $link.attr( 'href', to );
+                        } else {
+                            // Create the link if it doesn't exist
+                            $card.find( '.mkp-podcast-card__content' ).append( '<a href="' + to + '" class="mkp-btn mkp-btn--primary mkp-btn--small" target="_blank" rel="noopener">Listen Now</a>' );
                         }
                     } else {
                         // Remove the link if URL is empty

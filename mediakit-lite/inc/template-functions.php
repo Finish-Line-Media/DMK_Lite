@@ -306,6 +306,22 @@ function mkp_get_front_page_nav_items() {
         );
     }
     
+    // Podcasts Section
+    $has_podcasts = false;
+    for ( $i = 1; $i <= 3; $i++ ) {
+        if ( get_theme_mod( 'mkp_podcast_' . $i . '_title' ) ) {
+            $has_podcasts = true;
+            break;
+        }
+    }
+    if ( get_theme_mod( 'mkp_enable_section_podcasts', true ) && $has_podcasts ) {
+        $nav_items[] = array(
+            'id'    => 'podcasts',
+            'label' => __( 'Podcasts', 'mediakit-lite' ),
+            'url'   => '#podcasts',
+        );
+    }
+    
     // Companies Section
     $has_corps = false;
     for ( $i = 1; $i <= 4; $i++ ) {

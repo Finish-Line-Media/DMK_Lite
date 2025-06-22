@@ -15,6 +15,7 @@ function mkp_get_default_section_order() {
         'hero',
         'bio',
         'books',
+        'podcasts',
         'corporations',
         'speaker_topics',
     );
@@ -148,6 +149,7 @@ class Mkp_Section_Order_Control extends WP_Customize_Control {
             'hero'            => __( 'Hero Section', 'mediakit-lite' ),
             'bio'             => __( 'About/Bio Section', 'mediakit-lite' ),
             'books'           => __( 'Books Section', 'mediakit-lite' ),
+            'podcasts'        => __( 'Podcasts/Shows Section', 'mediakit-lite' ),
             'corporations'    => __( 'Companies Section', 'mediakit-lite' ),
             'speaker_topics'  => __( 'Speaker Topics Section', 'mediakit-lite' ),
         );

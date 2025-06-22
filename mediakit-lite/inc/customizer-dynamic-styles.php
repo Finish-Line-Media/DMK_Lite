@@ -25,6 +25,7 @@ function mkp_generate_dynamic_styles() {
     $hero_bg = get_theme_mod( 'mkp_hero_background_color', '#f8f9fa' );
     $bio_bg = get_theme_mod( 'mkp_bio_background_color', '#ffffff' );
     $books_bg = get_theme_mod( 'mkp_books_background_color', '#f8f9fa' );
+    $podcasts_bg = get_theme_mod( 'mkp_podcasts_background_color', '#ffffff' );
     $speaker_bg = get_theme_mod( 'mkp_speaker_topics_background_color', '#f8f9fa' );
     $corps_bg = get_theme_mod( 'mkp_corporations_background_color', '#ffffff' );
     
@@ -109,6 +110,29 @@ function mkp_generate_dynamic_styles() {
         
         .mkp-books-section .mkp-book-card__description {
             color: <?php echo esc_attr( mkp_get_contrast_color( $books_bg ) ); ?>;
+        }
+        
+        /* Podcasts Section Auto-Contrast */
+        .mkp-podcasts-section {
+            background-color: <?php echo esc_attr( $podcasts_bg ); ?>;
+            color: <?php echo esc_attr( mkp_get_contrast_color( $podcasts_bg ) ); ?>;
+        }
+        
+        .mkp-podcasts-section h2,
+        .mkp-podcasts-section h3 {
+            color: <?php echo esc_attr( mkp_get_contrast_color_rgba( $podcasts_bg, 'heading' ) ); ?>;
+        }
+        
+        .mkp-podcasts-section .mkp-podcast-card {
+            background-color: <?php echo mkp_is_light_color( $podcasts_bg ) ? 'rgba(255, 255, 255, 0.8)' : 'rgba(0, 0, 0, 0.2)'; ?>;
+        }
+        
+        .mkp-podcasts-section .mkp-podcast-card__title {
+            color: <?php echo esc_attr( mkp_get_contrast_color_rgba( $podcasts_bg, 'heading' ) ); ?>;
+        }
+        
+        .mkp-podcasts-section .mkp-podcast-card__description {
+            color: <?php echo esc_attr( mkp_get_contrast_color( $podcasts_bg ) ); ?>;
         }
         
         
@@ -224,7 +248,8 @@ function mkp_generate_dynamic_styles() {
         /* Add subtle shadows to all cards */
         .mkp-speaker__topic,
         .mkp-corp-card,
-        .mkp-book-card {
+        .mkp-book-card,
+        .mkp-podcast-card {
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
         }
     </style>
