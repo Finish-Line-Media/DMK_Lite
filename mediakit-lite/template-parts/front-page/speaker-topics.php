@@ -9,16 +9,16 @@ $section_class = 'mkp-speaker-section';
 $section_color = get_theme_mod( 'mkp_speaker_topics_background_color', '#ffffff' );
 $list_style = get_theme_mod( 'mkp_speaker_topics_list_style', 'bullets' );
 
-// Collect topics
-$topics = array();
+// Check if we have any topics
+$has_topics = false;
 for ( $i = 1; $i <= 5; $i++ ) {
-    $topic = get_theme_mod( 'mkp_speaker_topic_' . $i );
-    if ( $topic ) {
-        $topics[] = $topic;
+    if ( get_theme_mod( 'mkp_speaker_topic_' . $i ) ) {
+        $has_topics = true;
+        break;
     }
 }
 
-if ( empty( $topics ) ) {
+if ( ! $has_topics ) {
     return;
 }
 ?>
@@ -32,20 +32,26 @@ if ( empty( $topics ) ) {
             $tag = $list_style === 'bullets' ? 'ul' : 'ol';
             ?>
             <<?php echo $tag; ?> class="mkp-speaker__list mkp-speaker__list--<?php echo esc_attr( $list_style ); ?>">
-                <?php foreach ( $topics as $topic ) : ?>
-                    <li class="mkp-speaker__list-item">
+                <?php for ( $i = 1; $i <= 5; $i++ ) : 
+                    $topic = get_theme_mod( 'mkp_speaker_topic_' . $i );
+                    $display = $topic ? 'list-item' : 'none';
+                    ?>
+                    <li class="mkp-speaker__list-item mkp-speaker__list-item--<?php echo esc_attr( $i ); ?>" style="display: <?php echo esc_attr( $display ); ?>;">
                         <h3 class="mkp-speaker__topic-title"><?php echo esc_html( $topic ); ?></h3>
                     </li>
-                <?php endforeach; ?>
+                <?php endfor; ?>
             </<?php echo $tag; ?>>
         <?php else : // cards style ?>
             <div class="mkp-speaker__topics">
-                <?php foreach ( $topics as $topic ) : ?>
-                    <div class="mkp-speaker__topic">
+                <?php for ( $i = 1; $i <= 5; $i++ ) : 
+                    $topic = get_theme_mod( 'mkp_speaker_topic_' . $i );
+                    $display = $topic ? 'flex' : 'none';
+                    ?>
+                    <div class="mkp-speaker__topic mkp-speaker__topic--<?php echo esc_attr( $i ); ?>" style="display: <?php echo esc_attr( $display ); ?>;">
                         <span class="mkp-speaker__topic-arrow">➤</span>
                         <h3 class="mkp-speaker__topic-title"><?php echo esc_html( $topic ); ?></h3>
                     </div>
-                <?php endforeach; ?>
+                <?php endfor; ?>
             </div>
         <?php endif; ?>
     </div>

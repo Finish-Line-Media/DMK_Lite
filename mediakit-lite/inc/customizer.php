@@ -493,7 +493,7 @@ function mkp_customize_register( $wp_customize ) {
     $wp_customize->add_setting( 'mkp_speaker_topics_list_style', array(
         'default'           => 'bullets',
         'sanitize_callback' => 'mkp_sanitize_select',
-        'transport'         => 'postMessage',
+        'transport'         => 'refresh',
     ) );
     
     $wp_customize->add_control( 'mkp_speaker_topics_list_style', array(

@@ -90,6 +90,27 @@
                 
                 $section.css( 'color', textColor );
                 $section.find( 'h2, h3' ).css( 'color', headingColor );
+                
+                // Special handling for speaker topic cards
+                if ( section.selector === '.mkp-speaker-section' ) {
+                    const isLight = isLightColor( to );
+                    
+                    // Update card backgrounds to contrast with section background
+                    if ( isLight ) {
+                        $section.find( '.mkp-speaker__topic' ).css({
+                            'background-color': 'rgba(0, 0, 0, 0.05)',
+                            'box-shadow': '0 2px 8px rgba(0,0,0,0.1)'
+                        });
+                    } else {
+                        $section.find( '.mkp-speaker__topic' ).css({
+                            'background-color': 'rgba(255, 255, 255, 0.1)',
+                            'box-shadow': '0 2px 8px rgba(0,0,0,0.3)'
+                        });
+                    }
+                    
+                    // Update arrow color to match secondary color
+                    $section.find( '.mkp-speaker__topic-arrow' ).css( 'color', wp.customize( 'mkp_secondary_color' ).get() );
+                }
             } );
         } );
     } );
@@ -113,6 +134,9 @@
                 'color': to,
                 'border-color': to
             });
+            
+            // Update speaker topic arrows
+            $( '.mkp-speaker__topic-arrow' ).css( 'color', to );
         } );
     } );
     
@@ -274,49 +298,8 @@
     // Speaker Topics List Style
     wp.customize( 'mkp_speaker_topics_list_style', function( value ) {
         value.bind( function( to ) {
-            const $section = $( '.mkp-speaker-section' );
-            
-            // Remove all style classes
-            $section.removeClass( 'mkp-speaker-section--bullets mkp-speaker-section--numbers mkp-speaker-section--cards' );
-            
-            // Add new style class
-            $section.addClass( 'mkp-speaker-section--' + to );
-            
-            // Rebuild the content based on style
-            const topics = [];
-            for ( let i = 1; i <= 5; i++ ) {
-                const topic = wp.customize( 'mkp_speaker_topic_' + i ).get();
-                if ( topic ) {
-                    topics.push( topic );
-                }
-            }
-            
-            if ( topics.length > 0 ) {
-                let html = '';
-                
-                if ( to === 'bullets' || to === 'numbers' ) {
-                    const tag = to === 'bullets' ? 'ul' : 'ol';
-                    html = '<' + tag + ' class="mkp-speaker__list mkp-speaker__list--' + to + '">';
-                    topics.forEach( function( topic ) {
-                        html += '<li class="mkp-speaker__list-item"><h3 class="mkp-speaker__topic-title">' + topic + '</h3></li>';
-                    } );
-                    html += '</' + tag + '>';
-                } else { // cards
-                    html = '<div class="mkp-speaker__topics">';
-                    topics.forEach( function( topic, index ) {
-                        html += '<div class="mkp-speaker__topic">';
-                        html += '<span class="mkp-speaker__topic-number">' + ( index + 1 ) + '</span>';
-                        html += '<h3 class="mkp-speaker__topic-title">' + topic + '</h3>';
-                        html += '</div>';
-                    } );
-                    html += '</div>';
-                }
-                
-                // Replace content after the title
-                const $container = $section.find( '.mkp-container' );
-                $container.find( '.mkp-speaker__list, .mkp-speaker__topics' ).remove();
-                $container.append( html );
-            }
+            // Force refresh for style changes as it requires DOM structure changes
+            wp.customize.preview.send( 'refresh' );
         } );
     } );
     
@@ -325,9 +308,22 @@
         ( function( topicNum ) {
             wp.customize( 'mkp_speaker_topic_' + topicNum, function( value ) {
                 value.bind( function( to ) {
-                    // Trigger list style update to rebuild the list
-                    const currentStyle = wp.customize( 'mkp_speaker_topics_list_style' ).get();
-                    wp.customize( 'mkp_speaker_topics_list_style' ).set( currentStyle );
+                    // Update all instances of this topic
+                    const $listItem = $( '.mkp-speaker__list-item--' + topicNum );
+                    const $cardItem = $( '.mkp-speaker__topic--' + topicNum );
+                    
+                    // Update text
+                    $listItem.find( '.mkp-speaker__topic-title' ).text( to );
+                    $cardItem.find( '.mkp-speaker__topic-title' ).text( to );
+                    
+                    // Show/hide based on content
+                    if ( to ) {
+                        $listItem.css( 'display', 'list-item' );
+                        $cardItem.css( 'display', 'flex' );
+                    } else {
+                        $listItem.hide();
+                        $cardItem.hide();
+                    }
                 } );
             } );
         } )( i );
