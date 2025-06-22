@@ -81,7 +81,7 @@ function mkp_check_for_updates() {
     }
     
     // Fallback method: Check version.json in repository
-    $version_url = 'https://raw.githubusercontent.com/Finish-Line-Media/DMK_Lite/main/version.json';
+    $version_url = 'https://raw.githubusercontent.com/Finish-Line-Media/DMK_Lite/main/mediakit-lite/version.json';
     
     $response = wp_remote_get( $version_url, array(
         'timeout' => 10,
@@ -97,6 +97,7 @@ function mkp_check_for_updates() {
         if ( ! empty( $data['version'] ) ) {
             // Store the remote version info
             set_transient( 'mkp_remote_version', $data, DAY_IN_SECONDS );
+            set_transient( 'mkp_update_last_checked', time(), DAY_IN_SECONDS );
         } else {
             // Log the issue if in debug mode
             if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {

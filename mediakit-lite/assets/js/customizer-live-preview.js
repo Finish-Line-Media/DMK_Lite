@@ -178,4 +178,113 @@
         } )( i );
     }
     
+    // Companies (Corporations) section updates
+    const maxCorps = 4;
+    for ( let i = 1; i <= maxCorps; i++ ) {
+        ( function( corpNum ) {
+            // Company name
+            wp.customize( 'mkp_corp_' + corpNum + '_name', function( value ) {
+                value.bind( function( to ) {
+                    $( '.mkp-corp-card:nth-child(' + corpNum + ') .mkp-corp-card__name' ).text( to );
+                    // Show/hide card based on content
+                    const $card = $( '.mkp-corp-card:nth-child(' + corpNum + ')' );
+                    if ( to ) {
+                        $card.show();
+                    } else {
+                        $card.hide();
+                    }
+                } );
+            } );
+            
+            // Company bio
+            wp.customize( 'mkp_corp_' + corpNum + '_bio', function( value ) {
+                value.bind( function( to ) {
+                    $( '.mkp-corp-card:nth-child(' + corpNum + ') .mkp-corp-card__bio' ).html( to );
+                } );
+            } );
+            
+            // Company logo
+            wp.customize( 'mkp_corp_' + corpNum + '_logo', function( value ) {
+                value.bind( function( to ) {
+                    const $logo = $( '.mkp-corp-card:nth-child(' + corpNum + ') .mkp-corp-card__logo img' );
+                    if ( to ) {
+                        // If attachment ID, fetch URL
+                        if ( $.isNumeric( to ) ) {
+                            wp.media.attachment( to ).fetch().then( function() {
+                                const attachment = wp.media.attachment( to );
+                                $logo.attr( 'src', attachment.get( 'url' ) );
+                            } );
+                        }
+                    } else {
+                        $logo.attr( 'src', '' );
+                    }
+                } );
+            } );
+        } )( i );
+    }
+    
+    // Media Questions section updates
+    const maxQuestions = 12;
+    for ( let i = 1; i <= maxQuestions; i++ ) {
+        ( function( questionNum ) {
+            wp.customize( 'mkp_media_question_' + questionNum, function( value ) {
+                value.bind( function( to ) {
+                    const $questions = $( '.mkp-media-questions__list' );
+                    const $question = $questions.find( 'li:nth-child(' + questionNum + ')' );
+                    
+                    if ( to ) {
+                        if ( $question.length ) {
+                            $question.text( to );
+                        } else {
+                            // Add new question
+                            $questions.append( '<li>' + to + '</li>' );
+                        }
+                    } else {
+                        $question.remove();
+                    }
+                } );
+            } );
+        } )( i );
+    }
+    
+    // Investor section updates
+    wp.customize( 'mkp_investment_people', function( value ) {
+        value.bind( function( to ) {
+            $( '.mkp-investor__category--people .mkp-investor__description' ).html( to );
+            // Show/hide category
+            const $category = $( '.mkp-investor__category--people' );
+            if ( to ) {
+                $category.show();
+            } else {
+                $category.hide();
+            }
+        } );
+    } );
+    
+    wp.customize( 'mkp_investment_products', function( value ) {
+        value.bind( function( to ) {
+            $( '.mkp-investor__category--products .mkp-investor__description' ).html( to );
+            // Show/hide category
+            const $category = $( '.mkp-investor__category--products' );
+            if ( to ) {
+                $category.show();
+            } else {
+                $category.hide();
+            }
+        } );
+    } );
+    
+    wp.customize( 'mkp_investment_markets', function( value ) {
+        value.bind( function( to ) {
+            $( '.mkp-investor__category--markets .mkp-investor__description' ).html( to );
+            // Show/hide category
+            const $category = $( '.mkp-investor__category--markets' );
+            if ( to ) {
+                $category.show();
+            } else {
+                $category.hide();
+            }
+        } );
+    } );
+    
 } )( jQuery );

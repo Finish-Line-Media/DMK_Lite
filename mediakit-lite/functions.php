@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Define Constants
  */
-define( 'MKP_THEME_VERSION', '1.3.1' );
+define( 'MKP_THEME_VERSION', '1.3.2' );
 define( 'MKP_THEME_DIR', get_template_directory() );
 define( 'MKP_THEME_URI', get_template_directory_uri() );
 
@@ -213,6 +213,7 @@ $required_files = array(
     '/inc/template-functions.php',
     '/inc/front-page-sections.php',
     '/inc/social-icons.php',
+    '/inc/section-order.php',
     '/inc/field-helpers.php',
     '/inc/meta-boxes.php',
     '/inc/options-pages.php',

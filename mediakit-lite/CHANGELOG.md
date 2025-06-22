@@ -2,6 +2,18 @@
 
 All notable changes to the MediaKit Lite theme will be documented in this file.
 
+## [1.3.2] - 2025-06-22
+
+### Added
+- Live preview for Companies, Media Questions, and Investor sections in Customizer
+- Draggable section reordering in Customizer (except Hero and Bio which remain fixed)
+
+### Fixed
+- Version check now correctly checks version.json in mediakit-lite subdirectory
+
+### Changed
+- Updated Finish Line Media contact link to point to form section
+
 ## [1.3.1] - 2025-06-22
 
 ### Refactored

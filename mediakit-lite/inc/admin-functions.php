@@ -192,7 +192,7 @@ function mkp_admin_page_display() {
                     <p style="margin: 0 0 10px 0;"><?php esc_html_e( 'Need a fully customized media kit with advanced features? Finish Line Media can build you a professional, branded media kit starting at just $900.', 'mediakit-lite' ); ?></p>
                     <p style="margin: 0;"><?php esc_html_e( 'We also offer professional WordPress hosting and management for $50/month with no contracts or commitments - perfect for keeping your media kit fast, secure, and always online.', 'mediakit-lite' ); ?></p>
                     <p style="margin: 10px 0 0 0;">
-                        <a href="https://finishline.media/contact" target="_blank" class="button button-secondary"><?php esc_html_e( 'Get a Custom Quote', 'mediakit-lite' ); ?></a>
+                        <a href="https://finishline.media/#form" target="_blank" class="button button-secondary"><?php esc_html_e( 'Get a Custom Quote', 'mediakit-lite' ); ?></a>
                         <a href="https://finishline.media" target="_blank" style="margin-left: 10px;"><?php esc_html_e( 'Learn More →', 'mediakit-lite' ); ?></a>
                     </p>
                 </div>
