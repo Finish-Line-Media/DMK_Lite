@@ -222,6 +222,7 @@ $required_files = array(
     '/inc/template-functions.php',
     '/inc/front-page-sections.php',
     '/inc/social-icons.php',
+    '/inc/social-icon-svgs.php',
     '/inc/section-order.php',
     '/inc/field-helpers.php',
     '/inc/meta-boxes.php',

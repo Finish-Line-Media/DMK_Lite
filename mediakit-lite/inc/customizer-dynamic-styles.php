@@ -30,6 +30,7 @@ function mkp_generate_dynamic_styles() {
     $corps_bg = get_theme_mod( 'mkp_corporations_background_color', '#ffffff' );
     $media_questions_bg = get_theme_mod( 'mkp_media_questions_background_color', '#f8f9fa' );
     $investor_bg = get_theme_mod( 'mkp_investor_background_color', '#ffffff' );
+    $contact_bg = get_theme_mod( 'mkp_contact_background_color', '#f8f9fa' );
     
     ob_start();
     ?>
@@ -234,6 +235,34 @@ function mkp_generate_dynamic_styles() {
         
         .mkp-investor-section .mkp-investor-card__description {
             color: <?php echo esc_attr( mkp_get_contrast_color( $investor_bg ) ); ?>;
+        }
+        
+        /* Contact Section Auto-Contrast */
+        .mkp-contact-section {
+            background-color: <?php echo esc_attr( $contact_bg ); ?>;
+            color: <?php echo esc_attr( mkp_get_contrast_color( $contact_bg ) ); ?>;
+        }
+        
+        .mkp-contact-section h2,
+        .mkp-contact-section h3 {
+            color: <?php echo esc_attr( mkp_get_contrast_color_rgba( $contact_bg, 'heading' ) ); ?>;
+        }
+        
+        .mkp-contact__label {
+            color: <?php echo esc_attr( mkp_get_contrast_color_rgba( $contact_bg, 'heading' ) ); ?>;
+        }
+        
+        .mkp-contact__email {
+            color: <?php echo esc_attr( $secondary_color ); ?>;
+        }
+        
+        .mkp-contact__address-text {
+            color: <?php echo esc_attr( mkp_get_contrast_color( $contact_bg ) ); ?>;
+        }
+        
+        .mkp-contact__social-link {
+            background-color: <?php echo mkp_is_light_color( $contact_bg ) ? 'rgba(0, 0, 0, 0.05)' : 'rgba(255, 255, 255, 0.1)'; ?>;
+            color: <?php echo esc_attr( mkp_get_contrast_color( $contact_bg ) ); ?>;
         }
         
         /* Button styles with proper hover states */

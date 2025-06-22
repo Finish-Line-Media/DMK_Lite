@@ -1,8 +1,8 @@
 {
-  "version": "1.2.2",
-  "description": "Theme renamed to MediaKit Lite",
-  "download_url": "https://github.com/Finish-Line-Media/DMK_Lite/releases/download/v1.2.2/mediakit-lite.zip",
-  "changelog_url": "https://github.com/Finish-Line-Media/DMK_Lite/releases/tag/v1.2.2",
+  "version": "1.6.0",
+  "description": "MediaKit Lite v1.6.0",
+  "download_url": "https://github.com/Finish-Line-Media/DMK_Lite/releases/download/v1.6.0/mediakit-lite.zip",
+  "changelog_url": "https://github.com/Finish-Line-Media/DMK_Lite/releases/tag/v1.6.0",
   "release_date": "2025-06-22",
   "min_wp_version": "5.8",
   "tested_up_to": "6.5",

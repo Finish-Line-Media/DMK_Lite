@@ -38,7 +38,7 @@ for ( $i = 1; $i <= 3; $i++ ) {
 }
 
 // Dynamic section title
-$section_title = ( $actual_investor_count === 1 ) ? __( 'Investor', 'mediakit-lite' ) : __( 'Investors', 'mediakit-lite' );
+$section_title = ( $actual_investor_count === 1 ) ? __( 'Investment Vertical', 'mediakit-lite' ) : __( 'Investment Verticals', 'mediakit-lite' );
 ?>
 
 <section id="investor" class="<?php echo esc_attr( $section_class ); ?>" style="background-color: <?php echo esc_attr( $section_color ); ?><?php echo ( ! $has_investors && $is_customizer ) ? '; display: none;' : ''; ?>">

@@ -389,6 +389,17 @@ function mkp_get_front_page_nav_items() {
                 return false;
             },
         ),
+        'contact' => array(
+            'id'    => 'contact',
+            'label' => __( 'Contact', 'mediakit-lite' ),
+            'url'   => '#contact',
+            'check' => function() {
+                if ( ! get_theme_mod( 'mkp_enable_section_contact', true ) ) {
+                    return false;
+                }
+                return mkp_has_contact_info();
+            },
+        ),
     );
     
     // Build nav items in the order specified

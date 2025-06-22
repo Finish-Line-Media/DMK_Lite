@@ -122,6 +122,35 @@ function mkp_has_investors() {
     return false;
 }
 
+/**
+ * Check if contact section has content
+ *
+ * @return bool
+ */
+function mkp_has_contact_info() {
+    // Check email addresses
+    if ( get_theme_mod( 'mkp_contact_general_email' ) || 
+         get_theme_mod( 'mkp_contact_media_email' ) || 
+         get_theme_mod( 'mkp_contact_speaking_email' ) ) {
+        return true;
+    }
+    
+    // Check address
+    if ( get_theme_mod( 'mkp_contact_address' ) ) {
+        return true;
+    }
+    
+    // Check social links
+    $social_platforms = array( 'x', 'facebook', 'instagram', 'linkedin', 'youtube', 'tiktok', 'github', 'threads' );
+    foreach ( $social_platforms as $platform ) {
+        if ( get_theme_mod( 'mkp_contact_social_' . $platform ) ) {
+            return true;
+        }
+    }
+    
+    return false;
+}
+
 
 /**
  * Get front page sections configuration
@@ -161,6 +190,10 @@ function mkp_get_front_page_sections() {
         'investor' => array(
             'template' => 'template-parts/front-page/investor',
             'check_function' => 'mkp_has_investors',
+        ),
+        'contact' => array(
+            'template' => 'template-parts/front-page/contact',
+            'check_function' => 'mkp_has_contact_info',
         ),
     );
 }

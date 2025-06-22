@@ -1513,6 +1513,147 @@ img {
     padding: 40px 0;
 }
 
+/* Contact Section */
+.mkp-contact-section {
+    padding: var(--mkp-spacing-xxl) 0;
+}
+
+.mkp-contact__wrapper {
+    display: grid;
+    gap: var(--mkp-spacing-xl);
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.mkp-contact__info {
+    display: grid;
+    gap: var(--mkp-spacing-lg);
+}
+
+.mkp-contact__emails {
+    display: grid;
+    gap: var(--mkp-spacing-md);
+}
+
+.mkp-contact__item {
+    display: flex;
+    flex-direction: column;
+    gap: var(--mkp-spacing-xs);
+}
+
+.mkp-contact__label {
+    font-weight: 600;
+    color: var(--mkp-text);
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.mkp-contact__email {
+    font-size: 1.125rem;
+    color: var(--mkp-secondary);
+    text-decoration: none;
+    transition: var(--mkp-transition);
+}
+
+.mkp-contact__email:hover {
+    color: var(--mkp-accent);
+    text-decoration: underline;
+}
+
+.mkp-contact__address {
+    display: flex;
+    flex-direction: column;
+    gap: var(--mkp-spacing-sm);
+}
+
+.mkp-contact__address-text {
+    font-style: normal;
+    line-height: 1.6;
+}
+
+/* Social Media Links */
+.mkp-contact__social {
+    text-align: center;
+}
+
+.mkp-contact__social-title {
+    font-size: 1.5rem;
+    margin-bottom: var(--mkp-spacing-lg);
+    color: var(--mkp-text);
+}
+
+.mkp-contact__social-links {
+    display: flex;
+    justify-content: center;
+    gap: var(--mkp-spacing-md);
+    flex-wrap: wrap;
+}
+
+.mkp-contact__social-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.05);
+    color: var(--mkp-text);
+    transition: var(--mkp-transition);
+    text-decoration: none;
+}
+
+.mkp-contact__social-link:hover {
+    transform: translateY(-2px);
+    background-color: var(--mkp-secondary);
+    color: white;
+}
+
+.mkp-contact__social-link svg {
+    width: 24px;
+    height: 24px;
+    fill: currentColor;
+}
+
+/* Social platform specific colors on hover */
+.mkp-contact__social-link--x:hover {
+    background-color: #000000;
+}
+
+.mkp-contact__social-link--facebook:hover {
+    background-color: #1877f2;
+}
+
+.mkp-contact__social-link--instagram:hover {
+    background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+}
+
+.mkp-contact__social-link--linkedin:hover {
+    background-color: #0077b5;
+}
+
+.mkp-contact__social-link--youtube:hover {
+    background-color: #ff0000;
+}
+
+.mkp-contact__social-link--tiktok:hover {
+    background-color: #000000;
+}
+
+.mkp-contact__social-link--github:hover {
+    background-color: #333333;
+}
+
+.mkp-contact__social-link--threads:hover {
+    background-color: #000000;
+}
+
+.mkp-contact__placeholder {
+    text-align: center;
+    color: #999;
+    padding: 40px 0;
+}
+
 /* In The Media Section */
 .mkp-in-media-section {
     padding: var(--mkp-spacing-xxl) 0;
