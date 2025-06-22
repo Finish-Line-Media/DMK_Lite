@@ -2,6 +2,11 @@
 
 All notable changes to the MediaKit Lite theme will be documented in this file.
 
+## [1.7.3] - 2025-06-22
+
+### Changed
+- Add verbose logging to update checker for debugging
+
 ## [1.7.2] - 2025-06-22
 
 ### Changed

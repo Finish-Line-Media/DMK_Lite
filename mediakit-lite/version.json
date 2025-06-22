@@ -1,6 +1,6 @@
 {
-    "version": "1.7.2",
-    "description": "Update bump script to sync root version.json file",
+    "version": "1.7.3",
+    "description": "Add verbose logging to update checker for debugging",
     "download_url": "https://github.com/Finish-Line-Media/DMK_Lite/releases/latest/download/mediakit-lite.zip",
     "changelog_url": "https://github.com/Finish-Line-Media/DMK_Lite/blob/main/CHANGELOG.md",
     "release_date": "2025-06-22",
