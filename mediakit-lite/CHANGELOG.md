@@ -2,6 +2,11 @@
 
 All notable changes to the MediaKit Lite theme will be documented in this file.
 
+## [1.4.3] - 2025-06-22
+
+### Changed
+- Fixed undefined function mkp_get_default_bio error in customizer
+
 ## [1.4.2] - 2025-06-22
 
 ### Changed
