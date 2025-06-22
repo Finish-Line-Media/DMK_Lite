@@ -1219,12 +1219,6 @@ function mkp_customize_register( $wp_customize ) {
 }
 add_action( 'customize_register', 'mkp_customize_register' );
 
-/**
- * Sanitize checkbox
- */
-function mkp_sanitize_checkbox( $checked ) {
-    return ( ( isset( $checked ) && true == $checked ) ? true : false );
-}
 
 /**
  * Sanitize font choice

@@ -2,6 +2,11 @@
 
 All notable changes to the MediaKit Lite theme will be documented in this file.
 
+## [1.3.3] - 2025-06-22
+
+### Fixed
+- Removed duplicate mkp_sanitize_checkbox function declaration that was causing fatal error
+
 ## [1.3.2] - 2025-06-22
 
 ### Added
