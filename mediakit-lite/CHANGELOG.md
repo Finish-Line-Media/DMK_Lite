@@ -2,6 +2,11 @@
 
 All notable changes to the MediaKit Lite theme will be documented in this file.
 
+## [1.7.8] - 2025-06-22
+
+### Changed
+- Sync hero name with WordPress site title
+
 ## [1.7.7] - 2025-06-22
 
 ### Changed
