@@ -1,0 +1,134 @@
+name: Auto Create Release
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'mediakit-lite/style.css'
+      - 'mediakit-lite/version.json'
+      - 'mediakit-lite/functions.php'
+      - 'mediakit-lite/CHANGELOG.md'
+
+jobs:
+  check-version:
+    runs-on: ubuntu-latest
+    outputs:
+      version_changed: ${{ steps.version_check.outputs.changed }}
+      new_version: ${{ steps.version_check.outputs.version }}
+      
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        fetch-depth: 2
+    
+    - name: Check if version changed
+      id: version_check
+      run: |
+        # Get current version from style.css
+        CURRENT_VERSION=$(grep "Version:" mediakit-lite/style.css | sed 's/.*Version: //' | tr -d '[:space:]')
+        echo "Current version: $CURRENT_VERSION"
+        
+        # Get previous version
+        git checkout HEAD~1
+        PREVIOUS_VERSION=$(grep "Version:" mediakit-lite/style.css 2>/dev/null | sed 's/.*Version: //' | tr -d '[:space:]' || echo "0.0.0")
+        echo "Previous version: $PREVIOUS_VERSION"
+        
+        # Check if version changed
+        if [ "$CURRENT_VERSION" != "$PREVIOUS_VERSION" ]; then
+          echo "Version changed from $PREVIOUS_VERSION to $CURRENT_VERSION"
+          echo "changed=true" >> $GITHUB_OUTPUT
+          echo "version=$CURRENT_VERSION" >> $GITHUB_OUTPUT
+        else
+          echo "Version unchanged"
+          echo "changed=false" >> $GITHUB_OUTPUT
+        fi
+
+  create-release:
+    needs: check-version
+    if: needs.check-version.outputs.version_changed == 'true'
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Create theme ZIP
+      run: |
+        # Create a clean copy
+        mkdir -p build
+        cp -r mediakit-lite build/mediakit-lite
+        cd build/mediakit-lite
+        
+        # Remove development files
+        rm -rf .git .gitignore .github .DS_Store
+        rm -f REFACTORING-SUMMARY.md
+        find . -name "*.md" ! -name "readme.txt" -delete
+        
+        # Go back and create ZIP
+        cd ..
+        zip -r mediakit-lite.zip mediakit-lite -x "*.DS_Store" "*.git*"
+        mv mediakit-lite.zip ../mediakit-lite.zip
+    
+    - name: Extract changelog for version
+      id: changelog
+      run: |
+        VERSION=${{ needs.check-version.outputs.new_version }}
+        echo "Extracting changelog for version $VERSION"
+        
+        # Extract the changelog section for this version
+        CHANGELOG=$(awk "/## \[$VERSION\]/{flag=1; next} /## \[/{flag=0} flag" mediakit-lite/CHANGELOG.md | sed '/^$/d')
+        
+        # If no specific version section found, get the latest entry
+        if [ -z "$CHANGELOG" ]; then
+          CHANGELOG=$(awk '/## \[/{if(++count==1)flag=1; if(count==2)exit} flag' mediakit-lite/CHANGELOG.md | sed '/^$/d' | tail -n +2)
+        fi
+        
+        # Format for GitHub
+        {
+          echo 'CHANGELOG<<EOF'
+          echo "$CHANGELOG"
+          echo 'EOF'
+        } >> $GITHUB_OUTPUT
+    
+    - name: Create Release
+      uses: actions/create-release@v1
+      id: create_release
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: v${{ needs.check-version.outputs.new_version }}
+        release_name: MediaKit Lite v${{ needs.check-version.outputs.new_version }}
+        body: |
+          # MediaKit Lite v${{ needs.check-version.outputs.new_version }}
+          
+          ## 📥 Installation
+          1. Download **`mediakit-lite.zip`** from the assets below
+          2. In WordPress admin, go to **Appearance > Themes > Add New > Upload Theme**
+          3. Choose the downloaded ZIP file and click **Install Now**
+          4. Activate the theme
+          
+          ## 🎉 What's New
+          ${{ steps.changelog.outputs.CHANGELOG }}
+          
+          ## 📋 Requirements
+          - WordPress 5.8 or higher
+          - PHP 7.4 or higher
+          
+          ## 🆘 Support
+          - Report issues: https://github.com/Finish-Line-Media/DMK_Lite/issues
+          - Documentation: https://github.com/Finish-Line-Media/DMK_Lite#readme
+          
+          ---
+          *This release was automatically created by GitHub Actions*
+        draft: false
+        prerelease: false
+    
+    - name: Upload Release Asset
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./mediakit-lite.zip
+        asset_name: mediakit-lite.zip
+        asset_content_type: application/zip
