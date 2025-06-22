@@ -40,7 +40,6 @@ function mkp_dashboard_widget_display() {
         <h3><?php esc_html_e( 'MediaKit Lite', 'mediakit-lite' ); ?></h3>
         <p><?php esc_html_e( 'Create your professional digital media kit in minutes! Use the Customizer to add your content.', 'mediakit-lite' ); ?></p>
         
-        <p style="margin-bottom: 15px;"><small><?php esc_html_e( 'Need a custom media kit? Finish Line Media can help! Starting at $900.', 'mediakit-lite' ); ?> <a href="https://finishline.media" target="_blank"><?php esc_html_e( 'Learn more', 'mediakit-lite' ); ?></a></small></p>
         
         <?php if ( $update_available ) : ?>
             <div class="mkp-update-alert" style="background: #fff3cd; border: 1px solid #ffeaa7; padding: 10px; margin: 15px 0; border-radius: 3px;">
@@ -187,16 +186,6 @@ function mkp_admin_page_display() {
                 
                 <p><?php esc_html_e( 'MediaKit Lite is a streamlined version of our professional media kit theme, perfect for showcasing your personal brand, books, speaking topics, and media appearances. Simply use the WordPress Customizer below to add your content - no coding required!', 'mediakit-lite' ); ?></p>
                 
-                <div style="background: #f0f8ff; padding: 15px; border-left: 4px solid #2196F3; margin: 20px 0;">
-                    <p style="margin: 0 0 10px 0;"><strong><?php esc_html_e( '🚀 Want More?', 'mediakit-lite' ); ?></strong></p>
-                    <p style="margin: 0 0 10px 0;"><?php esc_html_e( 'Need a fully customized media kit with advanced features? Finish Line Media can build you a professional, branded media kit starting at just $900.', 'mediakit-lite' ); ?></p>
-                    <p style="margin: 0;"><?php esc_html_e( 'We also offer professional WordPress hosting and management for $50/month with no contracts or commitments - perfect for keeping your media kit fast, secure, and always online.', 'mediakit-lite' ); ?></p>
-                    <p style="margin: 10px 0 0 0;">
-                        <a href="https://finishline.media/#form" target="_blank" class="button button-secondary"><?php esc_html_e( 'Get a Custom Quote', 'mediakit-lite' ); ?></a>
-                        <a href="https://finishline.media" target="_blank" style="margin-left: 10px;"><?php esc_html_e( 'Learn More →', 'mediakit-lite' ); ?></a>
-                    </p>
-                </div>
-                
                 <p><strong><?php esc_html_e( 'Quick Start Guide:', 'mediakit-lite' ); ?></strong></p>
                 <ol style="margin-left: 20px;">
                     <li><?php esc_html_e( 'Click "Customize Theme" below to open the WordPress Customizer', 'mediakit-lite' ); ?></li>
@@ -243,6 +232,16 @@ function mkp_admin_page_display() {
                     <p><?php esc_html_e( 'Connect your social media profiles.', 'mediakit-lite' ); ?></p>
                     <a href="<?php echo esc_url( admin_url( 'customize.php?autofocus[section]=mkp_social_media' ) ); ?>" class="button"><?php esc_html_e( 'Add Social Links', 'mediakit-lite' ); ?></a>
                 </div>
+            </div>
+            
+            <div class="mkp-admin-upgrade" style="background: #f9f9f9; padding: 20px; margin: 20px 0; border: 1px solid #e0e0e0; border-radius: 3px;">
+                <h3 style="margin-top: 0; font-size: 16px; color: #666;"><?php esc_html_e( 'Want More Features?', 'mediakit-lite' ); ?></h3>
+                <p style="margin: 10px 0; color: #666; font-size: 14px;"><?php esc_html_e( 'Need a fully customized media kit with advanced features? Finish Line Media can build you a professional, branded media kit starting at just $900.', 'mediakit-lite' ); ?></p>
+                <p style="margin: 10px 0; color: #666; font-size: 14px;"><?php esc_html_e( 'We also offer professional WordPress hosting and management for $50/month with no contracts or commitments.', 'mediakit-lite' ); ?></p>
+                <p style="margin: 15px 0 0 0;">
+                    <a href="https://finishline.media/#form" target="_blank" class="button button-secondary" style="font-size: 13px;"><?php esc_html_e( 'Get a Custom Quote', 'mediakit-lite' ); ?></a>
+                    <a href="https://finishline.media" target="_blank" style="margin-left: 10px; font-size: 13px; color: #999;"><?php esc_html_e( 'Learn More →', 'mediakit-lite' ); ?></a>
+                </p>
             </div>
             
             <div class="mkp-admin-resources">
