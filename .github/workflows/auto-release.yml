@@ -10,6 +10,9 @@ on:
       - 'mediakit-lite/functions.php'
       - 'mediakit-lite/CHANGELOG.md'
 
+permissions:
+  contents: write
+  
 jobs:
   check-version:
     runs-on: ubuntu-latest

@@ -619,6 +619,26 @@ function mkp_customize_register( $wp_customize ) {
         'priority'    => 2,
     ) ) );
     
+    // List Style
+    $wp_customize->add_setting( 'mkp_speaker_topics_list_style', array(
+        'default'           => 'bullets',
+        'sanitize_callback' => 'mkp_sanitize_select',
+        'transport'         => 'postMessage',
+    ) );
+    
+    $wp_customize->add_control( 'mkp_speaker_topics_list_style', array(
+        'label'       => __( 'List Style', 'mediakit-lite' ),
+        'description' => __( 'Choose how to display your speaking topics', 'mediakit-lite' ),
+        'section'     => 'mkp_speaker_section',
+        'type'        => 'select',
+        'choices'     => array(
+            'bullets' => __( 'Bullet Points', 'mediakit-lite' ),
+            'numbers' => __( 'Numbered List', 'mediakit-lite' ),
+            'cards'   => __( 'Card Style (Original)', 'mediakit-lite' ),
+        ),
+        'priority'    => 3,
+    ) );
+    
     // Speaker topics (exactly 5)
     for ( $i = 1; $i <= 5; $i++ ) {
         $wp_customize->add_setting( 'mkp_speaker_topic_' . $i, array(

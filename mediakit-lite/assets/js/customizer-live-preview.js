@@ -73,7 +73,7 @@
     const sections = [
         { setting: 'mkp_bio_background_color', selector: '.mkp-bio-section' },
         { setting: 'mkp_books_background_color', selector: '.mkp-books-section' },
-        { setting: 'mkp_speaker_topics_background_color', selector: '.mkp-speaker-topics-section' },
+        { setting: 'mkp_speaker_topics_background_color', selector: '.mkp-speaker-section' },
         { setting: 'mkp_podcast_background_color', selector: '.mkp-podcast-section' },
         { setting: 'mkp_corporations_background_color', selector: '.mkp-corporations-section' },
         { setting: 'mkp_media_questions_background_color', selector: '.mkp-media-questions-section' },
@@ -242,6 +242,68 @@
                     } else {
                         $question.remove();
                     }
+                } );
+            } );
+        } )( i );
+    }
+    
+    // Speaker Topics List Style
+    wp.customize( 'mkp_speaker_topics_list_style', function( value ) {
+        value.bind( function( to ) {
+            const $section = $( '.mkp-speaker-section' );
+            
+            // Remove all style classes
+            $section.removeClass( 'mkp-speaker-section--bullets mkp-speaker-section--numbers mkp-speaker-section--cards' );
+            
+            // Add new style class
+            $section.addClass( 'mkp-speaker-section--' + to );
+            
+            // Rebuild the content based on style
+            const topics = [];
+            for ( let i = 1; i <= 5; i++ ) {
+                const topic = wp.customize( 'mkp_speaker_topic_' + i ).get();
+                if ( topic ) {
+                    topics.push( topic );
+                }
+            }
+            
+            if ( topics.length > 0 ) {
+                let html = '';
+                
+                if ( to === 'bullets' || to === 'numbers' ) {
+                    const tag = to === 'bullets' ? 'ul' : 'ol';
+                    html = '<' + tag + ' class="mkp-speaker__list mkp-speaker__list--' + to + '">';
+                    topics.forEach( function( topic ) {
+                        html += '<li class="mkp-speaker__list-item"><h3 class="mkp-speaker__topic-title">' + topic + '</h3></li>';
+                    } );
+                    html += '</' + tag + '>';
+                } else { // cards
+                    html = '<div class="mkp-speaker__topics">';
+                    topics.forEach( function( topic, index ) {
+                        html += '<div class="mkp-speaker__topic">';
+                        html += '<span class="mkp-speaker__topic-number">' + ( index + 1 ) + '</span>';
+                        html += '<h3 class="mkp-speaker__topic-title">' + topic + '</h3>';
+                        html += '</div>';
+                    } );
+                    html += '</div>';
+                }
+                
+                // Replace content after the title
+                const $container = $section.find( '.mkp-container' );
+                $container.find( '.mkp-speaker__list, .mkp-speaker__topics' ).remove();
+                $container.append( html );
+            }
+        } );
+    } );
+    
+    // Update speaker topics text
+    for ( let i = 1; i <= 5; i++ ) {
+        ( function( topicNum ) {
+            wp.customize( 'mkp_speaker_topic_' + topicNum, function( value ) {
+                value.bind( function( to ) {
+                    // Trigger list style update to rebuild the list
+                    const currentStyle = wp.customize( 'mkp_speaker_topics_list_style' ).get();
+                    wp.customize( 'mkp_speaker_topics_list_style' ).set( currentStyle );
                 } );
             } );
         } )( i );
