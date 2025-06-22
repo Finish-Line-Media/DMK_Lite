@@ -26,7 +26,8 @@
       "Bash(unzip:*)",
       "Bash(git rm:*)",
       "Bash(comm:*)",
-      "Bash(echo:*)"
+      "Bash(echo:*)",
+      "Bash(./create-release.sh:*)"
     ],
     "deny": []
   }

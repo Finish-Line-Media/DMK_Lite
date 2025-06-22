@@ -290,6 +290,22 @@ function mkp_get_front_page_nav_items() {
         );
     }
     
+    // Books Section
+    $has_books = false;
+    for ( $i = 1; $i <= 4; $i++ ) {
+        if ( get_theme_mod( 'mkp_book_' . $i . '_title' ) ) {
+            $has_books = true;
+            break;
+        }
+    }
+    if ( get_theme_mod( 'mkp_enable_section_books', true ) && $has_books ) {
+        $nav_items[] = array(
+            'id'    => 'books',
+            'label' => __( 'Books', 'mediakit-lite' ),
+            'url'   => '#books',
+        );
+    }
+    
     // Companies Section
     $has_corps = false;
     for ( $i = 1; $i <= 4; $i++ ) {

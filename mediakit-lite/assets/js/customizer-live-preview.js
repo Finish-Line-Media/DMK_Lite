@@ -72,6 +72,7 @@
     // Other section background colors with auto-contrast
     const sections = [
         { setting: 'mkp_bio_background_color', selector: '.mkp-bio-section' },
+        { setting: 'mkp_books_background_color', selector: '.mkp-books-section' },
         { setting: 'mkp_speaker_topics_background_color', selector: '.mkp-speaker-section' },
         { setting: 'mkp_corporations_background_color', selector: '.mkp-corporations-section' }
     ];
@@ -284,6 +285,106 @@
                         } else {
                             // Create the link if it doesn't exist
                             $card.append( '<a href="' + to + '" class="mkp-btn mkp-btn--secondary mkp-btn--small" target="_blank" rel="noopener">Visit Website</a>' );
+                        }
+                    } else {
+                        // Remove the link if URL is empty
+                        $link.remove();
+                    }
+                } );
+            } );
+        } )( i );
+    }
+    
+    // Function to update books section title
+    function updateBooksSectionTitle() {
+        let bookCount = 0;
+        for ( let i = 1; i <= 4; i++ ) {
+            const title = wp.customize( 'mkp_book_' + i + '_title' ).get();
+            if ( title ) {
+                bookCount++;
+            }
+        }
+        
+        const title = bookCount === 1 ? 'Book' : 'Books';
+        $( '.mkp-books-section .mkp-section__title' ).text( title );
+    }
+    
+    // Books section updates
+    const maxBooks = 4;
+    for ( let i = 1; i <= maxBooks; i++ ) {
+        ( function( bookNum ) {
+            // Book title
+            wp.customize( 'mkp_book_' + bookNum + '_title', function( value ) {
+                value.bind( function( to ) {
+                    const $card = $( '.mkp-book-card.mkp-book--' + bookNum );
+                    $card.find( '.mkp-book-card__title' ).text( to );
+                    
+                    // Show/hide card based on content
+                    if ( to ) {
+                        $card.show();
+                    } else {
+                        $card.hide();
+                    }
+                    
+                    // Update section title
+                    updateBooksSectionTitle();
+                } );
+            } );
+            
+            // Book description
+            wp.customize( 'mkp_book_' + bookNum + '_description', function( value ) {
+                value.bind( function( to ) {
+                    const $card = $( '.mkp-book-card.mkp-book--' + bookNum );
+                    const $description = $card.find( '.mkp-book-card__description' );
+                    
+                    if ( to ) {
+                        // Simple wpautop implementation for live preview
+                        const formattedDesc = '<p>' + to.replace(/\n\n/g, '</p><p>').replace(/\n/g, '<br />') + '</p>';
+                        $description.html( formattedDesc );
+                    } else {
+                        $description.empty();
+                    }
+                } );
+            } );
+            
+            // Book cover
+            wp.customize( 'mkp_book_' + bookNum + '_cover', function( value ) {
+                value.bind( function( to ) {
+                    const $card = $( '.mkp-book-card.mkp-book--' + bookNum );
+                    const $coverContainer = $card.find( '.mkp-book-card__cover' );
+                    
+                    if ( to ) {
+                        // If attachment ID, fetch URL
+                        if ( $.isNumeric( to ) ) {
+                            wp.media.attachment( to ).fetch().then( function() {
+                                const attachment = wp.media.attachment( to );
+                                const coverHtml = '<img src="' + attachment.get( 'url' ) + '" alt="" />';
+                                $coverContainer.html( coverHtml );
+                            } );
+                        } else {
+                            // Direct URL
+                            const coverHtml = '<img src="' + to + '" alt="" />';
+                            $coverContainer.html( coverHtml );
+                        }
+                    } else {
+                        // Remove the image when cover is cleared
+                        $coverContainer.empty();
+                    }
+                } );
+            } );
+            
+            // Book link
+            wp.customize( 'mkp_book_' + bookNum + '_link', function( value ) {
+                value.bind( function( to ) {
+                    const $card = $( '.mkp-book-card.mkp-book--' + bookNum );
+                    const $link = $card.find( '.mkp-btn' );
+                    
+                    if ( to ) {
+                        if ( $link.length ) {
+                            $link.attr( 'href', to );
+                        } else {
+                            // Create the link if it doesn't exist
+                            $card.find( '.mkp-book-card__content' ).append( '<a href="' + to + '" class="mkp-btn mkp-btn--primary mkp-btn--small" target="_blank" rel="noopener">Learn More</a>' );
                         }
                     } else {
                         // Remove the link if URL is empty

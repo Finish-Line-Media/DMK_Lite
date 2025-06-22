@@ -24,6 +24,7 @@ function mkp_generate_dynamic_styles() {
     // Get section background colors
     $hero_bg = get_theme_mod( 'mkp_hero_background_color', '#f8f9fa' );
     $bio_bg = get_theme_mod( 'mkp_bio_background_color', '#ffffff' );
+    $books_bg = get_theme_mod( 'mkp_books_background_color', '#f8f9fa' );
     $speaker_bg = get_theme_mod( 'mkp_speaker_topics_background_color', '#f8f9fa' );
     $corps_bg = get_theme_mod( 'mkp_corporations_background_color', '#ffffff' );
     
@@ -85,6 +86,29 @@ function mkp_generate_dynamic_styles() {
         .mkp-bio-section h2,
         .mkp-bio-section h3 {
             color: <?php echo esc_attr( mkp_get_contrast_color_rgba( $bio_bg, 'heading' ) ); ?>;
+        }
+        
+        /* Books Section Auto-Contrast */
+        .mkp-books-section {
+            background-color: <?php echo esc_attr( $books_bg ); ?>;
+            color: <?php echo esc_attr( mkp_get_contrast_color( $books_bg ) ); ?>;
+        }
+        
+        .mkp-books-section h2,
+        .mkp-books-section h3 {
+            color: <?php echo esc_attr( mkp_get_contrast_color_rgba( $books_bg, 'heading' ) ); ?>;
+        }
+        
+        .mkp-books-section .mkp-book-card {
+            background-color: <?php echo mkp_is_light_color( $books_bg ) ? 'rgba(255, 255, 255, 0.8)' : 'rgba(0, 0, 0, 0.2)'; ?>;
+        }
+        
+        .mkp-books-section .mkp-book-card__title {
+            color: <?php echo esc_attr( mkp_get_contrast_color_rgba( $books_bg, 'heading' ) ); ?>;
+        }
+        
+        .mkp-books-section .mkp-book-card__description {
+            color: <?php echo esc_attr( mkp_get_contrast_color( $books_bg ) ); ?>;
         }
         
         
@@ -199,7 +223,8 @@ function mkp_generate_dynamic_styles() {
         
         /* Add subtle shadows to all cards */
         .mkp-speaker__topic,
-        .mkp-corp-card {
+        .mkp-corp-card,
+        .mkp-book-card {
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
         }
     </style>

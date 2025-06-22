@@ -453,6 +453,101 @@ function mkp_customize_register( $wp_customize ) {
     }
     
     /**
+     * Books Section
+     */
+    $wp_customize->add_section( 'mkp_books_section', array(
+        'title'       => __( 'Books', 'mediakit-lite' ),
+        'priority'    => 48,
+        'description' => __( 'Books you have authored or co-authored.', 'mediakit-lite' ),
+    ) );
+    
+    // Enable Books Section
+    $wp_customize->add_setting( 'mkp_enable_section_books', array(
+        'default'           => true,
+        'sanitize_callback' => 'mkp_sanitize_checkbox',
+    ) );
+    
+    $wp_customize->add_control( 'mkp_enable_section_books', array(
+        'label'       => __( 'Enable Books Section', 'mediakit-lite' ),
+        'description' => __( 'Show or hide the books section on your landing page.', 'mediakit-lite' ),
+        'section'     => 'mkp_books_section',
+        'type'        => 'checkbox',
+        'priority'    => 1,
+    ) );
+    
+    // Books Background Color
+    $wp_customize->add_setting( 'mkp_books_background_color', array(
+        'default'           => '#f8f9fa',
+        'sanitize_callback' => 'sanitize_hex_color',
+        'transport'         => 'postMessage',
+    ) );
+    
+    $wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'mkp_books_background_color', array(
+        'label'       => __( 'Background Color', 'mediakit-lite' ),
+        'description' => __( 'Background color for the books section.', 'mediakit-lite' ),
+        'section'     => 'mkp_books_section',
+        'priority'    => 2,
+    ) ) );
+    
+    // Book entries (up to 4)
+    for ( $i = 1; $i <= 4; $i++ ) {
+        // Book Title
+        $wp_customize->add_setting( 'mkp_book_' . $i . '_title', array(
+            'default'           => '',
+            'sanitize_callback' => 'sanitize_text_field',
+            'transport'         => 'postMessage',
+        ) );
+        
+        $wp_customize->add_control( 'mkp_book_' . $i . '_title', array(
+            'label'       => sprintf( __( 'Book %d Title', 'mediakit-lite' ), $i ),
+            'section'     => 'mkp_books_section',
+            'type'        => 'text',
+            'priority'    => 10 + ($i * 10),
+        ) );
+        
+        // Book Cover
+        $wp_customize->add_setting( 'mkp_book_' . $i . '_cover', array(
+            'default'           => '',
+            'sanitize_callback' => 'esc_url_raw',
+            'transport'         => 'postMessage',
+        ) );
+        
+        $wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'mkp_book_' . $i . '_cover', array(
+            'label'       => sprintf( __( 'Book %d Cover Image', 'mediakit-lite' ), $i ),
+            'section'     => 'mkp_books_section',
+            'priority'    => 11 + ($i * 10),
+        ) ) );
+        
+        // Book Description
+        $wp_customize->add_setting( 'mkp_book_' . $i . '_description', array(
+            'default'           => '',
+            'sanitize_callback' => 'sanitize_textarea_field',
+            'transport'         => 'postMessage',
+        ) );
+        
+        $wp_customize->add_control( 'mkp_book_' . $i . '_description', array(
+            'label'       => sprintf( __( 'Book %d Description', 'mediakit-lite' ), $i ),
+            'section'     => 'mkp_books_section',
+            'type'        => 'textarea',
+            'priority'    => 12 + ($i * 10),
+        ) );
+        
+        // Book Link
+        $wp_customize->add_setting( 'mkp_book_' . $i . '_link', array(
+            'default'           => '',
+            'sanitize_callback' => 'esc_url_raw',
+        ) );
+        
+        $wp_customize->add_control( 'mkp_book_' . $i . '_link', array(
+            'label'       => sprintf( __( 'Book %d Link', 'mediakit-lite' ), $i ),
+            'description' => __( 'Link to book page, Amazon, or other retailer', 'mediakit-lite' ),
+            'section'     => 'mkp_books_section',
+            'type'        => 'url',
+            'priority'    => 13 + ($i * 10),
+        ) );
+    }
+    
+    /**
      * Speaker Topics Section
      */
     $wp_customize->add_section( 'mkp_speaker_section', array(
