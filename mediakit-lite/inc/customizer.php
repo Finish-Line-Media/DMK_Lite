@@ -788,6 +788,74 @@ function mkp_customize_register( $wp_customize ) {
             'priority'    => 10 + $i,
         ) );
     }
+    
+    /**
+     * Investor Section
+     */
+    $wp_customize->add_section( 'mkp_investor_section', array(
+        'title'       => __( 'Investor', 'mediakit-lite' ),
+        'priority'    => 52,
+        'description' => __( 'Showcase investment opportunities or investor relations information.', 'mediakit-lite' ),
+    ) );
+    
+    // Enable Investor Section
+    $wp_customize->add_setting( 'mkp_enable_section_investor', array(
+        'default'           => true,
+        'sanitize_callback' => 'mkp_sanitize_checkbox',
+    ) );
+    
+    $wp_customize->add_control( 'mkp_enable_section_investor', array(
+        'label'       => __( 'Enable Investor Section', 'mediakit-lite' ),
+        'description' => __( 'Show or hide the investor section on your landing page.', 'mediakit-lite' ),
+        'section'     => 'mkp_investor_section',
+        'type'        => 'checkbox',
+        'priority'    => 1,
+    ) );
+    
+    // Investor Background Color
+    $wp_customize->add_setting( 'mkp_investor_background_color', array(
+        'default'           => '#ffffff',
+        'sanitize_callback' => 'sanitize_hex_color',
+        'transport'         => 'postMessage',
+    ) );
+    
+    $wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'mkp_investor_background_color', array(
+        'label'       => __( 'Background Color', 'mediakit-lite' ),
+        'description' => __( 'Background color for the investor section.', 'mediakit-lite' ),
+        'section'     => 'mkp_investor_section',
+        'priority'    => 2,
+    ) ) );
+    
+    // Investor options (up to 3)
+    for ( $i = 1; $i <= 3; $i++ ) {
+        // Title
+        $wp_customize->add_setting( 'mkp_investor_' . $i . '_title', array(
+            'default'           => '',
+            'sanitize_callback' => 'sanitize_text_field',
+            'transport'         => 'postMessage',
+        ) );
+        
+        $wp_customize->add_control( 'mkp_investor_' . $i . '_title', array(
+            'label'       => sprintf( __( 'Investor Option %d Title', 'mediakit-lite' ), $i ),
+            'section'     => 'mkp_investor_section',
+            'type'        => 'text',
+            'priority'    => 10 + ( $i * 10 ),
+        ) );
+        
+        // Description
+        $wp_customize->add_setting( 'mkp_investor_' . $i . '_description', array(
+            'default'           => '',
+            'sanitize_callback' => 'sanitize_textarea_field',
+            'transport'         => 'postMessage',
+        ) );
+        
+        $wp_customize->add_control( 'mkp_investor_' . $i . '_description', array(
+            'label'       => sprintf( __( 'Investor Option %d Description', 'mediakit-lite' ), $i ),
+            'section'     => 'mkp_investor_section',
+            'type'        => 'textarea',
+            'priority'    => 10 + ( $i * 10 ) + 1,
+        ) );
+    }
 }
 add_action( 'customize_register', 'mkp_customize_register' );
 

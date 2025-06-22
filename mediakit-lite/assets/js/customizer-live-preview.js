@@ -76,7 +76,8 @@
         { setting: 'mkp_podcasts_background_color', selector: '.mkp-podcasts-section' },
         { setting: 'mkp_speaker_topics_background_color', selector: '.mkp-speaker-section' },
         { setting: 'mkp_corporations_background_color', selector: '.mkp-corporations-section' },
-        { setting: 'mkp_media_questions_background_color', selector: '.mkp-media-questions-section' }
+        { setting: 'mkp_media_questions_background_color', selector: '.mkp-media-questions-section' },
+        { setting: 'mkp_investor_background_color', selector: '.mkp-investor-section' }
     ];
     
     sections.forEach( function( section ) {
@@ -635,6 +636,99 @@
     wp.customize( 'mkp_enable_section_media_questions', function( value ) {
         value.bind( function( to ) {
             const $section = $( '.mkp-media-questions-section' );
+            if ( to ) {
+                $section.show();
+            } else {
+                $section.hide();
+            }
+        } );
+    } );
+    
+    // Function to update investor section title
+    function updateInvestorSectionTitle() {
+        let investorCount = 0;
+        for ( let i = 1; i <= 3; i++ ) {
+            const title = wp.customize( 'mkp_investor_' + i + '_title' ).get();
+            if ( title ) {
+                investorCount++;
+            }
+        }
+        
+        const title = investorCount === 1 ? 'Investor' : 'Investors';
+        $( '.mkp-investor-section .mkp-section__title' ).text( title );
+    }
+    
+    // Update investor options
+    for ( let i = 1; i <= 3; i++ ) {
+        ( function( investorNum ) {
+            // Investor title
+            wp.customize( 'mkp_investor_' + investorNum + '_title', function( value ) {
+                value.bind( function( to ) {
+                    const $section = $( '.mkp-investor-section' );
+                    const $card = $( '.mkp-investor-card.mkp-investor--' + investorNum );
+                    const $placeholder = $( '.mkp-investor__placeholder' );
+                    
+                    $card.find( '.mkp-investor-card__title' ).text( to );
+                    
+                    // Show/hide card based on content
+                    if ( to ) {
+                        $card.show();
+                    } else {
+                        $card.hide();
+                    }
+                    
+                    // Update section title
+                    updateInvestorSectionTitle();
+                    
+                    // Check if any investors remain
+                    let hasInvestors = false;
+                    for ( let j = 1; j <= 3; j++ ) {
+                        if ( wp.customize( 'mkp_investor_' + j + '_title' ).get() ) {
+                            hasInvestors = true;
+                            break;
+                        }
+                    }
+                    
+                    // Show/hide section and placeholder based on content
+                    if ( hasInvestors ) {
+                        $placeholder.hide();
+                        if ( wp.customize( 'mkp_enable_section_investor' ).get() ) {
+                            $section.show();
+                        }
+                    } else {
+                        $placeholder.show();
+                        // Still show section in customizer even if no investors
+                        if ( wp.customize( 'mkp_enable_section_investor' ).get() ) {
+                            $section.show();
+                        } else {
+                            $section.hide();
+                        }
+                    }
+                } );
+            } );
+            
+            // Investor description
+            wp.customize( 'mkp_investor_' + investorNum + '_description', function( value ) {
+                value.bind( function( to ) {
+                    const $card = $( '.mkp-investor-card.mkp-investor--' + investorNum );
+                    const $description = $card.find( '.mkp-investor-card__description' );
+                    
+                    if ( to ) {
+                        // Simple wpautop implementation for live preview
+                        const formattedDesc = '<p>' + to.replace(/\n\n/g, '</p><p>').replace(/\n/g, '<br />') + '</p>';
+                        $description.html( formattedDesc );
+                    } else {
+                        $description.empty();
+                    }
+                } );
+            } );
+        } )( i );
+    }
+    
+    // Handle enable/disable investor section toggle
+    wp.customize( 'mkp_enable_section_investor', function( value ) {
+        value.bind( function( to ) {
+            const $section = $( '.mkp-investor-section' );
             if ( to ) {
                 $section.show();
             } else {

@@ -108,6 +108,20 @@ function mkp_has_media_questions() {
     return false;
 }
 
+/**
+ * Check if investor section has content
+ *
+ * @return bool
+ */
+function mkp_has_investors() {
+    for ( $i = 1; $i <= 3; $i++ ) {
+        if ( get_theme_mod( 'mkp_investor_' . $i . '_title' ) ) {
+            return true;
+        }
+    }
+    return false;
+}
+
 
 /**
  * Get front page sections configuration
@@ -143,6 +157,10 @@ function mkp_get_front_page_sections() {
         'media_questions' => array(
             'template' => 'template-parts/front-page/media-questions',
             'check_function' => 'mkp_has_media_questions',
+        ),
+        'investor' => array(
+            'template' => 'template-parts/front-page/investor',
+            'check_function' => 'mkp_has_investors',
         ),
     );
 }

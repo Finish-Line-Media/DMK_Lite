@@ -29,6 +29,7 @@ function mkp_generate_dynamic_styles() {
     $speaker_bg = get_theme_mod( 'mkp_speaker_topics_background_color', '#f8f9fa' );
     $corps_bg = get_theme_mod( 'mkp_corporations_background_color', '#ffffff' );
     $media_questions_bg = get_theme_mod( 'mkp_media_questions_background_color', '#f8f9fa' );
+    $investor_bg = get_theme_mod( 'mkp_investor_background_color', '#ffffff' );
     
     ob_start();
     ?>
@@ -212,9 +213,28 @@ function mkp_generate_dynamic_styles() {
             color: <?php echo esc_attr( mkp_get_contrast_color( $media_questions_bg ) ); ?>;
         }
         
+        /* Investor Section Auto-Contrast */
+        .mkp-investor-section {
+            background-color: <?php echo esc_attr( $investor_bg ); ?>;
+            color: <?php echo esc_attr( mkp_get_contrast_color( $investor_bg ) ); ?>;
+        }
         
+        .mkp-investor-section h2,
+        .mkp-investor-section h3 {
+            color: <?php echo esc_attr( mkp_get_contrast_color_rgba( $investor_bg, 'heading' ) ); ?>;
+        }
         
+        .mkp-investor-section .mkp-investor-card {
+            background-color: <?php echo mkp_is_light_color( $investor_bg ) ? 'rgba(255, 255, 255, 0.8)' : 'rgba(0, 0, 0, 0.2)'; ?>;
+        }
         
+        .mkp-investor-section .mkp-investor-card__title {
+            color: <?php echo esc_attr( mkp_get_contrast_color_rgba( $investor_bg, 'heading' ) ); ?>;
+        }
+        
+        .mkp-investor-section .mkp-investor-card__description {
+            color: <?php echo esc_attr( mkp_get_contrast_color( $investor_bg ) ); ?>;
+        }
         
         /* Button styles with proper hover states */
         .mkp-btn--primary {

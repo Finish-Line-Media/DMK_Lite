@@ -1471,7 +1471,7 @@ img {
     padding: var(--mkp-spacing-xxl) 0;
 }
 
-.mkp-investor__lanes {
+.mkp-investor__grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: var(--mkp-spacing-xl);
@@ -1479,21 +1479,38 @@ img {
     margin: 0 auto;
 }
 
-.mkp-investor__lane {
+.mkp-investor-card {
     padding: var(--mkp-spacing-xl);
     background: white;
     border-radius: 8px;
     box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+    transition: var(--mkp-transition);
 }
 
-.mkp-investor__lane-title {
+.mkp-investor-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+}
+
+.mkp-investor-card__title {
     font-size: 1.75rem;
     margin-bottom: var(--mkp-spacing-md);
     color: var(--mkp-secondary);
 }
 
-.mkp-investor__lane-content {
+.mkp-investor-card__description {
     line-height: 1.6;
+    color: var(--mkp-text-light);
+}
+
+.mkp-investor-card__description p:last-child {
+    margin-bottom: 0;
+}
+
+.mkp-investor__placeholder {
+    text-align: center;
+    color: #999;
+    padding: 40px 0;
 }
 
 /* In The Media Section */

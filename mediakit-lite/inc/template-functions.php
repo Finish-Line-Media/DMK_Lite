@@ -373,6 +373,22 @@ function mkp_get_front_page_nav_items() {
                 return false;
             },
         ),
+        'investor' => array(
+            'id'    => 'investor',
+            'label' => __( 'Investor', 'mediakit-lite' ),
+            'url'   => '#investor',
+            'check' => function() {
+                if ( ! get_theme_mod( 'mkp_enable_section_investor', true ) ) {
+                    return false;
+                }
+                for ( $i = 1; $i <= 3; $i++ ) {
+                    if ( get_theme_mod( 'mkp_investor_' . $i . '_title' ) ) {
+                        return true;
+                    }
+                }
+                return false;
+            },
+        ),
     );
     
     // Build nav items in the order specified
