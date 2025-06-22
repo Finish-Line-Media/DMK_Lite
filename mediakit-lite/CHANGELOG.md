@@ -2,6 +2,11 @@
 
 All notable changes to the MediaKit Lite theme will be documented in this file.
 
+## [1.7.0] - 2025-06-22
+
+### Changed
+- Add Contact section with email addresses, physical address, and social media links; Update Investor section title to Investment Vertical(s)
+
 ## [1.4.5] - 2025-06-22
 
 ### Changed
