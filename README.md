@@ -15,13 +15,18 @@ MediaKit Lite is a comprehensive WordPress theme specifically designed for profe
 - **SEO Optimized** with proper schema markup
 - **Accessibility Ready** with ARIA labels and keyboard navigation
 - **Performance Optimized** with lazy loading and optimized assets
+- **Automatic Update Notifications** directly from GitHub releases
 
 ## Installation
 
-1. Download the latest release from the [releases page](https://github.com/yourusername/mediakit-lite/releases)
+1. Download the latest release from the [releases page](https://github.com/Finish-Line-Media/DMK_Lite/releases)
 2. In WordPress admin, go to Appearance > Themes > Add New > Upload Theme
 3. Choose the downloaded zip file and click Install Now
 4. After installation, click Activate
+
+### Automatic Updates
+
+Once installed, MediaKit Lite will automatically check for updates daily. You'll receive notifications in your WordPress admin panel when a new version is available.
 
 ## Quick Start
 
@@ -60,8 +65,8 @@ We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) f
 
 ## Support
 
-- For bug reports and feature requests, please use the [GitHub issues](https://github.com/yourusername/mediakit-lite/issues)
-- For general support questions, please visit our [support forum](https://example.com/support)
+- For bug reports and feature requests, please use the [GitHub issues](https://github.com/Finish-Line-Media/DMK_Lite/issues)
+- Check the [releases page](https://github.com/Finish-Line-Media/DMK_Lite/releases) for the latest version
 
 ## License
 

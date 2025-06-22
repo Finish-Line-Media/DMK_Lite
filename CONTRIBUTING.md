@@ -126,6 +126,19 @@ Add profile photo positioning options
 - Comment your code where necessary
 - Update inline documentation for functions and hooks
 
+## Creating Releases
+
+If you're a maintainer creating a new release:
+
+1. Use the release script: `./release.sh`
+2. Follow the prompts to update version numbers
+3. Update CHANGELOG.md with release notes
+4. Push changes and tags to GitHub
+5. Create a GitHub release with the tag
+6. The GitHub Action will automatically build and attach the theme ZIP
+
+For detailed release instructions, see [RELEASES.md](RELEASES.md).
+
 ## Questions?
 
 Feel free to open an issue with your question or contact the maintainers directly.

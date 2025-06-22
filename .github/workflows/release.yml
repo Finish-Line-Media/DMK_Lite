@@ -1,0 +1,77 @@
+name: Build and Release Theme
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        path: mediakit-lite
+
+    - name: Create theme directory structure
+      run: |
+        mkdir -p build
+
+    - name: Build theme ZIP
+      run: |
+        cd mediakit-lite
+        # Remove files that shouldn't be in the distribution
+        rm -rf .git .github .gitignore *.zip *.md update-theme-name.sh .claude
+        rm -rf mediakit-lite/node_modules mediakit-lite/vendor
+        rm -f mediakit-lite/composer.json mediakit-lite/composer.lock
+        rm -f mediakit-lite/package.json mediakit-lite/package-lock.json
+        rm -f mediakit-lite/version-sample.json
+        rm -f mediakit-lite/export-theme.sh
+        rm -f mediakit-lite/*.deprecated
+        
+        # Move to build directory
+        cd ..
+        zip -r build/mediakit-lite.zip mediakit-lite/ -x "*.DS_Store" "*__MACOSX*"
+
+    - name: Upload Release Asset
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ github.event.release.upload_url }}
+        asset_path: ./build/mediakit-lite.zip
+        asset_name: mediakit-lite.zip
+        asset_content_type: application/zip
+
+    - name: Update version.json
+      run: |
+        # Extract version from tag (remove 'v' prefix if present)
+        VERSION="${{ github.event.release.tag_name }}"
+        VERSION="${VERSION#v}"
+        
+        # Create version.json content
+        cat > mediakit-lite/version.json << EOF
+        {
+          "version": "${VERSION}",
+          "description": "${{ github.event.release.name }}",
+          "download_url": "https://github.com/Finish-Line-Media/DMK_Lite/releases/download/${{ github.event.release.tag_name }}/mediakit-lite.zip",
+          "changelog_url": "https://github.com/Finish-Line-Media/DMK_Lite/releases/tag/${{ github.event.release.tag_name }}",
+          "release_date": "$(date -u +%Y-%m-%d)",
+          "min_wp_version": "5.8",
+          "tested_up_to": "6.5",
+          "php_version": "7.4"
+        }
+        EOF
+
+    - name: Commit version.json
+      run: |
+        cd mediakit-lite
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add version.json
+        git diff --staged --quiet || git commit -m "Update version.json for release ${{ github.event.release.tag_name }}"
+        git push origin HEAD:main

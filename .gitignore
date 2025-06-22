@@ -83,12 +83,12 @@ yarn-error.log
 /wp-content/debug.log
 
 # Theme specific ignores
-/mediakit-pro/assets/css/*.map
-/mediakit-pro/assets/js/*.map
-/mediakit-pro/node_modules/
-/mediakit-pro/vendor/
-/mediakit-pro/build/
-/mediakit-pro/dist/
+/mediakit-lite/assets/css/*.map
+/mediakit-lite/assets/js/*.map
+/mediakit-lite/node_modules/
+/mediakit-lite/vendor/
+/mediakit-lite/build/
+/mediakit-lite/dist/
 
 # Keep .gitkeep files
 !.gitkeep

@@ -12,7 +12,10 @@
       "Bash(./export-theme.sh:*)",
       "Bash(rg:*)",
       "Bash(mv:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "WebFetch(domain:docs.github.com)"
     ],
     "deny": []
   }
