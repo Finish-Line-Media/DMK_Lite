@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Define Constants
  */
-define( 'MKP_THEME_VERSION', '1.3.14' );
+define( 'MKP_THEME_VERSION', '1.3.15' );
 define( 'MKP_THEME_DIR', get_template_directory() );
 define( 'MKP_THEME_URI', get_template_directory_uri() );
 
@@ -207,6 +207,7 @@ $required_files = array(
     '/inc/auto-contrast.php',
     '/inc/bio-defaults.php',
     '/inc/customizer-helpers.php',
+    '/inc/customizer-social-control.php',
     '/inc/customizer.php',
     '/inc/customizer-dynamic-styles.php',
     '/inc/template-tags.php',

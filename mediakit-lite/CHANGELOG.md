@@ -2,6 +2,11 @@
 
 All notable changes to the MediaKit Lite theme will be documented in this file.
 
+## [1.3.15] - 2025-06-22
+
+### Changed
+- Refactored Contact Information section with social media icons and improved auto-contrast
+
 ## [1.3.14] - 2025-06-22
 
 ### Changed
