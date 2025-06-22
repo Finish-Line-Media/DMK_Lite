@@ -1,6 +1,6 @@
 {
-    "version": "1.3.20",
-    "description": "Removed backup customizer files that were causing removed sections to still appear",
+    "version": "1.4.0",
+    "description": "Major architectural cleanup - removed Books, Podcast, Media Questions, Investor, In The Media, and Contact sections. Theme now focuses on Hero, About, Companies, and Speaker Topics only.",
     "download_url": "https://github.com/Finish-Line-Media/DMK_Lite/releases/latest/download/mediakit-lite.zip",
     "changelog_url": "https://github.com/Finish-Line-Media/DMK_Lite/blob/main/CHANGELOG.md",
     "release_date": "2025-06-22",

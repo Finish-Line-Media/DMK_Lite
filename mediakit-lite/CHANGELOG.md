@@ -2,6 +2,11 @@
 
 All notable changes to the MediaKit Lite theme will be documented in this file.
 
+## [1.4.0] - 2025-06-22
+
+### Changed
+- Major architectural cleanup - removed Books, Podcast, Media Questions, Investor, In The Media, and Contact sections. Theme now focuses on Hero, About, Companies, and Speaker Topics only.
+
 ## [1.3.20] - 2025-06-22
 
 ### Changed
