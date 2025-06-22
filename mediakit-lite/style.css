@@ -4,7 +4,7 @@ Theme URI: https://mediakitpro.com
 Author: Finish Line Media
 Author URI: https://finishline.media
 Description: A professional WordPress theme designed for individual digital media kits that showcases multiple professional facets, emphasizes storytelling, and provides easy media access to booking agents and journalists. Features full Gutenberg block support and Elementor compatibility.
-Version: 1.2.5
+Version: 1.2.6
 License: GPL v2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: mediakit-lite
@@ -392,6 +392,8 @@ a:hover {
 .mkp-social__link {
     background-color: rgba(255,255,255,0.1);
     border-radius: 50%;
+    position: relative;
+    overflow: hidden;
 }
 
 .mkp-social__link:hover {
@@ -399,6 +401,36 @@ a:hover {
     transform: scale(1.1);
     color: white;
     border-color: var(--mkp-accent);
+}
+
+/* SVG icon styling */
+.mkp-social__link svg {
+    width: 20px;
+    height: 20px;
+    fill: currentColor;
+    pointer-events: none;
+}
+
+/* Override any inline styles */
+.mkp-social__link[style] {
+    background-color: rgba(255,255,255,0.1) !important;
+    border-radius: 50% !important;
+}
+
+.mkp-social__link[style]:hover,
+.mkp-social__link.hovered {
+    background-color: var(--mkp-accent) !important;
+}
+
+/* Ensure links are clickable */
+.mkp-social__link {
+    cursor: pointer;
+    z-index: 1;
+}
+
+/* Remove any problematic classes */
+.mkp-social__link.customize-unpreviewable {
+    pointer-events: auto !important;
 }
 
 /* ==========================================================================

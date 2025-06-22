@@ -445,7 +445,9 @@
     function updateSocialLink( platform, url ) {
         const $link = $( '.mkp-social__link--' + platform );
         if ( url ) {
-            $link.attr( 'href', url ).parent().show();
+            $link.attr( 'href', url )
+                .removeClass( 'customize-unpreviewable' )
+                .parent().show();
         } else {
             $link.parent().hide();
         }

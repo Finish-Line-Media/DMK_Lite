@@ -297,4 +297,25 @@
         $(this).removeClass('error');
     });
     
+    // Fix social links functionality
+    $(document).ready(function() {
+        // Remove customize-unpreviewable class from social links
+        $('.mkp-social__link').removeClass('customize-unpreviewable');
+        
+        // Ensure social links are clickable
+        $('.mkp-social__link').on('click', function(e) {
+            e.stopPropagation();
+        });
+        
+        // Remove any conflicting inline styles on hover
+        $('.mkp-social__link').hover(
+            function() {
+                $(this).removeAttr('style').addClass('hovered');
+            },
+            function() {
+                $(this).removeClass('hovered');
+            }
+        );
+    });
+    
 })(jQuery);

@@ -2,6 +2,20 @@
 
 All notable changes to the MediaKit Lite theme will be documented in this file.
 
+## [1.2.6] - 2025-06-22
+
+### Fixed
+- Social media links now function properly (removed customize-unpreviewable class)
+- Social icon SVG sizing and visibility improved
+- Hover states for social icons work correctly with proper contrast
+- Removed conflicting inline styles that prevented clicking
+- Added JavaScript to ensure social links remain clickable
+
+### Improved
+- Social icon CSS specificity to override any inline styles
+- Added pointer-events handling for better click reliability
+- Enhanced hover animations for social icons
+
 ## [1.2.5] - 2025-06-22
 
 ### Added
