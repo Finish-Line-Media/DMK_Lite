@@ -69,7 +69,7 @@ function mkp_add_section_order_customizer( $wp_customize ) {
     ) );
     
     // Add custom control
-    $wp_customize->add_control( new MKP_Section_Order_Control( 
+    $wp_customize->add_control( new Mkp_Section_Order_Control( 
         $wp_customize, 
         'mkp_section_order', 
         array(
@@ -118,7 +118,9 @@ function mkp_sanitize_section_order( $input ) {
 /**
  * Custom control for section ordering
  */
-class MKP_Section_Order_Control extends WP_Customize_Control {
+if ( class_exists( 'WP_Customize_Control' ) ) {
+    
+class Mkp_Section_Order_Control extends WP_Customize_Control {
     
     public $type = 'section_order';
     
@@ -191,3 +193,5 @@ class MKP_Section_Order_Control extends WP_Customize_Control {
         <?php
     }
 }
+
+} // End if class_exists

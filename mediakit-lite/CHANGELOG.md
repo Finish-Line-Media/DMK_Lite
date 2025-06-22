@@ -2,6 +2,19 @@
 
 All notable changes to the MediaKit Lite theme will be documented in this file.
 
+## [1.3.4] - 2025-06-22
+
+### Fixed
+- WP_Customize_Control class not found error by adding proper class_exists check
+
+### Updated
+- Theme description to accurately reflect current features
+- Theme tags to better represent theme functionality
+
+### Added
+- WordPress and PHP version requirements in theme header
+- readme.txt file with installation instructions and FAQ
+
 ## [1.3.3] - 2025-06-22
 
 ### Fixed
