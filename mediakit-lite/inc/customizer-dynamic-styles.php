@@ -28,6 +28,7 @@ function mkp_generate_dynamic_styles() {
     $podcasts_bg = get_theme_mod( 'mkp_podcasts_background_color', '#ffffff' );
     $speaker_bg = get_theme_mod( 'mkp_speaker_topics_background_color', '#f8f9fa' );
     $corps_bg = get_theme_mod( 'mkp_corporations_background_color', '#ffffff' );
+    $media_questions_bg = get_theme_mod( 'mkp_media_questions_background_color', '#f8f9fa' );
     
     ob_start();
     ?>
@@ -194,6 +195,25 @@ function mkp_generate_dynamic_styles() {
         
         .mkp-corporations-section .mkp-corp-card__bio {
             color: <?php echo esc_attr( mkp_get_contrast_color( $corps_bg ) ); ?>;
+        }
+        
+        /* Media Questions Section Auto-Contrast */
+        .mkp-media-questions-section {
+            background-color: <?php echo esc_attr( $media_questions_bg ); ?>;
+            color: <?php echo esc_attr( mkp_get_contrast_color( $media_questions_bg ) ); ?>;
+        }
+        
+        .mkp-media-questions-section h2,
+        .mkp-media-questions-section h3 {
+            color: <?php echo esc_attr( mkp_get_contrast_color_rgba( $media_questions_bg, 'heading' ) ); ?>;
+        }
+        
+        .mkp-media-questions__item {
+            color: <?php echo esc_attr( mkp_get_contrast_color( $media_questions_bg ) ); ?>;
+        }
+        
+        .mkp-media-questions__arrow {
+            color: <?php echo esc_attr( $secondary_color ); ?>;
         }
         
         

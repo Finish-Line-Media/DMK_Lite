@@ -357,6 +357,22 @@ function mkp_get_front_page_nav_items() {
                 return false;
             },
         ),
+        'media_questions' => array(
+            'id'    => 'media-questions',
+            'label' => __( 'Media Questions', 'mediakit-lite' ),
+            'url'   => '#media-questions',
+            'check' => function() {
+                if ( ! get_theme_mod( 'mkp_enable_section_media_questions', true ) ) {
+                    return false;
+                }
+                for ( $i = 1; $i <= 12; $i++ ) {
+                    if ( get_theme_mod( 'mkp_media_question_' . $i ) ) {
+                        return true;
+                    }
+                }
+                return false;
+            },
+        ),
     );
     
     // Build nav items in the order specified

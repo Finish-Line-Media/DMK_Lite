@@ -94,6 +94,20 @@ function mkp_has_podcasts() {
     return false;
 }
 
+/**
+ * Check if media questions section has content
+ *
+ * @return bool
+ */
+function mkp_has_media_questions() {
+    for ( $i = 1; $i <= 12; $i++ ) {
+        if ( get_theme_mod( 'mkp_media_question_' . $i ) ) {
+            return true;
+        }
+    }
+    return false;
+}
+
 
 /**
  * Get front page sections configuration
@@ -125,6 +139,10 @@ function mkp_get_front_page_sections() {
         'speaker_topics' => array(
             'template' => 'template-parts/front-page/speaker-topics',
             'check_function' => 'mkp_has_speaker_topics',
+        ),
+        'media_questions' => array(
+            'template' => 'template-parts/front-page/media-questions',
+            'check_function' => 'mkp_has_media_questions',
         ),
     );
 }

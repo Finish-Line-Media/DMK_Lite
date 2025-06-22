@@ -18,6 +18,7 @@ function mkp_get_default_section_order() {
         'podcasts',
         'corporations',
         'speaker_topics',
+        'media_questions',
     );
 }
 
@@ -152,6 +153,7 @@ class Mkp_Section_Order_Control extends WP_Customize_Control {
             'podcasts'        => __( 'Podcasts/Shows Section', 'mediakit-lite' ),
             'corporations'    => __( 'Companies Section', 'mediakit-lite' ),
             'speaker_topics'  => __( 'Speaker Topics Section', 'mediakit-lite' ),
+            'media_questions' => __( 'Questions for Media Section', 'mediakit-lite' ),
         );
         
         $current_order = mkp_get_section_order();

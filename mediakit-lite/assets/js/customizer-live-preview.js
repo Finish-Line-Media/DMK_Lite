@@ -75,7 +75,8 @@
         { setting: 'mkp_books_background_color', selector: '.mkp-books-section' },
         { setting: 'mkp_podcasts_background_color', selector: '.mkp-podcasts-section' },
         { setting: 'mkp_speaker_topics_background_color', selector: '.mkp-speaker-section' },
-        { setting: 'mkp_corporations_background_color', selector: '.mkp-corporations-section' }
+        { setting: 'mkp_corporations_background_color', selector: '.mkp-corporations-section' },
+        { setting: 'mkp_media_questions_background_color', selector: '.mkp-media-questions-section' }
     ];
     
     sections.forEach( function( section ) {
@@ -573,5 +574,50 @@
             }
         } );
     } );
+    
+    // Media Questions List Style
+    wp.customize( 'mkp_media_questions_list_style', function( value ) {
+        value.bind( function( to ) {
+            // Force refresh for style changes as it requires DOM structure changes
+            wp.customize.preview.send( 'refresh' );
+        } );
+    } );
+    
+    // Update media questions text
+    for ( let i = 1; i <= 12; i++ ) {
+        ( function( questionNum ) {
+            wp.customize( 'mkp_media_question_' + questionNum, function( value ) {
+                value.bind( function( to ) {
+                    const $item = $( '.mkp-media-questions__item--' + questionNum );
+                    
+                    if ( to ) {
+                        // Update text
+                        $item.find( '.mkp-media-questions__text' ).text( to );
+                        // Show item
+                        $item.show();
+                    } else {
+                        // Hide item
+                        $item.hide();
+                    }
+                    
+                    // Check if any questions remain
+                    let hasQuestions = false;
+                    for ( let j = 1; j <= 12; j++ ) {
+                        if ( wp.customize( 'mkp_media_question_' + j ).get() ) {
+                            hasQuestions = true;
+                            break;
+                        }
+                    }
+                    
+                    // Show/hide section based on content
+                    if ( hasQuestions && wp.customize( 'mkp_enable_section_media_questions' ).get() ) {
+                        $( '.mkp-media-questions-section' ).show();
+                    } else {
+                        $( '.mkp-media-questions-section' ).hide();
+                    }
+                } );
+            } );
+        } )( i );
+    }
     
 } )( jQuery );

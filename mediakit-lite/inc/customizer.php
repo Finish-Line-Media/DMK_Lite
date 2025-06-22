@@ -715,6 +715,80 @@ function mkp_customize_register( $wp_customize ) {
             'priority'    => 10 + $i,
         ) );
     }
+    
+    /**
+     * Questions for Media Section
+     */
+    $wp_customize->add_section( 'mkp_media_questions_section', array(
+        'title'       => __( 'Questions for the Media', 'mediakit-lite' ),
+        'priority'    => 51,
+        'description' => __( 'Suggested questions for media interviews.', 'mediakit-lite' ),
+    ) );
+    
+    // Enable Media Questions Section
+    $wp_customize->add_setting( 'mkp_enable_section_media_questions', array(
+        'default'           => true,
+        'sanitize_callback' => 'mkp_sanitize_checkbox',
+    ) );
+    
+    $wp_customize->add_control( 'mkp_enable_section_media_questions', array(
+        'label'       => __( 'Enable Questions for Media Section', 'mediakit-lite' ),
+        'description' => __( 'Show or hide the media questions section on your landing page.', 'mediakit-lite' ),
+        'section'     => 'mkp_media_questions_section',
+        'type'        => 'checkbox',
+        'priority'    => 1,
+    ) );
+    
+    // Media Questions Background Color
+    $wp_customize->add_setting( 'mkp_media_questions_background_color', array(
+        'default'           => '#f8f9fa',
+        'sanitize_callback' => 'sanitize_hex_color',
+        'transport'         => 'postMessage',
+    ) );
+    
+    $wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'mkp_media_questions_background_color', array(
+        'label'       => __( 'Background Color', 'mediakit-lite' ),
+        'description' => __( 'Background color for the media questions section.', 'mediakit-lite' ),
+        'section'     => 'mkp_media_questions_section',
+        'priority'    => 2,
+    ) ) );
+    
+    // List Style
+    $wp_customize->add_setting( 'mkp_media_questions_list_style', array(
+        'default'           => 'bullets',
+        'sanitize_callback' => 'mkp_sanitize_select',
+        'transport'         => 'refresh',
+    ) );
+    
+    $wp_customize->add_control( 'mkp_media_questions_list_style', array(
+        'label'       => __( 'List Style', 'mediakit-lite' ),
+        'description' => __( 'Choose how to display the questions', 'mediakit-lite' ),
+        'section'     => 'mkp_media_questions_section',
+        'type'        => 'select',
+        'choices'     => array(
+            'bullets' => __( 'Bullet Points', 'mediakit-lite' ),
+            'numbers' => __( 'Numbered List', 'mediakit-lite' ),
+            'arrows'  => __( 'Arrows', 'mediakit-lite' ),
+        ),
+        'priority'    => 3,
+    ) );
+    
+    // Media questions (up to 12)
+    for ( $i = 1; $i <= 12; $i++ ) {
+        $wp_customize->add_setting( 'mkp_media_question_' . $i, array(
+            'default'           => '',
+            'sanitize_callback' => 'sanitize_text_field',
+            'transport'         => 'postMessage',
+        ) );
+        
+        $wp_customize->add_control( 'mkp_media_question_' . $i, array(
+            'label'       => sprintf( __( 'Question %d', 'mediakit-lite' ), $i ),
+            'description' => $i === 1 ? __( 'Enter a question for media interviews', 'mediakit-lite' ) : '',
+            'section'     => 'mkp_media_questions_section',
+            'type'        => 'text',
+            'priority'    => 10 + $i,
+        ) );
+    }
 }
 add_action( 'customize_register', 'mkp_customize_register' );
 
