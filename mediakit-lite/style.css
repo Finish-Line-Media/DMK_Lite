@@ -4,7 +4,7 @@ Theme URI: https://mediakitpro.com
 Author: Finish Line Media
 Author URI: https://finishline.media
 Description: A streamlined WordPress theme for creating professional digital media kits. Perfect for speakers, authors, podcasters, and entrepreneurs to showcase their work, books, speaking topics, and media appearances. Features customizable sections, auto-contrast colors, and section reordering.
-Version: 1.3.5
+Version: 1.3.6
 License: GPL v2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: mediakit-lite
@@ -1184,6 +1184,44 @@ img {
 .mkp-speaker__topic-title {
     font-size: 1.25rem;
     margin: 0;
+}
+
+/* List Styles for Speaking Topics */
+.mkp-speaker__list {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0;
+    list-style: none;
+}
+
+.mkp-speaker__list--bullets {
+    list-style-type: disc;
+    padding-left: 2rem;
+}
+
+.mkp-speaker__list--numbers {
+    list-style-type: decimal;
+    padding-left: 2rem;
+}
+
+.mkp-speaker__list-item {
+    margin-bottom: var(--mkp-spacing-lg);
+    font-size: 1.2rem;
+    line-height: 1.6;
+}
+
+.mkp-speaker__list-item .mkp-speaker__topic-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: inherit;
+    line-height: 1.4;
+    margin-bottom: 0.5rem;
+}
+
+/* Ensure proper contrast in list view */
+.mkp-speaker-section--bullets .mkp-speaker__list-item,
+.mkp-speaker-section--numbers .mkp-speaker__list-item {
+    color: inherit;
 }
 
 /* Podcast Section */

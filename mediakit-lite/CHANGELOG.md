@@ -2,6 +2,11 @@
 
 All notable changes to the MediaKit Lite theme will be documented in this file.
 
+## [1.3.6] - 2025-06-22
+
+### Changed
+- Improved speaking topics with list view options and larger text
+
 ## [1.3.5] - 2025-06-22
 
 ### Changed
