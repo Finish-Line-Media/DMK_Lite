@@ -164,17 +164,15 @@ class Mkp_Section_Order_Control extends WP_Customize_Control {
         
         $current_order = mkp_get_section_order();
         ?>
-        <label>
-            <?php if ( ! empty( $this->label ) ) : ?>
-                <span class="customize-control-title"><?php echo esc_html( $this->label ); ?></span>
-            <?php endif; ?>
-            <?php if ( ! empty( $this->description ) ) : ?>
-                <span class="description customize-control-description"><?php echo esc_html( $this->description ); ?></span>
-            <?php endif; ?>
-        </label>
+        <?php if ( ! empty( $this->label ) ) : ?>
+            <span class="customize-control-title"><?php echo esc_html( $this->label ); ?></span>
+        <?php endif; ?>
+        <?php if ( ! empty( $this->description ) ) : ?>
+            <span class="description customize-control-description"><?php echo esc_html( $this->description ); ?></span>
+        <?php endif; ?>
         
         <div class="mkp-section-order-container">
-            <ul class="mkp-section-order-list" data-customize-setting-link="<?php echo esc_attr( $this->id ); ?>">
+            <ul class="mkp-section-order-list" id="mkp-sortable-sections">
                 <?php foreach ( $current_order as $section_id ) : 
                     if ( ! isset( $sections[ $section_id ] ) ) continue;
                     $is_fixed = in_array( $section_id, array( 'hero', 'bio' ) );

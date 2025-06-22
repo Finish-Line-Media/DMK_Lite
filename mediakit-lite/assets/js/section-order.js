@@ -6,38 +6,44 @@
 
 ( function( $ ) {
     
-    wp.customize.controlConstructor['section_order'] = wp.customize.Control.extend({
+    // Wait for the customizer to be ready
+    wp.customize.bind( 'ready', function() {
         
-        ready: function() {
-            var control = this;
-            
-            // Initialize sortable
-            control.container.find( '.mkp-section-order-list' ).sortable({
-                items: '.mkp-section-sortable',
-                handle: '.mkp-section-order-handle',
-                axis: 'y',
-                update: function( event, ui ) {
-                    control.updateOrder();
-                }
-            });
-        },
+        // Initialize sortable on our section order list
+        $( '#mkp-sortable-sections' ).sortable({
+            items: '.mkp-section-sortable',
+            handle: '.mkp-section-order-handle',
+            axis: 'y',
+            cursor: 'move',
+            placeholder: 'mkp-section-placeholder',
+            forcePlaceholderSize: true,
+            update: function( event, ui ) {
+                var order = [];
+                
+                // Collect the new order
+                $( '#mkp-sortable-sections .mkp-section-order-item' ).each( function() {
+                    order.push( $( this ).data( 'section' ) );
+                });
+                
+                // Update the hidden input
+                $( '.mkp-section-order-input' ).val( order.join( ',' ) ).trigger( 'change' );
+            }
+        });
         
-        updateOrder: function() {
-            var control = this,
-                order = [];
-            
-            // Collect the order
-            control.container.find( '.mkp-section-order-item' ).each( function() {
-                order.push( $( this ).data( 'section' ) );
-            });
-            
-            // Update the hidden input
-            control.container.find( '.mkp-section-order-input' ).val( order.join( ',' ) ).trigger( 'change' );
-            
-            // Update the setting
-            control.setting.set( order.join( ',' ) );
-        }
+        // Add visual feedback
+        $( '#mkp-sortable-sections' ).on( 'sortstart', function( event, ui ) {
+            ui.placeholder.height( ui.item.height() );
+        });
         
     });
+    
+    // Also register as a custom control for compatibility
+    if ( wp.customize.controlConstructor ) {
+        wp.customize.controlConstructor['section_order'] = wp.customize.Control.extend({
+            ready: function() {
+                // Control is ready
+            }
+        });
+    }
     
 } )( jQuery );

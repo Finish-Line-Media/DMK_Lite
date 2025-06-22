@@ -69,3 +69,9 @@
 .mkp-section-order-input {
     display: none;
 }
+
+.mkp-section-placeholder {
+    background: #f0f0f0;
+    border: 2px dashed #ccc;
+    margin-bottom: -1px;
+}
