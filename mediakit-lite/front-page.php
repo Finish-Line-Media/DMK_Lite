@@ -93,6 +93,11 @@ get_header();
         get_template_part( 'template-parts/front-page/in-the-media' );
     }
     
+    // Contact/Social Media Section (Get in Touch)
+    if ( get_theme_mod( 'mkp_enable_section_contact', true ) ) {
+        get_template_part( 'template-parts/front-page/contact' );
+    }
+    
     ?>
     
 </main>

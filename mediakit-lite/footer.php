@@ -30,36 +30,6 @@
                         <?php dynamic_sidebar( 'footer-3' ); ?>
                     </div>
                 <?php endif; ?>
-                
-                <div class="mkp-footer__section">
-                    <h3><?php esc_html_e( 'Connect', 'mediakit-lite' ); ?></h3>
-                    <?php mkp_social_icons(); ?>
-                    
-                    <?php
-                    $contact_email = get_theme_mod( 'mkp_contact_email_primary' );
-                    $contact_phone = get_theme_mod( 'mkp_contact_phone' );
-                    
-                    if ( $contact_email || $contact_phone ) :
-                        ?>
-                        <div class="mkp-footer__contact">
-                            <?php if ( $contact_email ) : ?>
-                                <p>
-                                    <a href="mailto:<?php echo esc_attr( $contact_email ); ?>">
-                                        <?php echo esc_html( $contact_email ); ?>
-                                    </a>
-                                </p>
-                            <?php endif; ?>
-                            
-                            <?php if ( $contact_phone ) : ?>
-                                <p>
-                                    <a href="tel:<?php echo esc_attr( preg_replace( '/[^0-9+]/', '', $contact_phone ) ); ?>">
-                                        <?php echo esc_html( $contact_phone ); ?>
-                                    </a>
-                                </p>
-                            <?php endif; ?>
-                        </div>
-                    <?php endif; ?>
-                </div>
             </div>
             
             <div class="mkp-footer__bottom">

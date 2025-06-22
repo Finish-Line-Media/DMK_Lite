@@ -2,6 +2,12 @@
 
 All notable changes to the MediaKit Lite theme will be documented in this file.
 
+## [1.3.0] - 2025-06-22
+
+### Fixed
+- Contact/Social Media section (Get in Touch) missing from front page
+- Removed duplicate contact information from footer to avoid redundancy
+
 ## [1.2.9] - 2025-06-22
 
 ### Removed

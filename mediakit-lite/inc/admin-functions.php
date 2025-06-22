@@ -37,8 +37,10 @@ function mkp_dashboard_widget_display() {
     }
     ?>
     <div class="mkp-dashboard-widget">
-        <h3><?php esc_html_e( 'Welcome to MediaKit Lite', 'mediakit-lite' ); ?></h3>
-        <p><?php esc_html_e( 'Your professional media kit theme is ready. Use the Customizer to configure your content.', 'mediakit-lite' ); ?></p>
+        <h3><?php esc_html_e( 'MediaKit Lite', 'mediakit-lite' ); ?></h3>
+        <p><?php esc_html_e( 'Create your professional digital media kit in minutes! Use the Customizer to add your content.', 'mediakit-lite' ); ?></p>
+        
+        <p style="margin-bottom: 15px;"><small><?php esc_html_e( 'Need a custom media kit? Finish Line Media can help! Starting at $900.', 'mediakit-lite' ); ?> <a href="https://finishline.media" target="_blank"><?php esc_html_e( 'Learn more', 'mediakit-lite' ); ?></a></small></p>
         
         <?php if ( $update_available ) : ?>
             <div class="mkp-update-alert" style="background: #fff3cd; border: 1px solid #ffeaa7; padding: 10px; margin: 15px 0; border-radius: 3px;">
@@ -181,7 +183,28 @@ function mkp_admin_page_display() {
         <div class="mkp-admin-page">
             <div class="mkp-admin-welcome">
                 <h2><?php esc_html_e( 'Welcome to MediaKit Lite', 'mediakit-lite' ); ?></h2>
-                <p><?php esc_html_e( 'Your professional media kit theme is ready to showcase your work. Follow these steps to get started:', 'mediakit-lite' ); ?></p>
+                <p><strong><?php esc_html_e( 'Create your professional digital media kit in minutes!', 'mediakit-lite' ); ?></strong></p>
+                
+                <p><?php esc_html_e( 'MediaKit Lite is a streamlined version of our professional media kit theme, perfect for showcasing your personal brand, books, speaking topics, and media appearances. Simply use the WordPress Customizer below to add your content - no coding required!', 'mediakit-lite' ); ?></p>
+                
+                <div style="background: #f0f8ff; padding: 15px; border-left: 4px solid #2196F3; margin: 20px 0;">
+                    <p style="margin: 0 0 10px 0;"><strong><?php esc_html_e( '🚀 Want More?', 'mediakit-lite' ); ?></strong></p>
+                    <p style="margin: 0 0 10px 0;"><?php esc_html_e( 'Need a fully customized media kit with advanced features? Finish Line Media can build you a professional, branded media kit starting at just $900.', 'mediakit-lite' ); ?></p>
+                    <p style="margin: 0;"><?php esc_html_e( 'We also offer professional WordPress hosting and management for $50/month with no contracts or commitments - perfect for keeping your media kit fast, secure, and always online.', 'mediakit-lite' ); ?></p>
+                    <p style="margin: 10px 0 0 0;">
+                        <a href="https://finishline.media/contact" target="_blank" class="button button-secondary"><?php esc_html_e( 'Get a Custom Quote', 'mediakit-lite' ); ?></a>
+                        <a href="https://finishline.media" target="_blank" style="margin-left: 10px;"><?php esc_html_e( 'Learn More →', 'mediakit-lite' ); ?></a>
+                    </p>
+                </div>
+                
+                <p><strong><?php esc_html_e( 'Quick Start Guide:', 'mediakit-lite' ); ?></strong></p>
+                <ol style="margin-left: 20px;">
+                    <li><?php esc_html_e( 'Click "Customize Theme" below to open the WordPress Customizer', 'mediakit-lite' ); ?></li>
+                    <li><?php esc_html_e( 'Start with "Brand Settings" to set your colors and fonts', 'mediakit-lite' ); ?></li>
+                    <li><?php esc_html_e( 'Add your name, photo, and professional tags in "Hero Section"', 'mediakit-lite' ); ?></li>
+                    <li><?php esc_html_e( 'Fill in each section with your content (books, speaking topics, etc.)', 'mediakit-lite' ); ?></li>
+                    <li><?php esc_html_e( 'Add your social media links to stay connected', 'mediakit-lite' ); ?></li>
+                </ol>
                 
                 <?php if ( $update_available ) : ?>
                     <div class="notice notice-warning inline" style="margin: 20px 0;">

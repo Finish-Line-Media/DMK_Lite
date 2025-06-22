@@ -1,6 +1,6 @@
 {
-    "version": "1.2.9",
-    "description": "Removed Background/Contact sections and improved Books display",
+    "version": "1.3.0",
+    "description": "Fixed missing Contact/Social Media section on front page",
     "download_url": "https://github.com/Finish-Line-Media/DMK_Lite/releases/latest/download/mediakit-lite.zip",
     "changelog_url": "https://github.com/Finish-Line-Media/DMK_Lite/blob/main/CHANGELOG.md",
     "release_date": "2025-06-22",
