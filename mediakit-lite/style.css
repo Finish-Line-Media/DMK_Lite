@@ -1113,6 +1113,12 @@ img {
     margin: 0 auto;
 }
 
+/* Single book layout - half width centered */
+.mkp-books__grid--single {
+    grid-template-columns: 1fr;
+    max-width: 600px;
+}
+
 .mkp-book-card {
     background: white;
     border-radius: 8px;

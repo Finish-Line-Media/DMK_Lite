@@ -30,7 +30,7 @@ $section_title = ( $actual_book_count === 1 ) ? __( 'Book', 'mediakit-lite' ) : 
     <div class="mkp-container">
         <h2 class="mkp-section__title"><?php echo esc_html( $section_title ); ?></h2>
         
-        <div class="mkp-books__grid">
+        <div class="mkp-books__grid<?php echo $actual_book_count === 1 ? ' mkp-books__grid--single' : ''; ?>">
             <?php for ( $i = 1; $i <= 4; $i++ ) : 
                 $title = get_theme_mod( 'mkp_book_' . $i . '_title' );
                 $cover = get_theme_mod( 'mkp_book_' . $i . '_cover' );
