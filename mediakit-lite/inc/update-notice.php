@@ -27,6 +27,12 @@ function mkp_check_for_updates() {
         return;
     }
     
+    // Debug logging
+    if ( $is_ajax && defined( 'WP_DEBUG' ) && WP_DEBUG ) {
+        error_log( 'MediaKit Lite: Starting update check via AJAX' );
+        error_log( 'MediaKit Lite: Current theme version: ' . MKP_THEME_VERSION );
+    }
+    
     // GitHub API endpoint for latest release
     $github_api_url = 'https://api.github.com/repos/Finish-Line-Media/DMK_Lite/releases/latest';
     
@@ -42,6 +48,11 @@ function mkp_check_for_updates() {
     if ( ! is_wp_error( $response ) && wp_remote_retrieve_response_code( $response ) === 200 ) {
         $body = wp_remote_retrieve_body( $response );
         $release_data = json_decode( $body, true );
+        
+        if ( $is_ajax && defined( 'WP_DEBUG' ) && WP_DEBUG ) {
+            error_log( 'MediaKit Lite: GitHub API response received' );
+            error_log( 'MediaKit Lite: Tag name: ' . ( $release_data['tag_name'] ?? 'not found' ) );
+        }
         
         if ( ! empty( $release_data['tag_name'] ) ) {
             // Remove 'v' prefix if present
@@ -77,12 +88,31 @@ function mkp_check_for_updates() {
             // Store the remote version info
             set_transient( 'mkp_remote_version', $update_data, DAY_IN_SECONDS );
             set_transient( 'mkp_update_last_checked', time(), DAY_IN_SECONDS );
+            
+            if ( $is_ajax && defined( 'WP_DEBUG' ) && WP_DEBUG ) {
+                error_log( 'MediaKit Lite: Stored version from GitHub API: ' . $version );
+                error_log( 'MediaKit Lite: Source: ' . $update_data['source'] );
+            }
+            
             return;
+        }
+    } else {
+        if ( $is_ajax && defined( 'WP_DEBUG' ) && WP_DEBUG ) {
+            if ( is_wp_error( $response ) ) {
+                error_log( 'MediaKit Lite: GitHub API error: ' . $response->get_error_message() );
+            } else {
+                error_log( 'MediaKit Lite: GitHub API HTTP error: ' . wp_remote_retrieve_response_code( $response ) );
+            }
         }
     }
     
     // Fallback method: Check version.json in repository
     $version_url = 'https://raw.githubusercontent.com/Finish-Line-Media/DMK_Lite/main/version.json';
+    
+    if ( $is_ajax && defined( 'WP_DEBUG' ) && WP_DEBUG ) {
+        error_log( 'MediaKit Lite: Falling back to version.json check' );
+        error_log( 'MediaKit Lite: URL: ' . $version_url );
+    }
     
     $response = wp_remote_get( $version_url, array(
         'timeout' => 10,
@@ -95,6 +125,10 @@ function mkp_check_for_updates() {
         $body = wp_remote_retrieve_body( $response );
         $data = json_decode( $body, true );
         
+        if ( $is_ajax && defined( 'WP_DEBUG' ) && WP_DEBUG ) {
+            error_log( 'MediaKit Lite: version.json response: ' . $body );
+        }
+        
         if ( ! empty( $data['version'] ) ) {
             // Add source indicator
             $data['source'] = 'version_json';
@@ -102,6 +136,11 @@ function mkp_check_for_updates() {
             // Store the remote version info
             set_transient( 'mkp_remote_version', $data, DAY_IN_SECONDS );
             set_transient( 'mkp_update_last_checked', time(), DAY_IN_SECONDS );
+            
+            if ( $is_ajax && defined( 'WP_DEBUG' ) && WP_DEBUG ) {
+                error_log( 'MediaKit Lite: Stored version from version.json: ' . $data['version'] );
+                error_log( 'MediaKit Lite: Source: ' . $data['source'] );
+            }
         } else {
             // Log the issue if in debug mode
             if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
@@ -162,7 +201,7 @@ function mkp_display_update_notice() {
     $download_url = ! empty( $remote_data['download_url'] ) ? $remote_data['download_url'] : '#';
     $changelog_url = ! empty( $remote_data['changelog_url'] ) ? $remote_data['changelog_url'] : '';
     ?>
-    <div class="notice notice-info is-dismissible mkp-update-notice" data-version="<?php echo esc_attr( $remote_version ); ?>">
+    <div class="notice notice-warning is-dismissible" data-version="<?php echo esc_attr( $remote_version ); ?>">
         <p>
             <strong><?php esc_html_e( 'MediaKit Lite Theme Update Available!', 'mediakit-lite' ); ?></strong>
         </p>
@@ -196,15 +235,15 @@ function mkp_display_update_notice() {
                 </a>
             <?php endif; ?>
             
+            <a href="<?php echo esc_url( admin_url( 'theme-install.php?upload' ) ); ?>" class="button">
+                <?php esc_html_e( 'Upload the Update', 'mediakit-lite' ); ?>
+            </a>
+            
             <?php if ( $changelog_url ) : ?>
                 <a href="<?php echo esc_url( $changelog_url ); ?>" class="button" target="_blank">
                     <?php esc_html_e( 'View on GitHub', 'mediakit-lite' ); ?>
                 </a>
             <?php endif; ?>
-            
-            <a href="<?php echo esc_url( admin_url( 'themes.php' ) ); ?>" class="button">
-                <?php esc_html_e( 'Go to Themes', 'mediakit-lite' ); ?>
-            </a>
             
             <button type="button" class="button mkp-check-updates" style="margin-left: 5px;">
                 <?php esc_html_e( 'Check Again', 'mediakit-lite' ); ?>
@@ -213,7 +252,7 @@ function mkp_display_update_notice() {
         
         <p>
             <small>
-                <?php esc_html_e( 'To update: 1) Download the new version, 2) Go to Themes, 3) Delete the current theme, 4) Upload the new mediakit-lite.zip file.', 'mediakit-lite' ); ?>
+                <?php esc_html_e( 'To update: 1) Download the new version, 2) Click "Upload the Update", 3) Upload the new mediakit-lite.zip file.', 'mediakit-lite' ); ?>
             </small>
         </p>
         
@@ -231,7 +270,7 @@ function mkp_display_update_notice() {
     
     <script>
     jQuery(document).ready(function($) {
-        $('.mkp-update-notice').on('click', '.notice-dismiss', function() {
+        $('.notice[data-version]').on('click', '.notice-dismiss', function() {
             var version = $(this).parent().data('version');
             $.post(ajaxurl, {
                 action: 'mkp_dismiss_update_notice',
@@ -276,13 +315,25 @@ add_action( 'wp_ajax_mkp_dismiss_update_notice', 'mkp_dismiss_update_notice' );
 function mkp_force_update_check() {
     check_ajax_referer( 'mkp_force_check', 'nonce' );
     
+    if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
+        error_log( '====== MediaKit Lite Force Update Check Started ======' );
+        error_log( 'Current theme version in functions.php: ' . MKP_THEME_VERSION );
+    }
+    
     // Clear transients to force a new check
     delete_transient( 'mkp_update_last_checked' );
     delete_transient( 'mkp_remote_version' );
     
+    if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
+        error_log( 'MediaKit Lite: Cleared transients' );
+    }
+    
     // Clear object cache if available
     if ( function_exists( 'wp_cache_flush' ) ) {
         wp_cache_flush();
+        if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
+            error_log( 'MediaKit Lite: Flushed object cache' );
+        }
     }
     
     // Run update check
@@ -290,6 +341,11 @@ function mkp_force_update_check() {
     
     // Get the result
     $remote_data = get_transient( 'mkp_remote_version' );
+    
+    if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
+        error_log( 'MediaKit Lite: Retrieved transient after update check' );
+        error_log( 'MediaKit Lite: Remote data: ' . print_r( $remote_data, true ) );
+    }
     
     if ( ! empty( $remote_data['version'] ) ) {
         $current_version = MKP_THEME_VERSION;
@@ -302,7 +358,17 @@ function mkp_force_update_check() {
             'php_version' => PHP_VERSION,
             'wp_version' => get_bloginfo( 'version' ),
             'transient_data' => $remote_data,
+            'mkp_theme_version_constant' => MKP_THEME_VERSION,
+            'cache_info' => array(
+                'object_cache_enabled' => wp_using_ext_object_cache(),
+                'cache_type' => function_exists( 'wp_cache_flush' ) ? 'enabled' : 'disabled',
+            ),
         );
+        
+        if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
+            error_log( 'MediaKit Lite: Final version comparison - Local: ' . $current_version . ', Remote: ' . $remote_version );
+            error_log( '====== MediaKit Lite Force Update Check Completed ======' );
+        }
         
         if ( version_compare( $current_version, $remote_version, '<' ) ) {
             wp_send_json_success( array(

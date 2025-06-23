@@ -870,7 +870,6 @@ function mkp_customize_register( $wp_customize ) {
     $wp_customize->add_setting( 'mkp_enable_section_contact', array(
         'default'           => true,
         'sanitize_callback' => 'mkp_sanitize_checkbox',
-        'transport'         => 'postMessage',
     ) );
     
     $wp_customize->add_control( 'mkp_enable_section_contact', array(
@@ -1046,3 +1045,26 @@ function mkp_customize_controls_js() {
     );
 }
 add_action( 'customize_controls_enqueue_scripts', 'mkp_customize_controls_js' );
+
+/**
+ * Sync hero name with site title when saving
+ */
+function mkp_sync_hero_name_with_site_title( $wp_customize ) {
+    // When hero name is saved, update the site title
+    $hero_name = get_theme_mod( 'mkp_hero_name' );
+    if ( $hero_name ) {
+        update_option( 'blogname', $hero_name );
+    }
+}
+add_action( 'customize_save_after', 'mkp_sync_hero_name_with_site_title' );
+
+/**
+ * Set initial hero name from site title if not set
+ */
+function mkp_set_initial_hero_name() {
+    $hero_name = get_theme_mod( 'mkp_hero_name' );
+    if ( ! $hero_name ) {
+        set_theme_mod( 'mkp_hero_name', get_bloginfo( 'name' ) );
+    }
+}
+add_action( 'after_switch_theme', 'mkp_set_initial_hero_name' );

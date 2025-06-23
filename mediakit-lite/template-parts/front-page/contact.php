@@ -8,11 +8,6 @@
 $section_class = 'mkp-contact-section';
 $section_color = get_theme_mod( 'mkp_contact_background_color', '#f8f9fa' );
 
-// Check if section is enabled
-if ( ! get_theme_mod( 'mkp_enable_section_contact', true ) ) {
-    return;
-}
-
 // Check if we have any contact info
 $has_contact_info = false;
 $general_email = get_theme_mod( 'mkp_contact_general_email' );
@@ -44,7 +39,7 @@ if ( ! $has_contact_info && ! $is_customizer ) {
 }
 ?>
 
-<section id="contact" class="<?php echo esc_attr( $section_class ); ?>" style="background-color: <?php echo esc_attr( $section_color ); ?><?php echo ( ! get_theme_mod( 'mkp_enable_section_contact', true ) && $is_customizer ) ? '; display: none;' : ''; ?>">
+<section id="contact" class="<?php echo esc_attr( $section_class ); ?>" style="background-color: <?php echo esc_attr( $section_color ); ?><?php echo ( ! $has_contact_info && $is_customizer ) ? '; display: none;' : ''; ?>">
     <div class="mkp-container">
         <h2 class="mkp-section__title"><?php esc_html_e( 'Contact', 'mediakit-lite' ); ?></h2>
         

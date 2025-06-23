@@ -8,11 +8,6 @@
 $section_class = 'mkp-investor-section';
 $section_color = get_theme_mod( 'mkp_investor_background_color', '#ffffff' );
 
-// Check if section is enabled
-if ( ! get_theme_mod( 'mkp_enable_section_investor', true ) ) {
-    return;
-}
-
 // Check if we have any investor options
 $has_investors = false;
 for ( $i = 1; $i <= 3; $i++ ) {

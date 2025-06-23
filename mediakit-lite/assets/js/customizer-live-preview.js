@@ -77,7 +77,8 @@
         { setting: 'mkp_speaker_topics_background_color', selector: '.mkp-speaker-section' },
         { setting: 'mkp_corporations_background_color', selector: '.mkp-corporations-section' },
         { setting: 'mkp_media_questions_background_color', selector: '.mkp-media-questions-section' },
-        { setting: 'mkp_investor_background_color', selector: '.mkp-investor-section' }
+        { setting: 'mkp_investor_background_color', selector: '.mkp-investor-section' },
+        { setting: 'mkp_contact_background_color', selector: '.mkp-contact-section' }
     ];
     
     sections.forEach( function( section ) {
@@ -94,6 +95,23 @@
                 
                 $section.css( 'color', textColor );
                 $section.find( 'h2, h3' ).css( 'color', headingColor );
+                
+                // Special handling for contact section
+                if ( section.selector === '.mkp-contact-section' ) {
+                    console.log( 'Contact section background color update:', to );
+                    console.log( 'Contact section found:', $section.length );
+                    console.log( 'Contact section classes:', $section.attr('class') );
+                    
+                    $section.find( '.mkp-contact__label' ).css( 'color', headingColor );
+                    $section.find( '.mkp-contact__address-text' ).css( 'color', textColor );
+                    
+                    // Update social link backgrounds
+                    const socialBg = isLightColor( to ) ? 'rgba(0, 0, 0, 0.05)' : 'rgba(255, 255, 255, 0.1)';
+                    $section.find( '.mkp-contact__social-link' ).css( {
+                        'background-color': socialBg,
+                        'color': textColor
+                    } );
+                }
                 
                 // Special handling for speaker topic cards
                 if ( section.selector === '.mkp-speaker-section' ) {
@@ -169,6 +187,31 @@
             // Remove old hover styles and add new ones
             $( '#mkp-button-hover-styles' ).remove();
             $( '<style id="mkp-button-hover-styles">' + hoverStyles + '</style>' ).appendTo( 'head' );
+        } );
+    } );
+    
+    // Hero name update - also updates site title
+    wp.customize( 'mkp_hero_name', function( value ) {
+        value.bind( function( to ) {
+            // Update hero name
+            $( '.mkp-hero__name' ).text( to );
+            
+            // Also update the site title (blogname) in customizer
+            if ( wp.customize.has( 'blogname' ) ) {
+                wp.customize( 'blogname' ).set( to );
+            }
+        } );
+    } );
+    
+    // When site title changes, also update hero name
+    wp.customize( 'blogname', function( value ) {
+        value.bind( function( to ) {
+            // Update the hero name setting to match
+            if ( wp.customize.has( 'mkp_hero_name' ) ) {
+                wp.customize( 'mkp_hero_name' ).set( to );
+                // Also update the hero name display
+                $( '.mkp-hero__name' ).text( to );
+            }
         } );
     } );
     
@@ -735,6 +778,168 @@
                 $section.hide();
             }
         } );
+    } );
+    
+    // Contact Section - simplified approach
+    
+    // Function to check if contact section has content - similar to investor section
+    function checkContactContent() {
+        const $section = $( '.mkp-contact-section' );
+        const $placeholder = $( '.mkp-contact__placeholder' );
+        
+        let hasContent = false;
+        
+        // Check emails
+        if ( wp.customize( 'mkp_contact_general_email' ).get() ||
+             wp.customize( 'mkp_contact_media_email' ).get() ||
+             wp.customize( 'mkp_contact_speaking_email' ).get() ||
+             wp.customize( 'mkp_contact_address' ).get() ) {
+            hasContent = true;
+        }
+        
+        // Check social links
+        if ( ! hasContent ) {
+            const platforms = ['x', 'facebook', 'instagram', 'linkedin', 'youtube', 'tiktok', 'github', 'threads'];
+            for ( let platform of platforms ) {
+                if ( wp.customize( 'mkp_contact_social_' + platform ).get() ) {
+                    hasContent = true;
+                    break;
+                }
+            }
+        }
+        
+        // Show/hide placeholder based on content
+        if ( hasContent ) {
+            $placeholder.hide();
+        } else {
+            $placeholder.show();
+        }
+        
+        // Don't hide the section here - let the enable/disable toggle control it
+        // The section visibility should only be controlled by mkp_enable_section_contact
+    }
+    
+    // Email fields - using specific classes like investor section
+    const emailTypes = ['general', 'media', 'speaking'];
+    
+    emailTypes.forEach( function( type ) {
+        wp.customize( 'mkp_contact_' + type + '_email', function( value ) {
+            value.bind( function( to ) {
+                console.log( 'Contact email update:', type, to );
+                const $item = $( '.mkp-contact__item--' + type );
+                const $email = $item.find( '.mkp-contact__email' );
+                
+                console.log( 'Found item:', $item.length, 'Found email:', $email.length );
+                
+                if ( to ) {
+                    $email.text( to ).attr( 'href', 'mailto:' + to );
+                    $item.show();
+                    console.log( 'Showing item, classes:', $item.attr('class') );
+                } else {
+                    $item.hide();
+                    console.log( 'Hiding item, classes:', $item.attr('class') );
+                }
+                
+                checkContactContent();
+            } );
+        } );
+    } );
+    
+    // Address
+    wp.customize( 'mkp_contact_address', function( value ) {
+        value.bind( function( to ) {
+            const $address = $( '.mkp-contact__address' );
+            const $addressText = $( '.mkp-contact__address-text' );
+            
+            if ( to ) {
+                // For the preview, we need to replace newlines with <br> tags
+                // Since we're in the customizer preview, using html() is safe here
+                const lines = to.split('\n');
+                const formattedAddress = lines.map(line => $('<div>').text(line).html()).join('<br>');
+                $addressText.html( formattedAddress );
+                $address.show();
+            } else {
+                $address.hide();
+            }
+            
+            checkContactContent();
+        } );
+    } );
+    
+    // Social links
+    const socialPlatforms = ['x', 'facebook', 'instagram', 'linkedin', 'youtube', 'tiktok', 'github', 'threads'];
+    
+    // Function to check if we have any social links
+    function checkSocialLinks() {
+        let hasSocial = false;
+        socialPlatforms.forEach( function( platform ) {
+            if ( wp.customize( 'mkp_contact_social_' + platform ).get() ) {
+                hasSocial = true;
+            }
+        } );
+        
+        const $socialSection = $( '.mkp-contact__social' );
+        if ( hasSocial ) {
+            $socialSection.show();
+        } else {
+            $socialSection.hide();
+        }
+    }
+    
+    socialPlatforms.forEach( function( platform ) {
+        wp.customize( 'mkp_contact_social_' + platform, function( value ) {
+            value.bind( function( to ) {
+                const $link = $( '.mkp-contact__social-link--' + platform );
+                
+                if ( to ) {
+                    $link.attr( 'href', to ).show();
+                } else {
+                    $link.hide();
+                }
+                
+                checkSocialLinks();
+                checkContactContent();
+            } );
+        } );
+    } );
+    
+    // Handle enable/disable contact section toggle
+    wp.customize( 'mkp_enable_section_contact', function( value ) {
+        value.bind( function( to ) {
+            console.log( 'Contact section enable/disable:', to );
+            const $section = $( '.mkp-contact-section' );
+            
+            if ( to ) {
+                // Show section
+                $section.css( 'display', '' );
+                checkSocialLinks();
+            } else {
+                // Hide section
+                $section.css( 'display', 'none' );
+            }
+        } );
+    } );
+    
+    // Initial checks when customizer loads
+    $( document ).ready( function() {
+        console.log( 'Contact section customizer ready' );
+        
+        // Small delay to ensure DOM is fully ready
+        setTimeout( function() {
+            checkSocialLinks();
+            checkContactContent();
+            
+            // Log initial state for debugging
+            console.log( 'Initial contact items:', {
+                section: $( '.mkp-contact-section' ).length,
+                placeholder: $( '.mkp-contact__placeholder' ).length,
+                general: $( '.mkp-contact__item--general' ).length,
+                media: $( '.mkp-contact__item--media' ).length,
+                speaking: $( '.mkp-contact__item--speaking' ).length,
+                address: $( '.mkp-contact__address' ).length,
+                social: $( '.mkp-contact__social' ).length
+            } );
+        }, 100 );
     } );
     
 } )( jQuery );
