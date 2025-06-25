@@ -2,6 +2,19 @@
 
 All notable changes to the MediaKit Lite theme will be documented in this file.
 
+## [1.7.22] - 2025-06-25
+
+### Changed
+- Simplified "In The Media" section to URL-only input (removed title, type, date, description, thumbnail fields)
+- Expanded Speaking Topics from 5 to 6 topics
+- Fixed Companies section 4-item layout to display as 2x2 grid instead of 3+1
+- Fixed Speaking Topics card style 4-item layout to display as 2x2 grid
+- Speaking Topics card style 6-item layout now displays as 3x2 grid
+
+### Removed
+- Removed complex metadata fields from In The Media section (now just paste media URLs)
+- Cleaned up deprecated JavaScript and CSS for removed In The Media fields
+
 ## [1.7.21] - 2025-06-25
 
 ### Added
