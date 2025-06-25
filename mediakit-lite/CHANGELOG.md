@@ -2,6 +2,19 @@
 
 All notable changes to the MediaKit Lite theme will be documented in this file.
 
+## [1.7.25] - 2025-06-25
+
+### Fixed
+- Fixed navigation padding at 1200px screen width for better edge spacing
+- Fixed hero section centering by adjusting flex layout and adding consistent padding
+- Standardized container padding across all sections (increased from 1rem to 2rem)
+- Removed percentage-based hero image sizing for more consistent layout
+
+### Changed
+- Redesigned Companies section to single-column vertical layout for better visual hierarchy
+- Reduced padding and spacing in company cards for more compact display
+- Simplified responsive breakpoints for Companies section
+
 ## [1.7.24] - 2025-06-25
 
 ### Fixed
