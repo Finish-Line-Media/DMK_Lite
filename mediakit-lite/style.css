@@ -1529,6 +1529,41 @@ img {
     grid-template-columns: repeat(3, 1fr);
 }
 
+/* More reliable count-based selectors that don't require :has() */
+.mkp-corporations__grid--count-1 {
+    grid-template-columns: 1fr;
+    max-width: 400px;
+}
+
+.mkp-corporations__grid--count-2 {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 700px;
+}
+
+.mkp-corporations__grid--count-3 {
+    grid-template-columns: repeat(3, 1fr);
+    max-width: 1000px;
+}
+
+.mkp-corporations__grid--count-4 {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 800px;
+}
+
+.mkp-corporations__grid--count-5 {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.mkp-corporations__grid--count-5 .mkp-corp-card {
+    flex: 0 1 calc(33.333% - var(--mkp-spacing-xl));
+}
+
+.mkp-corporations__grid--count-6 {
+    grid-template-columns: repeat(3, 1fr);
+}
+
 /* Fallback for browsers without :has() support */
 @supports not selector(:has(*)) {
     .mkp-corporations__grid {
@@ -1538,14 +1573,35 @@ img {
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
-    .mkp-corporations__grid {
-        grid-template-columns: 1fr !important;
+    .mkp-corporations__grid,
+    .mkp-corporations__grid--count-3,
+    .mkp-corporations__grid--count-4,
+    .mkp-corporations__grid--count-5,
+    .mkp-corporations__grid--count-6 {
+        grid-template-columns: repeat(2, 1fr) !important;
         display: grid !important;
-        max-width: 400px;
+        max-width: 700px;
+    }
+    
+    .mkp-corporations__grid--count-1,
+    .mkp-corporations__grid--count-2 {
+        /* Keep their specific layouts on tablet */
     }
     
     .mkp-corporations__grid .mkp-corp-card {
         flex: unset;
+    }
+}
+
+@media (max-width: 480px) {
+    .mkp-corporations__grid,
+    .mkp-corporations__grid--count-2,
+    .mkp-corporations__grid--count-3,
+    .mkp-corporations__grid--count-4,
+    .mkp-corporations__grid--count-5,
+    .mkp-corporations__grid--count-6 {
+        grid-template-columns: 1fr !important;
+        max-width: 400px;
     }
 }
 

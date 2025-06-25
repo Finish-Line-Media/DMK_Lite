@@ -25,7 +25,7 @@ $section_title = ( $actual_company_count === 1 ) ? __( 'Company', 'mediakit-lite
     <div class="mkp-container">
         <h2 class="mkp-section__title"><?php echo esc_html( $section_title ); ?></h2>
         
-        <div class="mkp-corporations__grid">
+        <div class="mkp-corporations__grid mkp-corporations__grid--count-<?php echo esc_attr( $actual_company_count ); ?>">
             <?php for ( $i = 1; $i <= 6; $i++ ) : 
                 $name = get_theme_mod( 'mkp_corp_' . $i . '_name' );
                 $logo = get_theme_mod( 'mkp_corp_' . $i . '_logo' );
