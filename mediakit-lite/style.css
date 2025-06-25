@@ -1305,6 +1305,33 @@ img {
     margin: 0;
 }
 
+/* Optimized layouts for card style to prevent orphans */
+/* Force 4 topics to display as 2x2 */
+.mkp-speaker__topics--count-4 {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 700px;
+}
+
+/* Force 6 topics to display as 3x2 */
+.mkp-speaker__topics--count-6 {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .mkp-speaker__topics--count-4,
+    .mkp-speaker__topics--count-6 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .mkp-speaker__topics--count-4,
+    .mkp-speaker__topics--count-6 {
+        grid-template-columns: 1fr;
+    }
+}
+
 /* List Styles for Speaking Topics */
 .mkp-speaker__list {
     max-width: 800px;
@@ -1469,6 +1496,18 @@ img {
     max-width: 700px;
 }
 
+/* Force 3 companies to display in one row */
+.mkp-corporations__grid:has(.mkp-corp-card:nth-child(3):last-child) {
+    grid-template-columns: repeat(3, 1fr);
+    max-width: 1000px;
+}
+
+/* Force 4 companies to display as 2x2 */
+.mkp-corporations__grid:has(.mkp-corp-card:nth-child(4):last-child) {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 800px;
+}
+
 /* Prevent orphan with 5 companies - show as 3+2 */
 .mkp-corporations__grid:has(.mkp-corp-card:nth-child(5):last-child) {
     display: flex;
@@ -1483,6 +1522,11 @@ img {
 .mkp-corporations__grid:has(.mkp-corp-card:nth-child(5):last-child) .mkp-corp-card:nth-child(4),
 .mkp-corporations__grid:has(.mkp-corp-card:nth-child(5):last-child) .mkp-corp-card:nth-child(5) {
     flex: 0 1 calc(33.333% - var(--mkp-spacing-xl));
+}
+
+/* Force 6 companies to display as 3x2 */
+.mkp-corporations__grid:has(.mkp-corp-card:nth-child(6):last-child) {
+    grid-template-columns: repeat(3, 1fr);
 }
 
 /* Fallback for browsers without :has() support */
@@ -1725,7 +1769,8 @@ img {
     padding: 40px 0;
 }
 
-/* In The Media Section */
+/* In The Media Section - DEPRECATED (kept for backwards compatibility) */
+/* These styles are no longer used after simplifying to URL-only embeds */
 .mkp-in-media-section {
     padding: var(--mkp-spacing-xxl) 0;
 }
@@ -1801,7 +1846,8 @@ img {
     text-decoration: underline;
 }
 
-/* In The Media Section */
+/* In The Media Section - DEPRECATED STYLES */
+/* Old card-based layout - kept for backwards compatibility */
 .mkp-in-the-media-section {
     padding: var(--mkp-spacing-xxl) 0;
     background-color: #ffffff;
@@ -2099,7 +2145,7 @@ img {
 }
 
 /* ==========================================================================
-   In The Media Section Additional Styles
+   In The Media Section Simplified
    ========================================================================== */
 
 .mkp-in-the-media {
@@ -2108,47 +2154,38 @@ img {
 
 .mkp-in-the-media .mkp-section__title {
     text-align: center;
-    margin-bottom: var(--mkp-spacing-lg);
-}
-
-.mkp-in-the-media .mkp-section__subtitle {
-    text-align: center;
     margin-bottom: var(--mkp-spacing-xl);
 }
 
 .mkp-media-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    gap: var(--mkp-spacing-lg);
+    gap: var(--mkp-spacing-xl);
     margin-top: var(--mkp-spacing-xl);
+}
+
+.mkp-media-embed {
+    position: relative;
+    width: 100%;
+}
+
+/* Ensure responsive embeds */
+.mkp-media-embed iframe,
+.mkp-media-embed video,
+.mkp-media-embed object,
+.mkp-media-embed embed {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Special handling for aspect ratios */
+.mkp-media-embed > div {
+    position: relative;
 }
 
 @media (max-width: 767px) {
     .mkp-media-grid {
         grid-template-columns: 1fr;
+        gap: var(--mkp-spacing-lg);
     }
-}
-
-/* Play icon for video thumbnails */
-.mkp-media-item__play-icon::after {
-    content: '';
-    display: block;
-    width: 60px;
-    height: 60px;
-    background: rgba(0, 0, 0, 0.7);
-    border-radius: 50%;
-    position: relative;
-}
-
-.mkp-media-item__play-icon::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-40%, -50%);
-    width: 0;
-    height: 0;
-    border-style: solid;
-    border-width: 10px 0 10px 18px;
-    border-color: transparent transparent transparent #ffffff;
 } 

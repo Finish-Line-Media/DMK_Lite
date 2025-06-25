@@ -43,7 +43,7 @@ function mkp_should_display_section( $section_name, $content_checks = array() ) 
  * @return bool
  */
 function mkp_has_speaker_topics() {
-    for ( $i = 1; $i <= 5; $i++ ) {
+    for ( $i = 1; $i <= 6; $i++ ) {
         if ( get_theme_mod( 'mkp_speaker_topic_' . $i ) ) {
             return true;
         }
@@ -129,7 +129,7 @@ function mkp_has_investors() {
  */
 function mkp_has_media_items() {
     for ( $i = 1; $i <= 8; $i++ ) {
-        if ( get_theme_mod( 'mkp_media_item_' . $i . '_title' ) ) {
+        if ( get_theme_mod( 'mkp_media_item_' . $i . '_url' ) ) {
             return true;
         }
     }

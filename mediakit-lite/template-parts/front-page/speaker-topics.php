@@ -9,12 +9,13 @@ $section_class = 'mkp-speaker-section';
 $section_color = get_theme_mod( 'mkp_speaker_topics_background_color', '#ffffff' );
 $list_style = get_theme_mod( 'mkp_speaker_topics_list_style', 'bullets' );
 
-// Check if we have any topics
+// Check if we have any topics and count them
 $has_topics = false;
-for ( $i = 1; $i <= 5; $i++ ) {
+$topic_count = 0;
+for ( $i = 1; $i <= 6; $i++ ) {
     if ( get_theme_mod( 'mkp_speaker_topic_' . $i ) ) {
         $has_topics = true;
-        break;
+        $topic_count++;
     }
 }
 
@@ -32,7 +33,7 @@ if ( ! $has_topics ) {
             $tag = $list_style === 'bullets' ? 'ul' : 'ol';
             ?>
             <<?php echo $tag; ?> class="mkp-speaker__list mkp-speaker__list--<?php echo esc_attr( $list_style ); ?>">
-                <?php for ( $i = 1; $i <= 5; $i++ ) : 
+                <?php for ( $i = 1; $i <= 6; $i++ ) : 
                     $topic = get_theme_mod( 'mkp_speaker_topic_' . $i );
                     $display = $topic ? 'list-item' : 'none';
                     ?>
@@ -42,8 +43,8 @@ if ( ! $has_topics ) {
                 <?php endfor; ?>
             </<?php echo $tag; ?>>
         <?php else : // cards style ?>
-            <div class="mkp-speaker__topics">
-                <?php for ( $i = 1; $i <= 5; $i++ ) : 
+            <div class="mkp-speaker__topics mkp-speaker__topics--count-<?php echo esc_attr( $topic_count ); ?>">
+                <?php for ( $i = 1; $i <= 6; $i++ ) : 
                     $topic = get_theme_mod( 'mkp_speaker_topic_' . $i );
                     $display = $topic ? 'flex' : 'none';
                     ?>

@@ -699,8 +699,8 @@ function mkp_customize_register( $wp_customize ) {
         'priority'    => 3,
     ) );
     
-    // Speaker topics (exactly 5)
-    for ( $i = 1; $i <= 5; $i++ ) {
+    // Speaker topics (up to 6)
+    for ( $i = 1; $i <= 6; $i++ ) {
         $wp_customize->add_setting( 'mkp_speaker_topic_' . $i, array(
             'default'           => '',
             'sanitize_callback' => 'sanitize_text_field',
@@ -770,50 +770,7 @@ function mkp_customize_register( $wp_customize ) {
     
     // Media Items (up to 8)
     for ( $i = 1; $i <= 8; $i++ ) {
-        // Separator
-        $wp_customize->add_control( new WP_Customize_Control( $wp_customize, 'mkp_media_item_' . $i . '_separator', array(
-            'label'       => sprintf( __( 'Media Item %d', 'mediakit-lite' ), $i ),
-            'section'     => 'mkp_in_the_media_section',
-            'type'        => 'hidden',
-            'description' => '<hr style="margin: 20px 0;">',
-            'priority'    => 100 * $i,
-        ) ) );
-        
-        // Title/Outlet Name
-        $wp_customize->add_setting( 'mkp_media_item_' . $i . '_title', array(
-            'default'           => '',
-            'sanitize_callback' => 'sanitize_text_field',
-            'transport'         => 'postMessage',
-        ) );
-        
-        $wp_customize->add_control( 'mkp_media_item_' . $i . '_title', array(
-            'label'       => __( 'Title/Outlet Name', 'mediakit-lite' ),
-            'description' => __( 'e.g., "CNN Interview", "Forbes Article"', 'mediakit-lite' ),
-            'section'     => 'mkp_in_the_media_section',
-            'type'        => 'text',
-            'priority'    => 100 * $i + 1,
-        ) );
-        
-        // Type
-        $wp_customize->add_setting( 'mkp_media_item_' . $i . '_type', array(
-            'default'           => 'article',
-            'sanitize_callback' => 'mkp_sanitize_select',
-            'transport'         => 'postMessage',
-        ) );
-        
-        $wp_customize->add_control( 'mkp_media_item_' . $i . '_type', array(
-            'label'       => __( 'Media Type', 'mediakit-lite' ),
-            'section'     => 'mkp_in_the_media_section',
-            'type'        => 'select',
-            'choices'     => array(
-                'article' => __( 'Article/Written', 'mediakit-lite' ),
-                'video'   => __( 'Video/TV', 'mediakit-lite' ),
-                'audio'   => __( 'Podcast/Radio', 'mediakit-lite' ),
-            ),
-            'priority'    => 100 * $i + 2,
-        ) );
-        
-        // URL
+        // URL only
         $wp_customize->add_setting( 'mkp_media_item_' . $i . '_url', array(
             'default'           => '',
             'sanitize_callback' => 'esc_url_raw',
@@ -821,69 +778,12 @@ function mkp_customize_register( $wp_customize ) {
         ) );
         
         $wp_customize->add_control( 'mkp_media_item_' . $i . '_url', array(
-            'label'       => __( 'URL/Link', 'mediakit-lite' ),
-            'description' => __( 'Link to the media item (supports YouTube, Vimeo, etc.)', 'mediakit-lite' ),
+            'label'       => sprintf( __( 'Media Item %d URL', 'mediakit-lite' ), $i ),
+            'description' => __( 'Paste YouTube, Spotify, Vimeo, or other media URL', 'mediakit-lite' ),
             'section'     => 'mkp_in_the_media_section',
             'type'        => 'url',
-            'priority'    => 100 * $i + 3,
+            'priority'    => 10 + $i,
         ) );
-        
-        // Date
-        $wp_customize->add_setting( 'mkp_media_item_' . $i . '_date', array(
-            'default'           => '',
-            'sanitize_callback' => 'sanitize_text_field',
-            'transport'         => 'postMessage',
-        ) );
-        
-        $wp_customize->add_control( 'mkp_media_item_' . $i . '_date', array(
-            'label'       => __( 'Date', 'mediakit-lite' ),
-            'description' => __( 'Publication/air date (YYYY-MM-DD)', 'mediakit-lite' ),
-            'section'     => 'mkp_in_the_media_section',
-            'type'        => 'date',
-            'priority'    => 100 * $i + 4,
-        ) );
-        
-        // Description
-        $wp_customize->add_setting( 'mkp_media_item_' . $i . '_description', array(
-            'default'           => '',
-            'sanitize_callback' => 'wp_kses_post',
-            'transport'         => 'postMessage',
-        ) );
-        
-        $wp_customize->add_control( 'mkp_media_item_' . $i . '_description', array(
-            'label'       => __( 'Description/Excerpt', 'mediakit-lite' ),
-            'section'     => 'mkp_in_the_media_section',
-            'type'        => 'textarea',
-            'priority'    => 100 * $i + 5,
-        ) );
-        
-        // Thumbnail
-        $wp_customize->add_setting( 'mkp_media_item_' . $i . '_thumbnail', array(
-            'default'           => '',
-            'sanitize_callback' => 'esc_url_raw',
-            'transport'         => 'postMessage',
-        ) );
-        
-        $wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'mkp_media_item_' . $i . '_thumbnail', array(
-            'label'       => __( 'Thumbnail Image', 'mediakit-lite' ),
-            'description' => __( 'Featured image or video thumbnail', 'mediakit-lite' ),
-            'section'     => 'mkp_in_the_media_section',
-            'priority'    => 100 * $i + 6,
-        ) ) );
-        
-        // Outlet Logo
-        $wp_customize->add_setting( 'mkp_media_item_' . $i . '_outlet_logo', array(
-            'default'           => '',
-            'sanitize_callback' => 'esc_url_raw',
-            'transport'         => 'postMessage',
-        ) );
-        
-        $wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'mkp_media_item_' . $i . '_outlet_logo', array(
-            'label'       => __( 'Media Outlet Logo', 'mediakit-lite' ),
-            'description' => __( 'Logo of the media outlet (optional)', 'mediakit-lite' ),
-            'section'     => 'mkp_in_the_media_section',
-            'priority'    => 100 * $i + 7,
-        ) ) );
     }
     
     /**
