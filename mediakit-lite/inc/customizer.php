@@ -396,7 +396,7 @@ function mkp_customize_register( $wp_customize ) {
     
     
     // Corporation entries
-    for ( $i = 1; $i <= 4; $i++ ) {
+    for ( $i = 1; $i <= 6; $i++ ) {
         // Corporation Name
         $wp_customize->add_setting( 'mkp_corp_' . $i . '_name', array(
             'default'           => '',
@@ -714,6 +714,176 @@ function mkp_customize_register( $wp_customize ) {
             'type'        => 'text',
             'priority'    => 10 + $i,
         ) );
+    }
+    
+    /**
+     * In The Media Section
+     */
+    $wp_customize->add_section( 'mkp_in_the_media_section', array(
+        'title'       => __( 'In The Media', 'mediakit-lite' ),
+        'priority'    => 50,
+        'description' => __( 'Showcase your media appearances, interviews, and press coverage.', 'mediakit-lite' ),
+    ) );
+    
+    // Enable In The Media Section
+    $wp_customize->add_setting( 'mkp_enable_section_in_the_media', array(
+        'default'           => true,
+        'sanitize_callback' => 'mkp_sanitize_checkbox',
+    ) );
+    
+    $wp_customize->add_control( 'mkp_enable_section_in_the_media', array(
+        'label'       => __( 'Enable In The Media Section', 'mediakit-lite' ),
+        'description' => __( 'Show or hide the media appearances section on your landing page.', 'mediakit-lite' ),
+        'section'     => 'mkp_in_the_media_section',
+        'type'        => 'checkbox',
+        'priority'    => 1,
+    ) );
+    
+    // Section Title
+    $wp_customize->add_setting( 'mkp_in_the_media_section_title', array(
+        'default'           => __( 'In The Media', 'mediakit-lite' ),
+        'sanitize_callback' => 'sanitize_text_field',
+        'transport'         => 'postMessage',
+    ) );
+    
+    $wp_customize->add_control( 'mkp_in_the_media_section_title', array(
+        'label'       => __( 'Section Title', 'mediakit-lite' ),
+        'description' => __( 'Customize the section title', 'mediakit-lite' ),
+        'section'     => 'mkp_in_the_media_section',
+        'type'        => 'text',
+        'priority'    => 2,
+    ) );
+    
+    // Background Color
+    $wp_customize->add_setting( 'mkp_in_the_media_background_color', array(
+        'default'           => '#ffffff',
+        'sanitize_callback' => 'sanitize_hex_color',
+        'transport'         => 'postMessage',
+    ) );
+    
+    $wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'mkp_in_the_media_background_color', array(
+        'label'       => __( 'Background Color', 'mediakit-lite' ),
+        'description' => __( 'Background color for the media section.', 'mediakit-lite' ),
+        'section'     => 'mkp_in_the_media_section',
+        'priority'    => 3,
+    ) ) );
+    
+    // Media Items (up to 8)
+    for ( $i = 1; $i <= 8; $i++ ) {
+        // Separator
+        $wp_customize->add_control( new WP_Customize_Control( $wp_customize, 'mkp_media_item_' . $i . '_separator', array(
+            'label'       => sprintf( __( 'Media Item %d', 'mediakit-lite' ), $i ),
+            'section'     => 'mkp_in_the_media_section',
+            'type'        => 'hidden',
+            'description' => '<hr style="margin: 20px 0;">',
+            'priority'    => 100 * $i,
+        ) ) );
+        
+        // Title/Outlet Name
+        $wp_customize->add_setting( 'mkp_media_item_' . $i . '_title', array(
+            'default'           => '',
+            'sanitize_callback' => 'sanitize_text_field',
+            'transport'         => 'postMessage',
+        ) );
+        
+        $wp_customize->add_control( 'mkp_media_item_' . $i . '_title', array(
+            'label'       => __( 'Title/Outlet Name', 'mediakit-lite' ),
+            'description' => __( 'e.g., "CNN Interview", "Forbes Article"', 'mediakit-lite' ),
+            'section'     => 'mkp_in_the_media_section',
+            'type'        => 'text',
+            'priority'    => 100 * $i + 1,
+        ) );
+        
+        // Type
+        $wp_customize->add_setting( 'mkp_media_item_' . $i . '_type', array(
+            'default'           => 'article',
+            'sanitize_callback' => 'mkp_sanitize_select',
+            'transport'         => 'postMessage',
+        ) );
+        
+        $wp_customize->add_control( 'mkp_media_item_' . $i . '_type', array(
+            'label'       => __( 'Media Type', 'mediakit-lite' ),
+            'section'     => 'mkp_in_the_media_section',
+            'type'        => 'select',
+            'choices'     => array(
+                'article' => __( 'Article/Written', 'mediakit-lite' ),
+                'video'   => __( 'Video/TV', 'mediakit-lite' ),
+                'audio'   => __( 'Podcast/Radio', 'mediakit-lite' ),
+            ),
+            'priority'    => 100 * $i + 2,
+        ) );
+        
+        // URL
+        $wp_customize->add_setting( 'mkp_media_item_' . $i . '_url', array(
+            'default'           => '',
+            'sanitize_callback' => 'esc_url_raw',
+            'transport'         => 'postMessage',
+        ) );
+        
+        $wp_customize->add_control( 'mkp_media_item_' . $i . '_url', array(
+            'label'       => __( 'URL/Link', 'mediakit-lite' ),
+            'description' => __( 'Link to the media item (supports YouTube, Vimeo, etc.)', 'mediakit-lite' ),
+            'section'     => 'mkp_in_the_media_section',
+            'type'        => 'url',
+            'priority'    => 100 * $i + 3,
+        ) );
+        
+        // Date
+        $wp_customize->add_setting( 'mkp_media_item_' . $i . '_date', array(
+            'default'           => '',
+            'sanitize_callback' => 'sanitize_text_field',
+            'transport'         => 'postMessage',
+        ) );
+        
+        $wp_customize->add_control( 'mkp_media_item_' . $i . '_date', array(
+            'label'       => __( 'Date', 'mediakit-lite' ),
+            'description' => __( 'Publication/air date (YYYY-MM-DD)', 'mediakit-lite' ),
+            'section'     => 'mkp_in_the_media_section',
+            'type'        => 'date',
+            'priority'    => 100 * $i + 4,
+        ) );
+        
+        // Description
+        $wp_customize->add_setting( 'mkp_media_item_' . $i . '_description', array(
+            'default'           => '',
+            'sanitize_callback' => 'wp_kses_post',
+            'transport'         => 'postMessage',
+        ) );
+        
+        $wp_customize->add_control( 'mkp_media_item_' . $i . '_description', array(
+            'label'       => __( 'Description/Excerpt', 'mediakit-lite' ),
+            'section'     => 'mkp_in_the_media_section',
+            'type'        => 'textarea',
+            'priority'    => 100 * $i + 5,
+        ) );
+        
+        // Thumbnail
+        $wp_customize->add_setting( 'mkp_media_item_' . $i . '_thumbnail', array(
+            'default'           => '',
+            'sanitize_callback' => 'esc_url_raw',
+            'transport'         => 'postMessage',
+        ) );
+        
+        $wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'mkp_media_item_' . $i . '_thumbnail', array(
+            'label'       => __( 'Thumbnail Image', 'mediakit-lite' ),
+            'description' => __( 'Featured image or video thumbnail', 'mediakit-lite' ),
+            'section'     => 'mkp_in_the_media_section',
+            'priority'    => 100 * $i + 6,
+        ) ) );
+        
+        // Outlet Logo
+        $wp_customize->add_setting( 'mkp_media_item_' . $i . '_outlet_logo', array(
+            'default'           => '',
+            'sanitize_callback' => 'esc_url_raw',
+            'transport'         => 'postMessage',
+        ) );
+        
+        $wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'mkp_media_item_' . $i . '_outlet_logo', array(
+            'label'       => __( 'Media Outlet Logo', 'mediakit-lite' ),
+            'description' => __( 'Logo of the media outlet (optional)', 'mediakit-lite' ),
+            'section'     => 'mkp_in_the_media_section',
+            'priority'    => 100 * $i + 7,
+        ) ) );
     }
     
     /**

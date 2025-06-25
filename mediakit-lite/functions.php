@@ -193,9 +193,6 @@ add_filter( 'excerpt_more', 'mkp_excerpt_more' );
  */
 function mkp_add_image_sizes() {
     add_image_size( 'mkp-hero', 1920, 1080, true );
-    add_image_size( 'mkp-portfolio', 600, 400, true );
-    add_image_size( 'mkp-testimonial', 150, 150, true );
-    add_image_size( 'mkp-press-logo', 200, 100, false );
 }
 add_action( 'after_setup_theme', 'mkp_add_image_sizes' );
 
@@ -225,8 +222,6 @@ $required_files = array(
     '/inc/social-icon-svgs.php',
     '/inc/section-order.php',
     '/inc/field-helpers.php',
-    '/inc/meta-boxes.php',
-    '/inc/options-pages.php',
     '/inc/form-submissions.php',
     '/inc/update-notice.php',
     '/inc/blocks.php',

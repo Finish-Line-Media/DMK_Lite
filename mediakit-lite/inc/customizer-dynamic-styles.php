@@ -28,6 +28,7 @@ function mkp_generate_dynamic_styles() {
     $podcasts_bg = get_theme_mod( 'mkp_podcasts_background_color', '#ffffff' );
     $speaker_bg = get_theme_mod( 'mkp_speaker_topics_background_color', '#f8f9fa' );
     $corps_bg = get_theme_mod( 'mkp_corporations_background_color', '#ffffff' );
+    $in_the_media_bg = get_theme_mod( 'mkp_in_the_media_background_color', '#ffffff' );
     $media_questions_bg = get_theme_mod( 'mkp_media_questions_background_color', '#f8f9fa' );
     $investor_bg = get_theme_mod( 'mkp_investor_background_color', '#ffffff' );
     $contact_bg = get_theme_mod( 'mkp_contact_background_color', '#f8f9fa' );
@@ -197,6 +198,31 @@ function mkp_generate_dynamic_styles() {
         
         .mkp-corporations-section .mkp-corp-card__bio {
             color: <?php echo esc_attr( mkp_get_contrast_color( $corps_bg ) ); ?>;
+        }
+        
+        /* In The Media Section Auto-Contrast */
+        .mkp-in-the-media-section {
+            background-color: <?php echo esc_attr( $in_the_media_bg ); ?>;
+            color: <?php echo esc_attr( mkp_get_contrast_color( $in_the_media_bg ) ); ?>;
+        }
+        
+        .mkp-in-the-media-section h2,
+        .mkp-in-the-media-section h3 {
+            color: <?php echo esc_attr( mkp_get_contrast_color_rgba( $in_the_media_bg, 'heading' ) ); ?>;
+        }
+        
+        .mkp-in-the-media-section .mkp-media-item {
+            background-color: <?php echo mkp_is_light_color( $in_the_media_bg ) ? 'rgba(255, 255, 255, 0.9)' : 'rgba(0, 0, 0, 0.2)'; ?>;
+        }
+        
+        .mkp-in-the-media-section .mkp-media-item__title,
+        .mkp-in-the-media-section .mkp-media-item__title a {
+            color: <?php echo esc_attr( mkp_get_contrast_color_rgba( $in_the_media_bg, 'heading' ) ); ?>;
+        }
+        
+        .mkp-in-the-media-section .mkp-media-item__description,
+        .mkp-in-the-media-section .mkp-media-item__date {
+            color: <?php echo esc_attr( mkp_get_contrast_color( $in_the_media_bg ) ); ?>;
         }
         
         /* Media Questions Section Auto-Contrast */

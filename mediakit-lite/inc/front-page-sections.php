@@ -58,7 +58,7 @@ function mkp_has_speaker_topics() {
  * @return bool
  */
 function mkp_has_companies() {
-    for ( $i = 1; $i <= 4; $i++ ) {
+    for ( $i = 1; $i <= 6; $i++ ) {
         if ( get_theme_mod( 'mkp_corp_' . $i . '_name' ) ) {
             return true;
         }
@@ -116,6 +116,20 @@ function mkp_has_media_questions() {
 function mkp_has_investors() {
     for ( $i = 1; $i <= 3; $i++ ) {
         if ( get_theme_mod( 'mkp_investor_' . $i . '_title' ) ) {
+            return true;
+        }
+    }
+    return false;
+}
+
+/**
+ * Check if in the media section has content
+ *
+ * @return bool
+ */
+function mkp_has_media_items() {
+    for ( $i = 1; $i <= 8; $i++ ) {
+        if ( get_theme_mod( 'mkp_media_item_' . $i . '_title' ) ) {
             return true;
         }
     }
@@ -182,6 +196,10 @@ function mkp_get_front_page_sections() {
         'speaker_topics' => array(
             'template' => 'template-parts/front-page/speaker-topics',
             'check_function' => 'mkp_has_speaker_topics',
+        ),
+        'in_the_media' => array(
+            'template' => 'template-parts/front-page/in-the-media',
+            'check_function' => 'mkp_has_media_items',
         ),
         'media_questions' => array(
             'template' => 'template-parts/front-page/media-questions',

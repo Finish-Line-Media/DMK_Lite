@@ -462,19 +462,7 @@ function mkp_register_block_patterns() {
 <!-- wp:heading {"textAlign":"center"} -->
 <h2 class="has-text-align-center">Featured In</h2>
 <!-- /wp:heading -->
-<!-- wp:mediakit-lite/media-logos /-->
-<!-- wp:heading {"textAlign":"center"} -->
-<h2 class="has-text-align-center">Speaking Topics</h2>
-<!-- /wp:heading -->
-<!-- wp:query {"queryId":1,"query":{"perPage":3,"pages":0,"offset":0,"postType":"speaking_topic","order":"desc","orderBy":"date","author":"","search":"","exclude":[],"sticky":"","inherit":false}} -->
-<div class="wp-block-query">
-<!-- wp:post-template -->
-<!-- wp:post-featured-image {"isLink":true} /-->
-<!-- wp:post-title {"isLink":true} /-->
-<!-- wp:post-excerpt /-->
-<!-- /wp:post-template -->
-</div>
-<!-- /wp:query -->',
+<!-- wp:mediakit-lite/media-logos /-->',
         )
     );
     

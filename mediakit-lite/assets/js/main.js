@@ -94,23 +94,6 @@
         statsObserver.observe(statsSection);
     }
     
-    // Portfolio Filter (if using Isotope)
-    const portfolioGrid = $('.mkp-portfolio-grid');
-    if (portfolioGrid.length && typeof $.fn.isotope !== 'undefined') {
-        portfolioGrid.isotope({
-            itemSelector: '.mkp-portfolio-item',
-            layoutMode: 'fitRows'
-        });
-        
-        $('.mkp-filter-button').on('click', function() {
-            const filterValue = $(this).attr('data-filter');
-            portfolioGrid.isotope({ filter: filterValue });
-            
-            $('.mkp-filter-button').removeClass('is-active');
-            $(this).addClass('is-active');
-        });
-    }
-    
     // Media Tabs
     $('.mkp-media-tabs__button').on('click', function() {
         const tabName = $(this).attr('data-tab');

@@ -357,6 +357,17 @@ function mkp_get_front_page_nav_items() {
                 return false;
             },
         ),
+        'in_the_media' => array(
+            'id'    => 'in-the-media',
+            'label' => __( 'In The Media', 'mediakit-lite' ),
+            'url'   => '#in-the-media',
+            'check' => function() {
+                if ( ! get_theme_mod( 'mkp_enable_section_in_the_media', true ) ) {
+                    return false;
+                }
+                return mkp_has_media_items();
+            },
+        ),
         'media_questions' => array(
             'id'    => 'media-questions',
             'label' => __( 'Media Questions', 'mediakit-lite' ),
@@ -430,4 +441,58 @@ function mkp_get_front_page_nav_items() {
     }
     
     return $nav_items;
+}
+
+/**
+ * Check if a URL is embeddable via oEmbed
+ *
+ * @param string $url The URL to check
+ * @return bool
+ */
+function mkp_is_embeddable_url( $url ) {
+    if ( empty( $url ) ) {
+        return false;
+    }
+    
+    // Common embeddable domains
+    $embeddable_domains = array(
+        'youtube.com',
+        'youtu.be',
+        'vimeo.com',
+        'soundcloud.com',
+        'spotify.com',
+        'twitter.com',
+        'x.com',
+        'facebook.com',
+        'instagram.com',
+        'tiktok.com',
+        'dailymotion.com',
+        'ted.com',
+        'wordpress.tv',
+        'videopress.com',
+        'mixcloud.com',
+        'reverbnation.com',
+        'kickstarter.com',
+        'issuu.com',
+        'slideshare.net',
+        'scribd.com',
+    );
+    
+    $parsed_url = wp_parse_url( $url );
+    if ( ! $parsed_url || ! isset( $parsed_url['host'] ) ) {
+        return false;
+    }
+    
+    $host = strtolower( $parsed_url['host'] );
+    $host = preg_replace( '/^www\./', '', $host );
+    
+    foreach ( $embeddable_domains as $domain ) {
+        if ( $host === $domain || strpos( $host, '.' . $domain ) !== false ) {
+            return true;
+        }
+    }
+    
+    // Also check if WordPress can handle it via oEmbed
+    $oembed = _wp_oembed_get_object();
+    return $oembed->get_provider( $url, array() ) !== false;
 }

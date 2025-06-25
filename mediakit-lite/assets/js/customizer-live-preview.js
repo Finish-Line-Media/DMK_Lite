@@ -76,6 +76,7 @@
         { setting: 'mkp_podcasts_background_color', selector: '.mkp-podcasts-section' },
         { setting: 'mkp_speaker_topics_background_color', selector: '.mkp-speaker-section' },
         { setting: 'mkp_corporations_background_color', selector: '.mkp-corporations-section' },
+        { setting: 'mkp_in_the_media_background_color', selector: '.mkp-in-the-media-section' },
         { setting: 'mkp_media_questions_background_color', selector: '.mkp-media-questions-section' },
         { setting: 'mkp_investor_background_color', selector: '.mkp-investor-section' },
         { setting: 'mkp_contact_background_color', selector: '.mkp-contact-section' }
@@ -916,6 +917,170 @@
             } else {
                 // Hide section
                 $section.css( 'display', 'none' );
+            }
+        } );
+    } );
+    
+    // In The Media Section Title
+    wp.customize( 'mkp_in_the_media_section_title', function( value ) {
+        value.bind( function( to ) {
+            $( '.mkp-in-the-media-section .mkp-section__title' ).text( to );
+        } );
+    } );
+    
+    // Update media items
+    const maxMediaItems = 8;
+    for ( let i = 1; i <= maxMediaItems; i++ ) {
+        ( function( itemNum ) {
+            // Media item title
+            wp.customize( 'mkp_media_item_' + itemNum + '_title', function( value ) {
+                value.bind( function( to ) {
+                    const $item = $( '.mkp-media-item:nth-child(' + itemNum + ')' );
+                    
+                    if ( to ) {
+                        // Update title
+                        $item.find( '.mkp-media-item__title' ).text( to );
+                        // Show item
+                        $item.show();
+                    } else {
+                        // Hide item if no title
+                        $item.hide();
+                    }
+                } );
+            } );
+            
+            // Media item type
+            wp.customize( 'mkp_media_item_' + itemNum + '_type', function( value ) {
+                value.bind( function( to ) {
+                    const $item = $( '.mkp-media-item:nth-child(' + itemNum + ')' );
+                    const $badge = $item.find( '.mkp-media-item__type-badge' );
+                    
+                    // Update badge class
+                    $badge.removeClass( 'mkp-media-item__type-badge--article mkp-media-item__type-badge--video mkp-media-item__type-badge--audio' );
+                    $badge.addClass( 'mkp-media-item__type-badge--' + to );
+                    
+                    // Update badge text
+                    let typeText = '';
+                    switch ( to ) {
+                        case 'video':
+                            typeText = 'Video';
+                            break;
+                        case 'audio':
+                            typeText = 'Podcast';
+                            break;
+                        case 'article':
+                        default:
+                            typeText = 'Article';
+                            break;
+                    }
+                    $badge.text( typeText );
+                    
+                    // Force refresh if type changes to/from embeddable
+                    wp.customize.preview.send( 'refresh' );
+                } );
+            } );
+            
+            // Media item URL
+            wp.customize( 'mkp_media_item_' + itemNum + '_url', function( value ) {
+                value.bind( function( to ) {
+                    // Force refresh as embeds need to be processed server-side
+                    wp.customize.preview.send( 'refresh' );
+                } );
+            } );
+            
+            // Media item date
+            wp.customize( 'mkp_media_item_' + itemNum + '_date', function( value ) {
+                value.bind( function( to ) {
+                    const $item = $( '.mkp-media-item:nth-child(' + itemNum + ')' );
+                    const $date = $item.find( '.mkp-media-item__date' );
+                    
+                    if ( to ) {
+                        // Format date
+                        const date = new Date( to );
+                        const formattedDate = date.toLocaleDateString();
+                        $date.text( formattedDate ).attr( 'datetime', to );
+                        $date.show();
+                    } else {
+                        $date.hide();
+                    }
+                } );
+            } );
+            
+            // Media item description
+            wp.customize( 'mkp_media_item_' + itemNum + '_description', function( value ) {
+                value.bind( function( to ) {
+                    const $item = $( '.mkp-media-item:nth-child(' + itemNum + ')' );
+                    const $description = $item.find( '.mkp-media-item__description' );
+                    
+                    if ( to ) {
+                        // Simple wpautop implementation for live preview
+                        const formattedDesc = '<p>' + to.replace(/\n\n/g, '</p><p>').replace(/\n/g, '<br />') + '</p>';
+                        $description.html( formattedDesc );
+                        $description.show();
+                    } else {
+                        $description.hide();
+                    }
+                } );
+            } );
+            
+            // Media item thumbnail
+            wp.customize( 'mkp_media_item_' + itemNum + '_thumbnail', function( value ) {
+                value.bind( function( to ) {
+                    const $item = $( '.mkp-media-item:nth-child(' + itemNum + ')' );
+                    const $thumbnail = $item.find( '.mkp-media-item__thumbnail' );
+                    
+                    if ( to ) {
+                        // If attachment ID, fetch URL
+                        if ( $.isNumeric( to ) ) {
+                            wp.media.attachment( to ).fetch().then( function() {
+                                const attachment = wp.media.attachment( to );
+                                $thumbnail.find( 'img' ).attr( 'src', attachment.get( 'url' ) );
+                            } );
+                        } else {
+                            // Direct URL
+                            $thumbnail.find( 'img' ).attr( 'src', to );
+                        }
+                        $thumbnail.show();
+                    } else {
+                        $thumbnail.hide();
+                    }
+                } );
+            } );
+            
+            // Media outlet logo
+            wp.customize( 'mkp_media_item_' + itemNum + '_outlet_logo', function( value ) {
+                value.bind( function( to ) {
+                    const $item = $( '.mkp-media-item:nth-child(' + itemNum + ')' );
+                    const $logo = $item.find( '.mkp-media-item__outlet-logo' );
+                    
+                    if ( to ) {
+                        // If attachment ID, fetch URL
+                        if ( $.isNumeric( to ) ) {
+                            wp.media.attachment( to ).fetch().then( function() {
+                                const attachment = wp.media.attachment( to );
+                                $logo.find( 'img' ).attr( 'src', attachment.get( 'url' ) );
+                            } );
+                        } else {
+                            // Direct URL
+                            $logo.find( 'img' ).attr( 'src', to );
+                        }
+                        $logo.show();
+                    } else {
+                        $logo.hide();
+                    }
+                } );
+            } );
+        } )( i );
+    }
+    
+    // Handle enable/disable In The Media section toggle
+    wp.customize( 'mkp_enable_section_in_the_media', function( value ) {
+        value.bind( function( to ) {
+            const $section = $( '.mkp-in-the-media-section' );
+            if ( to ) {
+                $section.show();
+            } else {
+                $section.hide();
             }
         } );
     } );
