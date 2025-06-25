@@ -2,6 +2,17 @@
 
 All notable changes to the MediaKit Lite theme will be documented in this file.
 
+## [1.7.27] - 2025-06-25
+
+### Changed
+- Limited hero section to maximum 2 images (reduced from 4)
+- Updated hero image layout to display side-by-side with spacing when room allows
+- Images now stack vertically on smaller screens automatically
+- Added consistent spacing between images when on same side
+
+### Removed
+- Removed hero image slots 3 and 4 from customizer settings
+
 ## [1.7.26] - 2025-06-25
 
 ### Fixed

@@ -223,8 +223,8 @@ function mkp_customize_register( $wp_customize ) {
         'priority'    => 2,
     ) ) );
     
-    // Hero Images (1-4)
-    for ( $i = 1; $i <= 4; $i++ ) {
+    // Hero Images (1-2)
+    for ( $i = 1; $i <= 2; $i++ ) {
         $wp_customize->add_setting( 'mkp_hero_image_' . $i, array(
             'default'           => '',
             'sanitize_callback' => 'esc_url_raw',

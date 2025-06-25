@@ -29,7 +29,7 @@ if ( $hero_background ) {
             <?php 
             // Get all images on the left side
             $left_images = array();
-            for ( $i = 1; $i <= 4; $i++ ) {
+            for ( $i = 1; $i <= 2; $i++ ) {
                 $image = get_theme_mod( 'mkp_hero_image_' . $i );
                 $position = get_theme_mod( 'mkp_hero_image_' . $i . '_position', 'left' );
                 if ( $image && $position === 'left' ) {
@@ -102,7 +102,7 @@ if ( $hero_background ) {
             <?php 
             // Get all images on the right side
             $right_images = array();
-            for ( $i = 1; $i <= 4; $i++ ) {
+            for ( $i = 1; $i <= 2; $i++ ) {
                 $image = get_theme_mod( 'mkp_hero_image_' . $i );
                 $position = get_theme_mod( 'mkp_hero_image_' . $i . '_position', 'left' );
                 if ( $image && $position === 'right' ) {
