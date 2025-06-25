@@ -2,6 +2,26 @@
 
 All notable changes to the MediaKit Lite theme will be documented in this file.
 
+## [1.7.28] - 2025-06-25
+
+### Added
+- Professional color theme system with 6 pre-defined themes
+- Dynamic color rotation that adapts to visible sections
+- Color themes: Ocean Depths, Forest Journey, Sunset Warmth, Midnight Elegance, Corporate Professional, Creative Spirit
+- Automatic text color contrast for all themes
+
+### Changed
+- Replaced 12+ individual color pickers with single theme selector dropdown
+- Simplified customizer interface for better user experience
+- Updated all section templates to use dynamic color system
+- Rewrote customizer-dynamic-styles.php for theme-based colors
+
+### Removed
+- All individual background color settings from customizer
+- Primary, secondary, and accent color settings
+- Auto-contrast detection system (no longer needed)
+- Navigation background color setting
+
 ## [1.7.27] - 2025-06-25
 
 ### Changed
