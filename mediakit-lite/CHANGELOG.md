@@ -2,6 +2,12 @@
 
 All notable changes to the MediaKit Lite theme will be documented in this file.
 
+## [1.7.26] - 2025-06-25
+
+### Fixed
+- Fixed Companies section display issue by removing inline display:block styles that were overriding flexbox layout
+- Fixed update checker version mismatch by updating MKP_THEME_VERSION constant in functions.php
+
 ## [1.7.25] - 2025-06-25
 
 ### Fixed

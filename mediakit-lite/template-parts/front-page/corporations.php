@@ -31,9 +31,9 @@ $section_title = ( $actual_company_count === 1 ) ? __( 'Company', 'mediakit-lite
                 $logo = get_theme_mod( 'mkp_corp_' . $i . '_logo' );
                 $bio = get_theme_mod( 'mkp_corp_' . $i . '_bio' );
                 $link = get_theme_mod( 'mkp_corp_' . $i . '_link' );
-                $display = $name ? 'block' : 'none';
                 ?>
-                <div class="mkp-corp-card mkp-corp--<?php echo esc_attr( $i ); ?>" style="display: <?php echo esc_attr( $display ); ?>;">
+                <?php if ( $name ) : ?>
+                <div class="mkp-corp-card mkp-corp--<?php echo esc_attr( $i ); ?>">
                     <div class="mkp-corp-card__logo">
                         <?php if ( $logo ) : ?>
                             <img src="<?php echo esc_url( $logo ); ?>" alt="<?php echo esc_attr( $name ); ?>" />
@@ -54,6 +54,7 @@ $section_title = ( $actual_company_count === 1 ) ? __( 'Company', 'mediakit-lite
                         </a>
                     <?php endif; ?>
                 </div>
+                <?php endif; ?>
             <?php endfor; ?>
         </div>
     </div>
