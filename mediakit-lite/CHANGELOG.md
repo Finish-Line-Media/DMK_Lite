@@ -2,6 +2,23 @@
 
 All notable changes to the MediaKit Lite theme will be documented in this file.
 
+## [1.7.21] - 2025-06-25
+
+### Added
+- New "In The Media" section for showcasing media appearances
+- Support for automatic YouTube and Spotify embeds
+- Expanded Companies section from 4 to 6 companies
+
+### Changed
+- Improved Companies section grid layout to prevent orphan items
+- Single company now centers properly
+
+### Removed
+- Cleaned up legacy custom post type code
+- Removed unused image sizes (portfolio, testimonial, press-logo)
+- Removed unused meta-boxes and options-pages files
+- Removed portfolio JavaScript filtering code
+
 ## [1.7.13] - 2025-06-22
 
 ### Changed
