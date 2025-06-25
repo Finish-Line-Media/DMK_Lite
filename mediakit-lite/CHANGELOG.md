@@ -2,6 +2,14 @@
 
 All notable changes to the MediaKit Lite theme will be documented in this file.
 
+## [1.7.30] - 2025-06-25
+
+### Fixed
+- Body font now updates immediately in customizer preview
+- Heading font now updates immediately in customizer preview
+- Fixed CSS variable conflicts preventing font changes from showing
+- Improved Google Fonts loading for better performance
+
 ## [1.7.29] - 2025-06-25
 
 ### Fixed
