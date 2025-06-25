@@ -1,9 +1,9 @@
 {
-    "version": "1.7.23",
-    "description": "MediaKit Lite v1.7.23",
+    "version": "1.7.28",
+    "description": "MediaKit Lite v1.7.28",
     "download_url": "https://github.com/Finish-Line-Media/DMK_Lite/releases/latest/download/mediakit-lite.zip",
     "changelog_url": "https://github.com/Finish-Line-Media/DMK_Lite/blob/main/CHANGELOG.md",
-    "release_date": "2025-06-24",
+    "release_date": "2025-06-25",
     "min_wp_version": "5.8",
     "tested_up_to": "6.5",
     "php_version": "7.4"
