@@ -2,6 +2,14 @@
 
 All notable changes to the MediaKit Lite theme will be documented in this file.
 
+## [1.7.29] - 2025-06-25
+
+### Fixed
+- Speaking Topics cards now properly inherit section colors when using card style
+- Investment Verticals section titles and descriptions now use theme colors instead of hardcoded values
+- Body font changes now appear immediately in customizer preview
+- Dynamic Google Fonts loading based on selected fonts for better performance
+
 ## [1.7.28] - 2025-06-25
 
 ### Added
