@@ -43,17 +43,16 @@ function mkp_generate_dynamic_styles() {
     ob_start();
     ?>
     <style id="mkp-dynamic-styles">
-        /* Typography */
-        body {
-            font-family: <?php echo $body_font_family; ?>;
+        /* Typography CSS Variables */
+        :root {
+            --mkp-font-primary: <?php echo $body_font_family; ?>;
+            --mkp-font-heading: <?php echo $heading_font_family; ?>;
+            --mkp-font-nav: <?php echo $nav_font_family; ?>;
         }
         
-        h1, h2, h3, h4, h5, h6 {
-            font-family: <?php echo $heading_font_family; ?>;
-        }
-        
+        /* Apply nav font */
         .mkp-nav {
-            font-family: <?php echo $nav_font_family; ?>;
+            font-family: var(--mkp-font-nav);
         }
         
         /* Header & Navigation */

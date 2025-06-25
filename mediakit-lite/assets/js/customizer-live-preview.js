@@ -589,33 +589,82 @@
         } );
     } );
     
+    // Define font stacks once for all font controls
+    const fontStacks = {
+        'system': '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif',
+        'inter': '"Inter", sans-serif',
+        'roboto': '"Roboto", sans-serif',
+        'opensans': '"Open Sans", sans-serif',
+        'lato': '"Lato", sans-serif',
+        'montserrat': '"Montserrat", sans-serif',
+        'playfair': '"Playfair Display", serif',
+        'merriweather': '"Merriweather", serif',
+        'georgia': 'Georgia, "Times New Roman", serif',
+        'poppins': '"Poppins", sans-serif',
+        'raleway': '"Raleway", sans-serif'
+    };
+    
+    // Google font mappings
+    const googleFontUrls = {
+        'inter': 'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap',
+        'roboto': 'https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap',
+        'opensans': 'https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap',
+        'lato': 'https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap',
+        'montserrat': 'https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap',
+        'playfair': 'https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap',
+        'merriweather': 'https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&display=swap',
+        'poppins': 'https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap',
+        'raleway': 'https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700&display=swap'
+    };
+    
+    // Helper function to load Google font
+    function loadGoogleFont( fontKey ) {
+        if ( fontKey !== 'system' && fontKey !== 'georgia' && googleFontUrls[fontKey] ) {
+            const fontUrl = googleFontUrls[fontKey];
+            if ( ! $( 'link[href="' + fontUrl + '"]' ).length ) {
+                $( 'head' ).append( '<link rel="stylesheet" href="' + fontUrl + '">' );
+            }
+        }
+    }
+    
+    // Body Font
+    wp.customize( 'mkp_body_font', function( value ) {
+        value.bind( function( to ) {
+            if ( fontStacks[to] ) {
+                // Update CSS variable
+                document.documentElement.style.setProperty( '--mkp-font-primary', fontStacks[to] );
+                
+                // Load Google font if needed
+                loadGoogleFont( to );
+            }
+        } );
+    } );
+    
+    // Heading Font
+    wp.customize( 'mkp_heading_font', function( value ) {
+        value.bind( function( to ) {
+            if ( fontStacks[to] ) {
+                // Update CSS variable
+                document.documentElement.style.setProperty( '--mkp-font-heading', fontStacks[to] );
+                
+                // Load Google font if needed
+                loadGoogleFont( to );
+            }
+        } );
+    } );
+    
     // Navigation Font
     wp.customize( 'mkp_nav_font', function( value ) {
         value.bind( function( to ) {
-            // Define font stacks
-            const fontStacks = {
-                'system': '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif',
-                'inter': '"Inter", sans-serif',
-                'roboto': '"Roboto", sans-serif',
-                'open-sans': '"Open Sans", sans-serif',
-                'lato': '"Lato", sans-serif',
-                'montserrat': '"Montserrat", sans-serif',
-                'poppins': '"Poppins", sans-serif',
-                'raleway': '"Raleway", sans-serif'
-            };
-            
             if ( fontStacks[to] ) {
+                // Update CSS variable
+                document.documentElement.style.setProperty( '--mkp-font-nav', fontStacks[to] );
+                
+                // Also update directly for immediate effect
                 $( '.mkp-nav, .mkp-nav__link' ).css( 'font-family', fontStacks[to] );
                 
                 // Load Google font if needed
-                if ( to !== 'system' ) {
-                    const fontName = to.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join('+');
-                    const fontUrl = 'https://fonts.googleapis.com/css2?family=' + fontName + ':wght@400;500;600;700&display=swap';
-                    
-                    if ( ! $( 'link[href*="' + fontName + '"]' ).length ) {
-                        $( 'head' ).append( '<link rel="stylesheet" href="' + fontUrl + '">' );
-                    }
-                }
+                loadGoogleFont( to );
             }
         } );
     } );
