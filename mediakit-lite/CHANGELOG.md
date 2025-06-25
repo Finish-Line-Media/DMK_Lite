@@ -2,6 +2,12 @@
 
 All notable changes to the MediaKit Lite theme will be documented in this file.
 
+## [1.7.23] - 2025-06-25
+
+### Fixed
+- Fixed Companies section 4-item layout orphan issue by using count-based CSS classes
+- Improved browser compatibility by replacing :has() selectors with explicit classes
+
 ## [1.7.22] - 2025-06-25
 
 ### Changed
