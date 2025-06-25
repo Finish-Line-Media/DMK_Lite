@@ -4,7 +4,7 @@ Theme URI: https://mediakitpro.com
 Author: Finish Line Media
 Author URI: https://finishline.media
 Description: MediaKit Lite is your digital media kit solution for building personal leverage. Perfect for showcasing your expertise, publications, speaking topics, and media appearances. Set up everything through the simple WordPress Customizer - no coding required. Need a custom-built media kit? Ask about our tailored design services.
-Version: 1.7.28
+Version: 1.7.29
 License: GPL v2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: mediakit-lite
@@ -1544,12 +1544,10 @@ img {
 .mkp-investor-card__title {
     font-size: 1.75rem;
     margin-bottom: var(--mkp-spacing-md);
-    color: var(--mkp-secondary);
 }
 
 .mkp-investor-card__description {
     line-height: 1.6;
-    color: var(--mkp-text-light);
 }
 
 .mkp-investor-card__description p:last-child {

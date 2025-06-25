@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Define Constants
  */
-define( 'MKP_THEME_VERSION', '1.7.28' );
+define( 'MKP_THEME_VERSION', '1.7.29' );
 define( 'MKP_THEME_DIR', get_template_directory() );
 define( 'MKP_THEME_URI', get_template_directory_uri() );
 
@@ -123,8 +123,36 @@ function mkp_scripts() {
     // Enqueue main stylesheet
     wp_enqueue_style( 'mediakit-lite-style', get_stylesheet_uri(), array(), MKP_THEME_VERSION );
     
-    // Enqueue Google Fonts if needed
-    wp_enqueue_style( 'mediakit-lite-fonts', 'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;700&display=swap', array(), null );
+    // Enqueue Google Fonts based on selected fonts
+    $body_font = get_theme_mod( 'mkp_body_font', 'system' );
+    $heading_font = get_theme_mod( 'mkp_heading_font', 'system' );
+    $nav_font = get_theme_mod( 'mkp_nav_font', 'system' );
+    
+    $google_fonts = array();
+    $font_weights = array(
+        'inter' => 'Inter:wght@300;400;500;600;700',
+        'roboto' => 'Roboto:wght@300;400;500;700',
+        'opensans' => 'Open+Sans:wght@300;400;600;700',
+        'lato' => 'Lato:wght@300;400;700;900',
+        'montserrat' => 'Montserrat:wght@300;400;500;600;700',
+        'playfair' => 'Playfair+Display:wght@400;700',
+        'merriweather' => 'Merriweather:wght@300;400;700',
+        'poppins' => 'Poppins:wght@300;400;500;600;700',
+        'raleway' => 'Raleway:wght@300;400;500;600;700',
+    );
+    
+    // Add selected fonts to the array
+    foreach ( array( $body_font, $heading_font, $nav_font ) as $font ) {
+        if ( $font !== 'system' && $font !== 'georgia' && isset( $font_weights[ $font ] ) ) {
+            $google_fonts[ $font ] = $font_weights[ $font ];
+        }
+    }
+    
+    // Build Google Fonts URL if we have any non-system fonts
+    if ( ! empty( $google_fonts ) ) {
+        $fonts_url = 'https://fonts.googleapis.com/css2?family=' . implode( '&family=', array_values( $google_fonts ) ) . '&display=swap';
+        wp_enqueue_style( 'mediakit-lite-fonts', $fonts_url, array(), null );
+    }
     
     // Enqueue main JavaScript
     wp_enqueue_script( 'mediakit-lite-script', MKP_THEME_URI . '/assets/js/main.js', array('jquery'), MKP_THEME_VERSION, true );

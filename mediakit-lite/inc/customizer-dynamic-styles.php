@@ -16,9 +16,46 @@ function mkp_generate_dynamic_styles() {
     // Get current theme colors
     $theme = mkp_get_theme();
     
+    // Get font settings
+    $body_font = get_theme_mod( 'mkp_body_font', 'system' );
+    $heading_font = get_theme_mod( 'mkp_heading_font', 'system' );
+    $nav_font = get_theme_mod( 'mkp_nav_font', 'system' );
+    
+    // Font family mappings
+    $font_families = array(
+        'system'     => '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif',
+        'inter'      => '"Inter", sans-serif',
+        'roboto'     => '"Roboto", sans-serif',
+        'opensans'   => '"Open Sans", sans-serif',
+        'lato'       => '"Lato", sans-serif',
+        'montserrat' => '"Montserrat", sans-serif',
+        'playfair'   => '"Playfair Display", serif',
+        'merriweather' => '"Merriweather", serif',
+        'georgia'    => 'Georgia, "Times New Roman", serif',
+        'poppins'    => '"Poppins", sans-serif',
+        'raleway'    => '"Raleway", sans-serif',
+    );
+    
+    $body_font_family = isset( $font_families[ $body_font ] ) ? $font_families[ $body_font ] : $font_families['system'];
+    $heading_font_family = isset( $font_families[ $heading_font ] ) ? $font_families[ $heading_font ] : $font_families['system'];
+    $nav_font_family = isset( $font_families[ $nav_font ] ) ? $font_families[ $nav_font ] : $font_families['system'];
+    
     ob_start();
     ?>
     <style id="mkp-dynamic-styles">
+        /* Typography */
+        body {
+            font-family: <?php echo $body_font_family; ?>;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: <?php echo $heading_font_family; ?>;
+        }
+        
+        .mkp-nav {
+            font-family: <?php echo $nav_font_family; ?>;
+        }
+        
         /* Header & Navigation */
         .mkp-header {
             background-color: <?php echo esc_attr( $theme['primary'] ); ?>;
@@ -104,10 +141,31 @@ function mkp_generate_dynamic_styles() {
         .mkp-podcast-card,
         .mkp-corp-card,
         .mkp-investor-card,
-        .mkp-media-item {
+        .mkp-media-item,
+        .mkp-speaker__topic {
             background-color: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
+        }
+        
+        /* Speaker topic cards inherit section colors */
+        .mkp-speaker-section--cards .mkp-speaker__topic-title {
+            color: inherit;
+        }
+        
+        .mkp-speaker-section--cards .mkp-speaker__topic-arrow {
+            color: inherit;
+            opacity: 0.7;
+        }
+        
+        /* Investment verticals inherit section colors */
+        .mkp-investor-card__title {
+            color: inherit;
+        }
+        
+        .mkp-investor-card__description {
+            color: inherit;
+            opacity: 0.9;
         }
         
         /* Contact section email color fix */
