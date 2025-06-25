@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Define Constants
  */
-define( 'MKP_THEME_VERSION', '1.7.27' );
+define( 'MKP_THEME_VERSION', '1.7.28' );
 define( 'MKP_THEME_DIR', get_template_directory() );
 define( 'MKP_THEME_URI', get_template_directory_uri() );
 
@@ -208,11 +208,12 @@ if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
 
 // Ensure all files exist before requiring them
 $required_files = array(
-    '/inc/auto-contrast.php',
     '/inc/bio-defaults.php',
     '/inc/customizer-helpers.php',
     '/inc/customizer-social-control.php',
     '/inc/customizer-widget-fix.php',
+    '/inc/color-themes.php',
+    '/inc/theme-color-manager.php',
     '/inc/customizer.php',
     '/inc/customizer-dynamic-styles.php',
     '/inc/template-tags.php',

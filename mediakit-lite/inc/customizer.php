@@ -68,19 +68,6 @@ function mkp_customize_register( $wp_customize ) {
         ),
     ) );
     
-    // Navigation Background Color
-    $wp_customize->add_setting( 'mkp_nav_background_color', array(
-        'default'           => '#ffffff',
-        'sanitize_callback' => 'sanitize_hex_color',
-        'transport'         => 'postMessage',
-    ) );
-    
-    $wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'mkp_nav_background_color', array(
-        'label'       => __( 'Navigation Background Color', 'mediakit-lite' ),
-        'description' => __( 'Background color for the navigation bar.', 'mediakit-lite' ),
-        'section'     => 'title_tagline',
-        'priority'    => 15,
-    ) ) );
     
     /**
      * Brand Settings Section
@@ -91,47 +78,21 @@ function mkp_customize_register( $wp_customize ) {
         'description' => __( 'Customize your brand colors and typography to match your professional identity.', 'mediakit-lite' ),
     ) );
     
-    // Primary Color
-    $wp_customize->add_setting( 'mkp_primary_color', array(
-        'default'           => '#2c3e50',
-        'sanitize_callback' => 'sanitize_hex_color',
-        'transport'         => 'postMessage',
+    // Color Theme Selector
+    $wp_customize->add_setting( 'mkp_color_theme', array(
+        'default'           => 'ocean_depths',
+        'sanitize_callback' => 'sanitize_text_field',
+        'transport'         => 'refresh',
     ) );
     
-    $wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'mkp_primary_color', array(
-        'label'       => __( 'Primary Color', 'mediakit-lite' ),
-        'description' => __( 'Main brand color used for headings and important elements.', 'mediakit-lite' ),
+    $wp_customize->add_control( 'mkp_color_theme', array(
+        'type'        => 'select',
         'section'     => 'mkp_brand_settings',
+        'label'       => __( 'Color Theme', 'mediakit-lite' ),
+        'description' => __( 'Choose a professional color theme for your entire site. Colors automatically rotate through sections for visual interest.', 'mediakit-lite' ),
+        'choices'     => mkp_get_theme_names(),
         'priority'    => 10,
-    ) ) );
-    
-    // Secondary Color
-    $wp_customize->add_setting( 'mkp_secondary_color', array(
-        'default'           => '#3498db',
-        'sanitize_callback' => 'sanitize_hex_color',
-        'transport'         => 'postMessage',
     ) );
-    
-    $wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'mkp_secondary_color', array(
-        'label'       => __( 'Secondary Color', 'mediakit-lite' ),
-        'description' => __( 'Secondary brand color used for buttons and links.', 'mediakit-lite' ),
-        'section'     => 'mkp_brand_settings',
-        'priority'    => 20,
-    ) ) );
-    
-    // Accent Color
-    $wp_customize->add_setting( 'mkp_accent_color', array(
-        'default'           => '#e74c3c',
-        'sanitize_callback' => 'sanitize_hex_color',
-        'transport'         => 'postMessage',
-    ) );
-    
-    $wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'mkp_accent_color', array(
-        'label'       => __( 'Accent Color', 'mediakit-lite' ),
-        'description' => __( 'Accent color used for hover states and highlights.', 'mediakit-lite' ),
-        'section'     => 'mkp_brand_settings',
-        'priority'    => 30,
-    ) ) );
     
     // Heading Font
     $wp_customize->add_setting( 'mkp_heading_font', array(
@@ -194,22 +155,7 @@ function mkp_customize_register( $wp_customize ) {
         'priority'    => 35,
         'description' => __( 'Configure your hero section with background image, name, and professional tags.', 'mediakit-lite' ),
     ) );
-    
-    // Hero Background Color
-    $wp_customize->add_setting( 'mkp_hero_background_color', array(
-        'default'           => '#f8f9fa',
-        'sanitize_callback' => 'sanitize_hex_color',
-        'transport'         => 'postMessage',
-    ) );
-    
-    $wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'mkp_hero_background_color', array(
-        'label'       => __( 'Background Color', 'mediakit-lite' ),
-        'description' => __( 'Background color for the hero section.', 'mediakit-lite' ),
-        'section'     => 'mkp_hero_section',
-        'priority'    => 1,
-    ) ) );
-    
-    // Hero Background Image
+            // Hero Background Image
     $wp_customize->add_setting( 'mkp_hero_background', array(
         'default'           => '',
         'sanitize_callback' => 'esc_url_raw',
@@ -324,22 +270,7 @@ function mkp_customize_register( $wp_customize ) {
         'priority'    => 40,
         'description' => __( 'Your professional biography and background information.', 'mediakit-lite' ),
     ) );
-    
-    // Bio Background Color
-    $wp_customize->add_setting( 'mkp_bio_background_color', array(
-        'default'           => '#ffffff',
-        'sanitize_callback' => 'sanitize_hex_color',
-        'transport'         => 'postMessage',
-    ) );
-    
-    $wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'mkp_bio_background_color', array(
-        'label'       => __( 'Background Color', 'mediakit-lite' ),
-        'description' => __( 'Background color for the bio section.', 'mediakit-lite' ),
-        'section'     => 'mkp_bio_section',
-        'priority'    => 1,
-    ) ) );
-    
-    // Bio Content
+            // Bio Content
     $wp_customize->add_setting( 'mkp_bio_content', array(
         'default'           => mkp_get_default_bio_content(),
         'sanitize_callback' => 'wp_kses_post',
@@ -379,23 +310,7 @@ function mkp_customize_register( $wp_customize ) {
         'type'        => 'checkbox',
         'priority'    => 1,
     ) );
-    
-    // Corporations Background Color
-    $wp_customize->add_setting( 'mkp_corporations_background_color', array(
-        'default'           => '#ffffff',
-        'sanitize_callback' => 'sanitize_hex_color',
-        'transport'         => 'postMessage',
-    ) );
-    
-    $wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'mkp_corporations_background_color', array(
-        'label'       => __( 'Background Color', 'mediakit-lite' ),
-        'description' => __( 'Background color for the companies section.', 'mediakit-lite' ),
-        'section'     => 'mkp_corporations_section',
-        'priority'    => 2,
-    ) ) );
-    
-    
-    // Corporation entries
+            // Corporation entries
     for ( $i = 1; $i <= 6; $i++ ) {
         // Corporation Name
         $wp_customize->add_setting( 'mkp_corp_' . $i . '_name', array(
@@ -474,22 +389,7 @@ function mkp_customize_register( $wp_customize ) {
         'type'        => 'checkbox',
         'priority'    => 1,
     ) );
-    
-    // Books Background Color
-    $wp_customize->add_setting( 'mkp_books_background_color', array(
-        'default'           => '#f8f9fa',
-        'sanitize_callback' => 'sanitize_hex_color',
-        'transport'         => 'postMessage',
-    ) );
-    
-    $wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'mkp_books_background_color', array(
-        'label'       => __( 'Background Color', 'mediakit-lite' ),
-        'description' => __( 'Background color for the books section.', 'mediakit-lite' ),
-        'section'     => 'mkp_books_section',
-        'priority'    => 2,
-    ) ) );
-    
-    // Book entries (up to 4)
+            // Book entries (up to 4)
     for ( $i = 1; $i <= 4; $i++ ) {
         // Book Title
         $wp_customize->add_setting( 'mkp_book_' . $i . '_title', array(
@@ -569,22 +469,7 @@ function mkp_customize_register( $wp_customize ) {
         'type'        => 'checkbox',
         'priority'    => 1,
     ) );
-    
-    // Podcasts Background Color
-    $wp_customize->add_setting( 'mkp_podcasts_background_color', array(
-        'default'           => '#ffffff',
-        'sanitize_callback' => 'sanitize_hex_color',
-        'transport'         => 'postMessage',
-    ) );
-    
-    $wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'mkp_podcasts_background_color', array(
-        'label'       => __( 'Background Color', 'mediakit-lite' ),
-        'description' => __( 'Background color for the podcast/show section.', 'mediakit-lite' ),
-        'section'     => 'mkp_podcasts_section',
-        'priority'    => 2,
-    ) ) );
-    
-    // Podcast entries (up to 3)
+            // Podcast entries (up to 3)
     for ( $i = 1; $i <= 3; $i++ ) {
         // Podcast Title
         $wp_customize->add_setting( 'mkp_podcast_' . $i . '_title', array(
@@ -666,20 +551,7 @@ function mkp_customize_register( $wp_customize ) {
     ) );
     
     // Speaker Topics Background Color
-    $wp_customize->add_setting( 'mkp_speaker_topics_background_color', array(
-        'default'           => '#f8f9fa',
-        'sanitize_callback' => 'sanitize_hex_color',
-        'transport'         => 'postMessage',
-    ) );
-    
-    $wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'mkp_speaker_topics_background_color', array(
-        'label'       => __( 'Background Color', 'mediakit-lite' ),
-        'description' => __( 'Background color for the speaker topics section.', 'mediakit-lite' ),
-        'section'     => 'mkp_speaker_section',
-        'priority'    => 2,
-    ) ) );
-    
-    // List Style
+            // List Style
     $wp_customize->add_setting( 'mkp_speaker_topics_list_style', array(
         'default'           => 'bullets',
         'sanitize_callback' => 'mkp_sanitize_select',
@@ -755,20 +627,7 @@ function mkp_customize_register( $wp_customize ) {
     ) );
     
     // Background Color
-    $wp_customize->add_setting( 'mkp_in_the_media_background_color', array(
-        'default'           => '#ffffff',
-        'sanitize_callback' => 'sanitize_hex_color',
-        'transport'         => 'postMessage',
-    ) );
-    
-    $wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'mkp_in_the_media_background_color', array(
-        'label'       => __( 'Background Color', 'mediakit-lite' ),
-        'description' => __( 'Background color for the media section.', 'mediakit-lite' ),
-        'section'     => 'mkp_in_the_media_section',
-        'priority'    => 3,
-    ) ) );
-    
-    // Media Items (up to 8)
+            // Media Items (up to 8)
     for ( $i = 1; $i <= 8; $i++ ) {
         // URL only
         $wp_customize->add_setting( 'mkp_media_item_' . $i . '_url', array(
@@ -810,20 +669,7 @@ function mkp_customize_register( $wp_customize ) {
     ) );
     
     // Media Questions Background Color
-    $wp_customize->add_setting( 'mkp_media_questions_background_color', array(
-        'default'           => '#f8f9fa',
-        'sanitize_callback' => 'sanitize_hex_color',
-        'transport'         => 'postMessage',
-    ) );
-    
-    $wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'mkp_media_questions_background_color', array(
-        'label'       => __( 'Background Color', 'mediakit-lite' ),
-        'description' => __( 'Background color for the media questions section.', 'mediakit-lite' ),
-        'section'     => 'mkp_media_questions_section',
-        'priority'    => 2,
-    ) ) );
-    
-    // List Style
+            // List Style
     $wp_customize->add_setting( 'mkp_media_questions_list_style', array(
         'default'           => 'bullets',
         'sanitize_callback' => 'mkp_sanitize_select',
@@ -881,22 +727,7 @@ function mkp_customize_register( $wp_customize ) {
         'type'        => 'checkbox',
         'priority'    => 1,
     ) );
-    
-    // Investor Background Color
-    $wp_customize->add_setting( 'mkp_investor_background_color', array(
-        'default'           => '#ffffff',
-        'sanitize_callback' => 'sanitize_hex_color',
-        'transport'         => 'postMessage',
-    ) );
-    
-    $wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'mkp_investor_background_color', array(
-        'label'       => __( 'Background Color', 'mediakit-lite' ),
-        'description' => __( 'Background color for the investor section.', 'mediakit-lite' ),
-        'section'     => 'mkp_investor_section',
-        'priority'    => 2,
-    ) ) );
-    
-    // Investor options (up to 3)
+            // Investor options (up to 3)
     for ( $i = 1; $i <= 3; $i++ ) {
         // Title
         $wp_customize->add_setting( 'mkp_investor_' . $i . '_title', array(
@@ -948,21 +779,7 @@ function mkp_customize_register( $wp_customize ) {
         'type'        => 'checkbox',
         'priority'    => 1,
     ) );
-    
-    // Contact Background Color
-    $wp_customize->add_setting( 'mkp_contact_background_color', array(
-        'default'           => '#f8f9fa',
-        'sanitize_callback' => 'sanitize_hex_color',
-        'transport'         => 'postMessage',
-    ) );
-    
-    $wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'mkp_contact_background_color', array(
-        'label'       => __( 'Section Background Color', 'mediakit-lite' ),
-        'section'     => 'mkp_contact_section',
-        'priority'    => 2,
-    ) ) );
-    
-    // Email Addresses
+            // Email Addresses
     // General Inquiries Email
     $wp_customize->add_setting( 'mkp_contact_general_email', array(
         'default'           => '',

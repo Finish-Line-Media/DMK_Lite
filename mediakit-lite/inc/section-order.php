@@ -200,7 +200,7 @@ class Mkp_Section_Order_Control extends WP_Customize_Control {
                     </li>
                 <?php endforeach; ?>
             </ul>
-            <input type="hidden" class="mkp-section-order-input" <?php $this->link(); ?> value="<?php echo esc_attr( implode( ',', $current_order ) ); ?>" />
+            <input type="hidden" id="mkp-section-order-<?php echo esc_attr( $this->id ); ?>" class="mkp-section-order-input" <?php $this->link(); ?> value="<?php echo esc_attr( implode( ',', $current_order ) ); ?>" />
         </div>
         <?php
     }

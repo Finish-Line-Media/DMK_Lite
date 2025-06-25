@@ -5,8 +5,12 @@
  * @package MediaKit_Lite
  */
 
-$section_class = 'mkp-books-section';
-$section_color = get_theme_mod( 'mkp_books_background_color', '#f8f9fa' );
+$section_class = 'mkp-books-section mkp-section';
+
+// Get dynamic colors for this section
+$colors = mkp_get_next_section_color();
+$section_color = $colors['background'];
+$text_color = $colors['text'];
 
 // Count actual books with titles
 $actual_book_count = 0;
@@ -26,7 +30,7 @@ if ( $actual_book_count === 0 ) {
 $section_title = ( $actual_book_count === 1 ) ? __( 'Book', 'mediakit-lite' ) : __( 'Books', 'mediakit-lite' );
 ?>
 
-<section id="books" class="<?php echo esc_attr( $section_class ); ?>" style="background-color: <?php echo esc_attr( $section_color ); ?>">
+<section id="books" class="<?php echo esc_attr( $section_class ); ?>" style="background-color: <?php echo esc_attr( $section_color ); ?>; color: <?php echo esc_attr( $text_color ); ?>">
     <div class="mkp-container">
         <h2 class="mkp-section__title"><?php echo esc_html( $section_title ); ?></h2>
         

@@ -129,3 +129,7 @@ The theme includes extensive customizer options organized into sections:
 - Check error logs in `/wp-content/debug.log`
 - Use Query Monitor plugin for performance analysis
 - Test with Theme Check plugin before deployment
+
+## Development Memories
+- Remember to bump both the theme and the function header version number when bumping.
+- Remember to bump both the style and the function header version number when bumping.

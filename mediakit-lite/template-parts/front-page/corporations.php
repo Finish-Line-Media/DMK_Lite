@@ -5,8 +5,12 @@
  * @package MediaKit_Lite
  */
 
-$section_class = 'mkp-corporations-section';
-$section_color = get_theme_mod( 'mkp_corporations_background_color', '#ffffff' );
+$section_class = 'mkp-corporations-section mkp-section';
+
+// Get dynamic colors for this section
+$colors = mkp_get_next_section_color();
+$section_color = $colors['background'];
+$text_color = $colors['text'];
 
 // Count actual companies with names
 $actual_company_count = 0;
@@ -21,7 +25,7 @@ for ( $i = 1; $i <= 6; $i++ ) {
 $section_title = ( $actual_company_count === 1 ) ? __( 'Company', 'mediakit-lite' ) : __( 'Companies', 'mediakit-lite' );
 ?>
 
-<section id="corporations" class="<?php echo esc_attr( $section_class ); ?>" style="background-color: <?php echo esc_attr( $section_color ); ?>">
+<section id="corporations" class="<?php echo esc_attr( $section_class ); ?>" style="background-color: <?php echo esc_attr( $section_color ); ?>; color: <?php echo esc_attr( $text_color ); ?>">
     <div class="mkp-container">
         <h2 class="mkp-section__title"><?php echo esc_html( $section_title ); ?></h2>
         
@@ -32,15 +36,17 @@ $section_title = ( $actual_company_count === 1 ) ? __( 'Company', 'mediakit-lite
                 $bio = get_theme_mod( 'mkp_corp_' . $i . '_bio' );
                 $link = get_theme_mod( 'mkp_corp_' . $i . '_link' );
                 ?>
-                <?php if ( $name ) : ?>
+                <?php if ( $name || $logo ) : ?>
                 <div class="mkp-corp-card mkp-corp--<?php echo esc_attr( $i ); ?>">
+                    <?php if ( $logo ) : ?>
                     <div class="mkp-corp-card__logo">
-                        <?php if ( $logo ) : ?>
-                            <img src="<?php echo esc_url( $logo ); ?>" alt="<?php echo esc_attr( $name ); ?>" />
-                        <?php endif; ?>
+                        <img src="<?php echo esc_url( $logo ); ?>" alt="<?php echo esc_attr( $name ); ?>" />
                     </div>
+                    <?php endif; ?>
                     
+                    <?php if ( $name ) : ?>
                     <h3 class="mkp-corp-card__name"><?php echo esc_html( $name ); ?></h3>
+                    <?php endif; ?>
                     
                     <div class="mkp-corp-card__bio">
                         <?php if ( $bio ) : ?>

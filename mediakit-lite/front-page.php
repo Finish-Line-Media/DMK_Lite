@@ -11,6 +11,9 @@ get_header();
 <main id="primary" class="mkp-main mkp-main--front-page">
     
     <?php
+    // Reset color rotation for this page load
+    mkp_reset_section_colors();
+    
     // Get front page sections configuration
     $sections = mkp_get_front_page_sections();
     

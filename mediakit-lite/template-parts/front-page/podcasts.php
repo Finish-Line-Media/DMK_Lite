@@ -5,8 +5,12 @@
  * @package MediaKit_Lite
  */
 
-$section_class = 'mkp-podcasts-section';
-$section_color = get_theme_mod( 'mkp_podcasts_background_color', '#ffffff' );
+$section_class = 'mkp-podcasts-section mkp-section';
+
+// Get dynamic colors for this section
+$colors = mkp_get_next_section_color();
+$section_color = $colors['background'];
+$text_color = $colors['text'];
 
 // Count actual podcasts with titles
 $actual_podcast_count = 0;
@@ -26,7 +30,7 @@ if ( $actual_podcast_count === 0 ) {
 $section_title = ( $actual_podcast_count === 1 ) ? __( 'Podcast/Show', 'mediakit-lite' ) : __( 'Podcasts/Shows', 'mediakit-lite' );
 ?>
 
-<section id="podcasts" class="<?php echo esc_attr( $section_class ); ?>" style="background-color: <?php echo esc_attr( $section_color ); ?>">
+<section id="podcasts" class="<?php echo esc_attr( $section_class ); ?>" style="background-color: <?php echo esc_attr( $section_color ); ?>; color: <?php echo esc_attr( $text_color ); ?>">
     <div class="mkp-container">
         <h2 class="mkp-section__title"><?php echo esc_html( $section_title ); ?></h2>
         

@@ -5,8 +5,12 @@
  * @package MediaKit_Lite
  */
 
-$section_class = 'mkp-speaker-section';
-$section_color = get_theme_mod( 'mkp_speaker_topics_background_color', '#ffffff' );
+$section_class = 'mkp-speaker-section mkp-section';
+
+// Get dynamic colors for this section
+$colors = mkp_get_next_section_color();
+$section_color = $colors['background'];
+$text_color = $colors['text'];
 $list_style = get_theme_mod( 'mkp_speaker_topics_list_style', 'bullets' );
 
 // Check if we have any topics and count them
@@ -24,7 +28,7 @@ if ( ! $has_topics ) {
 }
 ?>
 
-<section id="speaking" class="<?php echo esc_attr( $section_class ); ?> mkp-speaker-section--<?php echo esc_attr( $list_style ); ?>" style="background-color: <?php echo esc_attr( $section_color ); ?>">
+<section id="speaking" class="<?php echo esc_attr( $section_class ); ?> mkp-speaker-section--<?php echo esc_attr( $list_style ); ?>" style="background-color: <?php echo esc_attr( $section_color ); ?>; color: <?php echo esc_attr( $text_color ); ?>">
     <div class="mkp-container">
         <h2 class="mkp-section__title"><?php esc_html_e( 'Speaking Topics', 'mediakit-lite' ); ?></h2>
         

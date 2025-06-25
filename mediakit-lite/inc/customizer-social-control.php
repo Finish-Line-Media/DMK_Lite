@@ -52,6 +52,7 @@ class MKP_Social_Media_Control extends WP_Customize_Control {
             
             <input 
                 type="text" 
+                id="mkp-social-<?php echo esc_attr( $this->id ); ?>"
                 value="<?php echo esc_attr( $this->value() ); ?>" 
                 <?php $this->link(); ?> 
                 placeholder="<?php echo esc_attr( $this->get_placeholder() ); ?>"

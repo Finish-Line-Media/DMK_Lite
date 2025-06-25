@@ -4,7 +4,7 @@ Theme URI: https://mediakitpro.com
 Author: Finish Line Media
 Author URI: https://finishline.media
 Description: MediaKit Lite is your digital media kit solution for building personal leverage. Perfect for showcasing your expertise, publications, speaking topics, and media appearances. Set up everything through the simple WordPress Customizer - no coding required. Need a custom-built media kit? Ask about our tailored design services.
-Version: 1.7.27
+Version: 1.7.28
 License: GPL v2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: mediakit-lite
@@ -350,7 +350,6 @@ a:hover {
     background-color: var(--mkp-primary);
     color: white;
     padding: var(--mkp-spacing-xl) 0;
-    margin-top: var(--mkp-spacing-xxl);
 }
 
 .mkp-footer__content {
@@ -1441,7 +1440,6 @@ img {
 }
 
 .mkp-corp-card__logo {
-    width: 150px;
     height: 150px;
     margin: 0 auto var(--mkp-spacing-md);
     display: flex;
@@ -1574,11 +1572,13 @@ img {
     gap: var(--mkp-spacing-xl);
     max-width: 1000px;
     margin: 0 auto;
+    text-align: center;
 }
 
 .mkp-contact__info {
     display: grid;
     gap: var(--mkp-spacing-lg);
+    text-align: center;
 }
 
 .mkp-contact__emails {
@@ -1590,6 +1590,7 @@ img {
     display: flex;
     flex-direction: column;
     gap: var(--mkp-spacing-xs);
+    align-items: center;
 }
 
 .mkp-contact__label {
@@ -1602,7 +1603,7 @@ img {
 
 .mkp-contact__email {
     font-size: 1.125rem;
-    color: var(--mkp-secondary);
+    color: inherit;
     text-decoration: none;
     transition: var(--mkp-transition);
 }

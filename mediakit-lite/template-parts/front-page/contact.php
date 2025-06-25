@@ -5,8 +5,12 @@
  * @package MediaKit_Lite
  */
 
-$section_class = 'mkp-contact-section';
-$section_color = get_theme_mod( 'mkp_contact_background_color', '#f8f9fa' );
+$section_class = 'mkp-contact-section mkp-section';
+
+// Get dynamic colors for this section
+$colors = mkp_get_next_section_color();
+$section_color = $colors['background'];
+$text_color = $colors['text'];
 
 // Check if we have any contact info
 $has_contact_info = false;
@@ -39,7 +43,7 @@ if ( ! $has_contact_info && ! $is_customizer ) {
 }
 ?>
 
-<section id="contact" class="<?php echo esc_attr( $section_class ); ?>" style="background-color: <?php echo esc_attr( $section_color ); ?><?php echo ( ! $has_contact_info && $is_customizer ) ? '; display: none;' : ''; ?>">
+<section id="contact" class="<?php echo esc_attr( $section_class ); ?>" style="background-color: <?php echo esc_attr( $section_color ); ?>; color: <?php echo esc_attr( $text_color ); ?><?php echo ( ! $has_contact_info && $is_customizer ) ? '; display: none;' : ''; ?>">
     <div class="mkp-container">
         <h2 class="mkp-section__title"><?php esc_html_e( 'Contact', 'mediakit-lite' ); ?></h2>
         

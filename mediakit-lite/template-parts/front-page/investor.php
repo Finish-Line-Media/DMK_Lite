@@ -5,8 +5,12 @@
  * @package MediaKit_Lite
  */
 
-$section_class = 'mkp-investor-section';
-$section_color = get_theme_mod( 'mkp_investor_background_color', '#ffffff' );
+$section_class = 'mkp-investor-section mkp-section';
+
+// Get dynamic colors for this section
+$colors = mkp_get_next_section_color();
+$section_color = $colors['background'];
+$text_color = $colors['text'];
 
 // Check if we have any investor options
 $has_investors = false;
@@ -36,7 +40,7 @@ for ( $i = 1; $i <= 3; $i++ ) {
 $section_title = ( $actual_investor_count === 1 ) ? __( 'Investment Vertical', 'mediakit-lite' ) : __( 'Investment Verticals', 'mediakit-lite' );
 ?>
 
-<section id="investor" class="<?php echo esc_attr( $section_class ); ?>" style="background-color: <?php echo esc_attr( $section_color ); ?><?php echo ( ! $has_investors && $is_customizer ) ? '; display: none;' : ''; ?>">
+<section id="investor" class="<?php echo esc_attr( $section_class ); ?>" style="background-color: <?php echo esc_attr( $section_color ); ?>; color: <?php echo esc_attr( $text_color ); ?><?php echo ( ! $has_investors && $is_customizer ) ? '; display: none;' : ''; ?>">
     <div class="mkp-container">
         <h2 class="mkp-section__title"><?php echo esc_html( $section_title ); ?></h2>
         

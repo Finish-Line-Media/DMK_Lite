@@ -12,10 +12,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$section_bg = get_theme_mod( 'mkp_in_the_media_background_color', '#ffffff' );
+// Get dynamic colors for this section
+$colors = mkp_get_next_section_color();
+$section_bg = $colors['background'];
+$text_color = $colors['text'];
 ?>
 
-<section id="in-the-media" class="mkp-section mkp-in-the-media" style="background-color: <?php echo esc_attr( $section_bg ); ?>">
+<section id="in-the-media" class="mkp-section mkp-in-the-media" style="background-color: <?php echo esc_attr( $section_bg ); ?>; color: <?php echo esc_attr( $text_color ); ?>">
 	<div class="mkp-container">
 		<h2 class="mkp-section__title"><?php echo esc_html( get_theme_mod( 'mkp_in_the_media_section_title', __( 'In The Media', 'mediakit-lite' ) ) ); ?></h2>
 		

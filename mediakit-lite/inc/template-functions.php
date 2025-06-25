@@ -90,7 +90,7 @@ function mkp_search_form( $form ) {
     $form = '<form role="search" method="get" class="mkp-search-form" action="' . esc_url( home_url( '/' ) ) . '">
         <label>
             <span class="screen-reader-text">' . esc_html__( 'Search for:', 'mediakit-lite' ) . '</span>
-            <input type="search" class="mkp-search-form__field" placeholder="' . esc_attr__( 'Search...', 'mediakit-lite' ) . '" value="' . get_search_query() . '" name="s" />
+            <input type="search" id="mkp-search-field" class="mkp-search-form__field" placeholder="' . esc_attr__( 'Search...', 'mediakit-lite' ) . '" value="' . get_search_query() . '" name="s" />
         </label>
         <button type="submit" class="mkp-search-form__submit">
             <span class="screen-reader-text">' . esc_html__( 'Search', 'mediakit-lite' ) . '</span>

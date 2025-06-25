@@ -5,8 +5,13 @@
  * @package MediaKit_Lite
  */
 
-$section_class = 'mkp-hero';
-$section_color = get_theme_mod( 'mkp_hero_background_color', '#f8f9fa' );
+$section_class = 'mkp-hero mkp-section';
+
+// Get dynamic colors for this section
+$colors = mkp_get_next_section_color();
+$section_color = $colors['background'];
+$text_color = $colors['text'];
+
 $hero_background = get_theme_mod( 'mkp_hero_background' );
 $hero_overlay_color = get_theme_mod( 'mkp_hero_overlay_color', '#000000' );
 $hero_overlay_opacity = get_theme_mod( 'mkp_hero_overlay_opacity', '50' );
@@ -18,6 +23,7 @@ if ( $hero_background ) {
 } else {
     $section_style = 'background-color: ' . esc_attr( $section_color ) . ';';
 }
+$section_style .= ' color: ' . esc_attr( $text_color ) . ';';
 ?>
 
 <section id="hero" class="<?php echo esc_attr( $section_class ); ?>" style="<?php echo esc_attr( $section_style ); ?>; position: relative;">
