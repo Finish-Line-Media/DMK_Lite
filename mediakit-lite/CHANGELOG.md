@@ -2,6 +2,13 @@
 
 All notable changes to the MediaKit Lite theme will be documented in this file.
 
+## [1.7.24] - 2025-06-25
+
+### Fixed
+- Fixed CSS specificity conflicts in Companies section by removing duplicate :has() selectors
+- Ensured count-based grid layouts properly override base auto-fit rule with increased specificity
+- Improved CSS maintainability by consolidating to single count-based class system
+
 ## [1.7.23] - 2025-06-25
 
 ### Fixed

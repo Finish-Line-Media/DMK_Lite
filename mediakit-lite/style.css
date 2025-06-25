@@ -4,7 +4,7 @@ Theme URI: https://mediakitpro.com
 Author: Finish Line Media
 Author URI: https://finishline.media
 Description: MediaKit Lite is your digital media kit solution for building personal leverage. Perfect for showcasing your expertise, publications, speaking topics, and media appearances. Set up everything through the simple WordPress Customizer - no coding required. Need a custom-built media kit? Ask about our tailored design services.
-Version: 1.7.23
+Version: 1.7.24
 License: GPL v2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: mediakit-lite
@@ -1483,92 +1483,44 @@ img {
     margin-bottom: var(--mkp-spacing-lg);
 }
 
-/* Optimized layouts for different company counts */
-/* Center single company */
-.mkp-corporations__grid:has(.mkp-corp-card:only-child) {
-    grid-template-columns: 1fr;
+/* Optimized layouts for different company counts using count classes */
+.mkp-corporations__grid.mkp-corporations__grid--count-1 {
+    grid-template-columns: 1fr !important;
     max-width: 400px;
 }
 
-/* Optimize 2 companies layout */
-.mkp-corporations__grid:has(.mkp-corp-card:nth-child(2):last-child) {
-    grid-template-columns: repeat(2, 1fr);
+.mkp-corporations__grid.mkp-corporations__grid--count-2 {
+    grid-template-columns: repeat(2, 1fr) !important;
     max-width: 700px;
 }
 
-/* Force 3 companies to display in one row */
-.mkp-corporations__grid:has(.mkp-corp-card:nth-child(3):last-child) {
-    grid-template-columns: repeat(3, 1fr);
+.mkp-corporations__grid.mkp-corporations__grid--count-3 {
+    grid-template-columns: repeat(3, 1fr) !important;
     max-width: 1000px;
 }
 
-/* Force 4 companies to display as 2x2 */
-.mkp-corporations__grid:has(.mkp-corp-card:nth-child(4):last-child) {
-    grid-template-columns: repeat(2, 1fr);
+.mkp-corporations__grid.mkp-corporations__grid--count-4 {
+    grid-template-columns: repeat(2, 1fr) !important;
     max-width: 800px;
 }
 
-/* Prevent orphan with 5 companies - show as 3+2 */
-.mkp-corporations__grid:has(.mkp-corp-card:nth-child(5):last-child) {
-    display: flex;
+.mkp-corporations__grid.mkp-corporations__grid--count-5 {
+    display: flex !important;
     flex-wrap: wrap;
     justify-content: center;
 }
 
-.mkp-corporations__grid:has(.mkp-corp-card:nth-child(5):last-child) .mkp-corp-card {
+.mkp-corporations__grid.mkp-corporations__grid--count-5 .mkp-corp-card {
     flex: 0 1 calc(33.333% - var(--mkp-spacing-xl));
 }
 
-.mkp-corporations__grid:has(.mkp-corp-card:nth-child(5):last-child) .mkp-corp-card:nth-child(4),
-.mkp-corporations__grid:has(.mkp-corp-card:nth-child(5):last-child) .mkp-corp-card:nth-child(5) {
-    flex: 0 1 calc(33.333% - var(--mkp-spacing-xl));
+.mkp-corporations__grid.mkp-corporations__grid--count-6 {
+    grid-template-columns: repeat(3, 1fr) !important;
 }
 
-/* Force 6 companies to display as 3x2 */
-.mkp-corporations__grid:has(.mkp-corp-card:nth-child(6):last-child) {
-    grid-template-columns: repeat(3, 1fr);
-}
-
-/* More reliable count-based selectors that don't require :has() */
-.mkp-corporations__grid--count-1 {
-    grid-template-columns: 1fr;
-    max-width: 400px;
-}
-
-.mkp-corporations__grid--count-2 {
-    grid-template-columns: repeat(2, 1fr);
-    max-width: 700px;
-}
-
-.mkp-corporations__grid--count-3 {
-    grid-template-columns: repeat(3, 1fr);
-    max-width: 1000px;
-}
-
-.mkp-corporations__grid--count-4 {
-    grid-template-columns: repeat(2, 1fr);
-    max-width: 800px;
-}
-
-.mkp-corporations__grid--count-5 {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-}
-
-.mkp-corporations__grid--count-5 .mkp-corp-card {
-    flex: 0 1 calc(33.333% - var(--mkp-spacing-xl));
-}
-
-.mkp-corporations__grid--count-6 {
-    grid-template-columns: repeat(3, 1fr);
-}
-
-/* Fallback for browsers without :has() support */
-@supports not selector(:has(*)) {
-    .mkp-corporations__grid {
-        justify-content: center;
-    }
+/* Ensure count classes take precedence */
+.mkp-corporations__grid[class*="mkp-corporations__grid--count-"] {
+    /* Override base auto-fit rule */
 }
 
 /* Responsive adjustments */
