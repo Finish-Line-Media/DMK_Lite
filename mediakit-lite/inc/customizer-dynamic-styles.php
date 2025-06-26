@@ -70,6 +70,18 @@ function mkp_generate_dynamic_styles() {
             color: <?php echo esc_attr( $theme['accent_1'] ); ?>;
         }
         
+        /* Mobile navigation hamburger */
+        .mkp-mobile-toggle span {
+            background-color: <?php echo esc_attr( $theme['primary_text'] ); ?>;
+        }
+        
+        /* Mobile navigation dropdown */
+        @media (max-width: 768px) {
+            .mkp-nav {
+                background-color: <?php echo esc_attr( $theme['primary'] ); ?>;
+            }
+        }
+        
         /* Footer */
         .mkp-footer {
             background-color: <?php echo esc_attr( $theme['primary'] ); ?>;
@@ -177,16 +189,6 @@ function mkp_generate_dynamic_styles() {
             opacity: 0.8;
         }
         
-        /* Hero section with background image */
-        <?php if ( get_theme_mod( 'mkp_hero_background' ) ) : ?>
-        .mkp-hero .mkp-hero__name,
-        .mkp-hero .mkp-hero__tag,
-        .mkp-hero .mkp-hero__buttons {
-            position: relative;
-            z-index: 2;
-        }
-        <?php endif; ?>
-        
         /* Hero tags styling */
         .mkp-hero .mkp-hero__tag {
             background-color: transparent;
@@ -205,10 +207,10 @@ function mkp_generate_dynamic_styles() {
             margin-bottom: var(--mkp-spacing-xl);
         }
         
-        .mkp-hero .mkp-hero__tag:not(:last-child)::after {
-            content: '\00B7'; /* Middle dot */
+        .mkp-hero .mkp-hero__separator {
             margin: 0 0.75em;
             opacity: 0.5;
+            color: inherit;
         }
         
         /* Border color */

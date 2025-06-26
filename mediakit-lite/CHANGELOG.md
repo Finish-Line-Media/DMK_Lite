@@ -2,6 +2,83 @@
 
 All notable changes to the MediaKit Lite theme will be documented in this file.
 
+## [1.8.8] - 2025-06-26
+
+### Removed
+- Removed Hero Background Image option from customizer
+- Removed hero overlay color and opacity settings
+- Removed related JavaScript and CSS for hero backgrounds
+- Hero section now consistently uses the color theme system
+
+### Changed  
+- Updated Hero Section customizer description to reflect focus on professional images and content
+- Simplified hero template to always use dynamic theme colors
+- Improved design consistency by removing background image option that conflicted with color themes
+
+### Improved
+- Better visual consistency across all sections
+- Cleaner customizer interface without confusing background options
+- Faster page loads without large background images
+- More professional appearance with consistent color theming
+
+## [1.8.7] - 2025-06-26
+
+### Removed
+- Removed unused CTA button functionality from Hero section
+- Removed CTA button HTML from hero.php template
+- Removed CTA button CSS styles (.mkp-hero__buttons)
+- Removed CTA button default values from JavaScript
+- Cleaned up dynamic styles that referenced CTA buttons
+- These buttons were never properly implemented in the customizer
+
+## [1.8.6] - 2025-06-26
+
+### Removed
+- Removed unused "Primary Button Text" setting from Hero Section customizer
+- Removed unused "Primary Button Link" setting from Hero Section customizer
+- These legacy settings were not being used anywhere in the theme
+- Simplifies the customizer interface by removing confusing unused options
+
+## [1.8.5] - 2025-06-26
+
+### Fixed
+- Professional Tags separators no longer appear at end of lines when wrapping
+- Changed separator implementation from CSS pseudo-elements to inline HTML elements
+- Separators now flow naturally with text and wrap properly
+- Improved visual appearance of multi-line professional tags
+
+## [1.8.4] - 2025-06-26
+
+### Changed
+- Improved mobile hero section layout with better image placement
+- Left-positioned images now appear above content on mobile
+- Right-positioned images now appear below content on mobile
+- Added proper spacing and centering for mobile hero images
+- Creates balanced "sandwich" layout instead of top-heavy design
+
+## [1.8.3] - 2025-06-26
+
+### Fixed
+- Mobile navigation hamburger menu now uses theme text color for proper visibility
+- Mobile dropdown menu now matches header background color instead of white
+- Fixed white-on-white text issue in mobile navigation dropdown
+- Improved mobile navigation color consistency with desktop appearance
+
+## [1.8.2] - 2025-06-26
+
+### Changed
+- Increased About section content width from 800px to 1000px
+- Provides more space for biographical content while maintaining readability
+- Better balance between text optimization and content space
+
+## [1.8.1] - 2025-06-26
+
+### Fixed
+- Removed redundant max-width and extra padding from Hero section wrapper
+- Hero section now uses consistent width with other sections
+- Eliminated double padding issue (was 64px total, now standard 32px)
+- Improved available space for hero content and images
+
 ## [1.8.0] - 2025-06-26
 
 This release brings major improvements to the theme's color system, typography controls, and user interface consistency.

@@ -22,16 +22,9 @@
         'mkp_background_overlay': 'rgba(255,255,255,0)',
         
         // Hero Section
-        'mkp_hero_background': '',
-        'mkp_hero_video': '',
-        'mkp_hero_overlay_color': 'rgba(0,0,0,0.5)',
         'mkp_hero_title': 'Welcome to My Media Kit',
         'mkp_hero_subtitle': 'Professional Speaker, Author, and Thought Leader',
         'mkp_hero_bio': '',
-        'mkp_hero_cta1_text': 'Book Me',
-        'mkp_hero_cta1_url': '#contact',
-        'mkp_hero_cta2_text': 'Download Media Kit',
-        'mkp_hero_cta2_url': '#download',
         
         // Social Media
         'mkp_social_facebook': '',
@@ -217,16 +210,7 @@
     
     // Setup conditional control visibility
     function setupConditionalControls() {
-        // Example: Show video URL field only when background image is not set
-        wp.customize( 'mkp_hero_background', function( value ) {
-            value.bind( function( to ) {
-                if ( to ) {
-                    wp.customize.control( 'mkp_hero_video' ).container.slideUp();
-                } else {
-                    wp.customize.control( 'mkp_hero_video' ).container.slideDown();
-                }
-            });
-        });
+        // Placeholder for future conditional controls
     }
     
 } )( jQuery );

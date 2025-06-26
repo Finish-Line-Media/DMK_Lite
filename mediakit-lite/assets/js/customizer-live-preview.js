@@ -50,25 +50,6 @@
         }
     }
     
-    // Hero Background Color with auto-contrast
-    wp.customize( 'mkp_hero_background_color', function( value ) {
-        value.bind( function( to ) {
-            const $hero = $( '.mkp-hero' );
-            
-            // Update background color
-            $hero.css( 'background-color', to );
-            
-            // Update text colors based on background
-            const textColor = getContrastColor( to );
-            const headingColor = getContrastColorRGBA( to, 'heading' );
-            const mutedColor = getContrastColorRGBA( to, 'muted' );
-            
-            $hero.css( 'color', textColor );
-            $hero.find( '.mkp-hero__name' ).css( 'color', headingColor );
-            $hero.find( '.mkp-hero__tag' ).css( 'color', getContrastColorRGBA( to, 'text' ) );
-        } );
-    } );
-    
     // Other section background colors with auto-contrast
     const sections = [
         { setting: 'mkp_bio_background_color', selector: '.mkp-bio-section' },

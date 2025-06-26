@@ -153,21 +153,8 @@ function mkp_customize_register( $wp_customize ) {
     $wp_customize->add_section( 'mkp_hero_section', array(
         'title'       => __( 'Hero Section', 'mediakit-lite' ),
         'priority'    => 35,
-        'description' => __( 'Configure your hero section with background image, name, and professional tags.', 'mediakit-lite' ),
+        'description' => __( 'Configure your hero section with professional images, name, and titles.', 'mediakit-lite' ),
     ) );
-            // Hero Background Image
-    $wp_customize->add_setting( 'mkp_hero_background', array(
-        'default'           => '',
-        'sanitize_callback' => 'esc_url_raw',
-        'transport'         => 'postMessage',
-    ) );
-    
-    $wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'mkp_hero_background', array(
-        'label'       => __( 'Hero Background Image', 'mediakit-lite' ),
-        'description' => __( 'Optional background image for the hero section. Recommended size: 1920x800 pixels.', 'mediakit-lite' ),
-        'section'     => 'mkp_hero_section',
-        'priority'    => 2,
-    ) ) );
     
     // Hero Images (1-2)
     for ( $i = 1; $i <= 2; $i++ ) {
@@ -234,33 +221,6 @@ function mkp_customize_register( $wp_customize ) {
             'priority'    => 20 + $i,
         ) );
     }
-    
-    // Primary Button Text
-    $wp_customize->add_setting( 'mkp_hero_button_primary_text', array(
-        'default'           => __( 'Book Me to Speak', 'mediakit-lite' ),
-        'sanitize_callback' => 'sanitize_text_field',
-        'transport'         => 'postMessage',
-    ) );
-    
-    $wp_customize->add_control( 'mkp_hero_button_primary_text', array(
-        'label'       => __( 'Primary Button Text', 'mediakit-lite' ),
-        'section'     => 'mkp_hero_section',
-        'type'        => 'text',
-        'priority'    => 30,
-    ) );
-    
-    // Primary Button Link
-    $wp_customize->add_setting( 'mkp_hero_button_primary_link', array(
-        'default'           => '#about',
-        'sanitize_callback' => 'esc_url_raw',
-    ) );
-    
-    $wp_customize->add_control( 'mkp_hero_button_primary_link', array(
-        'label'       => __( 'Primary Button Link', 'mediakit-lite' ),
-        'section'     => 'mkp_hero_section',
-        'type'        => 'url',
-        'priority'    => 31,
-    ) );
     
     /**
      * About/Bio Section
