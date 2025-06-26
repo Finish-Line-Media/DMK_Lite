@@ -63,14 +63,13 @@ $section_style = 'background-color: ' . esc_attr( $section_color ) . '; color: '
                 <div class="mkp-hero__tags">
                     <?php 
                     $total_tags = count( $tags );
-                    $current = 0;
-                    foreach ( $tags as $tag ) : 
-                        $current++;
-                        ?>
-                        <span class="mkp-hero__tag"><?php echo esc_html( $tag ); ?></span>
-                        <?php if ( $current < $total_tags ) : ?>
-                            <span class="mkp-hero__separator" aria-hidden="true">·</span>
-                        <?php endif; ?>
+                    foreach ( $tags as $index => $tag ) : ?>
+                        <span class="mkp-hero__tag-group">
+                            <span class="mkp-hero__tag"><?php echo esc_html( $tag ); ?></span>
+                            <?php if ( $index < $total_tags - 1 ) : ?>
+                                <span class="mkp-hero__separator" aria-hidden="true">·</span>
+                            <?php endif; ?>
+                        </span>
                     <?php endforeach; ?>
                 </div>
             <?php endif; ?>

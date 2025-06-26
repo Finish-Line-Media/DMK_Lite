@@ -207,6 +207,11 @@ function mkp_generate_dynamic_styles() {
             margin-bottom: var(--mkp-spacing-xl);
         }
         
+        .mkp-hero .mkp-hero__tag-group {
+            display: inline;
+            white-space: nowrap;
+        }
+        
         .mkp-hero .mkp-hero__separator {
             margin: 0 0.75em;
             opacity: 0.5;

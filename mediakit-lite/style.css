@@ -4,7 +4,7 @@ Theme URI: https://mediakitpro.com
 Author: Finish Line Media
 Author URI: https://finishline.media
 Description: MediaKit Lite is your digital media kit solution for building personal leverage. Perfect for showcasing your expertise, publications, speaking topics, and media appearances. Set up everything through the simple WordPress Customizer - no coding required. Need a custom-built media kit? Ask about our tailored design services.
-Version: 1.8.11
+Version: 1.9.0
 License: GPL v2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: mediakit-lite
@@ -520,12 +520,22 @@ a:hover {
         opacity: 0;
         visibility: hidden;
         transition: var(--mkp-transition);
+        text-align: center;
     }
     
     .mkp-nav--active {
         transform: translateY(0);
         opacity: 1;
         visibility: visible;
+    }
+    
+    .mkp-nav__item {
+        text-align: center;
+    }
+    
+    .mkp-nav__link {
+        display: block;
+        padding: var(--mkp-spacing-md) 0;
     }
     
     .mkp-hero__title {
@@ -1062,7 +1072,13 @@ img {
     max-width: 1000px;
     margin: 0 auto;
     font-size: 1.125rem;
-    line-height: 1.8;
+    line-height: 1.6;
+}
+
+.mkp-bio-section__content p {
+    text-align: justify;
+    text-justify: inter-word;
+    margin-bottom: 1.5rem;
 }
 
 /* Books Section */
@@ -1448,6 +1464,11 @@ img {
     margin-bottom: var(--mkp-spacing-lg);
 }
 
+.mkp-corp-card__bio p {
+    text-align: justify;
+    text-justify: inter-word;
+}
+
 /* All companies display in single column vertical layout */
 /* Count-specific layouts removed for consistent vertical display */
 
@@ -1623,8 +1644,8 @@ img {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 48px;
-    height: 48px;
+    width: 56px;
+    height: 56px;
     border-radius: 50%;
     background-color: rgba(0, 0, 0, 0.05);
     color: var(--mkp-text);
@@ -1639,8 +1660,8 @@ img {
 }
 
 .mkp-contact__social-link svg {
-    width: 24px;
-    height: 24px;
+    width: 28px;
+    height: 28px;
     fill: currentColor;
 }
 

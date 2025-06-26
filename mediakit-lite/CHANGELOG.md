@@ -2,6 +2,31 @@
 
 All notable changes to the MediaKit Lite theme will be documented in this file.
 
+## [1.9.0] - 2025-06-26
+
+This release brings multiple UX improvements focused on typography, spacing, and mobile experience.
+
+### Added
+- Justified text alignment for paragraphs in About and Companies sections
+- Better paragraph spacing in bio section (1.5rem between paragraphs)
+- Centered text alignment for mobile navigation menu
+
+### Changed
+- Increased social media icon sizes from 48px to 56px (containers) and 24px to 28px (icons)
+- Reduced bio section line height from 1.8 to 1.6 for better readability
+- Mobile nav links now display as block elements with increased padding for better tap targets
+
+### Fixed
+- Professional tags separator dots now stay attached to their tags when wrapping
+- Bio section no longer appears double-spaced with insufficient paragraph separation
+- Mobile navigation menu text is now properly centered instead of left-aligned
+
+### Improved
+- Overall text readability and visual hierarchy
+- Touch targets on mobile devices
+- Professional appearance with justified text in content-heavy sections
+- Consistent spacing throughout the theme
+
 ## [1.8.11] - 2025-06-26
 
 ### Added
