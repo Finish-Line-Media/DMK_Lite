@@ -2,6 +2,25 @@
 
 All notable changes to the MediaKit Lite theme will be documented in this file.
 
+## [1.8.11] - 2025-06-26
+
+### Added
+- Footer now dynamically adopts the color of the previous section
+- New `mkp_get_last_section_color()` function to track section colors
+
+### Changed
+- Footer background and text colors are now applied inline based on the last section
+- Footer links now inherit color from parent with opacity for subtle effect
+
+### Removed
+- Hardcoded footer colors from CSS and dynamic styles
+- White color override for footer section headings
+
+### Improved
+- Seamless visual flow from content sections to footer
+- More cohesive and modern design without color breaks
+- Better integration with the color theme rotation system
+
 ## [1.8.10] - 2025-06-26
 
 ### Removed

@@ -101,6 +101,36 @@ function mkp_get_footer_colors() {
 }
 
 /**
+ * Get the last used section colors
+ * Used to make the footer match the previous section
+ *
+ * @return array Array with 'background' and 'text' color values
+ */
+function mkp_get_last_section_color() {
+    global $mkp_section_color_index;
+    
+    // If no sections have been rendered, use primary colors
+    if ( ! isset( $mkp_section_color_index ) || $mkp_section_color_index == 0 ) {
+        return mkp_get_header_colors();
+    }
+    
+    // Get the previous index (subtract 1 from current)
+    $last_index = $mkp_section_color_index - 1;
+    
+    // Get current theme
+    $theme_key = get_theme_mod( 'mkp_color_theme', 'ocean_depths' );
+    $theme = mkp_get_theme( $theme_key );
+    
+    // Calculate which color was used (1, 2, or 3)
+    $color_num = ( $last_index % 3 ) + 1;
+    
+    return array(
+        'background' => $theme[ 'section_' . $color_num ],
+        'text' => $theme[ 'section_' . $color_num . '_text' ]
+    );
+}
+
+/**
  * Get button colors by type
  *
  * @param string $type Button type ('primary' or 'secondary')

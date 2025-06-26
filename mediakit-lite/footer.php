@@ -10,7 +10,14 @@
 ?>
     </div><!-- #content -->
     
-    <footer id="colophon" class="mkp-footer">
+    <?php 
+    // Get the colors from the last section
+    $footer_colors = mkp_get_last_section_color();
+    $footer_bg = $footer_colors['background'];
+    $footer_text = $footer_colors['text'];
+    ?>
+    
+    <footer id="colophon" class="mkp-footer" style="background-color: <?php echo esc_attr( $footer_bg ); ?>; color: <?php echo esc_attr( $footer_text ); ?>;">
         <div class="mkp-container">
             <div class="mkp-footer__content">
                 <?php if ( is_active_sidebar( 'footer-1' ) ) : ?>

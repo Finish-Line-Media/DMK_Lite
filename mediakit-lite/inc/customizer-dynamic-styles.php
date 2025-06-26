@@ -84,17 +84,17 @@ function mkp_generate_dynamic_styles() {
         
         /* Footer */
         .mkp-footer {
-            background-color: <?php echo esc_attr( $theme['primary'] ); ?>;
-            color: <?php echo esc_attr( $theme['primary_text'] ); ?>;
             margin-top: 0;
         }
         
         .mkp-footer a {
-            color: <?php echo esc_attr( $theme['primary_text'] ); ?>;
+            color: inherit;
+            opacity: 0.9;
         }
         
         .mkp-footer a:hover {
-            color: <?php echo esc_attr( $theme['accent_1'] ); ?>;
+            opacity: 1;
+            text-decoration: underline;
         }
         
         /* Primary Buttons */
