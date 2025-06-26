@@ -1,8 +1,8 @@
 {
-  "version": "1.8.8",
-  "description": "Remove Hero Background Image option for better design consistency",
-  "download_url": "https://github.com/Finish-Line-Media/DMK_Lite/releases/download/v1.8.8/mediakit-lite.zip",
-  "changelog_url": "https://github.com/Finish-Line-Media/DMK_Lite/releases/tag/v1.8.8",
+  "version": "1.8.9",
+  "description": "Remove footer divider line and extra spacing",
+  "download_url": "https://github.com/Finish-Line-Media/DMK_Lite/releases/download/v1.8.9/mediakit-lite.zip",
+  "changelog_url": "https://github.com/Finish-Line-Media/DMK_Lite/releases/tag/v1.8.9",
   "release_date": "2025-06-26",
   "min_wp_version": "5.8",
   "tested_up_to": "6.5",
