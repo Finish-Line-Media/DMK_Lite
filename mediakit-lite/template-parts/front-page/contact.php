@@ -103,7 +103,6 @@ if ( ! $has_contact_info && ! $is_customizer ) {
             
             if ( $has_social || $is_customizer ) : ?>
                 <div class="mkp-contact__social" <?php echo ( ! $has_social && $is_customizer ) ? 'style="display: none;"' : ''; ?>>
-                    <h3 class="mkp-contact__social-title"><?php esc_html_e( 'Connect With Me', 'mediakit-lite' ); ?></h3>
                     <div class="mkp-contact__social-links">
                         <?php foreach ( $social_platforms as $platform => $label ) : 
                             $url = get_theme_mod( 'mkp_contact_social_' . $platform );

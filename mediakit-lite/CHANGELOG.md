@@ -2,6 +2,20 @@
 
 All notable changes to the MediaKit Lite theme will be documented in this file.
 
+## [1.8.10] - 2025-06-26
+
+### Removed
+- Removed "Connect With Me" heading from contact section
+- Removed unnecessary CSS for social title
+
+### Fixed
+- Reduced large gap between contact info and social media icons from 80px to 16px
+- Social media icons now sit closer to contact information for better visual flow
+
+### Improved
+- Cleaner, more compact contact section layout
+- Better visual hierarchy without redundant headings
+
 ## [1.8.9] - 2025-06-26
 
 ### Fixed
