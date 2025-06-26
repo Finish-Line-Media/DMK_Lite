@@ -1,8 +1,8 @@
 {
-  "version": "1.8.11",
-  "description": "Make footer adopt colors from previous section for seamless design",
-  "download_url": "https://github.com/Finish-Line-Media/DMK_Lite/releases/download/v1.8.11/mediakit-lite.zip",
-  "changelog_url": "https://github.com/Finish-Line-Media/DMK_Lite/releases/tag/v1.8.11",
+  "version": "1.9.0",
+  "description": "Multiple UX improvements: typography, spacing, and mobile experience",
+  "download_url": "https://github.com/Finish-Line-Media/DMK_Lite/releases/download/v1.9.0/mediakit-lite.zip",
+  "changelog_url": "https://github.com/Finish-Line-Media/DMK_Lite/releases/tag/v1.9.0",
   "release_date": "2025-06-26",
   "min_wp_version": "5.8",
   "tested_up_to": "6.5",
