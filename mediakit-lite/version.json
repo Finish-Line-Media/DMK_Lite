@@ -1,5 +1,5 @@
 {
-    "version": "1.9.1",
+    "version": "patch",
     "description": "Fix Companies section card display logic to show cards with either name or logo",
     "download_url": "https://github.com/Finish-Line-Media/DMK_Lite/releases/latest/download/mediakit-lite.zip",
     "changelog_url": "https://github.com/Finish-Line-Media/DMK_Lite/blob/main/CHANGELOG.md",
