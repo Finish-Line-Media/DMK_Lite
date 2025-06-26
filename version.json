@@ -1,8 +1,8 @@
 {
-  "version": "1.8.10",
-  "description": "Clean up contact section spacing and remove redundant heading",
-  "download_url": "https://github.com/Finish-Line-Media/DMK_Lite/releases/download/v1.8.10/mediakit-lite.zip",
-  "changelog_url": "https://github.com/Finish-Line-Media/DMK_Lite/releases/tag/v1.8.10",
+  "version": "1.8.11",
+  "description": "Make footer adopt colors from previous section for seamless design",
+  "download_url": "https://github.com/Finish-Line-Media/DMK_Lite/releases/download/v1.8.11/mediakit-lite.zip",
+  "changelog_url": "https://github.com/Finish-Line-Media/DMK_Lite/releases/tag/v1.8.11",
   "release_date": "2025-06-26",
   "min_wp_version": "5.8",
   "tested_up_to": "6.5",
