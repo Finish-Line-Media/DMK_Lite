@@ -12,11 +12,12 @@ $colors = mkp_get_next_section_color();
 $section_color = $colors['background'];
 $text_color = $colors['text'];
 
-// Count actual companies with names
+// Count actual companies with names or logos
 $actual_company_count = 0;
 for ( $i = 1; $i <= 6; $i++ ) {
     $name = get_theme_mod( 'mkp_corp_' . $i . '_name' );
-    if ( $name ) {
+    $logo = get_theme_mod( 'mkp_corp_' . $i . '_logo' );
+    if ( $name || $logo ) {
         $actual_company_count++;
     }
 }
