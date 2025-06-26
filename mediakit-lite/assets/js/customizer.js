@@ -122,7 +122,7 @@
     wp.customize( 'mkp_section_color_1', function( value ) {
         value.bind( function( to ) {
             document.documentElement.style.setProperty( '--mkp-section-color-1', to );
-            $( '.mkp-bio-section' ).css( 'background-color', to );
+            $( '.mkp-about-section' ).css( 'background-color', to );
             $( '.mkp-speaker-section' ).css( 'background-color', to );
             $( '.mkp-corporations-section' ).css( 'background-color', to );
         } );
@@ -204,7 +204,7 @@
     }
     
     // Bio Section
-    wp.customize( 'mkp_bio_content', function( value ) {
+    wp.customize( 'mkp_about_content', function( value ) {
         value.bind( function( to ) {
             var content = to;
             
@@ -213,11 +213,11 @@
                 content = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.\n\nExcepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.\n\nNemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.';
             }
             
-            // Fix the selector - should be mkp-bio-section__content
-            $( '.mkp-bio-section__content' ).html( wpautop( content ) );
+            // Fix the selector - should be mkp-about-section__content
+            $( '.mkp-about-section__content' ).html( wpautop( content ) );
             
-            // Always show the bio section
-            $( '.mkp-bio-section' ).show();
+            // Always show the about section
+            $( '.mkp-about-section' ).show();
         } );
     } );
     

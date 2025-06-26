@@ -52,7 +52,7 @@
     
     // Other section background colors with auto-contrast
     const sections = [
-        { setting: 'mkp_bio_background_color', selector: '.mkp-bio-section' },
+        { setting: 'mkp_about_background_color', selector: '.mkp-about-section' },
         { setting: 'mkp_books_background_color', selector: '.mkp-books-section' },
         { setting: 'mkp_podcasts_background_color', selector: '.mkp-podcasts-section' },
         { setting: 'mkp_speaker_topics_background_color', selector: '.mkp-speaker-section' },
@@ -231,7 +231,8 @@
         let companyCount = 0;
         for ( let i = 1; i <= 4; i++ ) {
             const name = wp.customize( 'mkp_corp_' + i + '_name' ).get();
-            if ( name ) {
+            const logo = wp.customize( 'mkp_corp_' + i + '_logo' ).get();
+            if ( name || logo ) {
                 companyCount++;
             }
         }
@@ -251,8 +252,9 @@
                     const $card = $( '.mkp-corp-card.mkp-corp--' + corpNum );
                     $card.find( '.mkp-corp-card__name' ).text( to );
                     
-                    // Show/hide card based on content
-                    if ( to ) {
+                    // Show/hide card based on content (name OR logo)
+                    const logo = wp.customize( 'mkp_corp_' + corpNum + '_logo' ).get();
+                    if ( to || logo ) {
                         $card.show();
                     } else {
                         $card.hide();
@@ -298,6 +300,17 @@
                         // Remove the image when logo is cleared
                         $logoContainer.empty();
                     }
+                    
+                    // Show/hide card based on content (name OR logo)
+                    const name = wp.customize( 'mkp_corp_' + corpNum + '_name' ).get();
+                    if ( name || to ) {
+                        $card.show();
+                    } else {
+                        $card.hide();
+                    }
+                    
+                    // Update section title
+                    updateCompaniesSectionTitle();
                 } );
             } );
             

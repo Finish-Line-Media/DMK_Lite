@@ -177,8 +177,8 @@ function mkp_get_front_page_sections() {
             'template' => 'template-parts/front-page/hero',
             'always_show' => true,
         ),
-        'bio' => array(
-            'template' => 'template-parts/front-page/bio',
+        'about' => array(
+            'template' => 'template-parts/front-page/about',
             'always_show' => true,
         ),
         'books' => array(

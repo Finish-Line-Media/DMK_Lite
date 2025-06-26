@@ -110,11 +110,11 @@
     });
     
     // Copy to Clipboard functionality
-    $('.mkp-copy-bio').on('click', function() {
-        const bioType = $(this).attr('data-bio');
-        const bioContent = $(this).siblings('.mkp-bio-version__content').text();
+    $('.mkp-copy-about').on('click', function() {
+        const aboutType = $(this).attr('data-about');
+        const aboutContent = $(this).siblings('.mkp-about-version__content').text();
         
-        navigator.clipboard.writeText(bioContent).then(() => {
+        navigator.clipboard.writeText(aboutContent).then(() => {
             const originalText = $(this).text();
             $(this).text('Copied!');
             setTimeout(() => {

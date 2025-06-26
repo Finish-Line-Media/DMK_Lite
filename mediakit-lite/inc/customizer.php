@@ -223,24 +223,24 @@ function mkp_customize_register( $wp_customize ) {
     }
     
     /**
-     * About/Bio Section
+     * About Section
      */
-    $wp_customize->add_section( 'mkp_bio_section', array(
-        'title'       => __( 'About/Bio Section', 'mediakit-lite' ),
+    $wp_customize->add_section( 'mkp_about_section', array(
+        'title'       => __( 'About Section', 'mediakit-lite' ),
         'priority'    => 40,
-        'description' => __( 'Your professional biography and background information.', 'mediakit-lite' ),
+        'description' => __( 'Your professional about information and background.', 'mediakit-lite' ),
     ) );
-            // Bio Content
-    $wp_customize->add_setting( 'mkp_bio_content', array(
-        'default'           => mkp_get_default_bio_content(),
+            // About Content
+    $wp_customize->add_setting( 'mkp_about_content', array(
+        'default'           => mkp_get_default_about_content(),
         'sanitize_callback' => 'wp_kses_post',
         'transport'         => 'postMessage',
     ) );
     
-    $wp_customize->add_control( 'mkp_bio_content', array(
-        'label'       => __( 'Biography Content', 'mediakit-lite' ),
-        'description' => __( 'Your professional biography. HTML allowed.', 'mediakit-lite' ),
-        'section'     => 'mkp_bio_section',
+    $wp_customize->add_control( 'mkp_about_content', array(
+        'label'       => __( 'About Content', 'mediakit-lite' ),
+        'description' => __( 'Your professional about information. HTML allowed.', 'mediakit-lite' ),
+        'section'     => 'mkp_about_section',
         'type'        => 'textarea',
         'priority'    => 10,
         'input_attrs' => array(

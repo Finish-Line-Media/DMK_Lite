@@ -285,12 +285,12 @@ function mkp_get_front_page_nav_items() {
             'url'   => '#hero',
             'check' => true, // Always show
         ),
-        'bio' => array(
+        'about' => array(
             'id'    => 'about',
             'label' => __( 'About', 'mediakit-lite' ),
             'url'   => '#about',
             'check' => function() {
-                return get_theme_mod( 'mkp_bio_content' );
+                return get_theme_mod( 'mkp_about_content' );
             },
         ),
         'books' => array(

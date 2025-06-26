@@ -13,7 +13,7 @@
 function mkp_get_default_section_order() {
     return array(
         'hero',
-        'bio',
+        'about',
         'books',
         'podcasts',
         'corporations',
@@ -151,7 +151,7 @@ class Mkp_Section_Order_Control extends WP_Customize_Control {
     public function render_content() {
         $sections = array(
             'hero'            => __( 'Hero Section', 'mediakit-lite' ),
-            'bio'             => __( 'About/Bio Section', 'mediakit-lite' ),
+            'about'           => __( 'About Section', 'mediakit-lite' ),
             'books'           => __( 'Books Section', 'mediakit-lite' ),
             'podcasts'        => __( 'Podcasts/Shows Section', 'mediakit-lite' ),
             'corporations'    => __( 'Companies Section', 'mediakit-lite' ),
@@ -175,7 +175,7 @@ class Mkp_Section_Order_Control extends WP_Customize_Control {
             <ul class="mkp-section-order-list" id="mkp-sortable-sections">
                 <?php foreach ( $current_order as $section_id ) : 
                     if ( ! isset( $sections[ $section_id ] ) ) continue;
-                    $is_fixed = in_array( $section_id, array( 'hero', 'bio' ) );
+                    $is_fixed = in_array( $section_id, array( 'hero', 'about' ) );
                     
                     // Check if section is enabled
                     $is_enabled = true;

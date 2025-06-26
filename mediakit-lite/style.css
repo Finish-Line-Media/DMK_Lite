@@ -1063,19 +1063,26 @@ img {
     color: inherit;
 }
 
-/* Bio Section */
-.mkp-bio-section {
+/* About Section */
+.mkp-about-section {
     padding: var(--mkp-spacing-xxl) 0;
 }
 
-.mkp-bio-section__content {
+.mkp-about-section__content {
     max-width: 1000px;
     margin: 0 auto;
 }
 
-.mkp-bio-section__content p {
+.mkp-about-section__content p {
     text-align: justify;
     text-justify: inter-word;
+    font-size: 1.25rem;
+    line-height: 1.5;
+    margin-bottom: 1.75rem;
+}
+
+.mkp-about-section__content p:last-child {
+    margin-bottom: 0;
 }
 
 /* Books Section */
