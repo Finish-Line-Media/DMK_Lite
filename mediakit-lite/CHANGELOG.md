@@ -2,6 +2,13 @@
 
 All notable changes to the MediaKit Lite theme will be documented in this file.
 
+## [1.8.9] - 2025-06-26
+
+### Fixed
+- Removed horizontal divider line from footer
+- Removed extra padding and margin from footer bottom section
+- Cleaner, more compact footer layout
+
 ## [1.8.8] - 2025-06-26
 
 ### Removed
