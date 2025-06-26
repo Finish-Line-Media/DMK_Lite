@@ -2,6 +2,68 @@
 
 All notable changes to the MediaKit Lite theme will be documented in this file.
 
+## [1.8.0] - 2025-06-26
+
+This release brings major improvements to the theme's color system, typography controls, and user interface consistency.
+
+### Added
+- Professional color theme system with 6 pre-defined themes (Ocean Depths, Forest Journey, Sunset Warmth, Midnight Elegance, Corporate Professional, Creative Spirit)
+- Dynamic color rotation that automatically adapts to visible sections
+- Hover effects for Speaking Topics and Companies cards with lift animation and enhanced shadows
+- Consistent interactive feedback across all major card components
+
+### Changed
+- Replaced 12+ individual color pickers with single theme selector dropdown
+- Widened Speaking Topics cards from 1000px to 1200px (4-topic layout from 700px to 1000px)
+- Widened Companies section from 700px to 1200px for better content presentation
+- Simplified customizer interface for better user experience
+- All section templates now use dynamic theme-based color system
+
+### Fixed
+- Body and heading fonts now update immediately in customizer preview
+- Fixed CSS variable conflicts preventing font changes from showing
+- Fixed bullet alignment in Questions for the Media section
+- Speaking Topics cards now properly inherit section colors when using card style
+- Investment Verticals section titles now use theme colors instead of hardcoded values
+
+### Removed
+- All individual background color settings from customizer
+- Primary, secondary, and accent color settings (replaced by theme system)
+- Auto-contrast detection system (no longer needed with pre-defined themes)
+
+## [1.7.34] - 2025-06-26
+
+### Changed
+- Widened Speaking Topics cards default width from 1000px to 1200px
+- Widened Speaking Topics 4-topic layout from 700px to 1000px
+- Speaking Topics cards now have more consistent spacing across different topic counts
+- Aligned Speaking Topics width with other card-based sections
+
+## [1.7.33] - 2025-06-26
+
+### Changed
+- Widened Companies section from 700px to 1200px max-width
+- Companies cards now have more breathing room for logos and content
+- Aligned Companies section width with other major content sections
+
+## [1.7.32] - 2025-06-26
+
+### Fixed
+- Fixed bullet alignment in Questions for the Media section
+- Bullets now properly align with the first line of wrapped text instead of the last line
+- Removed display: inline-block from question text to fix alignment issue
+
+## [1.7.31] - 2025-06-25
+
+### Added
+- Hover effects for Speaking Topics cards (lift and enhanced shadow)
+- Hover effects for Companies cards (lift and enhanced shadow)
+- Consistent interactive feedback across all major card components
+
+### Changed
+- Speaking Topics and Companies cards now have the same elegant hover animation as Investment Verticals
+- Cards lift 4px and display enhanced shadows on hover for better user interaction
+
 ## [1.7.30] - 2025-06-25
 
 ### Fixed

@@ -4,7 +4,7 @@ Theme URI: https://mediakitpro.com
 Author: Finish Line Media
 Author URI: https://finishline.media
 Description: MediaKit Lite is your digital media kit solution for building personal leverage. Perfect for showcasing your expertise, publications, speaking topics, and media appearances. Set up everything through the simple WordPress Customizer - no coding required. Need a custom-built media kit? Ask about our tailored design services.
-Version: 1.7.30
+Version: 1.8.0
 License: GPL v2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: mediakit-lite
@@ -1256,7 +1256,7 @@ img {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: var(--mkp-spacing-lg);
-    max-width: 1000px;
+    max-width: 1200px;
     margin: 0 auto;
 }
 
@@ -1268,6 +1268,12 @@ img {
     background: white;
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    transition: var(--mkp-transition);
+}
+
+.mkp-speaker__topic:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.15);
 }
 
 .mkp-speaker__topic-arrow {
@@ -1290,7 +1296,7 @@ img {
 /* Force 4 topics to display as 2x2 */
 .mkp-speaker__topics--count-4 {
     grid-template-columns: repeat(2, 1fr);
-    max-width: 700px;
+    max-width: 1000px;
 }
 
 /* Force 6 topics to display as 3x2 */
@@ -1415,7 +1421,7 @@ img {
 }
 
 .mkp-media-questions__text {
-    display: inline-block;
+    /* Text flows naturally inline for proper bullet alignment */
 }
 
 /* Corporations Section */
@@ -1427,7 +1433,7 @@ img {
     display: flex;
     flex-direction: column;
     gap: var(--mkp-spacing-xl);
-    max-width: 700px;
+    max-width: 1200px;
     margin: 0 auto;
 }
 
@@ -1437,6 +1443,12 @@ img {
     background: white;
     border-radius: 8px;
     box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+    transition: var(--mkp-transition);
+}
+
+.mkp-corp-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.15);
 }
 
 .mkp-corp-card__logo {
