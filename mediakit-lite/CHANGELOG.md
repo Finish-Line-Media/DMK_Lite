@@ -2,6 +2,11 @@
 
 All notable changes to the MediaKit Lite theme will be documented in this file.
 
+## [1.9.1] - 2025-06-25
+
+### Changed
+- Fix Companies section card display logic to show cards with either name or logo
+
 ## [1.9.0] - 2025-06-26
 
 This release brings multiple UX improvements focused on typography, spacing, and mobile experience.

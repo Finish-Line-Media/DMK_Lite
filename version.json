@@ -1,9 +1,9 @@
 {
-  "version": "1.9.0",
-  "description": "Multiple UX improvements: typography, spacing, and mobile experience",
-  "download_url": "https://github.com/Finish-Line-Media/DMK_Lite/releases/download/v1.9.0/mediakit-lite.zip",
-  "changelog_url": "https://github.com/Finish-Line-Media/DMK_Lite/releases/tag/v1.9.0",
-  "release_date": "2025-06-26",
+  "version": "1.9.1",
+  "description": "Fix Companies section card display logic to show cards with either name or logo",
+  "download_url": "https://github.com/Finish-Line-Media/DMK_Lite/releases/download/v1.9.1/mediakit-lite.zip",
+  "changelog_url": "https://github.com/Finish-Line-Media/DMK_Lite/releases/tag/v1.9.1",
+  "release_date": "2025-06-25",
   "min_wp_version": "5.8",
   "tested_up_to": "6.5",
   "php_version": "7.4"

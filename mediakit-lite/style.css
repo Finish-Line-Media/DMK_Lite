@@ -4,7 +4,7 @@ Theme URI: https://mediakitpro.com
 Author: Finish Line Media
 Author URI: https://finishline.media
 Description: MediaKit Lite is your digital media kit solution for building personal leverage. Perfect for showcasing your expertise, publications, speaking topics, and media appearances. Set up everything through the simple WordPress Customizer - no coding required. Need a custom-built media kit? Ask about our tailored design services.
-Version: 1.9.0
+Version: 1.9.1
 License: GPL v2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: mediakit-lite
@@ -1071,14 +1071,11 @@ img {
 .mkp-bio-section__content {
     max-width: 1000px;
     margin: 0 auto;
-    font-size: 1.125rem;
-    line-height: 1.6;
 }
 
 .mkp-bio-section__content p {
     text-align: justify;
     text-justify: inter-word;
-    margin-bottom: 1.5rem;
 }
 
 /* Books Section */
