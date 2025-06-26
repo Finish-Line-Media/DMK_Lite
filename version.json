@@ -1,9 +1,9 @@
 {
-  "version": "1.8.0",
-  "description": "Match Contact section enable/disable behavior with Investor section",
-  "download_url": "https://github.com/Finish-Line-Media/DMK_Lite/releases/download/v1.7.13/mediakit-lite.zip",
-  "changelog_url": "https://github.com/Finish-Line-Media/DMK_Lite/releases/tag/v1.7.13",
-  "release_date": "2025-06-22",
+  "version": "1.8.8",
+  "description": "Remove Hero Background Image option for better design consistency",
+  "download_url": "https://github.com/Finish-Line-Media/DMK_Lite/releases/download/v1.8.8/mediakit-lite.zip",
+  "changelog_url": "https://github.com/Finish-Line-Media/DMK_Lite/releases/tag/v1.8.8",
+  "release_date": "2025-06-26",
   "min_wp_version": "5.8",
   "tested_up_to": "6.5",
   "php_version": "7.4"
