@@ -35,7 +35,14 @@ $text_color = $colors['text'];
             </div>
         </header>
         
-        <div class="mkp-blog-content">
+        <?php 
+        // Get next color for blog content section
+        $content_colors = mkp_get_next_section_color();
+        $content_bg = $content_colors['background'];
+        $content_text = $content_colors['text'];
+        ?>
+        
+        <section class="mkp-blog-content mkp-section" style="background-color: <?php echo esc_attr( $content_bg ); ?>; color: <?php echo esc_attr( $content_text ); ?>;">
             <div class="mkp-container">
                 <?php if ( have_posts() ) : ?>
                     
@@ -102,7 +109,7 @@ $text_color = $colors['text'];
                     
                 <?php endif; ?>
             </div>
-        </div>
+        </section>
         
     </main><!-- #main -->
 </div><!-- #primary -->

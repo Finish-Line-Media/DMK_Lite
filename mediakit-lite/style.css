@@ -925,6 +925,19 @@ img {
     border-bottom: none;
 }
 
+/* Global Card Styling - Glassmorphic effect for all cards */
+.mkp-book-card,
+.mkp-podcast-card,
+.mkp-corp-card,
+.mkp-investor-card,
+.mkp-media-item,
+.mkp-speaker__topic,
+.mkp-blog-card {
+    background-color: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
 /* Screen reader text */
 .screen-reader-text {
     border: 0;
@@ -1110,7 +1123,6 @@ img {
 }
 
 .mkp-book-card {
-    background: white;
     border-radius: 8px;
     box-shadow: 0 4px 16px rgba(0,0,0,0.1);
     overflow: hidden;
@@ -1177,7 +1189,6 @@ img {
 }
 
 .mkp-podcast-card {
-    background: #fff;
     border-radius: var(--mkp-radius-lg);
     overflow: hidden;
     transition: all 0.3s ease;
@@ -1433,7 +1444,6 @@ img {
 .mkp-corp-card {
     text-align: center;
     padding: var(--mkp-spacing-lg) var(--mkp-spacing-xl);
-    background: white;
     border-radius: 8px;
     box-shadow: 0 4px 16px rgba(0,0,0,0.1);
     transition: var(--mkp-transition);
@@ -1540,7 +1550,6 @@ img {
 
 .mkp-investor-card {
     padding: var(--mkp-spacing-xl);
-    background: white;
     border-radius: 8px;
     box-shadow: 0 4px 16px rgba(0,0,0,0.1);
     transition: var(--mkp-transition);
@@ -1724,7 +1733,6 @@ img {
 
 .mkp-media-item {
     padding: var(--mkp-spacing-lg);
-    background: white;
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     transition: var(--mkp-transition);
@@ -1811,7 +1819,6 @@ img {
 }
 
 .mkp-media-item {
-    background: #fff;
     border-radius: 8px;
     overflow: hidden;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -2172,13 +2179,7 @@ img {
 /* Blog Content Area */
 .mkp-blog-content {
     padding: 80px 0;
-    background-color: #f8f9fa;
     min-height: 400px;
-}
-
-/* Ensure background extends full width */
-.mkp-content-area {
-    background-color: #f8f9fa;
 }
 
 /* Blog Grid */
@@ -2198,7 +2199,6 @@ img {
 
 /* Blog Card */
 .mkp-blog-card {
-    background: #ffffff;
     border-radius: 12px;
     overflow: hidden;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
