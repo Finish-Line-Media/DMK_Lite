@@ -2390,7 +2390,6 @@ img {
     font-weight: 700;
     line-height: 1.2;
     margin: 0 0 var(--mkp-spacing-md);
-    color: var(--mkp-primary);
 }
 
 /* Entry Meta */
@@ -2401,7 +2400,6 @@ img {
     gap: var(--mkp-spacing-md);
     flex-wrap: wrap;
     font-size: 0.9375rem;
-    color: var(--mkp-text-light);
 }
 
 .mkp-entry-meta .mkp-posted-on,
@@ -2413,13 +2411,15 @@ img {
 }
 
 .mkp-entry-meta a {
-    color: var(--mkp-secondary);
+    color: inherit;
     text-decoration: none;
     font-weight: 500;
+    opacity: 0.9;
 }
 
 .mkp-entry-meta a:hover {
     text-decoration: underline;
+    opacity: 1;
 }
 
 /* Featured Image */
@@ -2540,7 +2540,7 @@ img {
 
 .mkp-share-buttons__label {
     font-weight: 600;
-    color: var(--mkp-text-light);
+    opacity: 0.8;
 }
 
 .mkp-share-buttons__link {
@@ -2589,17 +2589,19 @@ img {
 .mkp-author-description {
     margin-bottom: var(--mkp-spacing-md);
     line-height: 1.6;
-    color: var(--mkp-text-light);
+    opacity: 0.9;
 }
 
 .mkp-author-link {
-    color: var(--mkp-secondary);
+    color: inherit;
     text-decoration: none;
     font-weight: 500;
+    opacity: 0.9;
 }
 
 .mkp-author-link:hover {
     text-decoration: underline;
+    opacity: 1;
 }
 
 /* Post Navigation */
@@ -2626,19 +2628,19 @@ img {
 
 .mkp-nav-subtitle {
     font-size: 0.875rem;
-    color: var(--mkp-text-light);
+    opacity: 0.7;
     margin-bottom: var(--mkp-spacing-xs);
 }
 
 .mkp-nav-title {
     font-weight: 600;
-    color: var(--mkp-primary);
+    color: inherit;
     text-decoration: none;
-    transition: color 0.3s ease;
+    transition: opacity 0.3s ease;
 }
 
 .mkp-post-navigation a:hover .mkp-nav-title {
-    color: var(--mkp-secondary);
+    opacity: 0.8;
 }
 
 /* Comments Section */
