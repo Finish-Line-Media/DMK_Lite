@@ -34,6 +34,21 @@
         }
     });
     
+    // Handle anchor on page load (when coming from another page)
+    $(window).on('load', function() {
+        if (window.location.hash) {
+            const target = $(window.location.hash);
+            if (target.length) {
+                // Small delay to ensure page is fully rendered
+                setTimeout(function() {
+                    $('html, body').animate({
+                        scrollTop: target.offset().top - 100
+                    }, 800);
+                }, 100);
+            }
+        }
+    });
+    
     // Sticky Header
     const header = document.querySelector('.mkp-header');
     let lastScrollTop = 0;
