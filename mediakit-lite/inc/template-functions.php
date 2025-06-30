@@ -446,11 +446,12 @@ function mkp_get_front_page_nav_items() {
         }
     }
     
-    // Add Blog link if WordPress is configured with a posts page
+    // Add Blog link if WordPress is configured with a posts page and it's enabled in settings
     $show_on_front = get_option( 'show_on_front' );
     $page_for_posts = get_option( 'page_for_posts' );
+    $show_blog_in_nav = get_theme_mod( 'mkp_show_blog_in_nav', true );
     
-    if ( 'page' === $show_on_front && $page_for_posts ) {
+    if ( 'page' === $show_on_front && $page_for_posts && $show_blog_in_nav ) {
         $nav_items[] = array(
             'id'    => 'blog',
             'label' => __( 'Blog', 'mediakit-lite' ),

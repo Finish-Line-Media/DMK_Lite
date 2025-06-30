@@ -40,8 +40,9 @@ In the WordPress Customizer:
 1. Go to **Appearance → Customize**
 2. Navigate to **Blog Settings**
 3. You can customize:
-   - Blog page title
-   - Blog page subtitle
+   - **Show Blog in Navigation** - Toggle the blog link on/off in your navigation menu
+   - **Blog page title** - The main heading on your blog page
+   - **Blog page subtitle** - The subtitle text below the heading
 
 ## Notes
 

@@ -830,7 +830,22 @@ function mkp_customize_register( $wp_customize ) {
     $wp_customize->add_section( 'mkp_blog_settings', array(
         'title'       => __( 'Blog Settings', 'mediakit-lite' ),
         'priority'    => 54,
-        'description' => __( 'Configure blog appearance. To enable a blog, go to Settings → Reading and set up a static page with a posts page.', 'mediakit-lite' ),
+        'description' => __( 'Configure blog appearance. To set up a blog, go to Settings → Reading and configure a static page with a posts page.', 'mediakit-lite' ),
+    ) );
+    
+    // Show Blog in Navigation
+    $wp_customize->add_setting( 'mkp_show_blog_in_nav', array(
+        'default'           => true,
+        'sanitize_callback' => 'mkp_sanitize_checkbox',
+        'transport'         => 'refresh',
+    ) );
+    
+    $wp_customize->add_control( 'mkp_show_blog_in_nav', array(
+        'label'       => __( 'Show Blog in Navigation', 'mediakit-lite' ),
+        'description' => __( 'Display the blog link in the navigation menu when a posts page is configured.', 'mediakit-lite' ),
+        'section'     => 'mkp_blog_settings',
+        'type'        => 'checkbox',
+        'priority'    => 10,
     ) );
     
     // Blog Page Title
