@@ -2172,7 +2172,13 @@ img {
 /* Blog Content Area */
 .mkp-blog-content {
     padding: 80px 0;
-    background-color: #fafafa;
+    background-color: #f8f9fa;
+    min-height: 400px;
+}
+
+/* Ensure background extends full width */
+.mkp-content-area {
+    background-color: #f8f9fa;
 }
 
 /* Blog Grid */
