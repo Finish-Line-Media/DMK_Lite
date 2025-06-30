@@ -823,6 +823,66 @@ function mkp_customize_register( $wp_customize ) {
             'priority'    => $priority++,
         ) );
     }
+    
+    // ====================
+    // Blog Settings Section 
+    // ====================
+    $wp_customize->add_section( 'mkp_blog_settings', array(
+        'title'       => __( 'Blog Settings', 'mediakit-lite' ),
+        'priority'    => 54,
+        'description' => __( 'Configure blog functionality for your media kit.', 'mediakit-lite' ),
+    ) );
+    
+    // Enable/Disable Blog
+    $wp_customize->add_setting( 'mkp_enable_blog', array(
+        'default'           => false,
+        'sanitize_callback' => 'mkp_sanitize_checkbox',
+        'transport'         => 'refresh',
+    ) );
+    
+    $wp_customize->add_control( 'mkp_enable_blog', array(
+        'label'       => __( 'Enable Blog Functionality', 'mediakit-lite' ),
+        'description' => __( 'Add a Blog section to your site with a navigation menu item.', 'mediakit-lite' ),
+        'section'     => 'mkp_blog_settings',
+        'type'        => 'checkbox',
+        'priority'    => 10,
+    ) );
+    
+    // Blog Page Title
+    $wp_customize->add_setting( 'mkp_blog_title', array(
+        'default'           => __( 'Blog', 'mediakit-lite' ),
+        'sanitize_callback' => 'sanitize_text_field',
+        'transport'         => 'refresh',
+    ) );
+    
+    $wp_customize->add_control( 'mkp_blog_title', array(
+        'label'       => __( 'Blog Page Title', 'mediakit-lite' ),
+        'description' => __( 'Title shown on the blog archive page.', 'mediakit-lite' ),
+        'section'     => 'mkp_blog_settings',
+        'type'        => 'text',
+        'priority'    => 20,
+        'active_callback' => function() {
+            return get_theme_mod( 'mkp_enable_blog', false );
+        },
+    ) );
+    
+    // Blog Page Subtitle
+    $wp_customize->add_setting( 'mkp_blog_subtitle', array(
+        'default'           => __( 'Thoughts, insights, and updates', 'mediakit-lite' ),
+        'sanitize_callback' => 'sanitize_text_field',
+        'transport'         => 'refresh',
+    ) );
+    
+    $wp_customize->add_control( 'mkp_blog_subtitle', array(
+        'label'       => __( 'Blog Page Subtitle', 'mediakit-lite' ),
+        'description' => __( 'Subtitle shown on the blog archive page.', 'mediakit-lite' ),
+        'section'     => 'mkp_blog_settings',
+        'type'        => 'text',
+        'priority'    => 30,
+        'active_callback' => function() {
+            return get_theme_mod( 'mkp_enable_blog', false );
+        },
+    ) );
 }
 add_action( 'customize_register', 'mkp_customize_register' );
 

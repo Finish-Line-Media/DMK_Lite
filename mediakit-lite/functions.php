@@ -209,6 +209,86 @@ function mkp_excerpt_length( $length ) {
 add_filter( 'excerpt_length', 'mkp_excerpt_length', 999 );
 
 /**
+ * Setup blog page when blog is enabled
+ */
+function mkp_setup_blog_page() {
+    $blog_enabled = get_theme_mod( 'mkp_enable_blog', false );
+    
+    if ( $blog_enabled ) {
+        // Check if a page with slug 'blog' exists
+        $blog_page = get_page_by_path( 'blog' );
+        
+        if ( ! $blog_page ) {
+            // Create blog page
+            $blog_page_id = wp_insert_post( array(
+                'post_title'    => __( 'Blog', 'mediakit-lite' ),
+                'post_content'  => '',
+                'post_status'   => 'publish',
+                'post_type'     => 'page',
+                'post_name'     => 'blog',
+            ) );
+            
+            if ( ! is_wp_error( $blog_page_id ) ) {
+                // Update reading settings to use this page for posts
+                $show_on_front = get_option( 'show_on_front' );
+                if ( $show_on_front === 'page' ) {
+                    update_option( 'page_for_posts', $blog_page_id );
+                }
+                
+                // Flush rewrite rules
+                flush_rewrite_rules();
+            }
+        } else {
+            // Ensure the existing blog page is set as the posts page
+            $show_on_front = get_option( 'show_on_front' );
+            $page_for_posts = get_option( 'page_for_posts' );
+            
+            if ( $show_on_front === 'page' && $page_for_posts != $blog_page->ID ) {
+                update_option( 'page_for_posts', $blog_page->ID );
+                flush_rewrite_rules();
+            }
+        }
+    }
+}
+add_action( 'init', 'mkp_setup_blog_page' );
+
+
+/**
+ * Flush rewrite rules when blog setting changes
+ */
+function mkp_flush_rules_on_blog_toggle( $old_value, $value ) {
+    if ( $old_value !== $value ) {
+        flush_rewrite_rules();
+    }
+}
+add_action( 'update_option_theme_mods_mediakit-lite', 'mkp_flush_rules_on_blog_toggle', 10, 2 );
+
+/**
+ * Force correct template usage
+ */
+function mkp_force_correct_template( $template ) {
+    // Force home.php for blog page when using static page setup
+    if ( is_home() && ! is_front_page() ) {
+        $home_template = locate_template( 'home.php' );
+        if ( $home_template ) {
+            return $home_template;
+        }
+    }
+    
+    // Force front-page.php for actual front page
+    if ( is_front_page() && ! is_home() ) {
+        $front_template = locate_template( 'front-page.php' );
+        if ( $front_template ) {
+            return $front_template;
+        }
+    }
+    
+    return $template;
+}
+add_filter( 'template_include', 'mkp_force_correct_template', 999 );
+
+
+/**
  * Custom excerpt more
  */
 function mkp_excerpt_more( $more ) {
@@ -250,7 +330,6 @@ $required_files = array(
     '/inc/social-icons.php',
     '/inc/social-icon-svgs.php',
     '/inc/section-order.php',
-    '/inc/field-helpers.php',
     '/inc/form-submissions.php',
     '/inc/update-notice.php',
     '/inc/blocks.php',

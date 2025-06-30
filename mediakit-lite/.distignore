@@ -1,0 +1,37 @@
+# Files and directories to exclude from WordPress.org distribution
+
+# Version control
+.git
+.gitignore
+.gitattributes
+
+# Build files
+.distignore
+build-for-wordpress.sh
+build-for-github.sh
+build/
+BUILD.md
+
+# Development files
+.DS_Store
+Thumbs.db
+.idea
+.vscode
+*.log
+*.map
+
+# GitHub specific
+README.md
+CONTRIBUTING.md
+.github/
+
+# Update system (not allowed on WordPress.org)
+inc/update-notice.php
+
+# Local development files
+CLAUDE.md
+CLAUDE.local.md
+DEPLOYMENT_PROCESS.md
+
+# Version control file (if exists)
+version.json

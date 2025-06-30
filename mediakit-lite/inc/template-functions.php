@@ -277,26 +277,32 @@ function mkp_get_front_page_nav_items() {
     // Get the section order
     $section_order = mkp_get_section_order();
     
+    // Determine if we're on the front page
+    $is_front = is_front_page();
+    $base_url = $is_front ? '' : home_url( '/' );
+    
     // Define section properties
     $section_config = array(
         'hero' => array(
             'id'    => 'hero',
             'label' => __( 'Home', 'mediakit-lite' ),
-            'url'   => '#hero',
+            'url'   => $base_url . '#hero',
             'check' => true, // Always show
         ),
         'about' => array(
             'id'    => 'about',
             'label' => __( 'About', 'mediakit-lite' ),
-            'url'   => '#about',
+            'url'   => $base_url . '#about',
             'check' => function() {
-                return get_theme_mod( 'mkp_about_content' );
+                // About section has default content, so always show unless explicitly empty
+                $content = get_theme_mod( 'mkp_about_content', mkp_get_default_about_content() );
+                return ! empty( $content );
             },
         ),
         'books' => array(
             'id'    => 'books',
             'label' => __( 'Books', 'mediakit-lite' ),
-            'url'   => '#books',
+            'url'   => $base_url . '#books',
             'check' => function() {
                 if ( ! get_theme_mod( 'mkp_enable_section_books', true ) ) {
                     return false;
@@ -312,7 +318,7 @@ function mkp_get_front_page_nav_items() {
         'podcasts' => array(
             'id'    => 'podcasts',
             'label' => __( 'Podcasts', 'mediakit-lite' ),
-            'url'   => '#podcasts',
+            'url'   => $base_url . '#podcasts',
             'check' => function() {
                 if ( ! get_theme_mod( 'mkp_enable_section_podcasts', true ) ) {
                     return false;
@@ -328,7 +334,7 @@ function mkp_get_front_page_nav_items() {
         'corporations' => array(
             'id'    => 'corporations',
             'label' => __( 'Companies', 'mediakit-lite' ),
-            'url'   => '#corporations',
+            'url'   => $base_url . '#corporations',
             'check' => function() {
                 if ( ! get_theme_mod( 'mkp_enable_section_corporations', true ) ) {
                     return false;
@@ -344,7 +350,7 @@ function mkp_get_front_page_nav_items() {
         'speaker_topics' => array(
             'id'    => 'speaking',
             'label' => __( 'Speaking', 'mediakit-lite' ),
-            'url'   => '#speaking',
+            'url'   => $base_url . '#speaking',
             'check' => function() {
                 if ( ! get_theme_mod( 'mkp_enable_section_speaker_topics', true ) ) {
                     return false;
@@ -360,7 +366,7 @@ function mkp_get_front_page_nav_items() {
         'in_the_media' => array(
             'id'    => 'in-the-media',
             'label' => __( 'In The Media', 'mediakit-lite' ),
-            'url'   => '#in-the-media',
+            'url'   => $base_url . '#in-the-media',
             'check' => function() {
                 if ( ! get_theme_mod( 'mkp_enable_section_in_the_media', true ) ) {
                     return false;
@@ -371,7 +377,7 @@ function mkp_get_front_page_nav_items() {
         'media_questions' => array(
             'id'    => 'media-questions',
             'label' => __( 'Media Questions', 'mediakit-lite' ),
-            'url'   => '#media-questions',
+            'url'   => $base_url . '#media-questions',
             'check' => function() {
                 if ( ! get_theme_mod( 'mkp_enable_section_media_questions', true ) ) {
                     return false;
@@ -387,7 +393,7 @@ function mkp_get_front_page_nav_items() {
         'investor' => array(
             'id'    => 'investor',
             'label' => __( 'Investor', 'mediakit-lite' ),
-            'url'   => '#investor',
+            'url'   => $base_url . '#investor',
             'check' => function() {
                 if ( ! get_theme_mod( 'mkp_enable_section_investor', true ) ) {
                     return false;
@@ -403,7 +409,7 @@ function mkp_get_front_page_nav_items() {
         'contact' => array(
             'id'    => 'contact',
             'label' => __( 'Contact', 'mediakit-lite' ),
-            'url'   => '#contact',
+            'url'   => $base_url . '#contact',
             'check' => function() {
                 if ( ! get_theme_mod( 'mkp_enable_section_contact', true ) ) {
                     return false;
@@ -438,6 +444,15 @@ function mkp_get_front_page_nav_items() {
                 'url'   => $config['url'],
             );
         }
+    }
+    
+    // Add Blog link if enabled
+    if ( get_theme_mod( 'mkp_enable_blog', false ) ) {
+        $nav_items[] = array(
+            'id'    => 'blog',
+            'label' => __( 'Blog', 'mediakit-lite' ),
+            'url'   => home_url( '/blog/' ),
+        );
     }
     
     return $nav_items;

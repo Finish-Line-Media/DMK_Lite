@@ -133,3 +133,4 @@ The theme includes extensive customizer options organized into sections:
 ## Development Memories
 - Remember to bump both the theme and the function header version number when bumping.
 - Remember to bump both the style and the function header version number when bumping.
+- Remember to ask me which build I'd like when I ask you to build.

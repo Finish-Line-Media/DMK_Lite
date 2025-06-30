@@ -34,30 +34,16 @@
                 </button>
                 
                 <?php
-                if ( is_front_page() ) {
-                    // Display section navigation on front page
-                    $nav_items = mkp_get_front_page_nav_items();
-                    if ( ! empty( $nav_items ) ) {
-                        echo '<ul id="primary-menu" class="mkp-nav">';
-                        foreach ( $nav_items as $item ) {
-                            echo '<li class="mkp-nav__item">';
-                            echo '<a href="' . esc_url( $item['url'] ) . '" class="mkp-nav__link">' . esc_html( $item['label'] ) . '</a>';
-                            echo '</li>';
-                        }
-                        echo '</ul>';
+                // Always display section navigation
+                $nav_items = mkp_get_front_page_nav_items();
+                if ( ! empty( $nav_items ) ) {
+                    echo '<ul id="primary-menu" class="mkp-nav">';
+                    foreach ( $nav_items as $item ) {
+                        echo '<li class="mkp-nav__item">';
+                        echo '<a href="' . esc_url( $item['url'] ) . '" class="mkp-nav__link">' . esc_html( $item['label'] ) . '</a>';
+                        echo '</li>';
                     }
-                } else {
-                    // Display regular menu on other pages
-                    wp_nav_menu(
-                        array(
-                            'theme_location' => 'primary',
-                            'menu_id'        => 'primary-menu',
-                            'menu_class'     => 'mkp-nav',
-                            'container'      => false,
-                            'fallback_cb'    => false,
-                            'walker'         => new Mkp_Walker_Nav_Menu(),
-                        )
-                    );
+                    echo '</ul>';
                 }
                 ?>
             </nav>

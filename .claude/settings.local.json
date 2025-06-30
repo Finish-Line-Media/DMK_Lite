@@ -29,7 +29,10 @@
       "Bash(echo:*)",
       "Bash(./create-release.sh:*)",
       "Bash(gh run list:*)",
-      "Bash(python3:*)"
+      "Bash(python3:*)",
+      "Bash(./build-for-wordpress.sh:*)",
+      "Bash(./build-for-github.sh:*)",
+      "Bash(git checkout:*)"
     ],
     "deny": []
   }

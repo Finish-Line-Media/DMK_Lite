@@ -1,9 +1,9 @@
 /*
 Theme Name: MediaKit Lite
-Theme URI: https://mediakitpro.com
+Theme URI: https://github.com/Finish-Line-Media/DMK_Lite
 Author: Finish Line Media
 Author URI: https://finishline.media
-Description: MediaKit Lite is your digital media kit solution for building personal leverage. Perfect for showcasing your expertise, publications, speaking topics, and media appearances. Set up everything through the simple WordPress Customizer - no coding required. Need a custom-built media kit? Ask about our tailored design services.
+Description: MediaKit Lite is your digital media kit solution for building personal leverage. Perfect for showcasing your expertise, publications, speaking topics, and media appearances. Set up everything through the simple WordPress Customizer - no coding required.
 Version: 1.9.2
 License: GPL v2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -2135,3 +2135,189 @@ img {
         gap: var(--mkp-spacing-lg);
     }
 } 
+
+
+/* ==========================================================================
+   Blog Functionality
+   ========================================================================== */
+
+/* Blog Header */
+.mkp-blog-header {
+    background-color: var(--mkp-bg-alt);
+    padding: var(--mkp-spacing-xxl) 0;
+    text-align: center;
+    border-bottom: 1px solid var(--mkp-border);
+}
+
+.mkp-blog-header__title {
+    margin: 0;
+    font-size: 3rem;
+    color: var(--mkp-text);
+    font-family: var(--mkp-font-heading);
+}
+
+.mkp-blog-header__subtitle {
+    margin: var(--mkp-spacing-md) 0 0;
+    font-size: 1.25rem;
+    color: var(--mkp-text-light);
+}
+
+/* Blog Content Area */
+.mkp-blog-content {
+    padding: var(--mkp-spacing-xxl) 0;
+}
+
+/* Blog Grid */
+.mkp-blog-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: var(--mkp-spacing-xl);
+    margin-bottom: var(--mkp-spacing-xxl);
+}
+
+/* Blog Card */
+.mkp-blog-card {
+    background: var(--mkp-bg);
+    border: 1px solid var(--mkp-border);
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.mkp-blog-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.mkp-blog-card__thumbnail {
+    aspect-ratio: 16/9;
+    overflow: hidden;
+}
+
+.mkp-blog-card__thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.mkp-blog-card:hover .mkp-blog-card__thumbnail img {
+    transform: scale(1.05);
+}
+
+.mkp-blog-card__content {
+    padding: var(--mkp-spacing-lg);
+}
+
+.mkp-blog-card__header {
+    margin-bottom: var(--mkp-spacing-md);
+}
+
+.mkp-blog-card__title {
+    margin: 0 0 var(--mkp-spacing-sm);
+    font-size: 1.5rem;
+    line-height: 1.3;
+}
+
+.mkp-blog-card__title a {
+    color: var(--mkp-text);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.mkp-blog-card__title a:hover {
+    color: var(--mkp-primary);
+}
+
+.mkp-blog-card__meta {
+    font-size: 0.875rem;
+    color: var(--mkp-text-light);
+}
+
+.mkp-blog-card__meta .mkp-posted-on,
+.mkp-blog-card__meta .mkp-posted-by {
+    display: inline-block;
+    margin-right: var(--mkp-spacing-sm);
+}
+
+.mkp-blog-card__excerpt {
+    margin-bottom: var(--mkp-spacing-lg);
+    color: var(--mkp-text);
+    line-height: 1.6;
+}
+
+.mkp-blog-card__excerpt p {
+    margin: 0;
+}
+
+.mkp-blog-card__link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--mkp-spacing-xs);
+    color: var(--mkp-primary);
+    text-decoration: none;
+    font-weight: 500;
+    transition: gap 0.3s ease;
+}
+
+.mkp-blog-card__link:hover {
+    gap: var(--mkp-spacing-sm);
+}
+
+/* Blog Pagination */
+.mkp-blog-pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--mkp-spacing-sm);
+    margin-top: var(--mkp-spacing-xxl);
+}
+
+.mkp-blog-pagination .page-numbers {
+    display: inline-block;
+    padding: var(--mkp-spacing-sm) var(--mkp-spacing-md);
+    color: var(--mkp-text);
+    text-decoration: none;
+    border: 1px solid var(--mkp-border);
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.mkp-blog-pagination .page-numbers:hover,
+.mkp-blog-pagination .page-numbers.current {
+    background-color: var(--mkp-primary);
+    color: white;
+    border-color: var(--mkp-primary);
+}
+
+/* Empty State */
+.mkp-blog-empty {
+    text-align: center;
+    padding: var(--mkp-spacing-xxl) 0;
+}
+
+.mkp-blog-empty h2 {
+    color: var(--mkp-text);
+    margin-bottom: var(--mkp-spacing-md);
+}
+
+.mkp-blog-empty p {
+    color: var(--mkp-text-light);
+    font-size: 1.125rem;
+}
+
+/* Responsive */
+@media (max-width: 767px) {
+    .mkp-blog-header__title {
+        font-size: 2rem;
+    }
+    
+    .mkp-blog-grid {
+        grid-template-columns: 1fr;
+        gap: var(--mkp-spacing-lg);
+    }
+    
+    .mkp-blog-card__title {
+        font-size: 1.25rem;
+    }
+}

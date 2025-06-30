@@ -184,7 +184,7 @@ function mkp_admin_page_display() {
                 <h2><?php esc_html_e( 'Welcome to MediaKit Lite', 'mediakit-lite' ); ?></h2>
                 <p><strong><?php esc_html_e( 'Create your professional digital media kit in minutes!', 'mediakit-lite' ); ?></strong></p>
                 
-                <p><?php esc_html_e( 'MediaKit Lite is your digital media kit solution for building personal leverage. Perfect for showcasing your expertise, publications, speaking topics, and media appearances. Set up everything through the simple WordPress Customizer - no coding required. Need a custom-built media kit? Ask about our tailored design services.', 'mediakit-lite' ); ?></p>
+                <p><?php esc_html_e( 'MediaKit Lite is your digital media kit solution for building personal leverage. Perfect for showcasing your expertise, publications, speaking topics, and media appearances. Set up everything through the simple WordPress Customizer - no coding required.', 'mediakit-lite' ); ?></p>
                 
                 <p><strong><?php esc_html_e( 'Quick Start Guide:', 'mediakit-lite' ); ?></strong></p>
                 <ol style="margin-left: 20px;">
@@ -234,22 +234,12 @@ function mkp_admin_page_display() {
                 </div>
             </div>
             
-            <div class="mkp-admin-upgrade" style="background: #f9f9f9; padding: 20px; margin: 20px 0; border: 1px solid #e0e0e0; border-radius: 3px;">
-                <h3 style="margin-top: 0; font-size: 16px; color: #666;"><?php esc_html_e( 'Want More Features?', 'mediakit-lite' ); ?></h3>
-                <p style="margin: 10px 0; color: #666; font-size: 14px;"><?php esc_html_e( 'Need a fully customized media kit with advanced features? Finish Line Media can build you a professional, branded media kit starting at just $900.', 'mediakit-lite' ); ?></p>
-                <p style="margin: 10px 0; color: #666; font-size: 14px;"><?php esc_html_e( 'We also offer professional WordPress hosting and management for $50/month with no contracts or commitments.', 'mediakit-lite' ); ?></p>
-                <p style="margin: 15px 0 0 0;">
-                    <a href="https://finishline.media/#form" target="_blank" class="button button-secondary" style="font-size: 13px;"><?php esc_html_e( 'Get a Custom Quote', 'mediakit-lite' ); ?></a>
-                    <a href="https://finishline.media" target="_blank" style="margin-left: 10px; font-size: 13px; color: #999;"><?php esc_html_e( 'Learn More →', 'mediakit-lite' ); ?></a>
-                </p>
-            </div>
-            
             <div class="mkp-admin-resources">
                 <h2><?php esc_html_e( 'Resources', 'mediakit-lite' ); ?></h2>
                 <ul>
-                    <li><a href="#" target="_blank"><?php esc_html_e( 'Theme Documentation', 'mediakit-lite' ); ?></a></li>
-                    <li><a href="#" target="_blank"><?php esc_html_e( 'Video Tutorials', 'mediakit-lite' ); ?></a></li>
-                    <li><a href="#" target="_blank"><?php esc_html_e( 'Support Forum', 'mediakit-lite' ); ?></a></li>
+                    <li><a href="https://wordpress.org/support/theme/mediakit-lite/" target="_blank"><?php esc_html_e( 'Support Forum', 'mediakit-lite' ); ?></a></li>
+                    <li><a href="https://github.com/Finish-Line-Media/DMK_Lite" target="_blank"><?php esc_html_e( 'GitHub Repository', 'mediakit-lite' ); ?></a></li>
+                    <li><a href="https://github.com/Finish-Line-Media/DMK_Lite/issues" target="_blank"><?php esc_html_e( 'Report Issues', 'mediakit-lite' ); ?></a></li>
                 </ul>
             </div>
             
@@ -370,7 +360,7 @@ function mkp_admin_footer_text( $text ) {
     if ( strpos( $screen->id, 'mediakit-lite' ) !== false ) {
         $text = sprintf(
             __( 'Thank you for using <strong>MediaKit Lite</strong>. <a href="%s" target="_blank">Leave a review</a>', 'mediakit-lite' ),
-            '#'
+            'https://wordpress.org/support/theme/mediakit-lite/reviews/#new-post'
         );
     }
     

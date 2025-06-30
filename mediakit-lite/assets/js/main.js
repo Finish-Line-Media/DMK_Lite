@@ -17,13 +17,15 @@
         });
     }
     
-    // Smooth Scroll for anchor links
-    $('a[href*="#"]:not([href="#"])').on('click', function() {
-        if (location.pathname.replace(/^\//, '') === this.pathname.replace(/^\//, '') && location.hostname === this.hostname) {
-            let target = $(this.hash);
-            target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+    // Smooth Scroll for anchor links (only for hash links on the same page)
+    $('a[href^="#"]:not([href="#"])').on('click', function(e) {
+        // Only handle if it's a hash link (not full URL)
+        const href = $(this).attr('href');
+        if (href && href.charAt(0) === '#') {
+            const target = $(href);
             
             if (target.length) {
+                e.preventDefault();
                 $('html, body').animate({
                     scrollTop: target.offset().top - 100
                 }, 800);

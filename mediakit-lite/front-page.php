@@ -5,6 +5,16 @@
  * @package MediaKit_Lite
  */
 
+// Safety check - ensure this template is only used for the actual front page
+if ( ! is_front_page() || is_home() ) {
+    // Redirect to correct template
+    if ( is_home() && ! is_front_page() ) {
+        // This is the blog page - use home.php
+        get_template_part( 'home' );
+        return;
+    }
+}
+
 get_header();
 ?>
 
