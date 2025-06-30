@@ -14,7 +14,7 @@
             <?php mkp_posted_on(); ?>
             <?php mkp_posted_by(); ?>
             <span class="mkp-reading-time">
-                <?php echo mkp_reading_time(); ?>
+                <?php echo mkp_get_reading_time(); ?>
             </span>
         </div>
     </header>

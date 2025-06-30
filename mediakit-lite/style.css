@@ -2362,7 +2362,8 @@ img {
     min-height: 70vh;
 }
 
-.mkp-content-area {
+/* Only apply max-width to single post pages */
+.single .mkp-content-area {
     max-width: 800px;
     margin: 0 auto;
     width: 100%;
