@@ -6,9 +6,15 @@
  */
 
 get_header();
+
+// Get dynamic colors for single post
+mkp_reset_section_colors();
+$colors = mkp_get_next_section_color();
+$section_color = $colors['background'];
+$text_color = $colors['text'];
 ?>
 
-<main id="primary" class="mkp-main">
+<main id="primary" class="mkp-main mkp-section" style="background-color: <?php echo esc_attr( $section_color ); ?>; color: <?php echo esc_attr( $text_color ); ?>">
     <div class="mkp-container">
         <div class="mkp-content-area">
             <?php
@@ -26,7 +32,9 @@ get_header();
             ?>
         </div>
         
-        <?php get_sidebar(); ?>
+        <?php if ( is_active_sidebar( 'sidebar-1' ) ) : ?>
+            <?php get_sidebar(); ?>
+        <?php endif; ?>
     </div>
 </main>
 
