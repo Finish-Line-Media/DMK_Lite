@@ -54,7 +54,7 @@ $section_title = ( $actual_investor_count === 1 ) ? __( 'Investment Vertical', '
                         continue;
                     }
                     ?>
-                    <div class="mkp-investor-card mkp-investor--<?php echo esc_attr( $i ); ?>" <?php echo ( ! $title && $is_customizer ) ? 'style="display: none;"' : ''; ?>>
+                    <div class="mkp-investor-card mkp-card mkp-investor--<?php echo esc_attr( $i ); ?>" <?php echo ( ! $title && $is_customizer ) ? 'style="display: none;"' : ''; ?>>
                         <h3 class="mkp-investor-card__title"><?php echo esc_html( $title ); ?></h3>
                         <?php if ( $description ) : ?>
                             <div class="mkp-investor-card__description">

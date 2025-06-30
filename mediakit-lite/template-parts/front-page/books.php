@@ -42,7 +42,7 @@ $section_title = ( $actual_book_count === 1 ) ? __( 'Book', 'mediakit-lite' ) : 
                 $link = get_theme_mod( 'mkp_book_' . $i . '_link' );
                 $display = $title ? 'block' : 'none';
                 ?>
-                <div class="mkp-book-card mkp-book--<?php echo esc_attr( $i ); ?>" style="display: <?php echo esc_attr( $display ); ?>;">
+                <div class="mkp-book-card mkp-card mkp-book--<?php echo esc_attr( $i ); ?>" style="display: <?php echo esc_attr( $display ); ?>;">
                     <div class="mkp-book-card__cover">
                         <?php if ( $cover ) : ?>
                             <img src="<?php echo esc_url( $cover ); ?>" alt="<?php echo esc_attr( $title ); ?> cover" loading="lazy" />

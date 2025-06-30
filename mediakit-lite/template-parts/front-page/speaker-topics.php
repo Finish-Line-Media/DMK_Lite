@@ -52,7 +52,7 @@ if ( ! $has_topics ) {
                     $topic = get_theme_mod( 'mkp_speaker_topic_' . $i );
                     $display = $topic ? 'flex' : 'none';
                     ?>
-                    <div class="mkp-speaker__topic mkp-speaker__topic--<?php echo esc_attr( $i ); ?>" style="display: <?php echo esc_attr( $display ); ?>;">
+                    <div class="mkp-speaker__topic mkp-card mkp-speaker__topic--<?php echo esc_attr( $i ); ?>" style="display: <?php echo esc_attr( $display ); ?>;">
                         <span class="mkp-speaker__topic-arrow">➤</span>
                         <h3 class="mkp-speaker__topic-title"><?php echo esc_html( $topic ); ?></h3>
                     </div>

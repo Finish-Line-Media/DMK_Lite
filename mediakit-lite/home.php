@@ -52,7 +52,7 @@ $text_color = $colors['text'];
                         while ( have_posts() ) :
                             the_post();
                             ?>
-                            <article id="post-<?php the_ID(); ?>" <?php post_class( 'mkp-blog-card' ); ?>>
+                            <article id="post-<?php the_ID(); ?>" <?php post_class( 'mkp-blog-card mkp-card' ); ?>>
                                 <?php if ( has_post_thumbnail() ) : ?>
                                     <div class="mkp-blog-card__thumbnail">
                                         <a href="<?php the_permalink(); ?>">

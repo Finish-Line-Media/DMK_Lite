@@ -30,7 +30,7 @@ $text_color = $colors['text'];
 					$embed = wp_oembed_get( $url );
 					
 					if ( $embed ) : ?>
-						<div class="mkp-media-embed">
+						<div class="mkp-media-embed mkp-card">
 							<?php echo $embed; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 						</div>
 					<?php endif;

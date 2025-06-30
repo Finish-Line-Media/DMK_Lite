@@ -38,7 +38,7 @@ $section_title = ( $actual_company_count === 1 ) ? __( 'Company', 'mediakit-lite
                 $link = get_theme_mod( 'mkp_corp_' . $i . '_link' );
                 ?>
                 <?php if ( $name || $logo ) : ?>
-                <div class="mkp-corp-card mkp-corp--<?php echo esc_attr( $i ); ?>">
+                <div class="mkp-corp-card mkp-card mkp-corp--<?php echo esc_attr( $i ); ?>">
                     <?php if ( $logo ) : ?>
                     <div class="mkp-corp-card__logo">
                         <img src="<?php echo esc_url( $logo ); ?>" alt="<?php echo esc_attr( $name ); ?>" />

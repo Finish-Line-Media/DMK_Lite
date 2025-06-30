@@ -42,7 +42,7 @@ $section_title = ( $actual_podcast_count === 1 ) ? __( 'Podcast/Show', 'mediakit
                 $link = get_theme_mod( 'mkp_podcast_' . $i . '_link' );
                 $display = $title ? 'block' : 'none';
                 ?>
-                <div class="mkp-podcast-card mkp-podcast--<?php echo esc_attr( $i ); ?>" style="display: <?php echo esc_attr( $display ); ?>;">
+                <div class="mkp-podcast-card mkp-card mkp-podcast--<?php echo esc_attr( $i ); ?>" style="display: <?php echo esc_attr( $display ); ?>;">
                     <div class="mkp-podcast-card__logo">
                         <?php if ( $logo ) : ?>
                             <img src="<?php echo esc_url( $logo ); ?>" alt="<?php echo esc_attr( $title ); ?> logo" loading="lazy" />
