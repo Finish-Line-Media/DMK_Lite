@@ -830,22 +830,7 @@ function mkp_customize_register( $wp_customize ) {
     $wp_customize->add_section( 'mkp_blog_settings', array(
         'title'       => __( 'Blog Settings', 'mediakit-lite' ),
         'priority'    => 54,
-        'description' => __( 'Configure blog functionality for your media kit.', 'mediakit-lite' ),
-    ) );
-    
-    // Enable/Disable Blog
-    $wp_customize->add_setting( 'mkp_enable_blog', array(
-        'default'           => false,
-        'sanitize_callback' => 'mkp_sanitize_checkbox',
-        'transport'         => 'refresh',
-    ) );
-    
-    $wp_customize->add_control( 'mkp_enable_blog', array(
-        'label'       => __( 'Enable Blog Functionality', 'mediakit-lite' ),
-        'description' => __( 'Add a Blog section to your site with a navigation menu item.', 'mediakit-lite' ),
-        'section'     => 'mkp_blog_settings',
-        'type'        => 'checkbox',
-        'priority'    => 10,
+        'description' => __( 'Configure blog appearance. To enable a blog, go to Settings → Reading and set up a static page with a posts page.', 'mediakit-lite' ),
     ) );
     
     // Blog Page Title
@@ -861,9 +846,6 @@ function mkp_customize_register( $wp_customize ) {
         'section'     => 'mkp_blog_settings',
         'type'        => 'text',
         'priority'    => 20,
-        'active_callback' => function() {
-            return get_theme_mod( 'mkp_enable_blog', false );
-        },
     ) );
     
     // Blog Page Subtitle
@@ -879,9 +861,6 @@ function mkp_customize_register( $wp_customize ) {
         'section'     => 'mkp_blog_settings',
         'type'        => 'text',
         'priority'    => 30,
-        'active_callback' => function() {
-            return get_theme_mod( 'mkp_enable_blog', false );
-        },
     ) );
 }
 add_action( 'customize_register', 'mkp_customize_register' );

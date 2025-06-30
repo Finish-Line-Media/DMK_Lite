@@ -446,12 +446,15 @@ function mkp_get_front_page_nav_items() {
         }
     }
     
-    // Add Blog link if enabled
-    if ( get_theme_mod( 'mkp_enable_blog', false ) ) {
+    // Add Blog link if WordPress is configured with a posts page
+    $show_on_front = get_option( 'show_on_front' );
+    $page_for_posts = get_option( 'page_for_posts' );
+    
+    if ( 'page' === $show_on_front && $page_for_posts ) {
         $nav_items[] = array(
             'id'    => 'blog',
             'label' => __( 'Blog', 'mediakit-lite' ),
-            'url'   => home_url( '/blog/' ),
+            'url'   => get_permalink( $page_for_posts ),
         );
     }
     

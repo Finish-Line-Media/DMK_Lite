@@ -8,21 +8,6 @@
  * @package MediaKit_Lite
  */
 
-// Only show blog if enabled
-if ( ! get_theme_mod( 'mkp_enable_blog', false ) ) {
-    // Blog not enabled - show a message
-    get_header();
-    ?>
-    <div class="mkp-container" style="padding: 100px 20px; text-align: center;">
-        <h1><?php esc_html_e( 'Blog Not Available', 'mediakit-lite' ); ?></h1>
-        <p><?php esc_html_e( 'The blog feature is currently disabled.', 'mediakit-lite' ); ?></p>
-        <a href="<?php echo esc_url( home_url() ); ?>" class="mkp-btn mkp-btn--primary"><?php esc_html_e( 'Return to Home', 'mediakit-lite' ); ?></a>
-    </div>
-    <?php
-    get_footer();
-    return;
-}
-
 get_header();
 
 // Get blog settings
