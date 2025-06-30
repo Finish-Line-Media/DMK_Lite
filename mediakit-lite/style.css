@@ -2356,10 +2356,14 @@ img {
    Single Post Styles
    ========================================================================== */
 
-/* Single Post Layout */
+/* Main Content Area */
 .mkp-main {
-    padding: var(--mkp-spacing-xxl) 0;
     min-height: 70vh;
+}
+
+/* Single Post Layout */
+.single .mkp-main {
+    padding: var(--mkp-spacing-xxl) 0;
 }
 
 /* Only apply max-width to single post pages */
