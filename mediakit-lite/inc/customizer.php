@@ -259,7 +259,7 @@ function mkp_customize_register( $wp_customize ) {
     
     // Enable Corporations Section
     $wp_customize->add_setting( 'mkp_enable_section_corporations', array(
-        'default'           => true,
+        'default'           => false,
         'sanitize_callback' => 'mkp_sanitize_checkbox',
     ) );
     
@@ -338,7 +338,7 @@ function mkp_customize_register( $wp_customize ) {
     
     // Enable Books Section
     $wp_customize->add_setting( 'mkp_enable_section_books', array(
-        'default'           => true,
+        'default'           => false,
         'sanitize_callback' => 'mkp_sanitize_checkbox',
     ) );
     
@@ -418,7 +418,7 @@ function mkp_customize_register( $wp_customize ) {
     
     // Enable Podcasts Section
     $wp_customize->add_setting( 'mkp_enable_section_podcasts', array(
-        'default'           => true,
+        'default'           => false,
         'sanitize_callback' => 'mkp_sanitize_checkbox',
     ) );
     
@@ -498,7 +498,7 @@ function mkp_customize_register( $wp_customize ) {
     
     // Enable Speaker Topics Section
     $wp_customize->add_setting( 'mkp_enable_section_speaker_topics', array(
-        'default'           => true,
+        'default'           => false,
         'sanitize_callback' => 'mkp_sanitize_checkbox',
     ) );
     
@@ -559,7 +559,7 @@ function mkp_customize_register( $wp_customize ) {
     
     // Enable In The Media Section
     $wp_customize->add_setting( 'mkp_enable_section_in_the_media', array(
-        'default'           => true,
+        'default'           => false,
         'sanitize_callback' => 'mkp_sanitize_checkbox',
     ) );
     
@@ -616,7 +616,7 @@ function mkp_customize_register( $wp_customize ) {
     
     // Enable Media Questions Section
     $wp_customize->add_setting( 'mkp_enable_section_media_questions', array(
-        'default'           => true,
+        'default'           => false,
         'sanitize_callback' => 'mkp_sanitize_checkbox',
     ) );
     
@@ -676,7 +676,7 @@ function mkp_customize_register( $wp_customize ) {
     
     // Enable Investor Section
     $wp_customize->add_setting( 'mkp_enable_section_investor', array(
-        'default'           => true,
+        'default'           => false,
         'sanitize_callback' => 'mkp_sanitize_checkbox',
     ) );
     
@@ -729,7 +729,7 @@ function mkp_customize_register( $wp_customize ) {
     
     // Enable/Disable Contact Section
     $wp_customize->add_setting( 'mkp_enable_section_contact', array(
-        'default'           => true,
+        'default'           => false,
         'sanitize_callback' => 'mkp_sanitize_checkbox',
     ) );
     
@@ -835,7 +835,7 @@ function mkp_customize_register( $wp_customize ) {
     
     // Show Blog in Navigation
     $wp_customize->add_setting( 'mkp_show_blog_in_nav', array(
-        'default'           => true,
+        'default'           => false,
         'sanitize_callback' => 'mkp_sanitize_checkbox',
         'transport'         => 'refresh',
     ) );
