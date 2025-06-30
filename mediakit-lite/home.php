@@ -14,17 +14,23 @@ get_header();
 $blog_title = get_theme_mod( 'mkp_blog_title', __( 'Blog', 'mediakit-lite' ) );
 $blog_subtitle = get_theme_mod( 'mkp_blog_subtitle', __( 'Thoughts, insights, and updates', 'mediakit-lite' ) );
 
+// Get dynamic colors for the blog header
+mkp_reset_section_colors(); // Reset color rotation for consistent appearance
+$colors = mkp_get_next_section_color();
+$section_color = $colors['background'];
+$text_color = $colors['text'];
+
 // WordPress handles the query automatically for home.php
 ?>
 
 <div id="primary" class="mkp-content-area">
     <main id="main" class="mkp-site-main">
         
-        <header class="mkp-blog-header">
+        <header class="mkp-blog-header mkp-section" style="background-color: <?php echo esc_attr( $section_color ); ?>; color: <?php echo esc_attr( $text_color ); ?>;">
             <div class="mkp-container">
-                <h1 class="mkp-blog-header__title"><?php echo esc_html( $blog_title ); ?></h1>
+                <h1 class="mkp-blog-header__title mkp-section__title" style="color: <?php echo esc_attr( $text_color ); ?>;"><?php echo esc_html( $blog_title ); ?></h1>
                 <?php if ( $blog_subtitle ) : ?>
-                    <p class="mkp-blog-header__subtitle"><?php echo esc_html( $blog_subtitle ); ?></p>
+                    <p class="mkp-blog-header__subtitle mkp-section__description" style="color: <?php echo esc_attr( $text_color ); ?>;"><?php echo esc_html( $blog_subtitle ); ?></p>
                 <?php endif; ?>
             </div>
         </header>

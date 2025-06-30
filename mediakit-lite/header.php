@@ -50,12 +50,4 @@
         </div>
     </header>
     
-    <?php if ( ! is_front_page() ) : ?>
-        <div class="mkp-breadcrumbs-wrapper">
-            <div class="mkp-container">
-                <?php mkp_breadcrumbs(); ?>
-            </div>
-        </div>
-    <?php endif; ?>
-    
     <div id="content" class="mkp-content"><?php mkp_schema_markup(); ?>
