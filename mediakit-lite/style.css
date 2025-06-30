@@ -2438,9 +2438,8 @@ img {
 
 /* Entry Content */
 .mkp-entry-content {
-    font-size: 1.125rem;
-    line-height: 1.8;
-    color: var(--mkp-text);
+    font-size: 1.25rem;
+    line-height: 1.5;
     margin-bottom: var(--mkp-spacing-xl);
 }
 
@@ -2466,7 +2465,7 @@ img {
 }
 
 .mkp-entry-content p {
-    margin-bottom: var(--mkp-spacing-md);
+    margin-bottom: 1.75rem;
 }
 
 .mkp-entry-content ul,
