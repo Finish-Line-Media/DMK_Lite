@@ -15,7 +15,7 @@
 function mkp_should_display_section( $section_name, $content_checks = array() ) {
     // Check if section is enabled
     $enabled_key = 'mkp_enable_section_' . $section_name;
-    $is_enabled = get_theme_mod( $enabled_key, true );
+    $is_enabled = get_theme_mod( $enabled_key, false );
     
     if ( ! $is_enabled ) {
         return false;

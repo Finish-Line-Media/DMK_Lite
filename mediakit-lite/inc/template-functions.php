@@ -304,7 +304,7 @@ function mkp_get_front_page_nav_items() {
             'label' => __( 'Books', 'mediakit-lite' ),
             'url'   => $base_url . '#books',
             'check' => function() {
-                if ( ! get_theme_mod( 'mkp_enable_section_books', true ) ) {
+                if ( ! get_theme_mod( 'mkp_enable_section_books', false ) ) {
                     return false;
                 }
                 for ( $i = 1; $i <= 4; $i++ ) {
@@ -320,7 +320,7 @@ function mkp_get_front_page_nav_items() {
             'label' => __( 'Podcasts', 'mediakit-lite' ),
             'url'   => $base_url . '#podcasts',
             'check' => function() {
-                if ( ! get_theme_mod( 'mkp_enable_section_podcasts', true ) ) {
+                if ( ! get_theme_mod( 'mkp_enable_section_podcasts', false ) ) {
                     return false;
                 }
                 for ( $i = 1; $i <= 3; $i++ ) {
@@ -336,7 +336,7 @@ function mkp_get_front_page_nav_items() {
             'label' => __( 'Companies', 'mediakit-lite' ),
             'url'   => $base_url . '#corporations',
             'check' => function() {
-                if ( ! get_theme_mod( 'mkp_enable_section_corporations', true ) ) {
+                if ( ! get_theme_mod( 'mkp_enable_section_corporations', false ) ) {
                     return false;
                 }
                 for ( $i = 1; $i <= 4; $i++ ) {
@@ -352,7 +352,7 @@ function mkp_get_front_page_nav_items() {
             'label' => __( 'Speaking', 'mediakit-lite' ),
             'url'   => $base_url . '#speaking',
             'check' => function() {
-                if ( ! get_theme_mod( 'mkp_enable_section_speaker_topics', true ) ) {
+                if ( ! get_theme_mod( 'mkp_enable_section_speaker_topics', false ) ) {
                     return false;
                 }
                 for ( $i = 1; $i <= 5; $i++ ) {
@@ -368,7 +368,7 @@ function mkp_get_front_page_nav_items() {
             'label' => __( 'In The Media', 'mediakit-lite' ),
             'url'   => $base_url . '#in-the-media',
             'check' => function() {
-                if ( ! get_theme_mod( 'mkp_enable_section_in_the_media', true ) ) {
+                if ( ! get_theme_mod( 'mkp_enable_section_in_the_media', false ) ) {
                     return false;
                 }
                 return mkp_has_media_items();
@@ -379,7 +379,7 @@ function mkp_get_front_page_nav_items() {
             'label' => __( 'Media Questions', 'mediakit-lite' ),
             'url'   => $base_url . '#media-questions',
             'check' => function() {
-                if ( ! get_theme_mod( 'mkp_enable_section_media_questions', true ) ) {
+                if ( ! get_theme_mod( 'mkp_enable_section_media_questions', false ) ) {
                     return false;
                 }
                 for ( $i = 1; $i <= 12; $i++ ) {
@@ -395,7 +395,7 @@ function mkp_get_front_page_nav_items() {
             'label' => __( 'Investor', 'mediakit-lite' ),
             'url'   => $base_url . '#investor',
             'check' => function() {
-                if ( ! get_theme_mod( 'mkp_enable_section_investor', true ) ) {
+                if ( ! get_theme_mod( 'mkp_enable_section_investor', false ) ) {
                     return false;
                 }
                 for ( $i = 1; $i <= 3; $i++ ) {
@@ -411,7 +411,7 @@ function mkp_get_front_page_nav_items() {
             'label' => __( 'Contact', 'mediakit-lite' ),
             'url'   => $base_url . '#contact',
             'check' => function() {
-                if ( ! get_theme_mod( 'mkp_enable_section_contact', true ) ) {
+                if ( ! get_theme_mod( 'mkp_enable_section_contact', false ) ) {
                     return false;
                 }
                 return mkp_has_contact_info();

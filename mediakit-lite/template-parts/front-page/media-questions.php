@@ -13,11 +13,6 @@ $section_color = $colors['background'];
 $text_color = $colors['text'];
 $list_style = get_theme_mod( 'mkp_media_questions_list_style', 'bullets' );
 
-// Check if section is enabled
-if ( ! get_theme_mod( 'mkp_enable_section_media_questions', true ) ) {
-    return;
-}
-
 // Check if we have any questions
 $has_questions = false;
 for ( $i = 1; $i <= 12; $i++ ) {
