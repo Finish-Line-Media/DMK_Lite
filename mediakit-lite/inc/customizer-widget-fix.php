@@ -35,23 +35,6 @@ function mkp_early_widget_registration() {
 }
 add_action( 'init', 'mkp_early_widget_registration', 5 );
 
-/**
- * Remove widgets panel more safely
- */
-function mkp_remove_widgets_panel_safely( $wp_customize ) {
-    // Check if widgets panel exists before trying to remove it
-    $widgets_panel = $wp_customize->get_panel( 'widgets' );
-    if ( $widgets_panel ) {
-        $wp_customize->remove_panel( 'widgets' );
-    }
-    
-    // Also remove individual widget sections if they exist
-    foreach ( $wp_customize->sections() as $section ) {
-        if ( strpos( $section->id, 'sidebar-widgets-' ) === 0 ) {
-            $wp_customize->remove_section( $section->id );
-        }
-    }
-}
-add_action( 'customize_register', 'mkp_remove_widgets_panel_safely', 100 );
+// Widgets removal moved to customize_loaded_components filter in customizer-components.php
 
 // Error suppression removed as requested

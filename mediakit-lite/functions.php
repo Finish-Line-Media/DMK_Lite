@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Define Constants
  */
-define( 'MKP_THEME_VERSION', '1.10.3' );
+define( 'MKP_THEME_VERSION', '1.10.4' );
 define( 'MKP_THEME_DIR', get_template_directory() );
 define( 'MKP_THEME_URI', get_template_directory_uri() );
 
@@ -48,6 +48,17 @@ function mkp_theme_setup() {
     // Add support for responsive embedded content
     add_theme_support( 'responsive-embeds' );
     
+    // Add support for customizer selective refresh
+    add_theme_support( 'customize-selective-refresh-widgets' );
+    
+    // Add custom header support (even though we don't use it, WordPress might expect it)
+    add_theme_support( 'custom-header', array(
+        'header-text' => false,
+        'width' => 1920,
+        'height' => 1080,
+        'flex-width' => true,
+        'flex-height' => true,
+    ) );
     
     // Navigation menus are not used in this theme
     // The theme uses a dynamic navigation system based on front page sections
@@ -240,6 +251,8 @@ $required_files = array(
     '/inc/debug-logging.php',
     '/inc/theme-crash-detection.php',
     '/inc/about-defaults.php',
+    '/inc/customizer-components.php',
+    '/inc/customizer-theme-fix.php',
     '/inc/customizer-helpers.php',
     '/inc/customizer-social-control.php',
     '/inc/customizer-widget-fix.php',

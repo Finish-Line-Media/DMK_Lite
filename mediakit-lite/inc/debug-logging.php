@@ -51,6 +51,24 @@ add_action( 'customize_save_after', 'mkp_log_customizer_save_after', 999 );
  */
 function mkp_log_customizer_init() {
     mkp_debug_log( 'Customizer initialized' );
+    
+    // Log current theme info
+    $current_theme = wp_get_theme();
+    mkp_debug_log( 'Current theme in customizer: ' . $current_theme->get( 'Name' ) );
+    
+    // Check if we're in a theme preview
+    if ( ! empty( $_GET['theme'] ) ) {
+        mkp_debug_log( 'Theme preview detected: ' . $_GET['theme'] );
+    }
+    
+    // Check changeset theme
+    global $wp_customize;
+    if ( isset( $wp_customize ) ) {
+        $changeset_data = $wp_customize->changeset_data();
+        if ( ! empty( $changeset_data ) ) {
+            mkp_debug_log( 'Changeset data present' );
+        }
+    }
 }
 add_action( 'customize_register', 'mkp_log_customizer_init', 1 );
 

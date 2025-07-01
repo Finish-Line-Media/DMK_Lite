@@ -890,26 +890,7 @@ function mkp_customize_register( $wp_customize ) {
 }
 add_action( 'customize_register', 'mkp_customize_register' );
 
-/**
- * Remove nav menus panel with late priority
- * This runs after WordPress core adds the panel
- */
-function mkp_remove_nav_menus_panel( $wp_customize ) {
-    // Check if the panel exists before trying to remove it
-    $nav_menus_panel = $wp_customize->get_panel( 'nav_menus' );
-    if ( $nav_menus_panel ) {
-        $wp_customize->remove_panel( 'nav_menus' );
-    }
-    
-    // Also remove nav menu sections if they exist
-    $sections = $wp_customize->sections();
-    foreach ( $sections as $section ) {
-        if ( strpos( $section->id, 'nav_menu' ) === 0 ) {
-            $wp_customize->remove_section( $section->id );
-        }
-    }
-}
-add_action( 'customize_register', 'mkp_remove_nav_menus_panel', 999 );
+// Nav menus removal moved to customize_loaded_components filter in customizer-components.php
 
 /**
  * Sanitize font choice
