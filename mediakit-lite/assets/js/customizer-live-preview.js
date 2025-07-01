@@ -227,8 +227,10 @@
     function updateCompaniesSectionTitle() {
         let companyCount = 0;
         for ( let i = 1; i <= 4; i++ ) {
-            const name = wp.customize( 'mkp_corp_' + i + '_name' ).get();
-            const logo = wp.customize( 'mkp_corp_' + i + '_logo' ).get();
+            const nameExists = wp.customize.has( 'mkp_corp_' + i + '_name' );
+            const logoExists = wp.customize.has( 'mkp_corp_' + i + '_logo' );
+            const name = nameExists ? wp.customize( 'mkp_corp_' + i + '_name' ).get() : '';
+            const logo = logoExists ? wp.customize( 'mkp_corp_' + i + '_logo' ).get() : '';
             if ( name || logo ) {
                 companyCount++;
             }
@@ -250,7 +252,8 @@
                     $card.find( '.mkp-corp-card__name' ).text( to );
                     
                     // Show/hide card based on content (name OR logo)
-                    const logo = wp.customize( 'mkp_corp_' + corpNum + '_logo' ).get();
+                    const logoExists = wp.customize.has( 'mkp_corp_' + corpNum + '_logo' );
+                    const logo = logoExists ? wp.customize( 'mkp_corp_' + corpNum + '_logo' ).get() : '';
                     if ( to || logo ) {
                         $card.show();
                     } else {
@@ -299,7 +302,8 @@
                     }
                     
                     // Show/hide card based on content (name OR logo)
-                    const name = wp.customize( 'mkp_corp_' + corpNum + '_name' ).get();
+                    const nameExists = wp.customize.has( 'mkp_corp_' + corpNum + '_name' );
+                    const name = nameExists ? wp.customize( 'mkp_corp_' + corpNum + '_name' ).get() : '';
                     if ( name || to ) {
                         $card.show();
                     } else {
@@ -337,9 +341,11 @@
     function updateBooksSectionTitle() {
         let bookCount = 0;
         for ( let i = 1; i <= 4; i++ ) {
-            const title = wp.customize( 'mkp_book_' + i + '_title' ).get();
-            if ( title ) {
-                bookCount++;
+            if ( wp.customize.has( 'mkp_book_' + i + '_title' ) ) {
+                const title = wp.customize( 'mkp_book_' + i + '_title' ).get();
+                if ( title ) {
+                    bookCount++;
+                }
             }
         }
         
@@ -437,9 +443,11 @@
     function updatePodcastsSectionTitle() {
         let podcastCount = 0;
         for ( let i = 1; i <= 3; i++ ) {
-            const title = wp.customize( 'mkp_podcast_' + i + '_title' ).get();
-            if ( title ) {
-                podcastCount++;
+            if ( wp.customize.has( 'mkp_podcast_' + i + '_title' ) ) {
+                const title = wp.customize( 'mkp_podcast_' + i + '_title' ).get();
+                if ( title ) {
+                    podcastCount++;
+                }
             }
         }
         
@@ -828,11 +836,11 @@
         
         let hasContent = false;
         
-        // Check emails
-        if ( wp.customize( 'mkp_contact_general_email' ).get() ||
-             wp.customize( 'mkp_contact_media_email' ).get() ||
-             wp.customize( 'mkp_contact_speaking_email' ).get() ||
-             wp.customize( 'mkp_contact_address' ).get() ) {
+        // Check emails with existence checks
+        if ( (wp.customize.has( 'mkp_contact_general_email' ) && wp.customize( 'mkp_contact_general_email' ).get()) ||
+             (wp.customize.has( 'mkp_contact_media_email' ) && wp.customize( 'mkp_contact_media_email' ).get()) ||
+             (wp.customize.has( 'mkp_contact_speaking_email' ) && wp.customize( 'mkp_contact_speaking_email' ).get()) ||
+             (wp.customize.has( 'mkp_contact_address' ) && wp.customize( 'mkp_contact_address' ).get()) ) {
             hasContent = true;
         }
         
@@ -840,7 +848,8 @@
         if ( ! hasContent ) {
             const platforms = ['x', 'facebook', 'instagram', 'linkedin', 'youtube', 'tiktok', 'github', 'threads'];
             for ( let platform of platforms ) {
-                if ( wp.customize( 'mkp_contact_social_' + platform ).get() ) {
+                if ( wp.customize.has( 'mkp_contact_social_' + platform ) && 
+                     wp.customize( 'mkp_contact_social_' + platform ).get() ) {
                     hasContent = true;
                     break;
                 }
@@ -912,7 +921,9 @@
     function checkSocialLinks() {
         let hasSocial = false;
         socialPlatforms.forEach( function( platform ) {
-            if ( wp.customize( 'mkp_contact_social_' + platform ).get() ) {
+            // Check if the setting exists before trying to get its value
+            if ( wp.customize.has( 'mkp_contact_social_' + platform ) && 
+                 wp.customize( 'mkp_contact_social_' + platform ).get() ) {
                 hasSocial = true;
             }
         } );
@@ -926,20 +937,23 @@
     }
     
     socialPlatforms.forEach( function( platform ) {
-        wp.customize( 'mkp_contact_social_' + platform, function( value ) {
-            value.bind( function( to ) {
-                const $link = $( '.mkp-contact__social-link--' + platform );
-                
-                if ( to ) {
-                    $link.attr( 'href', to ).show();
-                } else {
-                    $link.hide();
-                }
-                
-                checkSocialLinks();
-                checkContactContent();
+        // Only bind if the setting exists
+        if ( wp.customize.has( 'mkp_contact_social_' + platform ) ) {
+            wp.customize( 'mkp_contact_social_' + platform, function( value ) {
+                value.bind( function( to ) {
+                    const $link = $( '.mkp-contact__social-link--' + platform );
+                    
+                    if ( to ) {
+                        $link.attr( 'href', to ).show();
+                    } else {
+                        $link.hide();
+                    }
+                    
+                    checkSocialLinks();
+                    checkContactContent();
+                } );
             } );
-        } );
+        }
     } );
     
     // Handle enable/disable contact section toggle

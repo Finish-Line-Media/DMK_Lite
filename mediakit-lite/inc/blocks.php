@@ -167,24 +167,25 @@ add_action( 'init', 'mkp_register_blocks' );
 
 /**
  * Enqueue block editor assets
+ * Commented out until blocks.js is implemented
  */
-function mkp_enqueue_block_editor_assets() {
-    wp_enqueue_script(
-        'mediakit-lite-blocks',
-        get_template_directory_uri() . '/assets/js/blocks.js',
-        array( 'wp-blocks', 'wp-element', 'wp-editor', 'wp-components', 'wp-i18n' ),
-        MKP_THEME_VERSION,
-        true
-    );
-    
-    wp_enqueue_style(
-        'mediakit-lite-blocks-editor',
-        get_template_directory_uri() . '/assets/css/blocks-editor.css',
-        array( 'wp-edit-blocks' ),
-        MKP_THEME_VERSION
-    );
-}
-add_action( 'enqueue_block_editor_assets', 'mkp_enqueue_block_editor_assets' );
+// function mkp_enqueue_block_editor_assets() {
+//     wp_enqueue_script(
+//         'mediakit-lite-blocks',
+//         get_template_directory_uri() . '/assets/js/blocks.js',
+//         array( 'wp-blocks', 'wp-element', 'wp-editor', 'wp-components', 'wp-i18n' ),
+//         MKP_THEME_VERSION,
+//         true
+//     );
+//     
+//     wp_enqueue_style(
+//         'mediakit-lite-blocks-editor',
+//         get_template_directory_uri() . '/assets/css/blocks-editor.css',
+//         array( 'wp-edit-blocks' ),
+//         MKP_THEME_VERSION
+//     );
+// }
+// add_action( 'enqueue_block_editor_assets', 'mkp_enqueue_block_editor_assets' );
 
 /**
  * Render Hero Section Block
