@@ -44,9 +44,11 @@ $text_color = $colors['text'];
         
         <section class="mkp-blog-content mkp-section" style="background-color: <?php echo esc_attr( $content_bg ); ?>; color: <?php echo esc_attr( $content_text ); ?>;">
             <div class="mkp-container">
-                <?php if ( have_posts() ) : ?>
-                    
-                    <div class="mkp-blog-grid">
+                <div class="mkp-blog-wrapper">
+                    <div class="mkp-blog-main">
+                        <?php if ( have_posts() ) : ?>
+                            
+                            <div class="mkp-blog-grid">
                         <?php
                         /* Start the Loop */
                         while ( have_posts() ) :
@@ -107,7 +109,11 @@ $text_color = $colors['text'];
                         <?php endif; ?>
                     </div>
                     
-                <?php endif; ?>
+                        <?php endif; ?>
+                    </div><!-- .mkp-blog-main -->
+                    
+                    <?php get_sidebar(); ?>
+                </div><!-- .mkp-blog-wrapper -->
             </div>
         </section>
         

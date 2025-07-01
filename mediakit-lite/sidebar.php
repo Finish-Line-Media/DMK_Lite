@@ -5,11 +5,12 @@
  * @package MediaKit_Lite
  */
 
-if ( ! is_active_sidebar( 'sidebar-1' ) ) {
+// Check if sidebar should be shown based on customizer settings
+if ( ! mkp_should_show_sidebar() ) {
     return;
 }
 ?>
 
 <aside id="secondary" class="mkp-sidebar widget-area">
     <?php dynamic_sidebar( 'sidebar-1' ); ?>
-</aside>
+</aside><!-- #secondary -->

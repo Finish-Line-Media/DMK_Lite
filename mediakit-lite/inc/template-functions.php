@@ -14,8 +14,10 @@ function mkp_body_classes( $classes ) {
         $classes[] = 'hfeed';
     }
 
-    // Adds a class of no-sidebar when there is no sidebar present.
-    if ( ! is_active_sidebar( 'sidebar-1' ) ) {
+    // Add sidebar-related classes
+    if ( mkp_should_show_sidebar() ) {
+        $classes[] = 'has-sidebar';
+    } else {
         $classes[] = 'no-sidebar';
     }
     
@@ -525,4 +527,37 @@ function mkp_is_embeddable_url( $url ) {
     // Also check if WordPress can handle it via oEmbed
     $oembed = _wp_oembed_get_object();
     return $oembed->get_provider( $url, array() ) !== false;
+}
+
+/**
+ * Check if sidebar should be shown based on current page and settings
+ *
+ * @return bool
+ */
+function mkp_should_show_sidebar() {
+    // Check if sidebar is enabled
+    if ( ! get_theme_mod( 'mkp_enable_blog_sidebar', false ) ) {
+        return false;
+    }
+    
+    // Check if widgets are available
+    if ( ! is_active_sidebar( 'sidebar-1' ) ) {
+        return false;
+    }
+    
+    // Get sidebar location setting
+    $sidebar_location = get_theme_mod( 'mkp_blog_sidebar_location', 'both' );
+    
+    // Check if we're on the blog page (posts page)
+    if ( is_home() ) {
+        return ( $sidebar_location === 'blog' || $sidebar_location === 'both' );
+    }
+    
+    // Check if we're on a single post page
+    if ( is_single() ) {
+        return ( $sidebar_location === 'posts' || $sidebar_location === 'both' );
+    }
+    
+    // Don't show sidebar on other pages
+    return false;
 }

@@ -887,6 +887,44 @@ function mkp_customize_register( $wp_customize ) {
         'type'        => 'text',
         'priority'    => 30,
     ) );
+    
+    // Enable Sidebar
+    $wp_customize->add_setting( 'mkp_enable_blog_sidebar', array(
+        'default'           => false,
+        'sanitize_callback' => 'mkp_sanitize_checkbox',
+        'transport'         => 'refresh',
+    ) );
+    
+    $wp_customize->add_control( 'mkp_enable_blog_sidebar', array(
+        'label'       => __( 'Enable Sidebar', 'mediakit-lite' ),
+        'description' => __( 'Display a sidebar on blog pages with widgets.', 'mediakit-lite' ),
+        'section'     => 'mkp_blog_settings',
+        'type'        => 'checkbox',
+        'priority'    => 40,
+    ) );
+    
+    // Sidebar Location
+    $wp_customize->add_setting( 'mkp_blog_sidebar_location', array(
+        'default'           => 'both',
+        'sanitize_callback' => 'mkp_sanitize_sidebar_location',
+        'transport'         => 'refresh',
+    ) );
+    
+    $wp_customize->add_control( 'mkp_blog_sidebar_location', array(
+        'label'       => __( 'Sidebar Location', 'mediakit-lite' ),
+        'description' => __( 'Where to display the sidebar. Configure widgets in Appearance → Widgets.', 'mediakit-lite' ),
+        'section'     => 'mkp_blog_settings',
+        'type'        => 'select',
+        'choices'     => array(
+            'posts' => __( 'On Posts page', 'mediakit-lite' ),
+            'blog'  => __( 'On Blog page', 'mediakit-lite' ),
+            'both'  => __( 'Both (default)', 'mediakit-lite' ),
+        ),
+        'priority'    => 50,
+        'active_callback' => function() {
+            return get_theme_mod( 'mkp_enable_blog_sidebar', false );
+        },
+    ) );
 }
 add_action( 'customize_register', 'mkp_customize_register' );
 
@@ -916,6 +954,19 @@ function mkp_sanitize_position_choice( $value ) {
     }
     
     return 'left';
+}
+
+/**
+ * Sanitize sidebar location choice
+ */
+function mkp_sanitize_sidebar_location( $value ) {
+    $valid = array( 'posts', 'blog', 'both' );
+    
+    if ( in_array( $value, $valid, true ) ) {
+        return $value;
+    }
+    
+    return 'both';
 }
 
 
