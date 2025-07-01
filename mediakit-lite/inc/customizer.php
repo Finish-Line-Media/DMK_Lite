@@ -21,8 +21,8 @@ function mkp_customize_register( $wp_customize ) {
     // Remove default WordPress sections
     $wp_customize->remove_section( 'colors' );
     $wp_customize->remove_section( 'background_image' );
-    // Nav menus panel removal is handled with late priority hook
-    // Widget panel removal is handled in customizer-widget-fix.php
+    $wp_customize->remove_section( 'header_image' );
+    // Nav menus panel removal is handled in customizer-components.php
     $wp_customize->remove_section( 'static_front_page' );
     $wp_customize->remove_section( 'custom_css' );
     

@@ -6,7 +6,7 @@
  */
 
 /**
- * Remove nav menus and widgets from customizer components
+ * Remove nav menus from customizer components
  * This is the correct way to remove these components without causing errors
  */
 function mkp_customize_loaded_components( $components ) {
@@ -16,11 +16,7 @@ function mkp_customize_loaded_components( $components ) {
         unset( $components[ $key ] );
     }
     
-    // Remove widgets component
-    $key = array_search( 'widgets', $components );
-    if ( false !== $key ) {
-        unset( $components[ $key ] );
-    }
+    // Keep widgets component for sidebar functionality
     
     return $components;
 }

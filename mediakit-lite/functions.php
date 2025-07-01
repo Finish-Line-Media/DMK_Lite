@@ -51,15 +51,6 @@ function mkp_theme_setup() {
     // Add support for customizer selective refresh
     add_theme_support( 'customize-selective-refresh-widgets' );
     
-    // Add custom header support (even though we don't use it, WordPress might expect it)
-    add_theme_support( 'custom-header', array(
-        'header-text' => false,
-        'width' => 1920,
-        'height' => 1080,
-        'flex-width' => true,
-        'flex-height' => true,
-    ) );
-    
     // Navigation menus are not used in this theme
     // The theme uses a dynamic navigation system based on front page sections
     
@@ -74,52 +65,16 @@ add_action( 'after_setup_theme', 'mkp_theme_setup' );
  * Register widget areas
  */
 function mkp_widgets_init() {
-    // Ensure we have valid widget area data
-    $widget_areas = array(
-        array(
-            'name'          => esc_html__( 'Sidebar', 'mediakit-lite' ),
-            'id'            => 'sidebar-1',
-            'description'   => esc_html__( 'Add widgets here.', 'mediakit-lite' ),
-            'before_widget' => '<section id="%1$s" class="widget %2$s">',
-            'after_widget'  => '</section>',
-            'before_title'  => '<h2 class="widget-title">',
-            'after_title'   => '</h2>',
-        ),
-        array(
-            'name'          => esc_html__( 'Footer 1', 'mediakit-lite' ),
-            'id'            => 'footer-1',
-            'description'   => esc_html__( 'Footer widget area 1', 'mediakit-lite' ),
-            'before_widget' => '<section id="%1$s" class="widget %2$s">',
-            'after_widget'  => '</section>',
-            'before_title'  => '<h3 class="widget-title">',
-            'after_title'   => '</h3>',
-        ),
-        array(
-            'name'          => esc_html__( 'Footer 2', 'mediakit-lite' ),
-            'id'            => 'footer-2',
-            'description'   => esc_html__( 'Footer widget area 2', 'mediakit-lite' ),
-            'before_widget' => '<section id="%1$s" class="widget %2$s">',
-            'after_widget'  => '</section>',
-            'before_title'  => '<h3 class="widget-title">',
-            'after_title'   => '</h3>',
-        ),
-        array(
-            'name'          => esc_html__( 'Footer 3', 'mediakit-lite' ),
-            'id'            => 'footer-3',
-            'description'   => esc_html__( 'Footer widget area 3', 'mediakit-lite' ),
-            'before_widget' => '<section id="%1$s" class="widget %2$s">',
-            'after_widget'  => '</section>',
-            'before_title'  => '<h3 class="widget-title">',
-            'after_title'   => '</h3>',
-        ),
-    );
-    
-    // Register each widget area with proper error checking
-    foreach ( $widget_areas as $widget_area ) {
-        if ( ! empty( $widget_area['id'] ) && ! empty( $widget_area['name'] ) ) {
-            register_sidebar( $widget_area );
-        }
-    }
+    // Register sidebar widget area
+    register_sidebar( array(
+        'name'          => esc_html__( 'Sidebar', 'mediakit-lite' ),
+        'id'            => 'sidebar-1',
+        'description'   => esc_html__( 'Add widgets here to appear in your sidebar on blog pages.', 'mediakit-lite' ),
+        'before_widget' => '<section id="%1$s" class="widget %2$s">',
+        'after_widget'  => '</section>',
+        'before_title'  => '<h2 class="widget-title">',
+        'after_title'   => '</h2>',
+    ) );
 }
 add_action( 'widgets_init', 'mkp_widgets_init' );
 
