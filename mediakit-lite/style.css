@@ -1646,7 +1646,7 @@ img {
 
 .mkp-contact__social-link:hover {
     transform: translateY(-2px);
-    background-color: var(--mkp-secondary);
+    background: var(--mkp-secondary);
     color: white;
 }
 
