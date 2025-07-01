@@ -9,9 +9,14 @@
  * Add postMessage support for site title and description for the Theme Customizer.
  */
 function mkp_customize_register( $wp_customize ) {
-    $wp_customize->get_setting( 'blogname' )->transport         = 'postMessage';
-    $wp_customize->get_setting( 'blogdescription' )->transport  = 'postMessage';
-    $wp_customize->get_setting( 'header_textcolor' )->transport = 'postMessage';
+    // Add null checks before accessing settings
+    if ( $blogname_setting = $wp_customize->get_setting( 'blogname' ) ) {
+        $blogname_setting->transport = 'postMessage';
+    }
+    if ( $blogdescription_setting = $wp_customize->get_setting( 'blogdescription' ) ) {
+        $blogdescription_setting->transport = 'postMessage';
+    }
+    // Remove header_textcolor as it's not used in this theme
     
     // Remove default WordPress sections
     $wp_customize->remove_section( 'colors' );
@@ -965,10 +970,21 @@ add_action( 'customize_controls_enqueue_scripts', 'mkp_customize_controls_js' );
  * Sync hero name with site title when saving
  */
 function mkp_sync_hero_name_with_site_title( $wp_customize ) {
-    // When hero name is saved, update the site title
+    // Validate that we have a valid customizer instance
+    if ( ! is_object( $wp_customize ) || ! method_exists( $wp_customize, 'get_setting' ) ) {
+        return;
+    }
+    
+    // Get the hero name theme mod
     $hero_name = get_theme_mod( 'mkp_hero_name' );
-    if ( $hero_name ) {
-        update_option( 'blogname', $hero_name );
+    
+    // Only update if we have a valid hero name
+    if ( ! empty( $hero_name ) && is_string( $hero_name ) ) {
+        // Sanitize the hero name before saving
+        $sanitized_hero_name = sanitize_text_field( $hero_name );
+        
+        // Update the site title
+        update_option( 'blogname', $sanitized_hero_name );
     }
 }
 add_action( 'customize_save_after', 'mkp_sync_hero_name_with_site_title' );
