@@ -43,20 +43,4 @@ function mkp_remove_widgets_panel_safely( $wp_customize ) {
 }
 add_action( 'customize_register', 'mkp_remove_widgets_panel_safely', 100 );
 
-/**
- * Suppress widget title warnings
- */
-function mkp_suppress_widget_title_warnings() {
-    // Hook into WordPress's error handling for the customizer
-    if ( is_customize_preview() ) {
-        // Temporarily suppress warnings during customizer load
-        $original_error_reporting = error_reporting();
-        error_reporting( $original_error_reporting & ~E_WARNING );
-        
-        // Restore after a short delay
-        add_action( 'customize_controls_print_footer_scripts', function() use ( $original_error_reporting ) {
-            error_reporting( $original_error_reporting );
-        });
-    }
-}
-add_action( 'customize_controls_init', 'mkp_suppress_widget_title_warnings' );
+// Error suppression removed as requested
