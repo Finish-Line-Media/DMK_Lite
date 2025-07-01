@@ -1658,11 +1658,11 @@ img {
 
 /* Social platform specific colors on hover */
 .mkp-contact__social-link--x:hover {
-    background-color: #000000;
+    background: #000000;
 }
 
 .mkp-contact__social-link--facebook:hover {
-    background-color: #1877f2;
+    background: #1877f2;
 }
 
 .mkp-contact__social-link--instagram:hover {
@@ -1670,23 +1670,19 @@ img {
 }
 
 .mkp-contact__social-link--linkedin:hover {
-    background-color: #0077b5;
+    background: #0077b5;
 }
 
 .mkp-contact__social-link--youtube:hover {
-    background-color: #ff0000;
-}
-
-.mkp-contact__social-link--tiktok:hover {
-    background-color: #000000;
+    background: #ff0000;
 }
 
 .mkp-contact__social-link--github:hover {
-    background-color: #333333;
+    background: #333333;
 }
 
 .mkp-contact__social-link--threads:hover {
-    background-color: #000000;
+    background: #000000;
 }
 
 .mkp-contact__placeholder {
