@@ -803,7 +803,6 @@ function mkp_customize_register( $wp_customize ) {
         'instagram' => __( 'Instagram', 'mediakit-lite' ),
         'linkedin'  => __( 'LinkedIn', 'mediakit-lite' ),
         'youtube'   => __( 'YouTube', 'mediakit-lite' ),
-        'tiktok'    => __( 'TikTok', 'mediakit-lite' ),
         'github'    => __( 'GitHub', 'mediakit-lite' ),
         'threads'   => __( 'Threads', 'mediakit-lite' ),
     );

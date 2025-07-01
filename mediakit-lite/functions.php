@@ -154,6 +154,9 @@ function mkp_scripts() {
         wp_enqueue_style( 'mediakit-lite-fonts', $fonts_url, array(), null );
     }
     
+    // Enqueue Dashicons for frontend use
+    wp_enqueue_style( 'dashicons' );
+    
     // Enqueue main JavaScript
     wp_enqueue_script( 'mediakit-lite-script', MKP_THEME_URI . '/assets/js/main.js', array('jquery'), MKP_THEME_VERSION, true );
     

@@ -191,22 +191,22 @@ function mkp_get_share_links( $post_id = null ) {
         'facebook' => array(
             'url' => 'https://www.facebook.com/sharer/sharer.php?u=' . urlencode( $url ),
             'label' => __( 'Share on Facebook', 'mediakit-lite' ),
-            'icon' => 'facebook',
+            'icon' => 'dashicons-facebook-alt',
         ),
         'twitter' => array(
             'url' => 'https://twitter.com/intent/tweet?url=' . urlencode( $url ) . '&text=' . urlencode( $title ),
             'label' => __( 'Share on Twitter', 'mediakit-lite' ),
-            'icon' => 'twitter',
+            'icon' => 'dashicons-twitter',
         ),
         'linkedin' => array(
             'url' => 'https://www.linkedin.com/shareArticle?url=' . urlencode( $url ) . '&title=' . urlencode( $title ) . '&summary=' . urlencode( $excerpt ),
             'label' => __( 'Share on LinkedIn', 'mediakit-lite' ),
-            'icon' => 'linkedin',
+            'icon' => 'dashicons-linkedin',
         ),
         'email' => array(
             'url' => 'mailto:?subject=' . urlencode( $title ) . '&body=' . urlencode( $url ),
             'label' => __( 'Share via Email', 'mediakit-lite' ),
-            'icon' => 'email',
+            'icon' => 'dashicons-email-alt',
         ),
     );
     
@@ -228,7 +228,7 @@ function mkp_share_buttons( $post_id = null ) {
         <span class="mkp-share-buttons__label"><?php esc_html_e( 'Share:', 'mediakit-lite' ); ?></span>
         <?php foreach ( $share_links as $platform => $data ) : ?>
             <a href="<?php echo esc_url( $data['url'] ); ?>" class="mkp-share-buttons__link mkp-share-buttons__link--<?php echo esc_attr( $platform ); ?>" target="_blank" rel="noopener noreferrer" aria-label="<?php echo esc_attr( $data['label'] ); ?>">
-                <span class="mkp-share-buttons__icon"><?php echo esc_html( $data['icon'] ); ?></span>
+                <span class="dashicons <?php echo esc_attr( $data['icon'] ); ?>"></span>
             </a>
         <?php endforeach; ?>
     </div>
