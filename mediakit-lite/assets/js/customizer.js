@@ -39,39 +39,24 @@
     } );
     
     
-    // Brand Colors
+    // Brand Colors - Now handled by theme color system
+    // These customizer controls have been removed from the theme
+    // Keeping empty bindings to prevent console errors in case of cached settings
     wp.customize( 'mkp_primary_color', function( value ) {
         value.bind( function( to ) {
-            document.documentElement.style.setProperty( '--mkp-primary', to );
-            
-            // Update specific elements that use primary color
-            $( '.mkp-btn--primary' ).css( 'background-color', to );
-            $( '.mkp-footer' ).css( 'background-color', to );
-            $( '.mkp-nav__link:hover' ).css( 'color', to );
+            // Color updates handled by theme system
         } );
     } );
     
     wp.customize( 'mkp_secondary_color', function( value ) {
         value.bind( function( to ) {
-            document.documentElement.style.setProperty( '--mkp-secondary', to );
-            
-            // Update specific elements that use secondary color
-            $( 'a' ).css( 'color', to );
-            $( '.mkp-btn--secondary' ).css( {
-                'color': to,
-                'border-color': to
-            } );
-            $( 'input:focus, textarea:focus, select:focus' ).css( 'border-color', to );
+            // Color updates handled by theme system
         } );
     } );
     
     wp.customize( 'mkp_accent_color', function( value ) {
         value.bind( function( to ) {
-            document.documentElement.style.setProperty( '--mkp-accent', to );
-            
-            // Update specific elements that use accent color
-            $( '.required' ).css( 'color', to );
-            $( '.mkp-form-control.error' ).css( 'border-color', to );
+            // Color updates handled by theme system
         } );
     } );
     
@@ -118,31 +103,24 @@
         } );
     } );
     
-    // Section Colors
+    // Section Colors - Now handled by dynamic theme color rotation
+    // These old fixed section colors have been replaced
+    // Keeping empty bindings to prevent console errors
     wp.customize( 'mkp_section_color_1', function( value ) {
         value.bind( function( to ) {
-            document.documentElement.style.setProperty( '--mkp-section-color-1', to );
-            $( '.mkp-about-section' ).css( 'background-color', to );
-            $( '.mkp-speaker-section' ).css( 'background-color', to );
-            $( '.mkp-corporations-section' ).css( 'background-color', to );
+            // Section colors now rotate dynamically based on theme
         } );
     } );
     
     wp.customize( 'mkp_section_color_2', function( value ) {
         value.bind( function( to ) {
-            document.documentElement.style.setProperty( '--mkp-section-color-2', to );
-            $( '.mkp-books-section' ).css( 'background-color', to );
-            $( '.mkp-podcast-section' ).css( 'background-color', to );
-            $( '.mkp-investor-section' ).css( 'background-color', to );
-            $( '.mkp-contact-section' ).css( 'background-color', to );
+            // Section colors now rotate dynamically based on theme
         } );
     } );
     
     wp.customize( 'mkp_section_color_3', function( value ) {
         value.bind( function( to ) {
-            document.documentElement.style.setProperty( '--mkp-section-color-3', to );
-            $( '.mkp-media-questions-section' ).css( 'background-color', to );
-            $( '.mkp-in-media-section' ).css( 'background-color', to );
+            // Section colors now rotate dynamically based on theme
         } );
     } );
     

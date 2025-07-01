@@ -49,12 +49,8 @@ function mkp_theme_setup() {
     add_theme_support( 'responsive-embeds' );
     
     
-    // Register navigation menus
-    register_nav_menus( array(
-        'primary' => esc_html__( 'Primary Menu', 'mediakit-lite' ),
-        'footer'  => esc_html__( 'Footer Menu', 'mediakit-lite' ),
-        'social'  => esc_html__( 'Social Links Menu', 'mediakit-lite' ),
-    ) );
+    // Navigation menus are not used in this theme
+    // The theme uses a dynamic navigation system based on front page sections
     
     // Set content width
     if ( ! isset( $content_width ) ) {

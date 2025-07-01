@@ -76,7 +76,7 @@
                 const headingColor = getContrastColorRGBA( to, 'heading' );
                 
                 $section.css( 'color', textColor );
-                $section.find( 'h2, h3' ).css( 'color', headingColor );
+                // Headings inherit color from section - removed inline style override
                 
                 // Special handling for contact section
                 if ( section.selector === '.mkp-contact-section' ) {
@@ -84,12 +84,7 @@
                     console.log( 'Contact section found:', $section.length );
                     console.log( 'Contact section classes:', $section.attr('class') );
                     
-                    $section.find( '.mkp-contact__label' ).css( 'color', headingColor );
-                    $section.find( '.mkp-contact__address-text' ).css( 'color', textColor );
-                    
-                    // Update social link colors without overriding hover states
-                    // Only set the text color, let CSS handle backgrounds
-                    $section.find( '.mkp-contact__social-link' ).css( 'color', textColor );
+                    // Let all contact elements inherit color from section - removed inline style overrides
                     
                     // Add class to indicate light/dark background for CSS to handle
                     if ( isLightColor( to ) ) {
@@ -116,8 +111,7 @@
                         });
                     }
                     
-                    // Update arrow color to match secondary color
-                    $section.find( '.mkp-speaker__topic-arrow' ).css( 'color', wp.customize( 'mkp_secondary_color' ).get() );
+                    // Arrow colors handled by CSS - removed inline style override
                 }
             } );
         } );
@@ -143,8 +137,7 @@
                 'border-color': to
             });
             
-            // Update speaker topic arrows
-            $( '.mkp-speaker__topic-arrow' ).css( 'color', to );
+            // Arrow colors handled by CSS - removed inline style override
         } );
     } );
     
@@ -581,9 +574,7 @@
         value.bind( function( to ) {
             $( '.mkp-header' ).css( 'background-color', to );
             
-            // Update text color based on background
-            const contrastColor = getContrastColor( to );
-            $( '.mkp-nav__link' ).css( 'color', contrastColor );
+            // Nav link colors handled by dynamic styles - removed inline style override
         } );
     } );
     

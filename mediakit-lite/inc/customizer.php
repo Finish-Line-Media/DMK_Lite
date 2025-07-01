@@ -16,7 +16,7 @@ function mkp_customize_register( $wp_customize ) {
     // Remove default WordPress sections
     $wp_customize->remove_section( 'colors' );
     $wp_customize->remove_section( 'background_image' );
-    $wp_customize->remove_panel( 'nav_menus' );
+    // Nav menus panel removal is handled with late priority hook
     // Widget panel removal is handled in customizer-widget-fix.php
     $wp_customize->remove_section( 'static_front_page' );
     $wp_customize->remove_section( 'custom_css' );
@@ -26,17 +26,17 @@ function mkp_customize_register( $wp_customize ) {
     $wp_customize->remove_control( 'blogdescription' );
     $wp_customize->remove_control( 'display_header_text' );
     
-    // Rename Site Identity section to Navigation
+    // Rename Site Identity section to Navigation & Brand
     if ( $wp_customize->get_section( 'title_tagline' ) ) {
-        $wp_customize->get_section( 'title_tagline' )->title = __( 'Navigation', 'mediakit-lite' );
+        $wp_customize->get_section( 'title_tagline' )->title = __( 'Navigation & Brand', 'mediakit-lite' );
         $wp_customize->get_section( 'title_tagline' )->priority = 25;
-        $wp_customize->get_section( 'title_tagline' )->description = __( 'Configure your site navigation.', 'mediakit-lite' );
+        $wp_customize->get_section( 'title_tagline' )->description = __( 'Configure your site branding, typography, and navigation.', 'mediakit-lite' );
     }
     
-    // Move site icon control to Brand Settings
+    // Move site icon control to Navigation & Brand
     if ( $wp_customize->get_control( 'site_icon' ) ) {
-        $wp_customize->get_control( 'site_icon' )->section = 'mkp_brand_settings';
-        $wp_customize->get_control( 'site_icon' )->priority = 1;
+        $wp_customize->get_control( 'site_icon' )->section = 'title_tagline';
+        $wp_customize->get_control( 'site_icon' )->priority = 10;
         $wp_customize->get_control( 'site_icon' )->description = __( 'The Site Icon is used as a browser and app icon for your site. Icons must be square, and at least 512 × 512 pixels.', 'mediakit-lite' );
     }
     
@@ -68,15 +68,21 @@ function mkp_customize_register( $wp_customize ) {
         ),
     ) );
     
-    
-    /**
-     * Brand Settings Section
-     */
-    $wp_customize->add_section( 'mkp_brand_settings', array(
-        'title'       => __( 'Brand Settings', 'mediakit-lite' ),
-        'priority'    => 30,
-        'description' => __( 'Customize your brand colors and typography to match your professional identity.', 'mediakit-lite' ),
+    // Enable Search in Navigation
+    $wp_customize->add_setting( 'mkp_enable_search', array(
+        'default'           => false,
+        'sanitize_callback' => 'absint',
+        'transport'         => 'refresh',
     ) );
+    
+    $wp_customize->add_control( 'mkp_enable_search', array(
+        'label'       => __( 'Enable Search in Navigation', 'mediakit-lite' ),
+        'description' => __( 'Add a search bar to the main navigation menu.', 'mediakit-lite' ),
+        'section'     => 'title_tagline',
+        'type'        => 'checkbox',
+        'priority'    => 60,
+    ) );
+    
     
     // Color Theme Selector
     $wp_customize->add_setting( 'mkp_color_theme', array(
@@ -87,11 +93,36 @@ function mkp_customize_register( $wp_customize ) {
     
     $wp_customize->add_control( 'mkp_color_theme', array(
         'type'        => 'select',
-        'section'     => 'mkp_brand_settings',
+        'section'     => 'title_tagline',
         'label'       => __( 'Color Theme', 'mediakit-lite' ),
         'description' => __( 'Choose a professional color theme for your entire site. Colors automatically rotate through sections for visual interest.', 'mediakit-lite' ),
         'choices'     => mkp_get_theme_names(),
-        'priority'    => 10,
+        'priority'    => 20,
+    ) );
+    
+    // Body Font
+    $wp_customize->add_setting( 'mkp_body_font', array(
+        'default'           => 'system',
+        'sanitize_callback' => 'mkp_sanitize_font_choice',
+        'transport'         => 'postMessage',
+    ) );
+    
+    $wp_customize->add_control( 'mkp_body_font', array(
+        'label'       => __( 'Body Font', 'mediakit-lite' ),
+        'description' => __( 'Font family for body text and paragraphs.', 'mediakit-lite' ),
+        'section'     => 'title_tagline',
+        'type'        => 'select',
+        'priority'    => 30,
+        'choices'     => array(
+            'system'    => __( 'System Fonts (Fastest)', 'mediakit-lite' ),
+            'inter'     => __( 'Inter (Modern & Clean)', 'mediakit-lite' ),
+            'roboto'    => __( 'Roboto (Google Style)', 'mediakit-lite' ),
+            'opensans'  => __( 'Open Sans (Friendly)', 'mediakit-lite' ),
+            'lato'      => __( 'Lato (Professional)', 'mediakit-lite' ),
+            'montserrat' => __( 'Montserrat (Bold & Modern)', 'mediakit-lite' ),
+            'poppins'   => __( 'Poppins (Geometric Sans)', 'mediakit-lite' ),
+            'raleway'   => __( 'Raleway (Thin & Stylish)', 'mediakit-lite' ),
+        ),
     ) );
     
     // Heading Font
@@ -104,7 +135,7 @@ function mkp_customize_register( $wp_customize ) {
     $wp_customize->add_control( 'mkp_heading_font', array(
         'label'       => __( 'Heading Font', 'mediakit-lite' ),
         'description' => __( 'Font family for all headings (H1-H6).', 'mediakit-lite' ),
-        'section'     => 'mkp_brand_settings',
+        'section'     => 'title_tagline',
         'type'        => 'select',
         'priority'    => 40,
         'choices'     => array(
@@ -122,36 +153,11 @@ function mkp_customize_register( $wp_customize ) {
         ),
     ) );
     
-    // Body Font
-    $wp_customize->add_setting( 'mkp_body_font', array(
-        'default'           => 'system',
-        'sanitize_callback' => 'mkp_sanitize_font_choice',
-        'transport'         => 'postMessage',
-    ) );
-    
-    $wp_customize->add_control( 'mkp_body_font', array(
-        'label'       => __( 'Body Font', 'mediakit-lite' ),
-        'description' => __( 'Font family for body text and paragraphs.', 'mediakit-lite' ),
-        'section'     => 'mkp_brand_settings',
-        'type'        => 'select',
-        'priority'    => 50,
-        'choices'     => array(
-            'system'    => __( 'System Fonts (Fastest)', 'mediakit-lite' ),
-            'inter'     => __( 'Inter (Modern & Clean)', 'mediakit-lite' ),
-            'roboto'    => __( 'Roboto (Google Style)', 'mediakit-lite' ),
-            'opensans'  => __( 'Open Sans (Friendly)', 'mediakit-lite' ),
-            'lato'      => __( 'Lato (Professional)', 'mediakit-lite' ),
-            'montserrat' => __( 'Montserrat (Bold & Modern)', 'mediakit-lite' ),
-            'poppins'   => __( 'Poppins (Geometric Sans)', 'mediakit-lite' ),
-            'raleway'   => __( 'Raleway (Thin & Stylish)', 'mediakit-lite' ),
-        ),
-    ) );
-    
     /**
      * Hero Section
      */
     $wp_customize->add_section( 'mkp_hero_section', array(
-        'title'       => __( 'Hero Section', 'mediakit-lite' ),
+        'title'       => __( 'Hero', 'mediakit-lite' ),
         'priority'    => 35,
         'description' => __( 'Configure your hero section with professional images, name, and titles.', 'mediakit-lite' ),
     ) );
@@ -226,7 +232,7 @@ function mkp_customize_register( $wp_customize ) {
      * About Section
      */
     $wp_customize->add_section( 'mkp_about_section', array(
-        'title'       => __( 'About Section', 'mediakit-lite' ),
+        'title'       => __( 'About', 'mediakit-lite' ),
         'priority'    => 40,
         'description' => __( 'Your professional about information and background.', 'mediakit-lite' ),
     ) );
@@ -824,10 +830,10 @@ function mkp_customize_register( $wp_customize ) {
     }
     
     // ====================
-    // Blog Settings Section 
+    // Blog Section 
     // ====================
     $wp_customize->add_section( 'mkp_blog_settings', array(
-        'title'       => __( 'Blog Settings', 'mediakit-lite' ),
+        'title'       => __( 'Blog', 'mediakit-lite' ),
         'priority'    => 54,
         'description' => __( 'Configure blog appearance. To set up a blog, go to Settings → Reading and configure a static page with a posts page.', 'mediakit-lite' ),
     ) );
@@ -878,6 +884,15 @@ function mkp_customize_register( $wp_customize ) {
     ) );
 }
 add_action( 'customize_register', 'mkp_customize_register' );
+
+/**
+ * Remove nav menus panel with late priority
+ * This runs after WordPress core adds the panel
+ */
+function mkp_remove_nav_menus_panel( $wp_customize ) {
+    $wp_customize->remove_panel( 'nav_menus' );
+}
+add_action( 'customize_register', 'mkp_remove_nav_menus_panel', 999 );
 
 /**
  * Sanitize font choice

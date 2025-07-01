@@ -75,6 +75,34 @@ function mkp_generate_dynamic_styles() {
             background-color: <?php echo esc_attr( $theme['primary_text'] ); ?>;
         }
         
+        /* Search in navigation */
+        .mkp-nav__search-field {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-color: rgba(255, 255, 255, 0.3);
+            color: <?php echo esc_attr( $theme['neutral_dark'] ); ?>;
+        }
+        
+        .mkp-nav__search-field:focus {
+            background-color: rgba(255, 255, 255, 1);
+            border-color: <?php echo esc_attr( $theme['accent_1'] ); ?>;
+        }
+        
+        .mkp-nav__search-field::placeholder {
+            color: rgba(0, 0, 0, 0.5);
+        }
+        
+        .mkp-nav__search-submit {
+            background-color: <?php echo esc_attr( $theme['accent_1'] ); ?>;
+            border-color: <?php echo esc_attr( $theme['accent_1'] ); ?>;
+            color: <?php echo esc_attr( $theme['accent_1_text'] ); ?>;
+        }
+        
+        .mkp-nav__search-submit:hover {
+            background-color: <?php echo esc_attr( $theme['accent_2'] ); ?>;
+            border-color: <?php echo esc_attr( $theme['accent_2'] ); ?>;
+            color: <?php echo esc_attr( $theme['accent_2_text'] ); ?>;
+        }
+        
         /* Mobile navigation dropdown */
         @media (max-width: 768px) {
             .mkp-nav {
@@ -147,7 +175,7 @@ function mkp_generate_dynamic_styles() {
             color: inherit;
         }
         
-        /* Card backgrounds */
+        /* Card backgrounds - uses .mkp-glass-white pattern */
         .mkp-book-card,
         .mkp-podcast-card,
         .mkp-corp-card,

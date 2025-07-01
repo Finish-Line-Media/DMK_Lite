@@ -40,20 +40,6 @@
             </div>
             
             <div class="mkp-footer__bottom">
-                <nav class="mkp-footer__nav" aria-label="<?php esc_attr_e( 'Footer Navigation', 'mediakit-lite' ); ?>">
-                    <?php
-                    wp_nav_menu(
-                        array(
-                            'theme_location' => 'footer',
-                            'menu_class'     => 'mkp-footer__menu',
-                            'container'      => false,
-                            'depth'          => 1,
-                            'fallback_cb'    => false,
-                        )
-                    );
-                    ?>
-                </nav>
-                
                 <div class="mkp-footer__copyright">
                     <?php
                     printf(

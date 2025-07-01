@@ -459,6 +459,17 @@ function mkp_get_front_page_nav_items() {
         );
     }
     
+    // Add search to navigation if enabled
+    $enable_search = get_theme_mod( 'mkp_enable_search', false );
+    if ( $enable_search ) {
+        $nav_items[] = array(
+            'id'    => 'search',
+            'label' => __( 'Search', 'mediakit-lite' ),
+            'url'   => '#search', // This will be handled specially in header.php
+            'type'  => 'search', // Special type to identify this as search
+        );
+    }
+    
     return $nav_items;
 }
 

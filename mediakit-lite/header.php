@@ -39,9 +39,27 @@
                 if ( ! empty( $nav_items ) ) {
                     echo '<ul id="primary-menu" class="mkp-nav">';
                     foreach ( $nav_items as $item ) {
-                        echo '<li class="mkp-nav__item">';
-                        echo '<a href="' . esc_url( $item['url'] ) . '" class="mkp-nav__link">' . esc_html( $item['label'] ) . '</a>';
-                        echo '</li>';
+                        // Check if this is the search item
+                        if ( isset( $item['type'] ) && 'search' === $item['type'] ) {
+                            echo '<li class="mkp-nav__item mkp-nav__item--search">';
+                            ?>
+                            <form role="search" method="get" class="mkp-nav__search-form" action="<?php echo esc_url( home_url( '/' ) ); ?>">
+                                <label>
+                                    <span class="screen-reader-text"><?php echo esc_html_x( 'Search for:', 'label', 'mediakit-lite' ); ?></span>
+                                    <input type="search" class="mkp-nav__search-field" placeholder="<?php echo esc_attr_x( 'Search...', 'placeholder', 'mediakit-lite' ); ?>" value="<?php echo get_search_query(); ?>" name="s" />
+                                </label>
+                                <button type="submit" class="mkp-nav__search-submit">
+                                    <span class="dashicons dashicons-search"></span>
+                                    <span class="screen-reader-text"><?php echo esc_html_x( 'Search', 'submit button', 'mediakit-lite' ); ?></span>
+                                </button>
+                            </form>
+                            <?php
+                            echo '</li>';
+                        } else {
+                            echo '<li class="mkp-nav__item">';
+                            echo '<a href="' . esc_url( $item['url'] ) . '" class="mkp-nav__link">' . esc_html( $item['label'] ) . '</a>';
+                            echo '</li>';
+                        }
                     }
                     echo '</ul>';
                 }
