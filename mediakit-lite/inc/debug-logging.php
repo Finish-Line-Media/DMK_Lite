@@ -11,6 +11,13 @@
 function mkp_debug_log( $message ) {
     // Always log for debugging theme crash
     error_log( '[MediaKit Debug ' . date('Y-m-d H:i:s') . '] ' . $message );
+    
+    // Also log memory usage in customizer
+    if ( is_customize_preview() || ( is_admin() && isset( $_GET['customize_changeset_uuid'] ) ) ) {
+        $memory = round( memory_get_usage() / 1024 / 1024, 2 );
+        $peak = round( memory_get_peak_usage() / 1024 / 1024, 2 );
+        error_log( '[MediaKit Memory] Current: ' . $memory . 'MB, Peak: ' . $peak . 'MB' );
+    }
 }
 
 /**
@@ -76,9 +83,21 @@ add_action( 'customize_register', 'mkp_log_customizer_init', 1 );
  * Log PHP errors that might cause theme deactivation
  */
 function mkp_log_shutdown_errors() {
+    // Always log when shutdown function runs in admin
+    if ( is_admin() ) {
+        error_log( '[MediaKit Debug SHUTDOWN ' . date('Y-m-d H:i:s') . '] Shutdown function called' );
+    }
+    
     $error = error_get_last();
-    if ( $error && in_array( $error['type'], array( E_ERROR, E_PARSE, E_CORE_ERROR, E_COMPILE_ERROR ) ) ) {
-        mkp_debug_log( 'Fatal error detected: ' . $error['message'] . ' in ' . $error['file'] . ' on line ' . $error['line'] );
+    if ( $error ) {
+        // Log all errors, not just fatal ones
+        error_log( '[MediaKit Debug SHUTDOWN ' . date('Y-m-d H:i:s') . '] Error type ' . $error['type'] . ': ' . $error['message'] . ' in ' . $error['file'] . ' on line ' . $error['line'] );
+    }
+    
+    // Check if theme is still active
+    $active_theme = get_option( 'stylesheet' );
+    if ( $active_theme !== 'mediakit-lite' && get_option( 'mkp_theme_active' ) ) {
+        error_log( '[MediaKit Debug SHUTDOWN ' . date('Y-m-d H:i:s') . '] Theme was deactivated! Now active: ' . $active_theme );
     }
 }
 register_shutdown_function( 'mkp_log_shutdown_errors' );
