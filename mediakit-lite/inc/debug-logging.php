@@ -125,8 +125,30 @@ add_action( 'init', 'mkp_log_ajax_requests' );
  * Log when returning from customizer
  */
 function mkp_log_customizer_return() {
-    if ( isset( $_GET['return'] ) && admin_url( 'themes.php' ) === $_GET['return'] ) {
-        mkp_debug_log( 'Returning from customizer to themes page' );
+    if ( isset( $_GET['return'] ) ) {
+        mkp_debug_log( 'Returning from customizer to: ' . $_GET['return'] );
+    }
+    
+    // Check if we're on a page that suggests we left customizer
+    if ( isset( $_SERVER['HTTP_REFERER'] ) && strpos( $_SERVER['HTTP_REFERER'], 'customize.php' ) !== false ) {
+        mkp_debug_log( 'Referred from customizer' );
     }
 }
 add_action( 'admin_init', 'mkp_log_customizer_return' );
+
+/**
+ * Log all page loads to catch crash
+ */
+function mkp_log_page_loads() {
+    if ( is_admin() ) {
+        global $pagenow;
+        mkp_debug_log( 'Admin page load: ' . $pagenow . ' | Query: ' . $_SERVER['QUERY_STRING'] );
+        
+        // Special logging for potential crash scenarios
+        if ( $pagenow === 'themes.php' ) {
+            $active_theme = wp_get_theme();
+            mkp_debug_log( 'Themes page - Active theme: ' . $active_theme->get( 'Name' ) );
+        }
+    }
+}
+add_action( 'admin_init', 'mkp_log_page_loads', 0 );

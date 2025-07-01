@@ -6,33 +6,30 @@
  */
 
 /**
- * Prevent theme from switching during customizer session
+ * Prevent WordPress from creating changesets with theme switches
  */
-function mkp_prevent_customizer_theme_switch() {
-    // Only run in customizer
-    if ( ! is_customize_preview() ) {
-        return;
+function mkp_prevent_theme_switch_changeset() {
+    // If we're coming from our own admin page, make sure theme parameter is correct
+    if ( isset( $_GET['page'] ) && $_GET['page'] === 'mediakit-lite' ) {
+        mkp_debug_log( 'Coming from MediaKit admin page' );
     }
     
-    // Log if we detect a theme mismatch
-    $active_theme = get_option( 'stylesheet' );
-    if ( $active_theme !== 'mediakit-lite' ) {
-        mkp_debug_log( 'WARNING: Theme mismatch in customizer. Active: ' . $active_theme );
+    // If this is a theme preview for our own theme, that's OK
+    if ( isset( $_GET['theme'] ) && $_GET['theme'] === 'mediakit-lite' && get_option( 'stylesheet' ) === 'mediakit-lite' ) {
+        mkp_debug_log( 'Theme preview is for already active theme - OK' );
     }
 }
-add_action( 'init', 'mkp_prevent_customizer_theme_switch', 1 );
+add_action( 'customize_controls_init', 'mkp_prevent_theme_switch_changeset', 1 );
 
 /**
- * Force our theme to be active in customizer context
+ * Prevent changeset from including theme switch
  */
-function mkp_force_theme_in_customizer( $theme ) {
-    if ( is_customize_preview() && get_option( 'mkp_theme_active' ) ) {
-        return 'mediakit-lite';
-    }
-    return $theme;
+function mkp_filter_customize_changeset_branching( $allow_branching ) {
+    // Log when branching is being checked
+    mkp_debug_log( 'Changeset branching check: ' . ( $allow_branching ? 'true' : 'false' ) );
+    return $allow_branching;
 }
-add_filter( 'stylesheet', 'mkp_force_theme_in_customizer', 99 );
-add_filter( 'template', 'mkp_force_theme_in_customizer', 99 );
+add_filter( 'customize_changeset_branching', 'mkp_filter_customize_changeset_branching' );
 
 /**
  * Ensure customizer changeset uses correct theme

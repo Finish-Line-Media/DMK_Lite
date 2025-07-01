@@ -212,7 +212,7 @@ function mkp_admin_page_display() {
                 <div class="mkp-admin-card">
                     <h3>1. <?php esc_html_e( 'Customize Your Brand', 'mediakit-lite' ); ?></h3>
                     <p><?php esc_html_e( 'Set your colors, fonts, and upload your logo.', 'mediakit-lite' ); ?></p>
-                    <a href="<?php echo esc_url( admin_url( 'customize.php?autofocus[section]=title_tagline' ) ); ?>" class="button button-primary"><?php esc_html_e( 'Customize Brand', 'mediakit-lite' ); ?></a>
+                    <a href="<?php echo esc_url( admin_url( 'customize.php?return=' . urlencode( admin_url( 'admin.php?page=mediakit-lite' ) ) ) ); ?>" class="button button-primary"><?php esc_html_e( 'Customize Brand', 'mediakit-lite' ); ?></a>
                 </div>
                 
                 <div class="mkp-admin-card">

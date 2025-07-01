@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Define Constants
  */
-define( 'MKP_THEME_VERSION', '1.10.4' );
+define( 'MKP_THEME_VERSION', '1.10.5' );
 define( 'MKP_THEME_DIR', get_template_directory() );
 define( 'MKP_THEME_URI', get_template_directory_uri() );
 
@@ -256,7 +256,6 @@ $required_files = array(
     '/inc/customizer-helpers.php',
     '/inc/customizer-social-control.php',
     '/inc/customizer-widget-fix.php',
-    '/inc/customizer-nav-menu-fix.php',
     '/inc/color-themes.php',
     '/inc/theme-color-manager.php',
     '/inc/customizer.php',
