@@ -83,3 +83,32 @@ function mkp_log_customizer_preview() {
     mkp_debug_log( 'Customizer preview initialized' );
 }
 add_action( 'customize_preview_init', 'mkp_log_customizer_preview' );
+
+/**
+ * Log when customizer controls are printed
+ */
+function mkp_log_customizer_controls() {
+    mkp_debug_log( 'Customizer controls printed' );
+}
+add_action( 'customize_controls_print_footer_scripts', 'mkp_log_customizer_controls' );
+
+/**
+ * Log AJAX requests that might indicate customizer exit
+ */
+function mkp_log_ajax_requests() {
+    if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
+        $action = isset( $_REQUEST['action'] ) ? $_REQUEST['action'] : 'unknown';
+        mkp_debug_log( 'AJAX action: ' . $action );
+    }
+}
+add_action( 'init', 'mkp_log_ajax_requests' );
+
+/**
+ * Log when returning from customizer
+ */
+function mkp_log_customizer_return() {
+    if ( isset( $_GET['return'] ) && admin_url( 'themes.php' ) === $_GET['return'] ) {
+        mkp_debug_log( 'Returning from customizer to themes page' );
+    }
+}
+add_action( 'admin_init', 'mkp_log_customizer_return' );

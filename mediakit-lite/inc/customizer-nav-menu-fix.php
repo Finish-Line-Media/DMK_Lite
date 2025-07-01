@@ -66,6 +66,22 @@ add_action( 'customize_controls_print_styles', 'mkp_hide_nav_menus_css' );
  */
 function mkp_prevent_nav_menu_errors( $wp_customize ) {
     // Try to prevent the nav menu class from initializing
-    remove_action( 'customize_register', array( $wp_customize->nav_menus, 'customize_register' ), 11 );
+    if ( isset( $wp_customize->nav_menus ) && is_object( $wp_customize->nav_menus ) ) {
+        remove_action( 'customize_register', array( $wp_customize->nav_menus, 'customize_register' ), 11 );
+    }
 }
 add_action( 'customize_register', 'mkp_prevent_nav_menu_errors', 5 );
+
+/**
+ * Very early customizer setup to prevent nav menu errors
+ */
+function mkp_very_early_customizer_setup() {
+    // Add filter to prevent nav menu locations from being empty
+    add_filter( 'has_nav_menu', '__return_false' );
+    
+    // Filter to provide empty nav menu locations
+    add_filter( 'get_registered_nav_menus', function() {
+        return array( 'dummy' => 'Dummy Menu' );
+    });
+}
+add_action( 'customize_controls_init', 'mkp_very_early_customizer_setup', 1 );

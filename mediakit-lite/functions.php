@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Define Constants
  */
-define( 'MKP_THEME_VERSION', '1.10.2' );
+define( 'MKP_THEME_VERSION', '1.10.3' );
 define( 'MKP_THEME_DIR', get_template_directory() );
 define( 'MKP_THEME_URI', get_template_directory_uri() );
 
@@ -238,6 +238,7 @@ if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
 // Ensure all files exist before requiring them
 $required_files = array(
     '/inc/debug-logging.php',
+    '/inc/theme-crash-detection.php',
     '/inc/about-defaults.php',
     '/inc/customizer-helpers.php',
     '/inc/customizer-social-control.php',
