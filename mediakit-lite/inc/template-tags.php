@@ -151,24 +151,6 @@ if ( ! function_exists( 'mkp_post_thumbnail' ) ) :
     }
 endif;
 
-if ( ! function_exists( 'mkp_get_social_links' ) ) :
-    /**
-     * Returns array of social media links from customizer
-     */
-    function mkp_get_social_links() {
-        $social_links = array();
-        $platforms = array( 'facebook', 'twitter', 'instagram', 'linkedin', 'youtube', 'tiktok' );
-        
-        foreach ( $platforms as $platform ) {
-            $url = get_theme_mod( 'mkp_social_' . $platform );
-            if ( ! empty( $url ) ) {
-                $social_links[ $platform ] = $url;
-            }
-        }
-        
-        return $social_links;
-    }
-endif;
 
 
 if ( ! function_exists( 'mkp_media_type_badge' ) ) :

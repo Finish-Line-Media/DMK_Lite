@@ -231,9 +231,6 @@ function mkp_render_hero_section_block( $attributes ) {
                     </div>
                 <?php endif; ?>
                 
-                <?php if ( $attributes['socialLinks'] ) : ?>
-                    <?php mkp_social_icons( 'mkp-hero__social' ); ?>
-                <?php endif; ?>
             </div>
         </div>
     </section>
