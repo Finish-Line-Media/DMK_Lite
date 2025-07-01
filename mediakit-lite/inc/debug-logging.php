@@ -9,9 +9,8 @@
  * Log debug messages with timestamp
  */
 function mkp_debug_log( $message ) {
-    if ( defined( 'WP_DEBUG' ) && WP_DEBUG === true ) {
-        error_log( '[MediaKit Debug ' . date('Y-m-d H:i:s') . '] ' . $message );
-    }
+    // Always log for debugging theme crash
+    error_log( '[MediaKit Debug ' . date('Y-m-d H:i:s') . '] ' . $message );
 }
 
 /**

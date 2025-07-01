@@ -25,6 +25,17 @@ function mkp_fix_customizer_widget_warnings() {
 add_action( 'customize_register', 'mkp_fix_customizer_widget_warnings', 5 );
 
 /**
+ * Ensure widgets are registered early
+ */
+function mkp_early_widget_registration() {
+    // Force early widget registration
+    if ( function_exists( 'mkp_widgets_init' ) ) {
+        mkp_widgets_init();
+    }
+}
+add_action( 'init', 'mkp_early_widget_registration', 5 );
+
+/**
  * Remove widgets panel more safely
  */
 function mkp_remove_widgets_panel_safely( $wp_customize ) {
