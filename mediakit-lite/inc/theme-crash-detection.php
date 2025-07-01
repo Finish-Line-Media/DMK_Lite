@@ -10,7 +10,9 @@
  */
 function mkp_set_active_flag() {
     update_option( 'mkp_theme_active', true );
-    mkp_debug_log( 'Theme active flag set' );
+    if ( function_exists( 'mkp_debug_log' ) ) {
+        mkp_debug_log( 'Theme active flag set' );
+    }
 }
 add_action( 'after_setup_theme', 'mkp_set_active_flag' );
 
@@ -19,7 +21,9 @@ add_action( 'after_setup_theme', 'mkp_set_active_flag' );
  */
 function mkp_clear_active_flag() {
     delete_option( 'mkp_theme_active' );
-    mkp_debug_log( 'Theme active flag cleared - theme deactivating!' );
+    if ( function_exists( 'mkp_debug_log' ) ) {
+        mkp_debug_log( 'Theme active flag cleared - theme deactivating!' );
+    }
 }
 add_action( 'switch_theme', 'mkp_clear_active_flag' );
 
@@ -31,7 +35,9 @@ function mkp_check_if_still_active() {
     $our_theme = get_option( 'mkp_theme_active' );
     
     if ( $our_theme && $current_theme !== 'mediakit-lite' ) {
-        mkp_debug_log( 'CRITICAL: Theme was deactivated! Current theme: ' . $current_theme );
+        if ( function_exists( 'mkp_debug_log' ) ) {
+            mkp_debug_log( 'CRITICAL: Theme was deactivated! Current theme: ' . $current_theme );
+        }
     }
 }
 add_action( 'admin_init', 'mkp_check_if_still_active' );
@@ -41,7 +47,9 @@ add_action( 'admin_init', 'mkp_check_if_still_active' );
  */
 function mkp_monitor_theme_health() {
     if ( isset( $_GET['action'] ) && $_GET['action'] === 'activate' && isset( $_GET['error'] ) ) {
-        mkp_debug_log( 'Theme activation error detected: ' . $_GET['error'] );
+        if ( function_exists( 'mkp_debug_log' ) ) {
+            mkp_debug_log( 'Theme activation error detected: ' . $_GET['error'] );
+        }
     }
 }
 add_action( 'admin_init', 'mkp_monitor_theme_health' );
