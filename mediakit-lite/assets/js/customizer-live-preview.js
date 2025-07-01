@@ -87,12 +87,16 @@
                     $section.find( '.mkp-contact__label' ).css( 'color', headingColor );
                     $section.find( '.mkp-contact__address-text' ).css( 'color', textColor );
                     
-                    // Update social link backgrounds
-                    const socialBg = isLightColor( to ) ? 'rgba(0, 0, 0, 0.05)' : 'rgba(255, 255, 255, 0.1)';
-                    $section.find( '.mkp-contact__social-link' ).css( {
-                        'background-color': socialBg,
-                        'color': textColor
-                    } );
+                    // Update social link colors without overriding hover states
+                    // Only set the text color, let CSS handle backgrounds
+                    $section.find( '.mkp-contact__social-link' ).css( 'color', textColor );
+                    
+                    // Add class to indicate light/dark background for CSS to handle
+                    if ( isLightColor( to ) ) {
+                        $section.addClass( 'mkp-contact-section--light' ).removeClass( 'mkp-contact-section--dark' );
+                    } else {
+                        $section.addClass( 'mkp-contact-section--dark' ).removeClass( 'mkp-contact-section--light' );
+                    }
                 }
                 
                 // Special handling for speaker topic cards

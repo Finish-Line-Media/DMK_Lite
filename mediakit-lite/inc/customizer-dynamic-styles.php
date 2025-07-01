@@ -223,16 +223,7 @@ function mkp_generate_dynamic_styles() {
             border-color: <?php echo esc_attr( $theme['border'] ); ?>;
         }
         
-        /* Social icons in contact section */
-        .mkp-contact__social-link {
-            background-color: rgba(255, 255, 255, 0.1);
-            color: inherit;
-        }
-        
-        .mkp-contact__social-link:hover {
-            background-color: <?php echo esc_attr( $theme['accent_1'] ); ?>;
-            color: <?php echo esc_attr( $theme['accent_1_text'] ); ?>;
-        }
+        /* Social icons in contact section - removed hover to allow platform-specific colors */
     </style>
     <?php
     
