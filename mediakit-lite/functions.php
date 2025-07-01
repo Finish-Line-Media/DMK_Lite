@@ -150,9 +150,66 @@ add_action( 'after_switch_theme', 'mkp_rewrite_flush' );
  * Theme activation hook
  */
 function mkp_theme_activation() {
+    // Check if we've already run the setup
+    if ( get_option( 'mkp_theme_setup_complete' ) ) {
+        return;
+    }
+    
+    // Check if user already has a static front page configured
+    if ( 'page' === get_option( 'show_on_front' ) && get_option( 'page_on_front' ) ) {
+        // User already has configuration, just mark as complete
+        update_option( 'mkp_theme_setup_complete', true );
+        return;
+    }
+    
+    // Create default pages
+    $home_page_id = 0;
+    $blog_page_id = 0;
+    
+    // Check if a page called "Home" already exists
+    $home_page = get_page_by_title( 'Home' );
+    if ( ! $home_page ) {
+        // Create Home page
+        $home_page_id = wp_insert_post( array(
+            'post_title'    => 'Home',
+            'post_content'  => '',
+            'post_status'   => 'publish',
+            'post_type'     => 'page',
+            'comment_status' => 'closed',
+            'ping_status'   => 'closed',
+        ) );
+    } else {
+        $home_page_id = $home_page->ID;
+    }
+    
+    // Check if a page called "Blog" already exists
+    $blog_page = get_page_by_title( 'Blog' );
+    if ( ! $blog_page ) {
+        // Create Blog page
+        $blog_page_id = wp_insert_post( array(
+            'post_title'    => 'Blog',
+            'post_content'  => '',
+            'post_status'   => 'publish',
+            'post_type'     => 'page',
+            'comment_status' => 'closed',
+            'ping_status'   => 'closed',
+        ) );
+    } else {
+        $blog_page_id = $blog_page->ID;
+    }
+    
+    // Configure reading settings if pages were created successfully
+    if ( $home_page_id && $blog_page_id ) {
+        update_option( 'show_on_front', 'page' );
+        update_option( 'page_on_front', $home_page_id );
+        update_option( 'page_for_posts', $blog_page_id );
+    }
+    
+    // Mark setup as complete
+    update_option( 'mkp_theme_setup_complete', true );
+    
     // Set flag for activation
     add_option( 'mkp_theme_activated', true );
-    
 }
 add_action( 'after_switch_theme', 'mkp_theme_activation' );
 

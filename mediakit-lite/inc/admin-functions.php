@@ -258,14 +258,5 @@ function mkp_admin_scripts() {
 add_action( 'admin_enqueue_scripts', 'mkp_admin_scripts' );
 
 /**
- * Add theme setup wizard
+ * Theme activation redirect removed - no redirect on activation
  */
-function mkp_theme_activation_redirect() {
-    global $pagenow;
-    
-    if ( is_admin() && 'themes.php' == $pagenow && isset( $_GET['activated'] ) ) {
-        wp_redirect( admin_url( 'admin.php?page=mediakit-lite' ) );
-        exit;
-    }
-}
-add_action( 'admin_init', 'mkp_theme_activation_redirect' );

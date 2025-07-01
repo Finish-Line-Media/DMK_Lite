@@ -545,17 +545,19 @@ function mkp_should_show_sidebar() {
         return false;
     }
     
-    // Get sidebar location setting
-    $sidebar_location = get_theme_mod( 'mkp_blog_sidebar_location', 'both' );
-    
     // Check if we're on the blog page (posts page)
     if ( is_home() ) {
-        return ( $sidebar_location === 'blog' || $sidebar_location === 'both' );
+        return get_theme_mod( 'mkp_sidebar_show_blog', true );
     }
     
     // Check if we're on a single post page
     if ( is_single() ) {
-        return ( $sidebar_location === 'posts' || $sidebar_location === 'both' );
+        return get_theme_mod( 'mkp_sidebar_show_posts', true );
+    }
+    
+    // Check if we're on an archive page (category, tag, date, author, etc.)
+    if ( is_archive() ) {
+        return get_theme_mod( 'mkp_sidebar_show_archive', true );
     }
     
     // Don't show sidebar on other pages

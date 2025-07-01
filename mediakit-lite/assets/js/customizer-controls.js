@@ -202,6 +202,46 @@
                 .customize-control-color .wp-picker-container .wp-color-result {
                     margin-bottom: 5px;
                 }
+                
+                /* Sidebar checkbox styling */
+                #customize-control-mkp_sidebar_show_posts,
+                #customize-control-mkp_sidebar_show_blog,
+                #customize-control-mkp_sidebar_show_archive {
+                    padding-left: 30px;
+                    margin-top: -10px;
+                    margin-bottom: 5px;
+                }
+                
+                #customize-control-mkp_sidebar_show_posts label,
+                #customize-control-mkp_sidebar_show_blog label,
+                #customize-control-mkp_sidebar_show_archive label {
+                    font-size: 13px;
+                }
+                
+                /* Remove description spacing for sidebar options */
+                #customize-control-mkp_sidebar_show_posts .customize-control-description,
+                #customize-control-mkp_sidebar_show_blog .customize-control-description,
+                #customize-control-mkp_sidebar_show_archive .customize-control-description {
+                    display: none;
+                }
+                
+                /* Disabled state for sidebar options */
+                .mkp-control-disabled {
+                    opacity: 0.6;
+                }
+                
+                .mkp-control-disabled label {
+                    color: #72777c;
+                }
+                
+                /* Group sidebar controls visually */
+                #customize-control-mkp_enable_blog_sidebar {
+                    margin-bottom: 5px;
+                }
+                
+                #customize-control-mkp_sidebar_show_archive {
+                    margin-bottom: 15px;
+                }
             </style>
         `;
         
@@ -210,7 +250,40 @@
     
     // Setup conditional control visibility
     function setupConditionalControls() {
-        // Placeholder for future conditional controls
+        // Handle sidebar checkbox dependencies
+        wp.customize( 'mkp_enable_blog_sidebar', function( setting ) {
+            function toggleSidebarOptions( enabled ) {
+                const sidebarControls = [
+                    'mkp_sidebar_show_posts',
+                    'mkp_sidebar_show_blog',
+                    'mkp_sidebar_show_archive'
+                ];
+                
+                sidebarControls.forEach( function( controlId ) {
+                    const control = wp.customize.control( controlId );
+                    if ( control ) {
+                        const $container = control.container;
+                        const $input = $container.find( 'input[type="checkbox"]' );
+                        
+                        if ( enabled ) {
+                            $container.removeClass( 'mkp-control-disabled' );
+                            $input.prop( 'disabled', false );
+                        } else {
+                            $container.addClass( 'mkp-control-disabled' );
+                            $input.prop( 'disabled', true );
+                        }
+                    }
+                });
+            }
+            
+            // Initial state
+            toggleSidebarOptions( setting.get() );
+            
+            // Listen for changes
+            setting.bind( function( newValue ) {
+                toggleSidebarOptions( newValue );
+            });
+        });
     }
     
 } )( jQuery );

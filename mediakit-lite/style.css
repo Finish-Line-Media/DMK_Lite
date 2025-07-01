@@ -1190,7 +1190,8 @@ img {
 
 /* Sidebar Layout */
 .mkp-blog-wrapper,
-.mkp-single-wrapper {
+.mkp-single-wrapper,
+.mkp-archive-wrapper {
     display: flex;
     gap: var(--mkp-spacing-xl);
     align-items: flex-start;
@@ -1233,7 +1234,8 @@ img {
 /* Mobile adjustments */
 @media screen and (max-width: 1024px) {
     .mkp-blog-wrapper,
-    .mkp-single-wrapper {
+    .mkp-single-wrapper,
+    .mkp-archive-wrapper {
         flex-direction: column;
     }
     
@@ -2303,6 +2305,13 @@ img {
     line-height: 1.6;
 }
 
+/* Blog Header Info - for simplified blog layout */
+.mkp-blog-header-info {
+    text-align: center;
+    margin-bottom: var(--mkp-spacing-xxl);
+    padding-bottom: var(--mkp-spacing-xl);
+}
+
 /* Blog Content Area */
 .mkp-blog-content {
     padding: 80px 0;
@@ -2519,6 +2528,61 @@ img {
     }
 }
 */
+
+/* ==========================================================================
+   Archive Styles
+   ========================================================================== */
+
+/* Archive Grid - Uses same layout as blog grid */
+.mkp-archive-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 32px;
+    margin-bottom: 60px;
+}
+
+/* Archive Page Header */
+.mkp-page-header {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.mkp-page-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 16px;
+    color: var(--mkp-heading-color, #1a1a1a);
+}
+
+.mkp-archive-description {
+    max-width: 600px;
+    margin: 0 auto;
+    font-size: 1.125rem;
+    color: var(--mkp-text-color, #666666);
+    line-height: 1.6;
+}
+
+/* No Results */
+.mkp-no-results {
+    text-align: center;
+    padding: 80px 0;
+}
+
+.mkp-no-results .mkp-page-title {
+    color: var(--mkp-heading-color, #1a1a1a);
+    margin-bottom: 24px;
+}
+
+.mkp-no-results .mkp-page-content {
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.mkp-no-results p {
+    font-size: 1.125rem;
+    color: var(--mkp-text-color, #666666);
+    margin-bottom: 32px;
+}
 
 /* ==========================================================================
    Single Post Styles
@@ -3101,6 +3165,20 @@ img {
     
     .mkp-blog-card__title {
         font-size: 1.25rem;
+    }
+    
+    /* Archive styles */
+    .mkp-archive-grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+    
+    .mkp-page-title {
+        font-size: 2rem;
+    }
+    
+    .mkp-archive-description {
+        font-size: 1rem;
     }
     
     .mkp-entry-title {
