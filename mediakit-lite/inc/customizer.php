@@ -895,7 +895,19 @@ add_action( 'customize_register', 'mkp_customize_register' );
  * This runs after WordPress core adds the panel
  */
 function mkp_remove_nav_menus_panel( $wp_customize ) {
-    $wp_customize->remove_panel( 'nav_menus' );
+    // Check if the panel exists before trying to remove it
+    $nav_menus_panel = $wp_customize->get_panel( 'nav_menus' );
+    if ( $nav_menus_panel ) {
+        $wp_customize->remove_panel( 'nav_menus' );
+    }
+    
+    // Also remove nav menu sections if they exist
+    $sections = $wp_customize->sections();
+    foreach ( $sections as $section ) {
+        if ( strpos( $section->id, 'nav_menu' ) === 0 ) {
+            $wp_customize->remove_section( $section->id );
+        }
+    }
 }
 add_action( 'customize_register', 'mkp_remove_nav_menus_panel', 999 );
 
@@ -970,8 +982,16 @@ add_action( 'customize_controls_enqueue_scripts', 'mkp_customize_controls_js' );
  * Sync hero name with site title when saving
  */
 function mkp_sync_hero_name_with_site_title( $wp_customize ) {
+    // Debug log entry
+    if ( function_exists( 'mkp_debug_log' ) ) {
+        mkp_debug_log( 'mkp_sync_hero_name_with_site_title started' );
+    }
+    
     // Validate that we have a valid customizer instance
     if ( ! is_object( $wp_customize ) || ! method_exists( $wp_customize, 'get_setting' ) ) {
+        if ( function_exists( 'mkp_debug_log' ) ) {
+            mkp_debug_log( 'Invalid customizer instance in mkp_sync_hero_name_with_site_title' );
+        }
         return;
     }
     
@@ -985,6 +1005,14 @@ function mkp_sync_hero_name_with_site_title( $wp_customize ) {
         
         // Update the site title
         update_option( 'blogname', $sanitized_hero_name );
+        
+        if ( function_exists( 'mkp_debug_log' ) ) {
+            mkp_debug_log( 'Site title updated to: ' . $sanitized_hero_name );
+        }
+    }
+    
+    if ( function_exists( 'mkp_debug_log' ) ) {
+        mkp_debug_log( 'mkp_sync_hero_name_with_site_title completed' );
     }
 }
 add_action( 'customize_save_after', 'mkp_sync_hero_name_with_site_title' );

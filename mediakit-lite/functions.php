@@ -237,6 +237,7 @@ if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
 
 // Ensure all files exist before requiring them
 $required_files = array(
+    '/inc/debug-logging.php',
     '/inc/about-defaults.php',
     '/inc/customizer-helpers.php',
     '/inc/customizer-social-control.php',
