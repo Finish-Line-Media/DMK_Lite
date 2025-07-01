@@ -246,14 +246,16 @@ if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
     ini_set( 'display_errors', 1 );
 }
 
+// Load customizer preview safety first
+$safety_file = MKP_THEME_DIR . '/inc/customizer-preview-safety.php';
+if ( file_exists( $safety_file ) ) {
+    require_once $safety_file;
+}
+
 // Ensure all files exist before requiring them
 $required_files = array(
-    '/inc/debug-logging.php',
-    '/inc/theme-crash-detection.php',
     '/inc/about-defaults.php',
     '/inc/customizer-components.php',
-    '/inc/customizer-theme-fix.php',
-    '/inc/customizer-debug.php',
     '/inc/customizer-helpers.php',
     '/inc/customizer-social-control.php',
     '/inc/customizer-widget-fix.php',
@@ -282,8 +284,14 @@ foreach ( $required_files as $file ) {
     }
 }
 
-// Admin customizations
-if ( is_admin() ) {
+// Admin customizations - use safety check to prevent loading in preview
+if ( function_exists( 'mkp_should_load_admin_functions' ) && mkp_should_load_admin_functions() ) {
+    $admin_file = MKP_THEME_DIR . '/inc/admin-functions.php';
+    if ( file_exists( $admin_file ) ) {
+        require_once $admin_file;
+    }
+} elseif ( is_admin() && ! is_customize_preview() ) {
+    // Fallback if safety function not available
     $admin_file = MKP_THEME_DIR . '/inc/admin-functions.php';
     if ( file_exists( $admin_file ) ) {
         require_once $admin_file;

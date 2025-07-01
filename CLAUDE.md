@@ -134,3 +134,6 @@ The theme includes extensive customizer options organized into sections:
 - Remember to bump both the theme and the function header version number when bumping.
 - Remember to bump both the style and the function header version number when bumping.
 - Remember to ask me which build I'd like when I ask you to build.
+
+## Known Issues
+- **Customizer Exit Behavior**: When exiting the WordPress Customizer without saving changes (clicking the X button), the theme may occasionally deactivate. This is an edge case related to how WordPress handles unsaved changesets. **Workaround**: Always save/publish your changes before exiting the Customizer. This ensures proper theme state persistence.
