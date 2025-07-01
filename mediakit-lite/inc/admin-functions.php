@@ -6,6 +6,61 @@
  */
 
 /**
+ * Get update information
+ *
+ * @return array Contains 'update_available', 'current_version', 'remote_version', 'download_url'
+ */
+function mkp_get_update_info() {
+    $remote_data = get_transient( 'mkp_remote_version' );
+    $current_version = MKP_THEME_VERSION;
+    $update_available = false;
+    $remote_version = '';
+    $download_url = '';
+    
+    if ( ! empty( $remote_data['version'] ) ) {
+        $remote_version = $remote_data['version'];
+        $update_available = version_compare( $current_version, $remote_version, '<' );
+        $download_url = ! empty( $remote_data['download_url'] ) ? $remote_data['download_url'] : '';
+    }
+    
+    return array(
+        'update_available' => $update_available,
+        'current_version' => $current_version,
+        'remote_version' => $remote_version,
+        'download_url' => $download_url,
+    );
+}
+
+/**
+ * Display update alert
+ *
+ * @param array $update_info Update information from mkp_get_update_info()
+ * @param string $context 'dashboard' or 'admin' for different styling
+ */
+function mkp_display_update_alert( $update_info, $context = 'dashboard' ) {
+    if ( ! $update_info['update_available'] ) {
+        return;
+    }
+    
+    $class = ( $context === 'admin' ) ? 'notice notice-warning inline' : 'mkp-update-alert';
+    ?>
+    <div class="<?php echo esc_attr( $class ); ?>">
+        <?php if ( $context === 'admin' ) : ?><p><?php endif; ?>
+        <strong><?php esc_html_e( 'Update Available!', 'mediakit-lite' ); ?></strong>
+        <?php printf( esc_html__( 'Version %s is now available.', 'mediakit-lite' ), esc_html( $update_info['remote_version'] ) ); ?>
+        <?php if ( ! empty( $update_info['download_url'] ) ) : ?>
+            <a href="<?php echo esc_url( $update_info['download_url'] ); ?>" 
+               class="<?php echo ( $context === 'admin' ) ? 'button button-primary' : ''; ?>" 
+               target="_blank">
+                <?php esc_html_e( $context === 'admin' ? 'Download Update' : 'Download', 'mediakit-lite' ); ?>
+            </a>
+        <?php endif; ?>
+        <?php if ( $context === 'admin' ) : ?></p><?php endif; ?>
+    </div>
+    <?php
+}
+
+/**
  * Customize admin dashboard
  */
 function mkp_custom_dashboard_widgets() {
@@ -26,30 +81,13 @@ add_action( 'wp_dashboard_setup', 'mkp_custom_dashboard_widgets' );
  * Display custom dashboard widget
  */
 function mkp_dashboard_widget_display() {
-    // Get update info
-    $remote_data = get_transient( 'mkp_remote_version' );
-    $update_available = false;
-    
-    if ( ! empty( $remote_data['version'] ) ) {
-        $current_version = MKP_THEME_VERSION;
-        $remote_version = $remote_data['version'];
-        $update_available = version_compare( $current_version, $remote_version, '<' );
-    }
+    $update_info = mkp_get_update_info();
     ?>
     <div class="mkp-dashboard-widget">
         <h3><?php esc_html_e( 'MediaKit Lite', 'mediakit-lite' ); ?></h3>
         <p><?php esc_html_e( 'Create your professional digital media kit in minutes! Use the Customizer to add your content.', 'mediakit-lite' ); ?></p>
         
-        
-        <?php if ( $update_available ) : ?>
-            <div class="mkp-update-alert" style="background: #fff3cd; border: 1px solid #ffeaa7; padding: 10px; margin: 15px 0; border-radius: 3px;">
-                <strong><?php esc_html_e( 'Update Available!', 'mediakit-lite' ); ?></strong>
-                <?php printf( esc_html__( 'Version %s is now available.', 'mediakit-lite' ), esc_html( $remote_version ) ); ?>
-                <?php if ( ! empty( $remote_data['download_url'] ) ) : ?>
-                    <a href="<?php echo esc_url( $remote_data['download_url'] ); ?>" target="_blank"><?php esc_html_e( 'Download', 'mediakit-lite' ); ?></a>
-                <?php endif; ?>
-            </div>
-        <?php endif; ?>
+        <?php mkp_display_update_alert( $update_info, 'dashboard' ); ?>
         
         <h3><?php esc_html_e( 'Quick Actions', 'mediakit-lite' ); ?></h3>
         <div class="mkp-dashboard-actions">
@@ -58,78 +96,10 @@ function mkp_dashboard_widget_display() {
             <button type="button" class="button mkp-check-updates-dashboard"><?php esc_html_e( 'Check for Updates', 'mediakit-lite' ); ?></button>
         </div>
         
-        <div class="mkp-version-info" style="margin-top: 15px; padding-top: 15px; border-top: 1px solid #eee;">
-            <small><?php printf( esc_html__( 'Current Version: %s', 'mediakit-lite' ), MKP_THEME_VERSION ); ?></small>
+        <div class="mkp-version-info">
+            <small><?php printf( esc_html__( 'Current Version: %s', 'mediakit-lite' ), $update_info['current_version'] ); ?></small>
         </div>
     </div>
-    
-    <style>
-        .mkp-dashboard-stats {
-            margin: 0;
-        }
-        .mkp-dashboard-stats li {
-            padding: 10px 0;
-            border-bottom: 1px solid #eee;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .mkp-dashboard-stats li:last-child {
-            border-bottom: none;
-        }
-        .mkp-dashboard-stats .dashicons {
-            color: #0073aa;
-        }
-        .mkp-dashboard-stats strong {
-            font-size: 18px;
-        }
-        .mkp-dashboard-stats .button {
-            margin-left: auto;
-        }
-        .mkp-dashboard-actions {
-            display: flex;
-            gap: 10px;
-            margin-top: 15px;
-        }
-        .mkp-recent-downloads {
-            margin: 0;
-        }
-        .mkp-recent-downloads li {
-            padding: 5px 0;
-            font-size: 13px;
-        }
-    </style>
-    
-    <script>
-    jQuery(document).ready(function($) {
-        $('.mkp-check-updates-dashboard').on('click', function() {
-            var $button = $(this);
-            var originalText = $button.text();
-            $button.prop('disabled', true).text('<?php esc_html_e( 'Checking...', 'mediakit-lite' ); ?>');
-            
-            $.post(ajaxurl, {
-                action: 'mkp_force_update_check',
-                nonce: '<?php echo wp_create_nonce( 'mkp_force_check' ); ?>'
-            }, function(response) {
-                if (response.success) {
-                    if (response.data.update_available) {
-                        alert(response.data.message);
-                        location.reload();
-                    } else {
-                        alert(response.data.message);
-                        $button.prop('disabled', false).text(originalText);
-                    }
-                } else {
-                    alert(response.data || '<?php esc_html_e( 'Error checking for updates.', 'mediakit-lite' ); ?>');
-                    $button.prop('disabled', false).text(originalText);
-                }
-            }).fail(function() {
-                alert('<?php esc_html_e( 'Network error. Please try again.', 'mediakit-lite' ); ?>');
-                $button.prop('disabled', false).text(originalText);
-            });
-        });
-    });
-    </script>
     <?php
 }
 
@@ -166,15 +136,7 @@ add_action( 'admin_menu', 'mkp_add_admin_menu', 5 );
  * Display main admin page
  */
 function mkp_admin_page_display() {
-    // Get update info
-    $remote_data = get_transient( 'mkp_remote_version' );
-    $update_available = false;
-    
-    if ( ! empty( $remote_data['version'] ) ) {
-        $current_version = MKP_THEME_VERSION;
-        $remote_version = $remote_data['version'];
-        $update_available = version_compare( $current_version, $remote_version, '<' );
-    }
+    $update_info = mkp_get_update_info();
     ?>
     <div class="wrap">
         <h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
@@ -187,7 +149,7 @@ function mkp_admin_page_display() {
                 <p><?php esc_html_e( 'MediaKit Lite is your digital media kit solution for building personal leverage. Perfect for showcasing your expertise, publications, speaking topics, and media appearances. Set up everything through the simple WordPress Customizer - no coding required.', 'mediakit-lite' ); ?></p>
                 
                 <p><strong><?php esc_html_e( 'Quick Start Guide:', 'mediakit-lite' ); ?></strong></p>
-                <ol style="margin-left: 20px;">
+                <ol>
                     <li><?php esc_html_e( 'Click "Customize Theme" below to open the WordPress Customizer', 'mediakit-lite' ); ?></li>
                     <li><?php esc_html_e( 'Start with "Brand Settings" to set your colors and fonts', 'mediakit-lite' ); ?></li>
                     <li><?php esc_html_e( 'Add your name, photo, and professional tags in "Hero Section"', 'mediakit-lite' ); ?></li>
@@ -195,17 +157,7 @@ function mkp_admin_page_display() {
                     <li><?php esc_html_e( 'Add your social media links to stay connected', 'mediakit-lite' ); ?></li>
                 </ol>
                 
-                <?php if ( $update_available ) : ?>
-                    <div class="notice notice-warning inline" style="margin: 20px 0;">
-                        <p>
-                            <strong><?php esc_html_e( 'Update Available!', 'mediakit-lite' ); ?></strong>
-                            <?php printf( esc_html__( 'Version %s is now available.', 'mediakit-lite' ), esc_html( $remote_version ) ); ?>
-                            <?php if ( ! empty( $remote_data['download_url'] ) ) : ?>
-                                <a href="<?php echo esc_url( $remote_data['download_url'] ); ?>" class="button button-primary" target="_blank" style="margin-left: 10px;"><?php esc_html_e( 'Download Update', 'mediakit-lite' ); ?></a>
-                            <?php endif; ?>
-                        </p>
-                    </div>
-                <?php endif; ?>
+                <?php mkp_display_update_alert( $update_info, 'admin' ); ?>
             </div>
             
             <div class="mkp-admin-cards">
@@ -243,10 +195,10 @@ function mkp_admin_page_display() {
                 </ul>
             </div>
             
-            <div class="mkp-admin-updates" style="background: #f0f0f1; padding: 20px; margin-top: 20px; border: 1px solid #ccd0d4; border-radius: 3px;">
-                <h3 style="margin-top: 0;"><?php esc_html_e( 'Theme Updates', 'mediakit-lite' ); ?></h3>
+            <div class="mkp-admin-updates">
+                <h3><?php esc_html_e( 'Theme Updates', 'mediakit-lite' ); ?></h3>
                 <p>
-                    <?php printf( esc_html__( 'Current Version: %s', 'mediakit-lite' ), '<strong>' . MKP_THEME_VERSION . '</strong>' ); ?>
+                    <?php printf( esc_html__( 'Current Version: %s', 'mediakit-lite' ), '<strong>' . $update_info['current_version'] . '</strong>' ); ?>
                     <?php 
                     $last_checked = get_transient( 'mkp_update_last_checked' );
                     if ( $last_checked ) {
@@ -258,94 +210,6 @@ function mkp_admin_page_display() {
             </div>
         </div>
     </div>
-    
-    <style>
-        .mkp-admin-page {
-            max-width: 1200px;
-            margin-top: 20px;
-        }
-        .mkp-admin-welcome {
-            background: #fff;
-            padding: 30px;
-            margin-bottom: 30px;
-            border: 1px solid #ccd0d4;
-            box-shadow: 0 1px 1px rgba(0,0,0,.04);
-        }
-        .mkp-admin-welcome h2 {
-            margin-top: 0;
-            font-size: 28px;
-        }
-        .mkp-admin-cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin-bottom: 30px;
-        }
-        .mkp-admin-card {
-            background: #fff;
-            padding: 20px;
-            border: 1px solid #ccd0d4;
-            box-shadow: 0 1px 1px rgba(0,0,0,.04);
-        }
-        .mkp-admin-card h3 {
-            margin-top: 0;
-        }
-        .mkp-admin-resources {
-            background: #fff;
-            padding: 20px;
-            border: 1px solid #ccd0d4;
-            box-shadow: 0 1px 1px rgba(0,0,0,.04);
-        }
-        .mkp-admin-resources h2 {
-            margin-top: 0;
-        }
-        .mkp-admin-resources ul {
-            margin: 0;
-            list-style: disc;
-            padding-left: 20px;
-        }
-    </style>
-    
-    <script>
-    jQuery(document).ready(function($) {
-        $('.mkp-check-updates-main').on('click', function() {
-            var $button = $(this);
-            var originalText = $button.text();
-            $button.prop('disabled', true).text('<?php esc_html_e( 'Checking...', 'mediakit-lite' ); ?>');
-            
-            $.post(ajaxurl, {
-                action: 'mkp_force_update_check',
-                nonce: '<?php echo wp_create_nonce( 'mkp_force_check' ); ?>'
-            }, function(response) {
-                // Log debug information
-                if (response.data && response.data.debug) {
-                    console.log('MediaKit Lite Update Check Debug:', response.data.debug);
-                }
-                
-                if (response.success) {
-                    if (response.data.update_available) {
-                        alert(response.data.message);
-                        location.reload();
-                    } else {
-                        alert(response.data.message);
-                        $button.prop('disabled', false).text(originalText);
-                    }
-                } else {
-                    var errorMsg = response.data && response.data.message ? response.data.message : '<?php esc_html_e( 'Error checking for updates.', 'mediakit-lite' ); ?>';
-                    alert(errorMsg);
-                    if (response.data && response.data.debug) {
-                        console.error('Update check error debug:', response.data.debug);
-                    }
-                    $button.prop('disabled', false).text(originalText);
-                }
-            }).fail(function(xhr, status, error) {
-                console.error('Update check network error:', status, error);
-                alert('<?php esc_html_e( 'Network error. Please try again.', 'mediakit-lite' ); ?>');
-                $button.prop('disabled', false).text(originalText);
-            });
-        });
-    });
-    </script>
     <?php
 }
 
@@ -369,16 +233,29 @@ function mkp_admin_footer_text( $text ) {
 add_filter( 'admin_footer_text', 'mkp_admin_footer_text' );
 
 /**
- * Enqueue admin styles
+ * Enqueue admin styles and scripts
  */
-function mkp_admin_styles() {
+function mkp_admin_scripts() {
     $screen = get_current_screen();
     
-    if ( strpos( $screen->id, 'mediakit-lite' ) !== false ) {
+    // Check if we're on our admin pages or dashboard
+    if ( strpos( $screen->id, 'mediakit-lite' ) !== false || $screen->id === 'dashboard' ) {
+        // Enqueue admin styles
         wp_enqueue_style( 'mediakit-lite-admin', get_template_directory_uri() . '/assets/css/admin.css', array(), MKP_THEME_VERSION );
+        
+        // Enqueue admin scripts
+        wp_enqueue_script( 'mediakit-lite-admin', get_template_directory_uri() . '/assets/js/admin.js', array( 'jquery' ), MKP_THEME_VERSION, true );
+        
+        // Localize script with data
+        wp_localize_script( 'mediakit-lite-admin', 'mkpAdmin', array(
+            'nonce' => wp_create_nonce( 'mkp_force_check' ),
+            'checkingText' => esc_html__( 'Checking...', 'mediakit-lite' ),
+            'errorText' => esc_html__( 'Error checking for updates.', 'mediakit-lite' ),
+            'networkErrorText' => esc_html__( 'Network error. Please try again.', 'mediakit-lite' ),
+        ) );
     }
 }
-add_action( 'admin_enqueue_scripts', 'mkp_admin_styles' );
+add_action( 'admin_enqueue_scripts', 'mkp_admin_scripts' );
 
 /**
  * Add theme setup wizard
