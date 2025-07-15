@@ -1,0 +1,188 @@
+/**
+ * Contact Section
+ * Contact information and social links
+ *
+ * @package MediaKit_Lite
+ */
+
+.mkp-contact-section {
+    padding: var(--mkp-spacing-xxl) 0;
+}
+
+.mkp-contact__wrapper {
+    display: grid;
+    gap: var(--mkp-spacing-md);
+    max-width: 1000px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.mkp-contact__content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.mkp-contact__info {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--mkp-spacing-xl);
+    margin-bottom: var(--mkp-spacing-xl);
+    text-align: center;
+}
+
+.mkp-contact__emails {
+    display: grid;
+    gap: var(--mkp-spacing-md);
+}
+
+.mkp-contact__item {
+    display: flex;
+    flex-direction: column;
+    gap: var(--mkp-spacing-xs);
+    align-items: center;
+}
+
+.mkp-contact__item h3 {
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: inherit;
+    opacity: 0.9;
+    margin-bottom: var(--mkp-spacing-sm);
+}
+
+.mkp-contact__label {
+    font-weight: 600;
+    color: inherit;
+    opacity: 0.9;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.mkp-contact__email {
+    font-size: 1.125rem;
+    color: inherit;
+    text-decoration: none;
+    transition: var(--mkp-transition);
+}
+
+.mkp-contact__email:hover {
+    color: var(--mkp-theme-accent-1);
+    text-decoration: underline;
+}
+
+.mkp-contact__item a,
+.mkp-contact__item address {
+    font-size: 1.125rem;
+    color: var(--mkp-theme-primary);
+}
+
+.mkp-contact__address {
+    display: flex;
+    flex-direction: column;
+    gap: var(--mkp-spacing-sm);
+}
+
+.mkp-contact__address-text {
+    font-style: normal;
+    line-height: 1.6;
+}
+
+/* Social Media Links */
+.mkp-contact__social {
+    text-align: center;
+    justify-content: center;
+    margin-top: var(--mkp-spacing-xl);
+}
+
+.mkp-contact__social-links {
+    display: flex;
+    justify-content: center;
+    gap: var(--mkp-spacing-md);
+    flex-wrap: wrap;
+}
+
+.mkp-contact__social-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    /* Uses .mkp-glass-dark pattern */
+    background-color: rgba(0, 0, 0, 0.05);
+    color: var(--mkp-theme-neutral-dark);
+    transition: var(--mkp-transition);
+    text-decoration: none;
+}
+
+.mkp-contact__social-link:hover {
+    transform: translateY(-2px);
+    background: var(--mkp-theme-accent-1);
+    color: white;
+}
+
+.mkp-contact__social-link svg {
+    width: 28px;
+    height: 28px;
+    fill: currentColor;
+}
+
+/* Social platform specific colors on hover */
+.mkp-contact__social-link--x:hover {
+    background: #000000;
+}
+
+.mkp-contact__social-link--facebook:hover {
+    background: #1877f2;
+}
+
+.mkp-contact__social-link--instagram:hover {
+    background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+}
+
+.mkp-contact__social-link--linkedin:hover {
+    background: #0077b5;
+}
+
+.mkp-contact__social-link--youtube:hover {
+    background: #ff0000;
+}
+
+.mkp-contact__social-link--tiktok:hover {
+    background: #000000;
+}
+
+.mkp-contact__social-link--github:hover {
+    background: #333333;
+}
+
+.mkp-contact__social-link--threads:hover {
+    background: #000000;
+}
+
+/* Dynamic background colors for social links based on section background */
+.mkp-contact-section--light .mkp-contact__social-link {
+    /* Uses .mkp-glass-dark pattern */
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.mkp-contact-section--dark .mkp-contact__social-link {
+    /* Uses .mkp-glass-white pattern */
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.mkp-contact__placeholder {
+    text-align: center;
+    color: #999;
+    padding: 40px 0;
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+    .mkp-contact__info {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+}

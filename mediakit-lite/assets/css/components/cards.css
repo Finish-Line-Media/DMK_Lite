@@ -1,0 +1,30 @@
+/**
+ * Card Component
+ * Card styles and variations
+ *
+ * @package MediaKit_Lite
+ */
+
+.mkp-card {
+    background-color: var(--mkp-theme-neutral-light);
+    border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    padding: var(--mkp-spacing-lg);
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+
+.mkp-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+}
+
+.mkp-card__title {
+    font-size: 1.5rem;
+    margin-bottom: var(--mkp-spacing-md);
+}
+
+.mkp-card__content {
+    color: inherit;
+    opacity: 0.85;
+}

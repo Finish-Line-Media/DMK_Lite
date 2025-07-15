@@ -1,0 +1,49 @@
+/**
+ * In The Media Section
+ * Media appearances and embeds
+ *
+ * @package MediaKit_Lite
+ */
+
+.mkp-in-the-media {
+    padding: var(--mkp-spacing-xxl) 0;
+}
+
+.mkp-in-the-media .mkp-section__title {
+    text-align: center;
+    margin-bottom: var(--mkp-spacing-xl);
+}
+
+.mkp-media-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: var(--mkp-spacing-xl);
+    margin-top: var(--mkp-spacing-xl);
+}
+
+.mkp-media-embed {
+    position: relative;
+    width: 100%;
+}
+
+/* Ensure responsive embeds */
+.mkp-media-embed iframe,
+.mkp-media-embed video,
+.mkp-media-embed object,
+.mkp-media-embed embed {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Special handling for aspect ratios */
+.mkp-media-embed > div {
+    position: relative;
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+    .mkp-media-grid {
+        grid-template-columns: 1fr;
+        gap: var(--mkp-spacing-lg);
+    }
+}

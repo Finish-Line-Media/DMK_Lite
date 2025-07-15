@@ -1,0 +1,70 @@
+/**
+ * Corporations Section
+ * Companies/corporations display
+ *
+ * @package MediaKit_Lite
+ */
+
+.mkp-corporations-section {
+    padding: var(--mkp-spacing-xxl) 0;
+}
+
+.mkp-corporations__grid {
+    display: flex;
+    flex-direction: column;
+    gap: var(--mkp-spacing-xl);
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.mkp-corp-card {
+    text-align: center;
+    padding: var(--mkp-spacing-lg) var(--mkp-spacing-xl);
+}
+
+.mkp-corp-card__logo {
+    height: 150px;
+    margin: 0 auto var(--mkp-spacing-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mkp-corp-card__logo img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.mkp-corp-card__name {
+    font-size: 1.5rem;
+    margin-bottom: var(--mkp-spacing-md);
+}
+
+.mkp-corp-card__bio {
+    color: inherit;
+    opacity: 0.85;
+    margin-bottom: var(--mkp-spacing-lg);
+}
+
+.mkp-corp-card__bio p {
+    text-align: justify;
+    text-justify: inter-word;
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+    .mkp-corporations__grid {
+        max-width: 600px;
+    }
+}
+
+@media (max-width: 480px) {
+    .mkp-corporations__grid {
+        max-width: 400px;
+    }
+    
+    .mkp-corp-card {
+        padding: var(--mkp-spacing-md) var(--mkp-spacing-lg);
+    }
+}

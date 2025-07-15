@@ -1,0 +1,48 @@
+/**
+ * Button Component
+ * Button styles and variations
+ *
+ * @package MediaKit_Lite
+ */
+
+.mkp-btn {
+    display: inline-block;
+    padding: var(--mkp-spacing-sm) var(--mkp-spacing-lg);
+    font-weight: 600;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: var(--mkp-transition);
+    cursor: pointer;
+    border: none;
+}
+
+.mkp-btn--primary {
+    background-color: var(--mkp-theme-accent-1);
+    color: white;
+    border: 2px solid var(--mkp-theme-accent-1);
+}
+
+.mkp-btn--primary:hover,
+.mkp-btn--primary:focus {
+    background-color: var(--mkp-theme-accent-1);
+    color: white;
+    border-color: var(--mkp-theme-accent-1);
+    text-decoration: none;
+    opacity: 1;
+}
+
+.mkp-btn--secondary {
+    background-color: transparent;
+    color: var(--mkp-theme-accent-1);
+    border: 2px solid var(--mkp-theme-accent-1);
+}
+
+.mkp-btn--secondary:hover,
+.mkp-btn--secondary:focus {
+    background-color: var(--mkp-theme-accent-1);
+    color: white;
+    border-color: var(--mkp-theme-accent-1);
+    text-decoration: none;
+    opacity: 1;
+}

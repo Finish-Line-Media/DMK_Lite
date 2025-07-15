@@ -1,0 +1,48 @@
+/**
+ * Investor Section
+ * Investor information display
+ *
+ * @package MediaKit_Lite
+ */
+
+.mkp-investor-section {
+    padding: var(--mkp-spacing-xxl) 0;
+}
+
+.mkp-investor__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--mkp-spacing-xl);
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.mkp-investor-card {
+    padding: var(--mkp-spacing-xl);
+}
+
+.mkp-investor-card__title {
+    font-size: 1.75rem;
+    margin-bottom: var(--mkp-spacing-md);
+}
+
+.mkp-investor-card__description {
+    line-height: 1.6;
+}
+
+.mkp-investor-card__description p:last-child {
+    margin-bottom: 0;
+}
+
+.mkp-investor__placeholder {
+    text-align: center;
+    color: #999;
+    padding: 40px 0;
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+    .mkp-investor__grid {
+        grid-template-columns: 1fr;
+    }
+}

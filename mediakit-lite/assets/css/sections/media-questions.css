@@ -1,0 +1,38 @@
+/**
+ * Media Questions Section
+ * Questions for media/interview preparation
+ *
+ * @package MediaKit_Lite
+ */
+
+.mkp-media-questions-section {
+    padding: var(--mkp-spacing-xxl) 0;
+}
+
+/* Media Questions List */
+.mkp-media-questions__list {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0;
+    list-style: none;
+}
+
+.mkp-media-questions__list--bullets {
+    list-style-type: disc;
+    padding-left: 1.5em;
+}
+
+.mkp-media-questions__list--numbers {
+    list-style-type: decimal;
+    padding-left: 1.5em;
+}
+
+.mkp-media-questions__item {
+    margin-bottom: var(--mkp-spacing-md);
+    font-size: 1.125rem;
+    line-height: 1.6;
+}
+
+.mkp-media-questions__text {
+    /* Text flows naturally inline for proper bullet alignment */
+}

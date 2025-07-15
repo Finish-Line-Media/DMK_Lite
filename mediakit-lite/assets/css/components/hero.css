@@ -1,0 +1,147 @@
+/**
+ * Hero Section Component
+ * Hero section styles for the front page
+ *
+ * @package MediaKit_Lite
+ */
+
+.mkp-hero {
+    padding: var(--mkp-spacing-xxl) 0;
+    min-height: auto;
+}
+
+.mkp-hero__wrapper {
+    display: flex;
+    align-items: center;
+    gap: var(--mkp-spacing-xl);
+}
+
+.mkp-hero__content {
+    flex: 2;
+    text-align: center;
+    padding: 0 var(--mkp-spacing-lg);
+}
+
+.mkp-hero__images {
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: var(--mkp-spacing-md);
+}
+
+.mkp-hero__images--left {
+    order: -1;
+}
+
+.mkp-hero__images--right {
+    order: 1;
+}
+
+.mkp-hero__image {
+    flex: 1;
+    max-width: 125px;
+    max-height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mkp-hero__image img {
+    max-width: 100%;
+    height: auto;
+    max-height: 300px;
+    object-fit: contain;
+    display: block;
+}
+
+.mkp-hero__name {
+    font-size: 3rem;
+    margin-bottom: var(--mkp-spacing-md);
+    color: var(--mkp-theme-primary);
+}
+
+.mkp-hero__name-image {
+    margin-bottom: var(--mkp-spacing-md);
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.mkp-hero__name-image img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+.mkp-hero__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: var(--mkp-spacing-xl);
+}
+
+.mkp-hero__tag {
+    display: inline-block;
+    padding: 0;
+    background-color: transparent;
+    color: inherit;
+    border-radius: 0;
+    font-size: 1rem;
+    font-weight: 400;
+}
+
+.mkp-hero__separator {
+    display: inline-block;
+    margin: 0 0.75em;
+    opacity: 0.5;
+    color: inherit;
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+    .mkp-hero__title {
+        font-size: 2rem;
+    }
+    
+    .mkp-hero__name {
+        font-size: 2rem;
+    }
+    
+    .mkp-hero__name-image {
+        max-width: 300px;
+    }
+    
+    .mkp-hero__wrapper {
+        flex-direction: column;
+        gap: var(--mkp-spacing-md);
+    }
+    
+    .mkp-hero__images {
+        flex: 0 0 auto;
+        width: 100%;
+        max-width: 200px;
+        margin: 0 auto;
+    }
+    
+    .mkp-hero__content {
+        order: 2;
+        margin: var(--mkp-spacing-lg) 0;
+    }
+    
+    .mkp-hero__images--left {
+        order: 1;
+    }
+    
+    .mkp-hero__images--right {
+        order: 3;
+    }
+    
+    .mkp-hero__image {
+        max-width: 100px;
+        max-height: 200px;
+    }
+}

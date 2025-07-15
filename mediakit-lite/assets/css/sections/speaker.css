@@ -1,0 +1,110 @@
+/**
+ * Speaker Topics Section
+ * Speaker topics grid and list styles
+ *
+ * @package MediaKit_Lite
+ */
+
+.mkp-speaker-section {
+    padding: var(--mkp-spacing-xxl) 0;
+}
+
+.mkp-speaker__topics {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--mkp-spacing-lg);
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.mkp-speaker__topic {
+    display: flex;
+    align-items: center;
+    gap: var(--mkp-spacing-md);
+    padding: var(--mkp-spacing-lg);
+}
+
+.mkp-speaker__topic-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--mkp-theme-accent-1);
+    font-size: 1.5rem;
+    font-weight: bold;
+    flex-shrink: 0;
+    line-height: 1;
+}
+
+.mkp-speaker__topic-title {
+    font-size: 1.25rem;
+    margin: 0;
+}
+
+/* Optimized layouts for card style to prevent orphans */
+/* Force 4 topics to display as 2x2 */
+.mkp-speaker__topics--count-4 {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 1000px;
+}
+
+/* Force 6 topics to display as 3x2 */
+.mkp-speaker__topics--count-6 {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+/* List Styles for Speaking Topics */
+.mkp-speaker__list {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0;
+    list-style: none;
+}
+
+.mkp-speaker__list--bullets {
+    list-style-type: disc;
+    padding-left: 2rem;
+}
+
+.mkp-speaker__list--numbers {
+    list-style-type: decimal;
+    padding-left: 2rem;
+}
+
+.mkp-speaker__list-item {
+    margin-bottom: var(--mkp-spacing-lg);
+    font-size: 1.2rem;
+    line-height: 1.6;
+}
+
+.mkp-speaker__list-item .mkp-speaker__topic-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: inherit;
+    line-height: 1.4;
+    margin-bottom: 0.5rem;
+}
+
+/* Ensure proper contrast in list view */
+.mkp-speaker-section--bullets .mkp-speaker__list-item,
+.mkp-speaker-section--numbers .mkp-speaker__list-item {
+    color: inherit;
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+    .mkp-speaker__topics--count-4,
+    .mkp-speaker__topics--count-6 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .mkp-speaker__topics {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .mkp-speaker__topics--count-4,
+    .mkp-speaker__topics--count-6 {
+        grid-template-columns: 1fr;
+    }
+}
