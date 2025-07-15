@@ -1,0 +1,21 @@
+/**
+ * Header Component
+ * Site header styles
+ *
+ * @package MediaKit_Lite
+ */
+
+.mkp-header {
+    background-color: var(--mkp-theme-neutral-light);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.mkp-header__inner {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: var(--mkp-spacing-md) var(--mkp-spacing-lg);
+}

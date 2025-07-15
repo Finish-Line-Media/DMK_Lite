@@ -1,0 +1,20 @@
+/**
+ * Containers & Layout
+ * Core layout components
+ *
+ * @package MediaKit_Lite
+ */
+
+.mkp-container {
+    max-width: var(--mkp-container-width);
+    margin: 0 auto;
+    padding: 0 var(--mkp-spacing-lg);
+}
+
+.mkp-container--wide {
+    max-width: 100%;
+}
+
+.mkp-section {
+    padding: var(--mkp-spacing-xl) 0;
+}

@@ -1,0 +1,96 @@
+/**
+ * Navigation Component
+ * Main navigation styles
+ *
+ * @package MediaKit_Lite
+ */
+
+.mkp-nav {
+    display: flex;
+    list-style: none;
+    gap: var(--mkp-spacing-lg);
+}
+
+.mkp-nav__item {
+    position: relative;
+}
+
+.mkp-nav__link {
+    color: var(--mkp-theme-neutral-dark);
+    font-weight: 500;
+    padding: var(--mkp-spacing-sm) 0;
+}
+
+.mkp-nav__link:hover {
+    /* Color handled by dynamic styles in customizer-dynamic-styles.php */
+    text-decoration: none;
+}
+
+/* Search in Navigation */
+.mkp-nav__item--search {
+    display: flex;
+    align-items: center;
+}
+
+.mkp-nav__search-form {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    margin: 0;
+}
+
+.mkp-nav__search-field {
+    width: 200px;
+    padding: var(--mkp-spacing-xs) var(--mkp-spacing-sm);
+    border: 1px solid var(--mkp-theme-border);
+    border-right: none;
+    border-radius: 4px 0 0 4px;
+    font-size: 0.875rem;
+    background-color: var(--mkp-theme-neutral-light);
+    color: var(--mkp-theme-neutral-dark);
+    transition: var(--mkp-transition);
+}
+
+.mkp-nav__search-field:focus {
+    outline: none;
+    /* Border color handled by dynamic styles */
+    width: 250px;
+}
+
+.mkp-nav__search-submit {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--mkp-spacing-xs) var(--mkp-spacing-sm);
+    /* Colors handled by dynamic styles */
+    border-radius: 0 4px 4px 0;
+    cursor: pointer;
+    transition: var(--mkp-transition);
+}
+
+.mkp-nav__search-submit:hover {
+    /* Colors handled by dynamic styles */
+}
+
+.mkp-nav__search-submit .dashicons {
+    width: 16px;
+    height: 16px;
+    font-size: 16px;
+}
+
+/* Mobile Navigation */
+.mkp-mobile-toggle {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: var(--mkp-spacing-sm);
+}
+
+.mkp-mobile-toggle span {
+    display: block;
+    width: 25px;
+    height: 3px;
+    margin: 5px 0;
+    transition: var(--mkp-transition);
+}
