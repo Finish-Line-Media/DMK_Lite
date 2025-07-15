@@ -43,9 +43,15 @@ $section_style = 'background-color: ' . esc_attr( $section_color ) . '; color: '
             
             <div class="mkp-hero__content">
                 <?php 
-                // Person's Name
+                // Check for name image first
+                $name_image = get_theme_mod( 'mkp_hero_name_image' );
                 $name = get_theme_mod( 'mkp_hero_name' );
-                if ( $name ) : ?>
+                
+                if ( $name_image ) : ?>
+                    <div class="mkp-hero__name-image">
+                        <img src="<?php echo esc_url( $name_image ); ?>" alt="<?php echo esc_attr( $name ); ?>" />
+                    </div>
+                <?php elseif ( $name ) : ?>
                     <h1 class="mkp-hero__name"><?php echo esc_html( $name ); ?></h1>
                 <?php endif; ?>
             

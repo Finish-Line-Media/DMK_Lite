@@ -11,18 +11,8 @@
  * @return array
  */
 function mkp_get_default_section_order() {
-    return array(
-        'hero',
-        'about',
-        'books',
-        'podcasts',
-        'corporations',
-        'speaker_topics',
-        'in_the_media',
-        'media_questions',
-        'investor',
-        'contact',
-    );
+    $sections = mkp_get_all_sections_config();
+    return array_keys( $sections );
 }
 
 /**
@@ -149,18 +139,14 @@ class Mkp_Section_Order_Control extends WP_Customize_Control {
      * Render the control
      */
     public function render_content() {
-        $sections = array(
-            'hero'            => __( 'Hero Section', 'mediakit-lite' ),
-            'about'           => __( 'About Section', 'mediakit-lite' ),
-            'books'           => __( 'Books Section', 'mediakit-lite' ),
-            'podcasts'        => __( 'Podcasts/Shows Section', 'mediakit-lite' ),
-            'corporations'    => __( 'Companies Section', 'mediakit-lite' ),
-            'speaker_topics'  => __( 'Speaker Topics Section', 'mediakit-lite' ),
-            'in_the_media'    => __( 'In The Media Section', 'mediakit-lite' ),
-            'media_questions' => __( 'Questions for Media Section', 'mediakit-lite' ),
-            'investor'        => __( 'Investor Section', 'mediakit-lite' ),
-            'contact'         => __( 'Contact Section', 'mediakit-lite' ),
-        );
+        // Get sections dynamically from the single source of truth
+        $all_sections = mkp_get_all_sections_config();
+        $sections = array();
+        
+        // Extract just the IDs and titles
+        foreach ( $all_sections as $id => $config ) {
+            $sections[ $id ] = $config['title'];
+        }
         
         $current_order = mkp_get_section_order();
         ?>
@@ -175,7 +161,9 @@ class Mkp_Section_Order_Control extends WP_Customize_Control {
             <ul class="mkp-section-order-list" id="mkp-sortable-sections">
                 <?php foreach ( $current_order as $section_id ) : 
                     if ( ! isset( $sections[ $section_id ] ) ) continue;
-                    $is_fixed = in_array( $section_id, array( 'hero', 'about' ) );
+                    
+                    // Check if section is fixed from configuration
+                    $is_fixed = isset( $all_sections[ $section_id ]['fixed'] ) && $all_sections[ $section_id ]['fixed'];
                     
                     // Check if section is enabled
                     $is_enabled = true;

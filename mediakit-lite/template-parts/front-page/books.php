@@ -28,21 +28,33 @@ if ( $actual_book_count === 0 ) {
 
 // Determine section title based on count
 $section_title = ( $actual_book_count === 1 ) ? __( 'Book', 'mediakit-lite' ) : __( 'Books', 'mediakit-lite' );
+
+// Get books per row setting
+$books_per_row = get_theme_mod( 'mkp_books_per_row', '3' );
+
+// Always add a column class
+if ( $books_per_row === '1' || $actual_book_count === 1 ) {
+    $grid_class = ' mkp-books__grid--one-column';
+} elseif ( $books_per_row === '2' ) {
+    $grid_class = ' mkp-books__grid--two-columns';
+} else {
+    $grid_class = ' mkp-books__grid--three-columns';
+}
 ?>
 
 <section id="books" class="<?php echo esc_attr( $section_class ); ?>" style="background-color: <?php echo esc_attr( $section_color ); ?>; color: <?php echo esc_attr( $text_color ); ?>">
     <div class="mkp-container">
         <h2 class="mkp-section__title"><?php echo esc_html( $section_title ); ?></h2>
         
-        <div class="mkp-books__grid<?php echo $actual_book_count === 1 ? ' mkp-books__grid--single' : ''; ?>">
+        <div class="mkp-books__grid<?php echo esc_attr( $grid_class ); ?>">
             <?php for ( $i = 1; $i <= 4; $i++ ) : 
                 $title = get_theme_mod( 'mkp_book_' . $i . '_title' );
                 $cover = get_theme_mod( 'mkp_book_' . $i . '_cover' );
                 $description = get_theme_mod( 'mkp_book_' . $i . '_description' );
                 $link = get_theme_mod( 'mkp_book_' . $i . '_link' );
-                $display = $title ? 'block' : 'none';
+                $book_class = $title ? '' : ' mkp-book--hidden';
                 ?>
-                <div class="mkp-book-card mkp-card mkp-book--<?php echo esc_attr( $i ); ?>" style="display: <?php echo esc_attr( $display ); ?>;">
+                <div class="mkp-book-card mkp-card mkp-book--<?php echo esc_attr( $i ); ?><?php echo esc_attr( $book_class ); ?>">
                     <div class="mkp-book-card__cover">
                         <?php if ( $cover ) : ?>
                             <img src="<?php echo esc_url( $cover ); ?>" alt="<?php echo esc_attr( $title ); ?> cover" loading="lazy" />

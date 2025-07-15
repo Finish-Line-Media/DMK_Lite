@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Define Constants
  */
-define( 'MKP_THEME_VERSION', '1.10.7' );
+define( 'MKP_THEME_VERSION', '1.11.0' );
 define( 'MKP_THEME_DIR', get_template_directory() );
 define( 'MKP_THEME_URI', get_template_directory_uri() );
 
@@ -131,6 +131,11 @@ function mkp_scripts() {
     // Comment reply script
     if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
         wp_enqueue_script( 'comment-reply' );
+    }
+    
+    // Gallery lightbox script - only on front page if gallery is enabled
+    if ( is_front_page() && get_theme_mod( 'mkp_enable_section_gallery', false ) && mkp_has_gallery_images() ) {
+        wp_enqueue_script( 'mediakit-lite-gallery', MKP_THEME_URI . '/assets/js/gallery-lightbox.js', array(), MKP_THEME_VERSION, true );
     }
 }
 add_action( 'wp_enqueue_scripts', 'mkp_scripts' );

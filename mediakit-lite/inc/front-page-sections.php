@@ -6,6 +6,72 @@
  */
 
 /**
+ * Get all sections configuration - single source of truth
+ *
+ * @return array Complete section configuration
+ */
+function mkp_get_all_sections_config() {
+    return array(
+        'hero' => array(
+            'title' => __( 'Hero Section', 'mediakit-lite' ),
+            'template' => 'template-parts/front-page/hero',
+            'always_show' => true,
+            'fixed' => true,  // Cannot be reordered
+        ),
+        'about' => array(
+            'title' => __( 'About Section', 'mediakit-lite' ),
+            'template' => 'template-parts/front-page/about',
+            'always_show' => true,
+        ),
+        'books' => array(
+            'title' => __( 'Books Section', 'mediakit-lite' ),
+            'template' => 'template-parts/front-page/books',
+            'check_function' => 'mkp_has_books',
+        ),
+        'podcasts' => array(
+            'title' => __( 'Podcasts/Shows Section', 'mediakit-lite' ),
+            'template' => 'template-parts/front-page/podcasts',
+            'check_function' => 'mkp_has_podcasts',
+        ),
+        'corporations' => array(
+            'title' => __( 'Companies Section', 'mediakit-lite' ),
+            'template' => 'template-parts/front-page/corporations',
+            'check_function' => 'mkp_has_companies',
+        ),
+        'speaker_topics' => array(
+            'title' => __( 'Speaker Topics Section', 'mediakit-lite' ),
+            'template' => 'template-parts/front-page/speaker-topics',
+            'check_function' => 'mkp_has_speaker_topics',
+        ),
+        'gallery' => array(
+            'title' => __( 'Image Gallery Section', 'mediakit-lite' ),
+            'template' => 'template-parts/front-page/gallery',
+            'check_function' => 'mkp_has_gallery_images',
+        ),
+        'in_the_media' => array(
+            'title' => __( 'In The Media Section', 'mediakit-lite' ),
+            'template' => 'template-parts/front-page/in-the-media',
+            'check_function' => 'mkp_has_media_items',
+        ),
+        'media_questions' => array(
+            'title' => __( 'Questions for Media Section', 'mediakit-lite' ),
+            'template' => 'template-parts/front-page/media-questions',
+            'check_function' => 'mkp_has_media_questions',
+        ),
+        'investor' => array(
+            'title' => __( 'Investor Section', 'mediakit-lite' ),
+            'template' => 'template-parts/front-page/investor',
+            'check_function' => 'mkp_has_investors',
+        ),
+        'contact' => array(
+            'title' => __( 'Contact Section', 'mediakit-lite' ),
+            'template' => 'template-parts/front-page/contact',
+            'check_function' => 'mkp_has_contact_info',
+        ),
+    );
+}
+
+/**
  * Check if a section should be displayed
  *
  * @param string $section_name The section identifier
@@ -165,6 +231,13 @@ function mkp_has_contact_info() {
     return false;
 }
 
+/**
+ * Check if gallery has images
+ */
+function mkp_has_gallery_images() {
+    $gallery_images = get_theme_mod( 'mkp_gallery_images', '' );
+    return ! empty( $gallery_images );
+}
 
 /**
  * Get front page sections configuration
@@ -172,46 +245,23 @@ function mkp_has_contact_info() {
  * @return array
  */
 function mkp_get_front_page_sections() {
-    return array(
-        'hero' => array(
-            'template' => 'template-parts/front-page/hero',
-            'always_show' => true,
-        ),
-        'about' => array(
-            'template' => 'template-parts/front-page/about',
-            'always_show' => true,
-        ),
-        'books' => array(
-            'template' => 'template-parts/front-page/books',
-            'check_function' => 'mkp_has_books',
-        ),
-        'podcasts' => array(
-            'template' => 'template-parts/front-page/podcasts',
-            'check_function' => 'mkp_has_podcasts',
-        ),
-        'corporations' => array(
-            'template' => 'template-parts/front-page/corporations',
-            'check_function' => 'mkp_has_companies',
-        ),
-        'speaker_topics' => array(
-            'template' => 'template-parts/front-page/speaker-topics',
-            'check_function' => 'mkp_has_speaker_topics',
-        ),
-        'in_the_media' => array(
-            'template' => 'template-parts/front-page/in-the-media',
-            'check_function' => 'mkp_has_media_items',
-        ),
-        'media_questions' => array(
-            'template' => 'template-parts/front-page/media-questions',
-            'check_function' => 'mkp_has_media_questions',
-        ),
-        'investor' => array(
-            'template' => 'template-parts/front-page/investor',
-            'check_function' => 'mkp_has_investors',
-        ),
-        'contact' => array(
-            'template' => 'template-parts/front-page/contact',
-            'check_function' => 'mkp_has_contact_info',
-        ),
-    );
+    $all_sections = mkp_get_all_sections_config();
+    $sections = array();
+    
+    // Extract only the data needed for front page rendering
+    foreach ( $all_sections as $id => $config ) {
+        $sections[ $id ] = array(
+            'template' => $config['template'],
+        );
+        
+        if ( isset( $config['always_show'] ) ) {
+            $sections[ $id ]['always_show'] = $config['always_show'];
+        }
+        
+        if ( isset( $config['check_function'] ) ) {
+            $sections[ $id ]['check_function'] = $config['check_function'];
+        }
+    }
+    
+    return $sections;
 }

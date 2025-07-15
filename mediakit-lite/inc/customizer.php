@@ -5,6 +5,9 @@
  * @package MediaKit_Lite
  */
 
+// Include custom controls
+require_once get_template_directory() . '/inc/customizer-controls/class-gallery-control.php';
+
 /**
  * Add postMessage support for site title and description for the Theme Customizer.
  */
@@ -216,6 +219,20 @@ function mkp_customize_register( $wp_customize ) {
         'priority'    => 20,
     ) );
     
+    // Hero Name Image
+    $wp_customize->add_setting( 'mkp_hero_name_image', array(
+        'default'           => '',
+        'sanitize_callback' => 'esc_url_raw',
+        'transport'         => 'refresh',
+    ) );
+    
+    $wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'mkp_hero_name_image', array(
+        'label'       => __( 'Name Logo/Image (Optional)', 'mediakit-lite' ),
+        'description' => __( 'Upload an image to display instead of the text name. This could be a stylized logo or signature.', 'mediakit-lite' ),
+        'section'     => 'mkp_hero_section',
+        'priority'    => 21,
+    ) ) );
+    
     // Professional Tags (1-5)
     for ( $i = 1; $i <= 5; $i++ ) {
         $wp_customize->add_setting( 'mkp_hero_tag_' . $i, array(
@@ -360,6 +377,26 @@ function mkp_customize_register( $wp_customize ) {
         'type'        => 'checkbox',
         'priority'    => 1,
     ) );
+    
+    // Books per row
+    $wp_customize->add_setting( 'mkp_books_per_row', array(
+        'default'           => '3',
+        'sanitize_callback' => 'mkp_sanitize_select',
+    ) );
+    
+    $wp_customize->add_control( 'mkp_books_per_row', array(
+        'label'       => __( 'Books Per Row', 'mediakit-lite' ),
+        'description' => __( 'Number of books to display per row on desktop.', 'mediakit-lite' ),
+        'section'     => 'mkp_books_section',
+        'type'        => 'select',
+        'choices'     => array(
+            '1' => __( '1 per row', 'mediakit-lite' ),
+            '2' => __( '2 per row', 'mediakit-lite' ),
+            '3' => __( '3 per row (default)', 'mediakit-lite' ),
+        ),
+        'priority'    => 2,
+    ) );
+    
             // Book entries (up to 4)
     for ( $i = 1; $i <= 4; $i++ ) {
         // Book Title
@@ -419,11 +456,48 @@ function mkp_customize_register( $wp_customize ) {
     }
     
     /**
+     * Image Gallery Section
+     */
+    $wp_customize->add_section( 'mkp_gallery_section', array(
+        'title'       => __( 'Image Gallery', 'mediakit-lite' ),
+        'priority'    => 49,
+        'description' => __( 'Display a gallery of images on your media kit.', 'mediakit-lite' ),
+    ) );
+    
+    // Enable Gallery Section
+    $wp_customize->add_setting( 'mkp_enable_section_gallery', array(
+        'default'           => false,
+        'sanitize_callback' => 'mkp_sanitize_checkbox',
+    ) );
+    
+    $wp_customize->add_control( 'mkp_enable_section_gallery', array(
+        'label'       => __( 'Enable Image Gallery', 'mediakit-lite' ),
+        'description' => __( 'Show or hide the image gallery section on your landing page.', 'mediakit-lite' ),
+        'section'     => 'mkp_gallery_section',
+        'type'        => 'checkbox',
+        'priority'    => 1,
+    ) );
+    
+    // Gallery Images
+    $wp_customize->add_setting( 'mkp_gallery_images', array(
+        'default'           => '',
+        'sanitize_callback' => 'mkp_sanitize_gallery_images',
+        'transport'         => 'refresh',
+    ) );
+    
+    $wp_customize->add_control( new MKP_Gallery_Control( $wp_customize, 'mkp_gallery_images', array(
+        'label'       => __( 'Gallery Images', 'mediakit-lite' ),
+        'description' => __( 'Select up to 50 images for your gallery. Images will use their WordPress Media Library caption and alt text. Edit images in the Media Library to update these.', 'mediakit-lite' ),
+        'section'     => 'mkp_gallery_section',
+        'priority'    => 10,
+    ) ) );
+    
+    /**
      * Podcast/Show Section
      */
     $wp_customize->add_section( 'mkp_podcasts_section', array(
         'title'       => __( 'Podcast/Show', 'mediakit-lite' ),
-        'priority'    => 49,
+        'priority'    => 50,
         'description' => __( 'Podcasts or shows you host or co-host.', 'mediakit-lite' ),
     ) );
     
@@ -978,7 +1052,33 @@ function mkp_sanitize_position_choice( $value ) {
     return 'left';
 }
 
-
+/**
+ * Sanitize gallery images (comma-separated IDs)
+ */
+function mkp_sanitize_gallery_images( $value ) {
+    if ( empty( $value ) ) {
+        return '';
+    }
+    
+    // Split comma-separated IDs
+    $ids = explode( ',', $value );
+    $sanitized = array();
+    $count = 0;
+    
+    foreach ( $ids as $id ) {
+        if ( $count >= 50 ) {
+            break;
+        }
+        
+        $id = absint( trim( $id ) );
+        if ( $id && wp_attachment_is_image( $id ) ) {
+            $sanitized[] = $id;
+            $count++;
+        }
+    }
+    
+    return implode( ',', $sanitized );
+}
 
 /**
  * Render the site title for the selective refresh partial.

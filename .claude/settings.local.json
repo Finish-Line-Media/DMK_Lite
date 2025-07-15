@@ -32,7 +32,8 @@
       "Bash(python3:*)",
       "Bash(./build-for-wordpress.sh:*)",
       "Bash(./build-for-github.sh:*)",
-      "Bash(git checkout:*)"
+      "Bash(git checkout:*)",
+      "Bash(awk:*)"
     ],
     "deny": []
   }

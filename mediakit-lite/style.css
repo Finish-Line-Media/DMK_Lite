@@ -4,7 +4,7 @@ Theme URI: https://github.com/Finish-Line-Media/DMK_Lite
 Author: Finish Line Media
 Author URI: https://finishline.media
 Description: MediaKit Lite is your digital media kit solution for building personal leverage. Perfect for showcasing your expertise, publications, speaking topics, and media appearances. Set up everything through the simple WordPress Customizer - no coding required.
-Version: 1.10.7
+Version: 1.11.0
 License: GPL v2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: mediakit-lite
@@ -1446,6 +1446,19 @@ img {
     color: var(--mkp-theme-primary);
 }
 
+.mkp-hero__name-image {
+    margin-bottom: var(--mkp-spacing-md);
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.mkp-hero__name-image img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
 .mkp-hero__tags {
     display: flex;
     flex-wrap: wrap;
@@ -1504,30 +1517,43 @@ img {
     padding: var(--mkp-spacing-xxl) 0;
 }
 
+/* Books Grid - Base styles */
 .mkp-books__grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: var(--mkp-spacing-xl);
     max-width: 1200px;
     margin: 0 auto;
 }
 
-/* Single book layout - half width centered */
-.mkp-books__grid--single {
+/* Hide empty book cards */
+.mkp-book--hidden {
+    display: none;
+}
+
+/* Column layouts - explicit and simple */
+.mkp-books__grid--one-column {
     grid-template-columns: 1fr;
     max-width: 600px;
+}
+
+.mkp-books__grid--two-columns {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 900px;
+}
+
+.mkp-books__grid--three-columns {
+    grid-template-columns: repeat(3, 1fr);
 }
 
 .mkp-book-card {
     /* Specific book card styles only */
 }
 
-
 .mkp-book-card__cover {
     max-height: 25vh; /* Maximum 1/4 of viewport height */
     height: 200px; /* Default height */
     overflow: hidden;
-    background-color: var(--mkp-theme-neutral-light);
+    background-color: transparent;
     padding: var(--mkp-spacing-md);
     display: flex;
     align-items: center;
@@ -1629,6 +1655,152 @@ img {
     margin-bottom: var(--mkp-spacing-md);
     color: inherit;
     opacity: 0.85;
+}
+
+/* ==========================================================================
+   Image Gallery Section
+   ========================================================================== */
+
+.mkp-gallery-section {
+    padding: var(--mkp-spacing-xxl) 0;
+}
+
+/* Auto-sizing grid - max 4 columns */
+.mkp-gallery__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--mkp-spacing-md);
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Ensure max 4 columns on large screens */
+@media (min-width: 1200px) {
+    .mkp-gallery__grid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 0.25fr));
+    }
+}
+
+.mkp-gallery__item {
+    position: relative;
+    cursor: pointer;
+    overflow: hidden;
+    border-radius: 8px;
+    background-color: var(--mkp-theme-neutral-light);
+    transition: transform 0.3s ease;
+}
+
+.mkp-gallery__item:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.mkp-gallery__image {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Lightbox styles */
+.mkp-lightbox {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.95);
+    z-index: 99999;
+    cursor: zoom-out;
+}
+
+.mkp-lightbox--active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mkp-lightbox__content {
+    max-width: 90vw;
+    max-height: 90vh;
+    position: relative;
+}
+
+.mkp-lightbox__image {
+    max-width: 100%;
+    max-height: 80vh;
+    display: block;
+    margin: 0 auto;
+}
+
+.mkp-lightbox__caption {
+    color: white;
+    text-align: center;
+    padding: var(--mkp-spacing-md);
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+.mkp-lightbox__close,
+.mkp-lightbox__prev,
+.mkp-lightbox__next {
+    position: absolute;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 3rem;
+    cursor: pointer;
+    padding: var(--mkp-spacing-sm);
+    transition: opacity 0.3s ease;
+    opacity: 0.7;
+}
+
+.mkp-lightbox__close:hover,
+.mkp-lightbox__prev:hover,
+.mkp-lightbox__next:hover {
+    opacity: 1;
+}
+
+.mkp-lightbox__close {
+    top: var(--mkp-spacing-md);
+    right: var(--mkp-spacing-md);
+}
+
+.mkp-lightbox__prev {
+    left: var(--mkp-spacing-md);
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.mkp-lightbox__next {
+    right: var(--mkp-spacing-md);
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+/* Hide navigation if only one image */
+.mkp-lightbox--single .mkp-lightbox__prev,
+.mkp-lightbox--single .mkp-lightbox__next {
+    display: none;
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+    .mkp-gallery__grid {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: var(--mkp-spacing-sm);
+    }
+    
+    .mkp-lightbox__close,
+    .mkp-lightbox__prev,
+    .mkp-lightbox__next {
+        font-size: 2rem;
+    }
+    
+    .mkp-lightbox__caption {
+        font-size: 0.875rem;
+        padding: var(--mkp-spacing-sm);
+    }
 }
 
 /* Speaker Topics */
@@ -2208,9 +2380,7 @@ img {
         max-height: 20vh;
     }
     
-    .mkp-books__grid {
-        grid-template-columns: 1fr;
-    }
+    /* Books already handled in main mobile query */
     
     /* Podcast logos smaller on mobile */
     .mkp-podcast-card__logo {
@@ -3043,6 +3213,10 @@ img {
         font-size: 2rem;
     }
     
+    .mkp-hero__name-image {
+        max-width: 300px;
+    }
+    
     .mkp-hero__wrapper {
         flex-direction: column;
         gap: var(--mkp-spacing-md);
@@ -3077,8 +3251,11 @@ img {
     /* ==========================================================================
        Books & Podcasts Sections
        ========================================================================== */
-    .mkp-books__grid {
+    /* Mobile - all book layouts become single column */
+    .mkp-books__grid--two-columns,
+    .mkp-books__grid--three-columns {
         grid-template-columns: 1fr;
+        max-width: 100%;
     }
     
     .mkp-book-card__cover {
