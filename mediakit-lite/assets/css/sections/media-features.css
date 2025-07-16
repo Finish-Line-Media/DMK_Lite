@@ -1,0 +1,175 @@
+/**
+ * Media Features Section
+ * "As Seen In" or "Featured In" media logos display
+ *
+ * @package MediaKit_Lite
+ */
+
+.mkp-media-features-section {
+    padding: var(--mkp-spacing-xxl) 0;
+}
+
+/* Media Features Grid */
+.mkp-media-features__grid {
+    display: grid;
+    gap: var(--mkp-spacing-xl);
+    max-width: 1200px;
+    margin: 0 auto;
+    align-items: center;
+    justify-items: center;
+}
+
+/* Grid layouts based on count */
+.mkp-media-features__grid--count-1 {
+    grid-template-columns: 1fr;
+    max-width: 300px;
+}
+
+.mkp-media-features__grid--count-2 {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 600px;
+}
+
+.mkp-media-features__grid--count-3 {
+    grid-template-columns: repeat(3, 1fr);
+    max-width: 900px;
+}
+
+.mkp-media-features__grid--count-4,
+.mkp-media-features__grid--count-5,
+.mkp-media-features__grid--count-6 {
+    grid-template-columns: repeat(4, 1fr);
+}
+
+.mkp-media-features__grid--count-7,
+.mkp-media-features__grid--count-8,
+.mkp-media-features__grid--count-9,
+.mkp-media-features__grid--count-10,
+.mkp-media-features__grid--count-11,
+.mkp-media-features__grid--count-12 {
+    grid-template-columns: repeat(6, 1fr);
+}
+
+/* Media Feature Item */
+.mkp-media-feature-item {
+    width: 100%;
+    max-width: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Media Feature Link */
+.mkp-media-feature__link {
+    display: block;
+    width: 100%;
+    transition: all 0.3s ease;
+}
+
+.mkp-media-feature__link:hover {
+    transform: scale(1.05);
+}
+
+/* Media Feature Logo */
+.mkp-media-feature__logo {
+    width: 100%;
+    height: auto;
+    max-height: 80px;
+    object-fit: contain;
+    filter: grayscale(100%);
+    opacity: 0.7;
+    transition: all 0.3s ease;
+}
+
+.mkp-media-feature__link:hover .mkp-media-feature__logo,
+.mkp-media-feature-item:hover .mkp-media-feature__logo {
+    filter: grayscale(0%);
+    opacity: 1;
+}
+
+/* Placeholder for customizer */
+.mkp-media-features__placeholder {
+    text-align: center;
+    padding: var(--mkp-spacing-xxl);
+    background-color: rgba(0, 0, 0, 0.05);
+    border-radius: 8px;
+    color: var(--mkp-text-muted);
+}
+
+/* Tablet styles */
+@media (max-width: 1024px) {
+    .mkp-media-features__grid--count-7,
+    .mkp-media-features__grid--count-8,
+    .mkp-media-features__grid--count-9,
+    .mkp-media-features__grid--count-10,
+    .mkp-media-features__grid--count-11,
+    .mkp-media-features__grid--count-12 {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .mkp-media-features__grid--count-4,
+    .mkp-media-features__grid--count-5,
+    .mkp-media-features__grid--count-6 {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .mkp-media-features__grid--count-7,
+    .mkp-media-features__grid--count-8,
+    .mkp-media-features__grid--count-9,
+    .mkp-media-features__grid--count-10,
+    .mkp-media-features__grid--count-11,
+    .mkp-media-features__grid--count-12 {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .mkp-media-feature__logo {
+        max-height: 60px;
+    }
+}
+
+@media (max-width: 480px) {
+    .mkp-media-features__grid--count-3,
+    .mkp-media-features__grid--count-4,
+    .mkp-media-features__grid--count-5,
+    .mkp-media-features__grid--count-6,
+    .mkp-media-features__grid--count-7,
+    .mkp-media-features__grid--count-8,
+    .mkp-media-features__grid--count-9,
+    .mkp-media-features__grid--count-10,
+    .mkp-media-features__grid--count-11,
+    .mkp-media-features__grid--count-12 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .mkp-media-features__grid {
+        gap: var(--mkp-spacing-lg);
+    }
+}
+
+/* Dark background adjustments */
+[style*="background-color: #000"],
+[style*="background-color: rgb(0, 0, 0)"],
+[style*="background-color: black"] {
+    .mkp-media-feature__logo {
+        filter: grayscale(100%) invert(1);
+        opacity: 0.8;
+    }
+    
+    .mkp-media-feature__link:hover .mkp-media-feature__logo,
+    .mkp-media-feature-item:hover .mkp-media-feature__logo {
+        filter: grayscale(0%) invert(1);
+        opacity: 1;
+    }
+}
+
+/* Light colored logos on dark backgrounds */
+.mkp-media-features-section--dark-bg .mkp-media-feature__logo {
+    filter: grayscale(100%) brightness(2);
+}
+
+.mkp-media-features-section--dark-bg .mkp-media-feature__link:hover .mkp-media-feature__logo,
+.mkp-media-features-section--dark-bg .mkp-media-feature-item:hover .mkp-media-feature__logo {
+    filter: grayscale(0%) brightness(1.5);
+}

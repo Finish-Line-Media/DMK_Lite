@@ -143,6 +143,16 @@ function mkp_scripts() {
     if ( is_front_page() && get_theme_mod( 'mkp_enable_section_in_the_media', false ) && mkp_has_media_items() ) {
         wp_enqueue_script( 'mediakit-lite-media-masonry', MKP_THEME_URI . '/assets/js/media-masonry.js', array( 'masonry', 'imagesloaded' ), MKP_THEME_VERSION, true );
     }
+    
+    // Books masonry script - only on front page if books section is enabled
+    if ( is_front_page() && get_theme_mod( 'mkp_enable_section_books', false ) && mkp_has_books() ) {
+        wp_enqueue_script( 'mediakit-lite-books-masonry', MKP_THEME_URI . '/assets/js/books-masonry.js', array( 'masonry', 'imagesloaded' ), MKP_THEME_VERSION, true );
+    }
+    
+    // Podcasts masonry script - only on front page if podcasts section is enabled
+    if ( is_front_page() && get_theme_mod( 'mkp_enable_section_podcasts', false ) && mkp_has_podcasts() ) {
+        wp_enqueue_script( 'mediakit-lite-podcasts-masonry', MKP_THEME_URI . '/assets/js/podcasts-masonry.js', array( 'masonry', 'imagesloaded' ), MKP_THEME_VERSION, true );
+    }
 }
 add_action( 'wp_enqueue_scripts', 'mkp_scripts' );
 

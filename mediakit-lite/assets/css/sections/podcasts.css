@@ -9,17 +9,22 @@
     padding: var(--mkp-spacing-xxl) 0;
 }
 
-/* Podcast Cards */
+/* Podcast Grid - Masonry layout */
 .mkp-podcasts__grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: var(--mkp-spacing-xl);
     max-width: 1200px;
     margin: 0 auto;
 }
 
 .mkp-podcast-card {
-    /* Specific podcast card styles only */
+    width: calc(33.333% - 14px);
+    margin-bottom: 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Hover effect for podcast cards */
+.mkp-podcast-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
 }
 
 .mkp-podcast-card__logo {
@@ -62,9 +67,16 @@
     font-size: 1.5rem;
 }
 
-/* Mobile styles */
-@media (max-width: 768px) {
-    .mkp-podcasts__grid {
-        grid-template-columns: 1fr;
+/* Tablet styles - 2 columns */
+@media (max-width: 800px) {
+    .mkp-podcast-card {
+        width: calc(50% - 10px);
+    }
+}
+
+/* Mobile styles - 1 column */
+@media (max-width: 500px) {
+    .mkp-podcast-card {
+        width: 100%;
     }
 }

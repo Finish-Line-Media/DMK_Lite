@@ -697,13 +697,587 @@ function mkp_customize_register( $wp_customize ) {
     }
     
     /**
+     * Featured Video Section
+     */
+    $wp_customize->add_section( 'mkp_featured_video_section', array(
+        'title'       => __( 'Featured Video', 'mediakit-lite' ),
+        'priority'    => 51,
+        'description' => __( 'Showcase a featured video with optional call-to-action buttons.', 'mediakit-lite' ),
+    ) );
+    
+    // Enable Section
+    $wp_customize->add_setting( 'mkp_enable_section_featured_video', array(
+        'default'           => false,
+        'sanitize_callback' => 'mkp_sanitize_checkbox',
+        'transport'         => 'postMessage',
+    ) );
+    
+    $wp_customize->add_control( 'mkp_enable_section_featured_video', array(
+        'label'       => __( 'Enable Featured Video Section', 'mediakit-lite' ),
+        'description' => __( 'Show or hide the featured video section on your landing page.', 'mediakit-lite' ),
+        'section'     => 'mkp_featured_video_section',
+        'type'        => 'checkbox',
+        'priority'    => 1,
+    ) );
+    
+    // Section Title
+    $wp_customize->add_setting( 'mkp_featured_video_section_title', array(
+        'default'           => __( 'Featured Video', 'mediakit-lite' ),
+        'sanitize_callback' => 'sanitize_text_field',
+        'transport'         => 'postMessage',
+    ) );
+    
+    $wp_customize->add_control( 'mkp_featured_video_section_title', array(
+        'label'           => __( 'Section Title', 'mediakit-lite' ),
+        'section'         => 'mkp_featured_video_section',
+        'type'            => 'text',
+        'priority'        => 5,
+    ) );
+    
+    // Video URL
+    $wp_customize->add_setting( 'mkp_featured_video_url', array(
+        'default'           => '',
+        'sanitize_callback' => 'esc_url_raw',
+        'transport'         => 'postMessage',
+    ) );
+    
+    $wp_customize->add_control( 'mkp_featured_video_url', array(
+        'label'           => __( 'Video URL', 'mediakit-lite' ),
+        'description'     => __( 'Enter a YouTube, Vimeo, or other supported video URL', 'mediakit-lite' ),
+        'section'         => 'mkp_featured_video_section',
+        'type'            => 'url',
+        'priority'        => 10,
+    ) );
+    
+    // Video Title
+    $wp_customize->add_setting( 'mkp_featured_video_title', array(
+        'default'           => '',
+        'sanitize_callback' => 'sanitize_text_field',
+        'transport'         => 'postMessage',
+    ) );
+    
+    $wp_customize->add_control( 'mkp_featured_video_title', array(
+        'label'           => __( 'Video Title', 'mediakit-lite' ),
+        'section'         => 'mkp_featured_video_section',
+        'type'            => 'text',
+        'priority'        => 15,
+    ) );
+    
+    // Video Description
+    $wp_customize->add_setting( 'mkp_featured_video_description', array(
+        'default'           => '',
+        'sanitize_callback' => 'wp_kses_post',
+        'transport'         => 'postMessage',
+    ) );
+    
+    $wp_customize->add_control( 'mkp_featured_video_description', array(
+        'label'           => __( 'Video Description', 'mediakit-lite' ),
+        'section'         => 'mkp_featured_video_section',
+        'type'            => 'textarea',
+        'priority'        => 20,
+    ) );
+    
+    // Primary CTA Text
+    $wp_customize->add_setting( 'mkp_featured_video_primary_cta_text', array(
+        'default'           => '',
+        'sanitize_callback' => 'sanitize_text_field',
+        'transport'         => 'postMessage',
+    ) );
+    
+    $wp_customize->add_control( 'mkp_featured_video_primary_cta_text', array(
+        'label'           => __( 'Primary Button Text', 'mediakit-lite' ),
+        'description'     => __( 'Leave empty to hide the primary button', 'mediakit-lite' ),
+        'section'         => 'mkp_featured_video_section',
+        'type'            => 'text',
+        'priority'        => 30,
+    ) );
+    
+    // Primary CTA URL
+    $wp_customize->add_setting( 'mkp_featured_video_primary_cta_url', array(
+        'default'           => '',
+        'sanitize_callback' => 'esc_url_raw',
+        'transport'         => 'postMessage',
+    ) );
+    
+    $wp_customize->add_control( 'mkp_featured_video_primary_cta_url', array(
+        'label'           => __( 'Primary Button URL', 'mediakit-lite' ),
+        'section'         => 'mkp_featured_video_section',
+        'type'            => 'url',
+        'priority'        => 35,
+    ) );
+    
+    // Secondary CTA Text
+    $wp_customize->add_setting( 'mkp_featured_video_secondary_cta_text', array(
+        'default'           => '',
+        'sanitize_callback' => 'sanitize_text_field',
+        'transport'         => 'postMessage',
+    ) );
+    
+    $wp_customize->add_control( 'mkp_featured_video_secondary_cta_text', array(
+        'label'           => __( 'Secondary Button Text', 'mediakit-lite' ),
+        'description'     => __( 'Leave empty to hide the secondary button', 'mediakit-lite' ),
+        'section'         => 'mkp_featured_video_section',
+        'type'            => 'text',
+        'priority'        => 45,
+    ) );
+    
+    // Secondary CTA URL
+    $wp_customize->add_setting( 'mkp_featured_video_secondary_cta_url', array(
+        'default'           => '',
+        'sanitize_callback' => 'esc_url_raw',
+        'transport'         => 'postMessage',
+    ) );
+    
+    $wp_customize->add_control( 'mkp_featured_video_secondary_cta_url', array(
+        'label'           => __( 'Secondary Button URL', 'mediakit-lite' ),
+        'section'         => 'mkp_featured_video_section',
+        'type'            => 'url',
+        'priority'        => 50,
+    ) );
+    
+    /**
+     * Testimonials Section
+     */
+    $wp_customize->add_section( 'mkp_testimonials_section', array(
+        'title'       => __( 'Testimonials', 'mediakit-lite' ),
+        'priority'    => 52,
+        'description' => __( 'Display client testimonials and reviews.', 'mediakit-lite' ),
+    ) );
+    
+    // Enable Testimonials Section
+    $wp_customize->add_setting( 'mkp_enable_section_testimonials', array(
+        'default'           => false,
+        'sanitize_callback' => 'mkp_sanitize_checkbox',
+        'transport'         => 'postMessage',
+    ) );
+    
+    $wp_customize->add_control( 'mkp_enable_section_testimonials', array(
+        'label'       => __( 'Enable Testimonials Section', 'mediakit-lite' ),
+        'description' => __( 'Show or hide the testimonials section on your landing page.', 'mediakit-lite' ),
+        'section'     => 'mkp_testimonials_section',
+        'type'        => 'checkbox',
+        'priority'    => 1,
+    ) );
+    
+    // Section Title
+    $wp_customize->add_setting( 'mkp_testimonials_section_title', array(
+        'default'           => __( 'Testimonials', 'mediakit-lite' ),
+        'sanitize_callback' => 'sanitize_text_field',
+        'transport'         => 'postMessage',
+    ) );
+    
+    $wp_customize->add_control( 'mkp_testimonials_section_title', array(
+        'label'           => __( 'Section Title', 'mediakit-lite' ),
+        'section'         => 'mkp_testimonials_section',
+        'type'            => 'text',
+        'priority'        => 5,
+    ) );
+    
+    // Testimonials (up to 6)
+    for ( $i = 1; $i <= 6; $i++ ) {
+        // Quote
+        $wp_customize->add_setting( 'mkp_testimonial_' . $i . '_quote', array(
+            'default'           => '',
+            'sanitize_callback' => 'wp_kses_post',
+            'transport'         => 'postMessage',
+        ) );
+        
+        $wp_customize->add_control( 'mkp_testimonial_' . $i . '_quote', array(
+            'label'       => sprintf( __( 'Testimonial %d Quote', 'mediakit-lite' ), $i ),
+            'section'     => 'mkp_testimonials_section',
+            'type'        => 'textarea',
+            'priority'    => 10 + ( $i * 10 ),
+        ) );
+        
+        // Author
+        $wp_customize->add_setting( 'mkp_testimonial_' . $i . '_author', array(
+            'default'           => '',
+            'sanitize_callback' => 'sanitize_text_field',
+            'transport'         => 'postMessage',
+        ) );
+        
+        $wp_customize->add_control( 'mkp_testimonial_' . $i . '_author', array(
+            'label'       => sprintf( __( 'Author Name', 'mediakit-lite' ), $i ),
+            'section'     => 'mkp_testimonials_section',
+            'type'        => 'text',
+            'priority'    => 10 + ( $i * 10 ) + 1,
+        ) );
+        
+        // Title
+        $wp_customize->add_setting( 'mkp_testimonial_' . $i . '_title', array(
+            'default'           => '',
+            'sanitize_callback' => 'sanitize_text_field',
+            'transport'         => 'postMessage',
+        ) );
+        
+        $wp_customize->add_control( 'mkp_testimonial_' . $i . '_title', array(
+            'label'       => sprintf( __( 'Author Title', 'mediakit-lite' ), $i ),
+            'section'     => 'mkp_testimonials_section',
+            'type'        => 'text',
+            'priority'    => 10 + ( $i * 10 ) + 2,
+        ) );
+        
+        // Organization
+        $wp_customize->add_setting( 'mkp_testimonial_' . $i . '_organization', array(
+            'default'           => '',
+            'sanitize_callback' => 'sanitize_text_field',
+            'transport'         => 'postMessage',
+        ) );
+        
+        $wp_customize->add_control( 'mkp_testimonial_' . $i . '_organization', array(
+            'label'       => sprintf( __( 'Organization', 'mediakit-lite' ), $i ),
+            'section'     => 'mkp_testimonials_section',
+            'type'        => 'text',
+            'priority'    => 10 + ( $i * 10 ) + 3,
+        ) );
+        
+        // Photo
+        $wp_customize->add_setting( 'mkp_testimonial_' . $i . '_photo', array(
+            'default'           => '',
+            'sanitize_callback' => 'esc_url_raw',
+            'transport'         => 'postMessage',
+        ) );
+        
+        $wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'mkp_testimonial_' . $i . '_photo', array(
+            'label'       => sprintf( __( 'Author Photo', 'mediakit-lite' ), $i ),
+            'section'     => 'mkp_testimonials_section',
+            'priority'    => 10 + ( $i * 10 ) + 4,
+        ) ) );
+        
+        // Rating
+        $wp_customize->add_setting( 'mkp_testimonial_' . $i . '_rating', array(
+            'default'           => 0,
+            'sanitize_callback' => 'absint',
+            'transport'         => 'postMessage',
+        ) );
+        
+        $wp_customize->add_control( 'mkp_testimonial_' . $i . '_rating', array(
+            'label'       => sprintf( __( 'Star Rating', 'mediakit-lite' ), $i ),
+            'description' => __( '0-5 stars (0 = no rating)', 'mediakit-lite' ),
+            'section'     => 'mkp_testimonials_section',
+            'type'        => 'number',
+            'input_attrs' => array(
+                'min' => 0,
+                'max' => 5,
+                'step' => 1,
+            ),
+            'priority'    => 10 + ( $i * 10 ) + 5,
+        ) );
+    }
+    
+    /**
+     * Awards & Recognition Section
+     */
+    $wp_customize->add_section( 'mkp_awards_section', array(
+        'title'       => __( 'Awards & Recognition', 'mediakit-lite' ),
+        'priority'    => 53,
+        'description' => __( 'Showcase awards, certifications, and achievements.', 'mediakit-lite' ),
+    ) );
+    
+    // Enable Awards Section
+    $wp_customize->add_setting( 'mkp_enable_section_awards', array(
+        'default'           => false,
+        'sanitize_callback' => 'mkp_sanitize_checkbox',
+        'transport'         => 'postMessage',
+    ) );
+    
+    $wp_customize->add_control( 'mkp_enable_section_awards', array(
+        'label'       => __( 'Enable Awards Section', 'mediakit-lite' ),
+        'description' => __( 'Show or hide the awards section on your landing page.', 'mediakit-lite' ),
+        'section'     => 'mkp_awards_section',
+        'type'        => 'checkbox',
+        'priority'    => 1,
+    ) );
+    
+    // Section Title
+    $wp_customize->add_setting( 'mkp_awards_section_title', array(
+        'default'           => __( 'Awards & Recognition', 'mediakit-lite' ),
+        'sanitize_callback' => 'sanitize_text_field',
+        'transport'         => 'postMessage',
+    ) );
+    
+    $wp_customize->add_control( 'mkp_awards_section_title', array(
+        'label'           => __( 'Section Title', 'mediakit-lite' ),
+        'section'         => 'mkp_awards_section',
+        'type'            => 'text',
+        'priority'        => 5,
+    ) );
+    
+    // Awards (up to 6)
+    for ( $i = 1; $i <= 6; $i++ ) {
+        // Logo
+        $wp_customize->add_setting( 'mkp_award_' . $i . '_logo', array(
+            'default'           => '',
+            'sanitize_callback' => 'esc_url_raw',
+            'transport'         => 'postMessage',
+        ) );
+        
+        $wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'mkp_award_' . $i . '_logo', array(
+            'label'       => sprintf( __( 'Award %d Logo/Badge', 'mediakit-lite' ), $i ),
+            'section'     => 'mkp_awards_section',
+            'priority'    => 10 + ( $i * 10 ),
+        ) ) );
+        
+        // Title
+        $wp_customize->add_setting( 'mkp_award_' . $i . '_title', array(
+            'default'           => '',
+            'sanitize_callback' => 'sanitize_text_field',
+            'transport'         => 'postMessage',
+        ) );
+        
+        $wp_customize->add_control( 'mkp_award_' . $i . '_title', array(
+            'label'       => sprintf( __( 'Award Title', 'mediakit-lite' ), $i ),
+            'section'     => 'mkp_awards_section',
+            'type'        => 'text',
+            'priority'    => 10 + ( $i * 10 ) + 1,
+        ) );
+        
+        // Year
+        $wp_customize->add_setting( 'mkp_award_' . $i . '_year', array(
+            'default'           => '',
+            'sanitize_callback' => 'sanitize_text_field',
+            'transport'         => 'postMessage',
+        ) );
+        
+        $wp_customize->add_control( 'mkp_award_' . $i . '_year', array(
+            'label'       => sprintf( __( 'Year', 'mediakit-lite' ), $i ),
+            'section'     => 'mkp_awards_section',
+            'type'        => 'text',
+            'priority'    => 10 + ( $i * 10 ) + 2,
+        ) );
+        
+        // Description
+        $wp_customize->add_setting( 'mkp_award_' . $i . '_description', array(
+            'default'           => '',
+            'sanitize_callback' => 'sanitize_textarea_field',
+            'transport'         => 'postMessage',
+        ) );
+        
+        $wp_customize->add_control( 'mkp_award_' . $i . '_description', array(
+            'label'       => sprintf( __( 'Description', 'mediakit-lite' ), $i ),
+            'section'     => 'mkp_awards_section',
+            'type'        => 'textarea',
+            'priority'    => 10 + ( $i * 10 ) + 3,
+        ) );
+    }
+    
+    /**
+     * Media Features Section
+     */
+    $wp_customize->add_section( 'mkp_media_features_section', array(
+        'title'       => __( 'Media Features', 'mediakit-lite' ),
+        'priority'    => 54,
+        'description' => __( 'Display "As Seen In" or "Featured In" media logos.', 'mediakit-lite' ),
+    ) );
+    
+    // Enable Media Features Section
+    $wp_customize->add_setting( 'mkp_enable_section_media_features', array(
+        'default'           => false,
+        'sanitize_callback' => 'mkp_sanitize_checkbox',
+        'transport'         => 'postMessage',
+    ) );
+    
+    $wp_customize->add_control( 'mkp_enable_section_media_features', array(
+        'label'       => __( 'Enable Media Features Section', 'mediakit-lite' ),
+        'description' => __( 'Show or hide the media features section on your landing page.', 'mediakit-lite' ),
+        'section'     => 'mkp_media_features_section',
+        'type'        => 'checkbox',
+        'priority'    => 1,
+    ) );
+    
+    // Section Title
+    $wp_customize->add_setting( 'mkp_media_features_section_title', array(
+        'default'           => __( 'Featured In', 'mediakit-lite' ),
+        'sanitize_callback' => 'sanitize_text_field',
+        'transport'         => 'postMessage',
+    ) );
+    
+    $wp_customize->add_control( 'mkp_media_features_section_title', array(
+        'label'           => __( 'Section Title', 'mediakit-lite' ),
+        'section'         => 'mkp_media_features_section',
+        'type'            => 'text',
+        'priority'        => 5,
+    ) );
+    
+    // Media Logos (up to 12)
+    for ( $i = 1; $i <= 12; $i++ ) {
+        // Logo
+        $wp_customize->add_setting( 'mkp_media_feature_' . $i . '_logo', array(
+            'default'           => '',
+            'sanitize_callback' => 'esc_url_raw',
+            'transport'         => 'postMessage',
+        ) );
+        
+        $wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'mkp_media_feature_' . $i . '_logo', array(
+            'label'       => sprintf( __( 'Media Logo %d', 'mediakit-lite' ), $i ),
+            'section'     => 'mkp_media_features_section',
+            'priority'    => 10 + ( $i * 10 ),
+        ) ) );
+        
+        // Name
+        $wp_customize->add_setting( 'mkp_media_feature_' . $i . '_name', array(
+            'default'           => '',
+            'sanitize_callback' => 'sanitize_text_field',
+            'transport'         => 'postMessage',
+        ) );
+        
+        $wp_customize->add_control( 'mkp_media_feature_' . $i . '_name', array(
+            'label'       => sprintf( __( 'Media Outlet Name', 'mediakit-lite' ), $i ),
+            'section'     => 'mkp_media_features_section',
+            'type'        => 'text',
+            'priority'    => 10 + ( $i * 10 ) + 1,
+        ) );
+        
+        // Link
+        $wp_customize->add_setting( 'mkp_media_feature_' . $i . '_link', array(
+            'default'           => '',
+            'sanitize_callback' => 'esc_url_raw',
+            'transport'         => 'postMessage',
+        ) );
+        
+        $wp_customize->add_control( 'mkp_media_feature_' . $i . '_link', array(
+            'label'       => sprintf( __( 'Link to Coverage', 'mediakit-lite' ), $i ),
+            'section'     => 'mkp_media_features_section',
+            'type'        => 'url',
+            'priority'    => 10 + ( $i * 10 ) + 2,
+        ) );
+    }
+    
+    /**
+     * Stats & Achievements Section
+     */
+    $wp_customize->add_section( 'mkp_stats_section', array(
+        'title'       => __( 'Stats & Achievements', 'mediakit-lite' ),
+        'priority'    => 55,
+        'description' => __( 'Display key metrics and achievements.', 'mediakit-lite' ),
+    ) );
+    
+    // Enable Stats Section
+    $wp_customize->add_setting( 'mkp_enable_section_stats', array(
+        'default'           => false,
+        'sanitize_callback' => 'mkp_sanitize_checkbox',
+        'transport'         => 'postMessage',
+    ) );
+    
+    $wp_customize->add_control( 'mkp_enable_section_stats', array(
+        'label'       => __( 'Enable Stats Section', 'mediakit-lite' ),
+        'description' => __( 'Show or hide the stats section on your landing page.', 'mediakit-lite' ),
+        'section'     => 'mkp_stats_section',
+        'type'        => 'checkbox',
+        'priority'    => 1,
+    ) );
+    
+    // Section Title
+    $wp_customize->add_setting( 'mkp_stats_section_title', array(
+        'default'           => __( 'By The Numbers', 'mediakit-lite' ),
+        'sanitize_callback' => 'sanitize_text_field',
+        'transport'         => 'postMessage',
+    ) );
+    
+    $wp_customize->add_control( 'mkp_stats_section_title', array(
+        'label'           => __( 'Section Title', 'mediakit-lite' ),
+        'section'         => 'mkp_stats_section',
+        'type'            => 'text',
+        'priority'        => 5,
+    ) );
+    
+    // Stats (up to 4)
+    for ( $i = 1; $i <= 4; $i++ ) {
+        // Number
+        $wp_customize->add_setting( 'mkp_stat_' . $i . '_number', array(
+            'default'           => '',
+            'sanitize_callback' => 'sanitize_text_field',
+            'transport'         => 'postMessage',
+        ) );
+        
+        $wp_customize->add_control( 'mkp_stat_' . $i . '_number', array(
+            'label'       => sprintf( __( 'Stat %d Number', 'mediakit-lite' ), $i ),
+            'section'     => 'mkp_stats_section',
+            'type'        => 'text',
+            'priority'    => 10 + ( $i * 10 ),
+        ) );
+        
+        // Label
+        $wp_customize->add_setting( 'mkp_stat_' . $i . '_label', array(
+            'default'           => '',
+            'sanitize_callback' => 'sanitize_text_field',
+            'transport'         => 'postMessage',
+        ) );
+        
+        $wp_customize->add_control( 'mkp_stat_' . $i . '_label', array(
+            'label'       => sprintf( __( 'Label', 'mediakit-lite' ), $i ),
+            'section'     => 'mkp_stats_section',
+            'type'        => 'text',
+            'priority'    => 10 + ( $i * 10 ) + 1,
+        ) );
+        
+        // Prefix
+        $wp_customize->add_setting( 'mkp_stat_' . $i . '_prefix', array(
+            'default'           => '',
+            'sanitize_callback' => 'sanitize_text_field',
+            'transport'         => 'postMessage',
+        ) );
+        
+        $wp_customize->add_control( 'mkp_stat_' . $i . '_prefix', array(
+            'label'       => sprintf( __( 'Prefix', 'mediakit-lite' ), $i ),
+            'description' => __( 'e.g., $, €', 'mediakit-lite' ),
+            'section'     => 'mkp_stats_section',
+            'type'        => 'text',
+            'priority'    => 10 + ( $i * 10 ) + 2,
+        ) );
+        
+        // Suffix
+        $wp_customize->add_setting( 'mkp_stat_' . $i . '_suffix', array(
+            'default'           => '',
+            'sanitize_callback' => 'sanitize_text_field',
+            'transport'         => 'postMessage',
+        ) );
+        
+        $wp_customize->add_control( 'mkp_stat_' . $i . '_suffix', array(
+            'label'       => sprintf( __( 'Suffix', 'mediakit-lite' ), $i ),
+            'description' => __( 'e.g., +, K, M', 'mediakit-lite' ),
+            'section'     => 'mkp_stats_section',
+            'type'        => 'text',
+            'priority'    => 10 + ( $i * 10 ) + 3,
+        ) );
+        
+        // Icon
+        $wp_customize->add_setting( 'mkp_stat_' . $i . '_icon', array(
+            'default'           => 'star',
+            'sanitize_callback' => 'mkp_sanitize_select',
+            'transport'         => 'postMessage',
+        ) );
+        
+        $wp_customize->add_control( 'mkp_stat_' . $i . '_icon', array(
+            'label'       => sprintf( __( 'Icon', 'mediakit-lite' ), $i ),
+            'section'     => 'mkp_stats_section',
+            'type'        => 'select',
+            'choices'     => array(
+                'users'      => __( 'Users/People', 'mediakit-lite' ),
+                'star'       => __( 'Star', 'mediakit-lite' ),
+                'award'      => __( 'Award', 'mediakit-lite' ),
+                'chart'      => __( 'Chart/Growth', 'mediakit-lite' ),
+                'calendar'   => __( 'Calendar', 'mediakit-lite' ),
+                'location'   => __( 'Location/Map', 'mediakit-lite' ),
+                'microphone' => __( 'Microphone', 'mediakit-lite' ),
+                'book'       => __( 'Book', 'mediakit-lite' ),
+                'video'      => __( 'Video', 'mediakit-lite' ),
+                'portfolio'  => __( 'Portfolio', 'mediakit-lite' ),
+                'megaphone'  => __( 'Megaphone', 'mediakit-lite' ),
+                'analytics'  => __( 'Analytics', 'mediakit-lite' ),
+            ),
+            'priority'    => 10 + ( $i * 10 ) + 4,
+        ) );
+    }
+    
+    /**
      * Questions for Media Section
      */
     $wp_customize->add_section( 'mkp_media_questions_section', array(
         'title'       => __( 'Questions for the Media', 'mediakit-lite' ),
-        'priority'    => 51,
+        'priority'    => 56,
         'description' => __( 'Suggested questions for media interviews.', 'mediakit-lite' ),
-    ) );
+    ) )
     
     // Enable Media Questions Section
     $wp_customize->add_setting( 'mkp_enable_section_media_questions', array(
@@ -762,7 +1336,7 @@ function mkp_customize_register( $wp_customize ) {
      */
     $wp_customize->add_section( 'mkp_investor_section', array(
         'title'       => __( 'Investor', 'mediakit-lite' ),
-        'priority'    => 52,
+        'priority'    => 57,
         'description' => __( 'Showcase investment opportunities or investor relations information.', 'mediakit-lite' ),
     ) );
     
@@ -816,7 +1390,7 @@ function mkp_customize_register( $wp_customize ) {
     // ====================
     $wp_customize->add_section( 'mkp_contact_section', array(
         'title'       => __( 'Contact', 'mediakit-lite' ),
-        'priority'    => 53,
+        'priority'    => 58,
         'description' => __( 'Add contact information including email addresses, physical address, and social media links.', 'mediakit-lite' ),
     ) );
     
@@ -922,7 +1496,7 @@ function mkp_customize_register( $wp_customize ) {
     // ====================
     $wp_customize->add_section( 'mkp_blog_settings', array(
         'title'       => __( 'Blog', 'mediakit-lite' ),
-        'priority'    => 54,
+        'priority'    => 59,
         'description' => __( 'Configure blog appearance. To set up a blog, go to Settings → Reading and configure a static page with a posts page.', 'mediakit-lite' ),
     ) );
     

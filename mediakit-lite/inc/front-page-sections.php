@@ -43,10 +43,35 @@ function mkp_get_all_sections_config() {
             'template' => 'template-parts/front-page/speaker-topics',
             'check_function' => 'mkp_has_speaker_topics',
         ),
+        'featured_video' => array(
+            'title' => __( 'Featured Video Section', 'mediakit-lite' ),
+            'template' => 'template-parts/front-page/featured-video',
+            'check_function' => 'mkp_has_featured_video',
+        ),
         'gallery' => array(
             'title' => __( 'Image Gallery Section', 'mediakit-lite' ),
             'template' => 'template-parts/front-page/gallery',
             'check_function' => 'mkp_has_gallery_images',
+        ),
+        'testimonials' => array(
+            'title' => __( 'Testimonials Section', 'mediakit-lite' ),
+            'template' => 'template-parts/front-page/testimonials',
+            'check_function' => 'mkp_has_testimonials',
+        ),
+        'awards' => array(
+            'title' => __( 'Awards & Recognition Section', 'mediakit-lite' ),
+            'template' => 'template-parts/front-page/awards',
+            'check_function' => 'mkp_has_awards',
+        ),
+        'media_features' => array(
+            'title' => __( 'Media Features Section', 'mediakit-lite' ),
+            'template' => 'template-parts/front-page/media-features',
+            'check_function' => 'mkp_has_media_features',
+        ),
+        'stats' => array(
+            'title' => __( 'Stats & Achievements Section', 'mediakit-lite' ),
+            'template' => 'template-parts/front-page/stats',
+            'check_function' => 'mkp_has_stats',
         ),
         'in_the_media' => array(
             'title' => __( 'In The Media Section', 'mediakit-lite' ),
@@ -237,6 +262,76 @@ function mkp_has_contact_info() {
 function mkp_has_gallery_images() {
     $gallery_images = get_theme_mod( 'mkp_gallery_images', '' );
     return ! empty( $gallery_images );
+}
+
+/**
+ * Check if featured video section has content
+ *
+ * @return bool
+ */
+function mkp_has_featured_video() {
+    $video_url = get_theme_mod( 'mkp_featured_video_url' );
+    return ! empty( $video_url );
+}
+
+/**
+ * Check if testimonials section has content
+ *
+ * @return bool
+ */
+function mkp_has_testimonials() {
+    for ( $i = 1; $i <= 6; $i++ ) {
+        if ( get_theme_mod( 'mkp_testimonial_' . $i . '_quote' ) ) {
+            return true;
+        }
+    }
+    return false;
+}
+
+/**
+ * Check if awards section has content
+ *
+ * @return bool
+ */
+function mkp_has_awards() {
+    for ( $i = 1; $i <= 6; $i++ ) {
+        $title = get_theme_mod( 'mkp_award_' . $i . '_title' );
+        $logo = get_theme_mod( 'mkp_award_' . $i . '_logo' );
+        if ( $title || $logo ) {
+            return true;
+        }
+    }
+    return false;
+}
+
+/**
+ * Check if media features section has content
+ *
+ * @return bool
+ */
+function mkp_has_media_features() {
+    for ( $i = 1; $i <= 12; $i++ ) {
+        if ( get_theme_mod( 'mkp_media_feature_' . $i . '_logo' ) ) {
+            return true;
+        }
+    }
+    return false;
+}
+
+/**
+ * Check if stats section has content
+ *
+ * @return bool
+ */
+function mkp_has_stats() {
+    for ( $i = 1; $i <= 4; $i++ ) {
+        $number = get_theme_mod( 'mkp_stat_' . $i . '_number' );
+        $label = get_theme_mod( 'mkp_stat_' . $i . '_label' );
+        if ( $number && $label ) {
+            return true;
+        }
+    }
+    return false;
 }
 
 /**

@@ -58,10 +58,15 @@ Requires PHP: 7.4
 @import url('assets/css/sections/podcasts.css');
 @import url('assets/css/sections/corporations.css');
 @import url('assets/css/sections/speaker.css');
+@import url('assets/css/sections/featured-video.css');
+@import url('assets/css/sections/gallery.css');
+@import url('assets/css/sections/testimonials.css');
+@import url('assets/css/sections/awards.css');
+@import url('assets/css/sections/media-features.css');
+@import url('assets/css/sections/stats.css');
 @import url('assets/css/sections/in-the-media.css');
 @import url('assets/css/sections/media-questions.css');
 @import url('assets/css/sections/investor.css');
-@import url('assets/css/sections/gallery.css');
 @import url('assets/css/sections/contact.css');
 
 /* ==========================================================================
