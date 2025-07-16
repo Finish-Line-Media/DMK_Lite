@@ -21,8 +21,11 @@ for ( $i = 1; $i <= 3; $i++ ) {
     }
 }
 
-// Don't show section if no podcasts
-if ( $actual_podcast_count === 0 ) {
+// For customizer preview, always render the section structure
+$is_customizer = is_customize_preview();
+
+// Don't show section if no podcasts (unless in customizer)
+if ( $actual_podcast_count === 0 && ! $is_customizer ) {
     return;
 }
 

@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Define Constants
  */
-define( 'MKP_THEME_VERSION', '1.11.0' );
+define( 'MKP_THEME_VERSION', '1.12.0' );
 define( 'MKP_THEME_DIR', get_template_directory() );
 define( 'MKP_THEME_URI', get_template_directory_uri() );
 
@@ -82,8 +82,9 @@ add_action( 'widgets_init', 'mkp_widgets_init' );
  * Enqueue scripts and styles
  */
 function mkp_scripts() {
-    // Enqueue main stylesheet
-    wp_enqueue_style( 'mediakit-lite-style', get_stylesheet_uri(), array(), MKP_THEME_VERSION );
+    // Enqueue main stylesheet - using modular CSS architecture
+    // Note: Keeping old style.css for now, but using the new modular version
+    wp_enqueue_style( 'mediakit-lite-style', MKP_THEME_URI . '/style-modular.css', array(), MKP_THEME_VERSION );
     
     // Enqueue Google Fonts based on selected fonts
     $body_font = get_theme_mod( 'mkp_body_font', 'system' );
@@ -135,7 +136,12 @@ function mkp_scripts() {
     
     // Gallery lightbox script - only on front page if gallery is enabled
     if ( is_front_page() && get_theme_mod( 'mkp_enable_section_gallery', false ) && mkp_has_gallery_images() ) {
-        wp_enqueue_script( 'mediakit-lite-gallery', MKP_THEME_URI . '/assets/js/gallery-lightbox.js', array(), MKP_THEME_VERSION, true );
+        wp_enqueue_script( 'mediakit-lite-gallery', MKP_THEME_URI . '/assets/js/gallery-lightbox.js', array( 'masonry', 'imagesloaded' ), MKP_THEME_VERSION, true );
+    }
+    
+    // Media masonry script - only on front page if media section is enabled
+    if ( is_front_page() && get_theme_mod( 'mkp_enable_section_in_the_media', false ) && mkp_has_media_items() ) {
+        wp_enqueue_script( 'mediakit-lite-media-masonry', MKP_THEME_URI . '/assets/js/media-masonry.js', array( 'masonry', 'imagesloaded' ), MKP_THEME_VERSION, true );
     }
 }
 add_action( 'wp_enqueue_scripts', 'mkp_scripts' );
@@ -470,3 +476,47 @@ class Mkp_Walker_Nav_Menu extends Walker_Nav_Menu {
         $output .= apply_filters( 'walker_nav_menu_start_el', $item_output, $item, $depth, $args );
     }
 }
+
+/**
+ * Add responsive wrapper to oEmbed content with provider detection
+ *
+ * @param string $html The returned oEmbed HTML
+ * @param string $url  URL of the content to be embedded
+ * @param array  $attr An array of shortcode attributes
+ * @param int    $post_id Post ID
+ * @return string Modified embed HTML
+ */
+function mkp_wrap_oembed_html( $html, $url, $attr, $post_id ) {
+    if ( empty( $html ) ) {
+        return $html;
+    }
+    
+    $classes = array( 'mkp-embed-responsive' );
+    
+    // Detect provider and add specific class
+    if ( false !== strpos( $url, 'youtube.com' ) || false !== strpos( $url, 'youtu.be' ) ) {
+        $classes[] = 'mkp-embed--youtube';
+    } elseif ( false !== strpos( $url, 'vimeo.com' ) ) {
+        $classes[] = 'mkp-embed--vimeo';
+    } elseif ( false !== strpos( $url, 'spotify.com' ) ) {
+        $classes[] = 'mkp-embed--spotify';
+    } elseif ( false !== strpos( $url, 'twitter.com' ) || false !== strpos( $url, 'x.com' ) ) {
+        $classes[] = 'mkp-embed--twitter';
+    } elseif ( false !== strpos( $url, 'instagram.com' ) ) {
+        $classes[] = 'mkp-embed--instagram';
+    } elseif ( false !== strpos( $url, 'tiktok.com' ) ) {
+        $classes[] = 'mkp-embed--tiktok';
+    } elseif ( false !== strpos( $url, 'facebook.com' ) ) {
+        $classes[] = 'mkp-embed--facebook';
+    } else {
+        // Generic video class for unknown providers
+        if ( preg_match( '/<iframe|<video/', $html ) ) {
+            $classes[] = 'mkp-embed--video';
+        }
+    }
+    
+    $classes_string = implode( ' ', $classes );
+    
+    return '<div class="' . esc_attr( $classes_string ) . '">' . $html . '</div>';
+}
+add_filter( 'embed_oembed_html', 'mkp_wrap_oembed_html', 10, 4 );

@@ -30,7 +30,7 @@ if ( ! $has_questions && ! $is_customizer ) {
 }
 ?>
 
-<section id="media-questions" class="<?php echo esc_attr( $section_class ); ?> mkp-media-questions-section--<?php echo esc_attr( $list_style ); ?>" style="background-color: <?php echo esc_attr( $section_color ); ?>; color: <?php echo esc_attr( $text_color ); ?><?php echo ( ! $has_questions && $is_customizer ) ? '; display: none;' : ''; ?>">
+<section id="media_questions" class="<?php echo esc_attr( $section_class ); ?> mkp-media-questions-section--<?php echo esc_attr( $list_style ); ?>" style="background-color: <?php echo esc_attr( $section_color ); ?>; color: <?php echo esc_attr( $text_color ); ?><?php echo ( ! $has_questions && $is_customizer ) ? '; display: none;' : ''; ?>">
     <div class="mkp-container">
         <h2 class="mkp-section__title"><?php esc_html_e( 'Questions for the Media', 'mediakit-lite' ); ?></h2>
         

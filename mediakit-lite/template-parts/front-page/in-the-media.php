@@ -18,7 +18,7 @@ $section_bg = $colors['background'];
 $text_color = $colors['text'];
 ?>
 
-<section id="in-the-media" class="mkp-section mkp-in-the-media" style="background-color: <?php echo esc_attr( $section_bg ); ?>; color: <?php echo esc_attr( $text_color ); ?>">
+<section id="in_the_media" class="mkp-section mkp-in-the-media" style="background-color: <?php echo esc_attr( $section_bg ); ?>; color: <?php echo esc_attr( $text_color ); ?>">
 	<div class="mkp-container">
 		<h2 class="mkp-section__title"><?php echo esc_html( get_theme_mod( 'mkp_in_the_media_section_title', __( 'In The Media', 'mediakit-lite' ) ) ); ?></h2>
 		
@@ -30,7 +30,7 @@ $text_color = $colors['text'];
 					$embed = wp_oembed_get( $url );
 					
 					if ( $embed ) : ?>
-						<div class="mkp-media-embed mkp-card">
+						<div class="mkp-media-embed">
 							<?php echo $embed; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 						</div>
 					<?php endif;

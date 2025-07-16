@@ -1,0 +1,384 @@
+/**
+ * Responsive Utilities
+ * Media query overrides and responsive behavior
+ *
+ * @package MediaKit_Lite
+ */
+
+/* ==========================================================================
+   Consolidated Media Queries
+   ========================================================================== */
+
+/* Mobile Devices - Max width 768px */
+@media (max-width: 768px) {
+    /* ==========================================================================
+       Base & Typography
+       ========================================================================== */
+    :root {
+        --mkp-container-padding: 1rem;
+    }
+    
+    h1 { font-size: 2rem; }
+    h2 { font-size: 1.75rem; }
+    h3 { font-size: 1.5rem; }
+    
+    /* ==========================================================================
+       Navigation & Header
+       ========================================================================== */
+    .mkp-mobile-toggle {
+        display: block;
+    }
+    
+    .mkp-nav {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        padding: var(--mkp-spacing-lg);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        transform: translateY(-100%);
+        opacity: 0;
+        visibility: hidden;
+        transition: var(--mkp-transition);
+        text-align: center;
+    }
+    
+    .mkp-nav--active {
+        transform: translateY(0);
+        opacity: 1;
+        visibility: visible;
+    }
+    
+    .mkp-nav__item {
+        text-align: center;
+    }
+    
+    .mkp-nav__link {
+        display: block;
+        padding: var(--mkp-spacing-md) 0;
+    }
+    
+    /* Mobile search styles */
+    .mkp-nav__item--search {
+        margin-top: var(--mkp-spacing-md);
+        justify-content: center;
+    }
+    
+    .mkp-nav__search-form {
+        width: 100%;
+        max-width: 300px;
+    }
+    
+    .mkp-nav__search-field {
+        flex: 1;
+        width: auto;
+    }
+    
+    .mkp-nav__search-field:focus {
+        width: auto;
+    }
+    
+    /* ==========================================================================
+       Hero Section
+       ========================================================================== */
+    .mkp-hero__title {
+        font-size: 2rem;
+    }
+    
+    .mkp-hero__name {
+        font-size: 2rem;
+    }
+    
+    .mkp-hero__name-image {
+        max-width: 300px;
+    }
+    
+    .mkp-hero__wrapper {
+        flex-direction: column;
+        gap: var(--mkp-spacing-md);
+    }
+    
+    .mkp-hero__images {
+        flex: 0 0 auto;
+        width: 100%;
+        max-width: 200px;
+        margin: 0 auto;
+    }
+    
+    .mkp-hero__content {
+        order: 2;
+        margin: var(--mkp-spacing-lg) 0;
+    }
+    
+    .mkp-hero__images--left {
+        order: 1;
+        margin-bottom: var(--mkp-spacing-md);
+    }
+    
+    .mkp-hero__images--right {
+        order: 3;
+        margin-top: var(--mkp-spacing-md);
+    }
+    
+    .mkp-hero__image img {
+        max-height: 200px;
+    }
+    
+    /* ==========================================================================
+       Books & Podcasts Sections
+       ========================================================================== */
+    /* Mobile - all book layouts become single column */
+    .mkp-books__grid--two-columns,
+    .mkp-books__grid--three-columns {
+        grid-template-columns: 1fr;
+        max-width: 100%;
+    }
+    
+    .mkp-book-card__cover {
+        height: 150px;
+        max-height: 20vh;
+    }
+    
+    .mkp-podcasts__grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .mkp-podcast-card__logo {
+        height: 150px;
+        max-height: 20vh;
+    }
+    
+    .mkp-podcast__content {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+    
+    .mkp-podcast__logo {
+        width: 200px;
+        height: 200px;
+        margin: 0 auto;
+    }
+    
+    /* ==========================================================================
+       Speaker & Media Questions
+       ========================================================================== */
+    .mkp-speaker__topics {
+        grid-template-columns: 1fr;
+    }
+    
+    .mkp-speaker__topics--count-4,
+    .mkp-speaker__topics--count-6 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    /* ==========================================================================
+       Corporations Section
+       ========================================================================== */
+    .mkp-corporations__grid {
+        max-width: 600px;
+    }
+    
+    /* ==========================================================================
+       Contact & Forms
+       ========================================================================== */
+    .mkp-contact__info {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+    
+    .mkp-contact-form {
+        padding: var(--mkp-spacing-lg);
+    }
+    
+    .mkp-form-row {
+        flex-direction: column;
+        gap: 0;
+    }
+    
+    .mkp-contact-form--inline {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .mkp-contact-form--inline .mkp-form-group {
+        margin-bottom: var(--mkp-spacing-md);
+    }
+    
+    /* ==========================================================================
+       Blog & Posts
+       ========================================================================== */
+    .mkp-blog-header__title {
+        font-size: 2rem;
+    }
+    
+    .mkp-blog-grid {
+        grid-template-columns: 1fr;
+        gap: var(--mkp-spacing-lg);
+    }
+    
+    .mkp-blog-card__title {
+        font-size: 1.25rem;
+    }
+    
+    /* Archive styles */
+    .mkp-archive-grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+    
+    .mkp-page-title {
+        font-size: 2rem;
+    }
+    
+    .mkp-archive-description {
+        font-size: 1rem;
+    }
+    
+    .mkp-entry-title {
+        font-size: 1.75rem;
+    }
+    
+    .mkp-entry-content {
+        font-size: 1rem;
+    }
+    
+    .mkp-author-bio {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .mkp-author-avatar {
+        margin: 0 auto;
+    }
+    
+    .mkp-post-navigation .nav-links {
+        grid-template-columns: 1fr;
+        gap: var(--mkp-spacing-xl);
+    }
+    
+    .mkp-post-navigation .nav-next {
+        text-align: left;
+        align-items: flex-start;
+    }
+    
+    /* ==========================================================================
+       Comments
+       ========================================================================== */
+    .comments-area {
+        padding: var(--mkp-spacing-lg);
+    }
+    
+    .comment {
+        padding: var(--mkp-spacing-md);
+    }
+    
+    .comment .children {
+        padding-left: var(--mkp-spacing-md);
+    }
+    
+    /* ==========================================================================
+       Media Section
+       ========================================================================== */
+    .mkp-media-grid {
+        grid-template-columns: 1fr;
+        gap: var(--mkp-spacing-lg);
+    }
+    
+    /* ==========================================================================
+       Footer
+       ========================================================================== */
+    .mkp-footer__content {
+        grid-template-columns: 1fr;
+    }
+    
+    /* ==========================================================================
+       Investor Section
+       ========================================================================== */
+    .mkp-investor__lanes {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Small Mobile Devices - Max width 480px */
+@media (max-width: 480px) {
+    /* Speaker Topics */
+    .mkp-speaker__topics--count-4,
+    .mkp-speaker__topics--count-6 {
+        grid-template-columns: 1fr;
+    }
+    
+    /* Corporations */
+    .mkp-corporations__grid {
+        max-width: 400px;
+    }
+    
+    .mkp-corp-card {
+        padding: var(--mkp-spacing-md) var(--mkp-spacing-lg);
+    }
+}
+
+/* Tablet Devices - Between 769px and 1024px */
+@media (min-width: 769px) and (max-width: 1024px) {
+    :root {
+        --mkp-container-padding: 2rem;
+    }
+    
+    /* Ensure proper padding for navigation on tablets */
+    .mkp-header__inner {
+        padding-left: var(--mkp-container-padding);
+        padding-right: var(--mkp-container-padding);
+    }
+}
+
+/* ==========================================================================
+   Accessibility Preferences
+   ========================================================================== */
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+    :root {
+        --mkp-primary: #000000;
+        --mkp-secondary: #0066cc;
+        --mkp-text: #000000;
+        --mkp-bg: #ffffff;
+        --mkp-border: #000000;
+    }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* ==========================================================================
+   Print Styles
+   ========================================================================== */
+@media print {
+    .mkp-header,
+    .mkp-footer,
+    .mkp-btn,
+    .mkp-social {
+        display: none;
+    }
+    
+    body {
+        font-size: 12pt;
+        line-height: 1.5;
+    }
+    
+    a {
+        text-decoration: underline;
+    }
+    
+    h1, h2, h3, h4, h5, h6 {
+        page-break-after: avoid;
+    }
+}

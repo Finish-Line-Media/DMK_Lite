@@ -9,6 +9,7 @@
     
     let currentImageIndex = 0;
     let galleryImages = [];
+    let masonryInstance = null;
     
     // Initialize when DOM is ready
     document.addEventListener( 'DOMContentLoaded', function() {
@@ -21,6 +22,26 @@
         const galleryItems = document.querySelectorAll( '.mkp-gallery__item' );
         if ( ! galleryItems.length ) {
             return;
+        }
+        
+        // Initialize Masonry
+        const grid = document.querySelector( '.mkp-gallery__grid' );
+        if ( grid && typeof Masonry !== 'undefined' ) {
+            // Initialize Masonry
+            masonryInstance = new Masonry( grid, {
+                itemSelector: '.mkp-gallery__item',
+                columnWidth: '.mkp-gallery__item',
+                percentPosition: true,
+                gutter: 16,
+                transitionDuration: '0.3s'
+            });
+            
+            // Layout after all images have loaded
+            if ( typeof imagesLoaded !== 'undefined' ) {
+                imagesLoaded( grid, function() {
+                    masonryInstance.layout();
+                });
+            }
         }
         
         // Build images array

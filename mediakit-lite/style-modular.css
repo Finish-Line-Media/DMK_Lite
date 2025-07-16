@@ -32,6 +32,8 @@ Requires PHP: 7.4
    Layout
    ========================================================================== */
 @import url('assets/css/layout/containers.css');
+@import url('assets/css/layout/grid.css');
+@import url('assets/css/layout/utilities.css');
 
 /* ==========================================================================
    Components
@@ -41,6 +43,12 @@ Requires PHP: 7.4
 @import url('assets/css/components/hero.css');
 @import url('assets/css/components/buttons.css');
 @import url('assets/css/components/cards.css');
+@import url('assets/css/components/forms.css');
+@import url('assets/css/components/footer.css');
+@import url('assets/css/components/blog.css');
+@import url('assets/css/components/posts.css');
+@import url('assets/css/components/comments.css');
+@import url('assets/css/components/social.css');
 
 /* ==========================================================================
    Sections
@@ -56,4 +64,12 @@ Requires PHP: 7.4
 @import url('assets/css/sections/gallery.css');
 @import url('assets/css/sections/contact.css');
 
-/* Note: Additional imports will be added as more modules are extracted */
+/* ==========================================================================
+   WordPress Core
+   ========================================================================== */
+@import url('assets/css/base/wordpress.css');
+
+/* ==========================================================================
+   Responsive & Accessibility
+   ========================================================================== */
+@import url('assets/css/base/responsive.css');

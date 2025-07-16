@@ -26,7 +26,7 @@
     max-height: 25vh; /* Maximum 1/4 of viewport height */
     height: 200px; /* Default height */
     overflow: hidden;
-    background-color: var(--mkp-theme-neutral-light);
+    background-color: transparent;
     padding: var(--mkp-spacing-md);
     display: flex;
     align-items: center;

@@ -1,0 +1,253 @@
+/**
+ * WordPress Core Styles
+ * WordPress-specific styles and alignments
+ *
+ * @package MediaKit_Lite
+ */
+
+/* ==========================================================================
+   WordPress Alignments
+   ========================================================================== */
+
+.alignleft {
+    float: left;
+    margin-right: var(--mkp-spacing-md);
+    margin-bottom: var(--mkp-spacing-md);
+}
+
+.alignright {
+    float: right;
+    margin-left: var(--mkp-spacing-md);
+    margin-bottom: var(--mkp-spacing-md);
+}
+
+.aligncenter {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: var(--mkp-spacing-md);
+}
+
+.alignwide {
+    max-width: calc(100% + var(--mkp-spacing-xl) * 2);
+    margin-left: calc(-1 * var(--mkp-spacing-xl));
+    margin-right: calc(-1 * var(--mkp-spacing-xl));
+}
+
+.alignfull {
+    max-width: 100vw;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+}
+
+/* ==========================================================================
+   WordPress Captions
+   ========================================================================== */
+
+.wp-caption {
+    max-width: 100%;
+    margin-bottom: var(--mkp-spacing-md);
+}
+
+.wp-caption img {
+    display: block;
+    margin: 0;
+    max-width: 100%;
+    height: auto;
+}
+
+.wp-caption-text {
+    margin-top: var(--mkp-spacing-sm);
+    font-size: 0.875rem;
+    text-align: center;
+    opacity: 0.8;
+}
+
+/* ==========================================================================
+   Screen Reader Text
+   ========================================================================== */
+
+.screen-reader-text {
+    border: 0;
+    clip: rect(1px, 1px, 1px, 1px);
+    clip-path: inset(50%);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+    word-wrap: normal !important;
+}
+
+.screen-reader-text:focus {
+    background-color: #f1f1f1;
+    border-radius: 3px;
+    box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.6);
+    clip: auto !important;
+    clip-path: none;
+    color: #21759b;
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 700;
+    height: auto;
+    left: 5px;
+    line-height: normal;
+    padding: 15px 23px 14px;
+    text-decoration: none;
+    top: 5px;
+    width: auto;
+    z-index: 100000;
+}
+
+/* ==========================================================================
+   WordPress Galleries
+   ========================================================================== */
+
+.gallery {
+    margin-bottom: var(--mkp-spacing-lg);
+}
+
+.gallery-item {
+    display: inline-block;
+    text-align: center;
+    vertical-align: top;
+    width: 100%;
+}
+
+.gallery-columns-2 .gallery-item {
+    max-width: 50%;
+}
+
+.gallery-columns-3 .gallery-item {
+    max-width: 33.33%;
+}
+
+.gallery-columns-4 .gallery-item {
+    max-width: 25%;
+}
+
+.gallery-columns-5 .gallery-item {
+    max-width: 20%;
+}
+
+.gallery-columns-6 .gallery-item {
+    max-width: 16.66%;
+}
+
+.gallery-columns-7 .gallery-item {
+    max-width: 14.28%;
+}
+
+.gallery-columns-8 .gallery-item {
+    max-width: 12.5%;
+}
+
+.gallery-columns-9 .gallery-item {
+    max-width: 11.11%;
+}
+
+.gallery-caption {
+    display: block;
+    font-size: 0.875rem;
+    opacity: 0.8;
+    margin-top: var(--mkp-spacing-sm);
+}
+
+/* ==========================================================================
+   WordPress Forms
+   ========================================================================== */
+
+/* Search Form */
+.search-form {
+    display: flex;
+    gap: var(--mkp-spacing-sm);
+}
+
+.search-field {
+    flex: 1;
+    padding: var(--mkp-spacing-sm) var(--mkp-spacing-md);
+    border: 1px solid var(--mkp-theme-border);
+    border-radius: 4px;
+}
+
+.search-submit {
+    padding: var(--mkp-spacing-sm) var(--mkp-spacing-md);
+}
+
+/* Password Protected Form */
+.post-password-form {
+    margin: var(--mkp-spacing-lg) 0;
+}
+
+.post-password-form label {
+    display: block;
+    margin-bottom: var(--mkp-spacing-sm);
+}
+
+.post-password-form input[type="password"] {
+    width: 100%;
+    max-width: 300px;
+    padding: var(--mkp-spacing-sm) var(--mkp-spacing-md);
+    border: 1px solid var(--mkp-theme-border);
+    border-radius: 4px;
+    margin-bottom: var(--mkp-spacing-md);
+}
+
+/* ==========================================================================
+   WordPress Embeds
+   ========================================================================== */
+
+.wp-embed-responsive .wp-embed-aspect-16-9 .wp-block-embed__wrapper:before {
+    padding-top: 56.25%;
+}
+
+.wp-embed-responsive .wp-embed-aspect-4-3 .wp-block-embed__wrapper:before {
+    padding-top: 75%;
+}
+
+.wp-embed-responsive .wp-embed-aspect-1-1 .wp-block-embed__wrapper:before {
+    padding-top: 100%;
+}
+
+/* ==========================================================================
+   Sticky Posts
+   ========================================================================== */
+
+.sticky {
+    position: relative;
+}
+
+.sticky::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 40px 40px 0;
+    border-color: transparent var(--mkp-theme-accent-1) transparent transparent;
+}
+
+/* ==========================================================================
+   Post Formats
+   ========================================================================== */
+
+.format-aside {
+    background-color: rgba(0, 0, 0, 0.02);
+    padding: var(--mkp-spacing-lg);
+    border-left: 4px solid var(--mkp-theme-accent-1);
+}
+
+.format-quote blockquote {
+    font-size: 1.25rem;
+    font-style: italic;
+    margin: 0;
+}
+
+.format-status {
+    background-color: rgba(0, 0, 0, 0.05);
+    padding: var(--mkp-spacing-md);
+    border-radius: 8px;
+}

@@ -21,8 +21,11 @@ for ( $i = 1; $i <= 4; $i++ ) {
     }
 }
 
-// Don't show section if no books
-if ( $actual_book_count === 0 ) {
+// For customizer preview, always render the section structure
+$is_customizer = is_customize_preview();
+
+// Don't show section if no books (unless in customizer)
+if ( $actual_book_count === 0 && ! $is_customizer ) {
     return;
 }
 

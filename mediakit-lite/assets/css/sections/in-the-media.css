@@ -15,35 +15,87 @@
 }
 
 .mkp-media-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    gap: var(--mkp-spacing-xl);
     margin-top: var(--mkp-spacing-xl);
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .mkp-media-embed {
     position: relative;
-    width: 100%;
+    width: calc(50% - 10px);
+    margin-bottom: 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 8px;
+    overflow: hidden;
 }
 
-/* Ensure responsive embeds */
-.mkp-media-embed iframe,
-.mkp-media-embed video,
-.mkp-media-embed object,
-.mkp-media-embed embed {
-    max-width: 100%;
-    height: auto;
-}
-
-/* Special handling for aspect ratios */
-.mkp-media-embed > div {
+/* Base responsive embed container */
+.mkp-embed-responsive {
     position: relative;
+    width: 100%;
+    overflow: hidden;
+    margin: 0 auto;
 }
 
-/* Mobile styles */
-@media (max-width: 768px) {
-    .mkp-media-grid {
-        grid-template-columns: 1fr;
-        gap: var(--mkp-spacing-lg);
+/* Video embeds - 16:9 aspect ratio */
+.mkp-embed--youtube,
+.mkp-embed--vimeo,
+.mkp-embed--video {
+    padding-bottom: 56.25%; /* 16:9 */
+    height: 0;
+}
+
+.mkp-embed--youtube iframe,
+.mkp-embed--vimeo iframe,
+.mkp-embed--video iframe,
+.mkp-embed--video video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* Spotify embeds - constrained height */
+.mkp-embed--spotify {
+    min-height: 152px;
+    max-height: 400px;
+}
+
+.mkp-embed--spotify iframe {
+    width: 100%;
+    height: 100%;
+    min-height: 152px;
+}
+
+/* Social media embeds - natural height */
+.mkp-embed--twitter,
+.mkp-embed--instagram,
+.mkp-embed--facebook,
+.mkp-embed--tiktok {
+    /* Let content determine height */
+}
+
+.mkp-embed--twitter iframe,
+.mkp-embed--instagram iframe,
+.mkp-embed--facebook iframe,
+.mkp-embed--tiktok iframe {
+    max-width: 100%;
+    margin: 0 auto;
+    display: block;
+}
+
+/* Hover effect */
+.mkp-media-embed:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+/* Tablet and Mobile styles */
+@media (max-width: 800px) {
+    .mkp-media-embed {
+        width: 100%;
+        margin-bottom: 20px;
     }
 }

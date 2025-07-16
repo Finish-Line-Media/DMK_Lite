@@ -333,6 +333,17 @@ function mkp_get_front_page_nav_items() {
                 return false;
             },
         ),
+        'gallery' => array(
+            'id'    => 'gallery',
+            'label' => __( 'Gallery', 'mediakit-lite' ),
+            'url'   => $base_url . '#gallery',
+            'check' => function() {
+                if ( ! get_theme_mod( 'mkp_enable_section_gallery', false ) ) {
+                    return false;
+                }
+                return mkp_has_gallery_images();
+            },
+        ),
         'corporations' => array(
             'id'    => 'corporations',
             'label' => __( 'Companies', 'mediakit-lite' ),
@@ -352,7 +363,7 @@ function mkp_get_front_page_nav_items() {
         'speaker_topics' => array(
             'id'    => 'speaking',
             'label' => __( 'Speaking', 'mediakit-lite' ),
-            'url'   => $base_url . '#speaking',
+            'url'   => $base_url . '#speaker_topics',
             'check' => function() {
                 if ( ! get_theme_mod( 'mkp_enable_section_speaker_topics', false ) ) {
                     return false;
@@ -368,7 +379,7 @@ function mkp_get_front_page_nav_items() {
         'in_the_media' => array(
             'id'    => 'in-the-media',
             'label' => __( 'In The Media', 'mediakit-lite' ),
-            'url'   => $base_url . '#in-the-media',
+            'url'   => $base_url . '#in_the_media',
             'check' => function() {
                 if ( ! get_theme_mod( 'mkp_enable_section_in_the_media', false ) ) {
                     return false;
@@ -379,7 +390,7 @@ function mkp_get_front_page_nav_items() {
         'media_questions' => array(
             'id'    => 'media-questions',
             'label' => __( 'Media Questions', 'mediakit-lite' ),
-            'url'   => $base_url . '#media-questions',
+            'url'   => $base_url . '#media_questions',
             'check' => function() {
                 if ( ! get_theme_mod( 'mkp_enable_section_media_questions', false ) ) {
                     return false;

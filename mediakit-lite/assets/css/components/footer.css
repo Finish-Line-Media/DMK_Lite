@@ -1,0 +1,25 @@
+/**
+ * Footer Component
+ * Site footer styles
+ *
+ * @package MediaKit_Lite
+ */
+
+.mkp-footer {
+    padding: var(--mkp-spacing-xl) 0;
+}
+
+.mkp-footer__content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--mkp-spacing-xl);
+}
+
+.mkp-footer__section h3 {
+    color: inherit;
+    margin-bottom: var(--mkp-spacing-md);
+}
+
+.mkp-footer__bottom {
+    text-align: center;
+}

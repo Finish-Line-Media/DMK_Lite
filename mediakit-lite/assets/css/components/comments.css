@@ -1,0 +1,39 @@
+/**
+ * Comments Component
+ * WordPress comments section styles
+ *
+ * @package MediaKit_Lite
+ */
+
+/* Comments Section */
+.comments-area {
+    /* Uses .mkp-glass-subtle pattern */
+    background-color: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    
+    /* Card properties */
+    border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    padding: var(--mkp-spacing-xl);
+    margin-top: var(--mkp-spacing-xxl);
+    
+    /* Use theme colors */
+    color: var(--mkp-theme-neutral-dark);
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+    .comments-area {
+        padding: var(--mkp-spacing-lg);
+    }
+    
+    .comment {
+        padding: var(--mkp-spacing-md);
+    }
+    
+    .comment .children {
+        padding-left: var(--mkp-spacing-md);
+    }
+}

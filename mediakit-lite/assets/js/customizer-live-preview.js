@@ -723,6 +723,8 @@
     }
     
     // Handle enable/disable section toggle
+    // Commented out - now handled by Selective Refresh
+    /*
     wp.customize( 'mkp_enable_section_media_questions', function( value ) {
         value.bind( function( to ) {
             const $section = $( '.mkp-media-questions-section' );
@@ -733,6 +735,7 @@
             }
         } );
     } );
+    */
     
     // Function to update investor section title
     function updateInvestorSectionTitle() {
@@ -816,6 +819,8 @@
     }
     
     // Handle enable/disable investor section toggle
+    // Commented out - now handled by Selective Refresh
+    /*
     wp.customize( 'mkp_enable_section_investor', function( value ) {
         value.bind( function( to ) {
             const $section = $( '.mkp-investor-section' );
@@ -826,6 +831,7 @@
             }
         } );
     } );
+    */
     
     // Contact Section - simplified approach
     
@@ -957,6 +963,8 @@
     } );
     
     // Handle enable/disable contact section toggle
+    // Commented out - now handled by Selective Refresh
+    /*
     wp.customize( 'mkp_enable_section_contact', function( value ) {
         value.bind( function( to ) {
             console.log( 'Contact section enable/disable:', to );
@@ -972,6 +980,7 @@
             }
         } );
     } );
+    */
     
     // In The Media Section Title
     wp.customize( 'mkp_in_the_media_section_title', function( value ) {
@@ -994,6 +1003,8 @@
     }
     
     // Handle enable/disable In The Media section toggle
+    // Commented out - now handled by Selective Refresh
+    /*
     wp.customize( 'mkp_enable_section_in_the_media', function( value ) {
         value.bind( function( to ) {
             const $section = $( '.mkp-in-the-media-section' );
@@ -1004,6 +1015,7 @@
             }
         } );
     } );
+    */
     
     // Initial checks when customizer loads
     $( document ).ready( function() {

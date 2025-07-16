@@ -23,12 +23,15 @@ for ( $i = 1; $i <= 6; $i++ ) {
     }
 }
 
-if ( ! $has_topics ) {
+// For customizer preview, always render the section structure
+$is_customizer = is_customize_preview();
+
+if ( ! $has_topics && ! $is_customizer ) {
     return;
 }
 ?>
 
-<section id="speaking" class="<?php echo esc_attr( $section_class ); ?> mkp-speaker-section--<?php echo esc_attr( $list_style ); ?>" style="background-color: <?php echo esc_attr( $section_color ); ?>; color: <?php echo esc_attr( $text_color ); ?>">
+<section id="speaker_topics" class="<?php echo esc_attr( $section_class ); ?> mkp-speaker-section--<?php echo esc_attr( $list_style ); ?>" style="background-color: <?php echo esc_attr( $section_color ); ?>; color: <?php echo esc_attr( $text_color ); ?>">
     <div class="mkp-container">
         <h2 class="mkp-section__title"><?php esc_html_e( 'Speaking Topics', 'mediakit-lite' ); ?></h2>
         

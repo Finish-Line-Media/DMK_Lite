@@ -1,0 +1,42 @@
+/**
+ * Utility Classes
+ * Reusable utility styles
+ *
+ * @package MediaKit_Lite
+ */
+
+/* ==========================================================================
+   Glassmorphic Utilities
+   ========================================================================== */
+
+/* Light glassmorphism - for main cards */
+.mkp-glass-light {
+    background-color: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+/* Medium glassmorphism - for comments/forms */
+.mkp-glass-medium {
+    background-color: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+}
+
+/* Subtle glassmorphism - with border */
+.mkp-glass-subtle {
+    background-color: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Dark glass - for social/share buttons */
+.mkp-glass-dark {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+/* White glass - for dark backgrounds */
+.mkp-glass-white {
+    background-color: rgba(255, 255, 255, 0.1);
+}

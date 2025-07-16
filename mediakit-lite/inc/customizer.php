@@ -289,6 +289,7 @@ function mkp_customize_register( $wp_customize ) {
     $wp_customize->add_setting( 'mkp_enable_section_corporations', array(
         'default'           => false,
         'sanitize_callback' => 'mkp_sanitize_checkbox',
+        'transport'         => 'postMessage',
     ) );
     
     $wp_customize->add_control( 'mkp_enable_section_corporations', array(
@@ -368,6 +369,7 @@ function mkp_customize_register( $wp_customize ) {
     $wp_customize->add_setting( 'mkp_enable_section_books', array(
         'default'           => false,
         'sanitize_callback' => 'mkp_sanitize_checkbox',
+        'transport'         => 'postMessage',
     ) );
     
     $wp_customize->add_control( 'mkp_enable_section_books', array(
@@ -468,6 +470,7 @@ function mkp_customize_register( $wp_customize ) {
     $wp_customize->add_setting( 'mkp_enable_section_gallery', array(
         'default'           => false,
         'sanitize_callback' => 'mkp_sanitize_checkbox',
+        'transport'         => 'postMessage',
     ) );
     
     $wp_customize->add_control( 'mkp_enable_section_gallery', array(
@@ -505,6 +508,7 @@ function mkp_customize_register( $wp_customize ) {
     $wp_customize->add_setting( 'mkp_enable_section_podcasts', array(
         'default'           => false,
         'sanitize_callback' => 'mkp_sanitize_checkbox',
+        'transport'         => 'postMessage',
     ) );
     
     $wp_customize->add_control( 'mkp_enable_section_podcasts', array(
@@ -585,6 +589,7 @@ function mkp_customize_register( $wp_customize ) {
     $wp_customize->add_setting( 'mkp_enable_section_speaker_topics', array(
         'default'           => false,
         'sanitize_callback' => 'mkp_sanitize_checkbox',
+        'transport'         => 'postMessage',
     ) );
     
     $wp_customize->add_control( 'mkp_enable_section_speaker_topics', array(
@@ -646,6 +651,7 @@ function mkp_customize_register( $wp_customize ) {
     $wp_customize->add_setting( 'mkp_enable_section_in_the_media', array(
         'default'           => false,
         'sanitize_callback' => 'mkp_sanitize_checkbox',
+        'transport'         => 'postMessage',
     ) );
     
     $wp_customize->add_control( 'mkp_enable_section_in_the_media', array(
@@ -703,6 +709,7 @@ function mkp_customize_register( $wp_customize ) {
     $wp_customize->add_setting( 'mkp_enable_section_media_questions', array(
         'default'           => false,
         'sanitize_callback' => 'mkp_sanitize_checkbox',
+        'transport'         => 'postMessage',
     ) );
     
     $wp_customize->add_control( 'mkp_enable_section_media_questions', array(
@@ -763,6 +770,7 @@ function mkp_customize_register( $wp_customize ) {
     $wp_customize->add_setting( 'mkp_enable_section_investor', array(
         'default'           => false,
         'sanitize_callback' => 'mkp_sanitize_checkbox',
+        'transport'         => 'postMessage',
     ) );
     
     $wp_customize->add_control( 'mkp_enable_section_investor', array(
@@ -816,6 +824,7 @@ function mkp_customize_register( $wp_customize ) {
     $wp_customize->add_setting( 'mkp_enable_section_contact', array(
         'default'           => false,
         'sanitize_callback' => 'mkp_sanitize_checkbox',
+        'transport'         => 'postMessage',
     ) );
     
     $wp_customize->add_control( 'mkp_enable_section_contact', array(
@@ -1021,6 +1030,114 @@ function mkp_customize_register( $wp_customize ) {
         'type'        => 'checkbox',
         'priority'    => 43,
     ) );
+    
+    // Add Selective Refresh support for sections
+    if ( isset( $wp_customize->selective_refresh ) ) {
+        // Get all sections configuration
+        $sections_config = mkp_get_all_sections_config();
+        
+        // Add partials for each toggleable section
+        foreach ( $sections_config as $section_id => $section ) {
+            // Skip fixed sections
+            if ( isset( $section['fixed'] ) && $section['fixed'] ) {
+                continue;
+            }
+            
+            // Add partial for this section
+            $wp_customize->selective_refresh->add_partial( 'mkp_section_' . $section_id, array(
+                'selector'            => '#' . $section_id,
+                'container_inclusive' => true,
+                'settings'            => array( 'mkp_enable_section_' . $section_id ),
+                'render_callback'     => function() use ( $section_id, $section ) {
+                    // Use the same display logic as front-page.php
+                    $should_display = false;
+                    $is_enabled = get_theme_mod( 'mkp_enable_section_' . $section_id, false );
+                    
+                    if ( $is_enabled ) {
+                        // Check if section has content check function
+                        if ( ! empty( $section['check_function'] ) && function_exists( $section['check_function'] ) ) {
+                            $has_content = call_user_func( $section['check_function'] );
+                            // In customizer, show section even if empty for easier editing
+                            if ( $has_content || is_customize_preview() ) {
+                                $should_display = true;
+                            }
+                        } else {
+                            // No content check needed, just show if enabled
+                            $should_display = true;
+                        }
+                    }
+                    
+                    // Always output a container for Selective Refresh to target
+                    if ( ! $should_display ) {
+                        echo '<div id="' . esc_attr( $section_id ) . '" style="display: none;"></div>';
+                        return;
+                    }
+                    
+                    // Render the section template
+                    get_template_part( $section['template'] );
+                },
+                'fallback_refresh'    => false,
+            ) );
+        }
+        
+        // Add navigation partial that refreshes when any section is enabled/disabled
+        $section_settings = array();
+        foreach ( $sections_config as $section_id => $section ) {
+            if ( ! isset( $section['fixed'] ) || ! $section['fixed'] ) {
+                $section_settings[] = 'mkp_enable_section_' . $section_id;
+            }
+        }
+        
+        $wp_customize->selective_refresh->add_partial( 'navigation_menu', array(
+            'selector'            => '#site-navigation',
+            'container_inclusive' => true,
+            'settings'            => $section_settings,
+            'render_callback'     => function() {
+                ?>
+                <nav id="site-navigation" class="mkp-header__navigation" aria-label="<?php esc_attr_e( 'Primary Navigation', 'mediakit-lite' ); ?>">
+                    <button class="mkp-mobile-toggle" aria-controls="primary-menu" aria-expanded="false" aria-label="<?php esc_attr_e( 'Toggle navigation', 'mediakit-lite' ); ?>">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                    
+                    <?php
+                    // Always display section navigation
+                    $nav_items = mkp_get_front_page_nav_items();
+                    if ( ! empty( $nav_items ) ) {
+                        echo '<ul id="primary-menu" class="mkp-nav">';
+                        foreach ( $nav_items as $item ) {
+                            // Check if this is the search item
+                            if ( isset( $item['type'] ) && 'search' === $item['type'] ) {
+                                echo '<li class="mkp-nav__item mkp-nav__item--search">';
+                                ?>
+                                <form role="search" method="get" class="mkp-nav__search-form" action="<?php echo esc_url( home_url( '/' ) ); ?>">
+                                    <label>
+                                        <span class="screen-reader-text"><?php echo esc_html_x( 'Search for:', 'label', 'mediakit-lite' ); ?></span>
+                                        <input type="search" class="mkp-nav__search-field" placeholder="<?php echo esc_attr_x( 'Search...', 'placeholder', 'mediakit-lite' ); ?>" value="<?php echo get_search_query(); ?>" name="s" />
+                                    </label>
+                                    <button type="submit" class="mkp-nav__search-submit">
+                                        <span class="dashicons dashicons-search"></span>
+                                        <span class="screen-reader-text"><?php echo esc_html_x( 'Search', 'submit button', 'mediakit-lite' ); ?></span>
+                                    </button>
+                                </form>
+                                <?php
+                                echo '</li>';
+                            } else {
+                                echo '<li class="mkp-nav__item">';
+                                echo '<a href="' . esc_url( $item['url'] ) . '" class="mkp-nav__link">' . esc_html( $item['label'] ) . '</a>';
+                                echo '</li>';
+                            }
+                        }
+                        echo '</ul>';
+                    }
+                    ?>
+                </nav>
+                <?php
+            },
+            'fallback_refresh'    => false,
+        ) );
+    }
 }
 add_action( 'customize_register', 'mkp_customize_register' );
 

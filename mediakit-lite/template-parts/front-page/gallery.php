@@ -8,13 +8,18 @@
 // Get gallery images
 $gallery_images_string = get_theme_mod( 'mkp_gallery_images', '' );
 
-// Don't show section if no images
-if ( empty( $gallery_images_string ) ) {
+// For customizer preview, always render the section structure
+$is_customizer = is_customize_preview();
+
+// Don't show section if no images (unless in customizer)
+if ( empty( $gallery_images_string ) && ! $is_customizer ) {
     return;
 }
 
 // Convert comma-separated string to array
-$gallery_images = array_filter( array_map( 'absint', explode( ',', $gallery_images_string ) ) );
+$gallery_images = ! empty( $gallery_images_string ) 
+    ? array_filter( array_map( 'absint', explode( ',', $gallery_images_string ) ) )
+    : array();
 
 // Get dynamic colors for this section
 $colors = mkp_get_next_section_color();

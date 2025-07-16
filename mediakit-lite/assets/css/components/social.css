@@ -1,0 +1,26 @@
+/**
+ * Social Media Component
+ * Social icons and share buttons
+ *
+ * @package MediaKit_Lite
+ */
+
+/* ==========================================================================
+   Dashicons Sizing for Social and Share Icons
+   ========================================================================== */
+
+/* Social Icons */
+.mkp-social__link .dashicons {
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+    line-height: 1;
+}
+
+/* Share Buttons */
+.mkp-share-buttons__link .dashicons {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+    line-height: 1;
+}

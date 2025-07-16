@@ -4,7 +4,7 @@ Theme URI: https://github.com/Finish-Line-Media/DMK_Lite
 Author: Finish Line Media
 Author URI: https://finishline.media
 Description: MediaKit Lite is your digital media kit solution for building personal leverage. Perfect for showcasing your expertise, publications, speaking topics, and media appearances. Set up everything through the simple WordPress Customizer - no coding required.
-Version: 1.11.0
+Version: 1.12.0
 License: GPL v2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: mediakit-lite
@@ -12,6 +12,10 @@ Tags: one-column, custom-colors, custom-menu, featured-images, theme-options, tr
 Requires at least: 5.8
 Tested up to: 6.5
 Requires PHP: 7.4
+
+NOTICE: This file is being phased out in favor of the modular CSS architecture.
+The theme now uses style-modular.css which imports organized CSS modules from assets/css/
+This file is kept for reference only and will be removed in a future version.
 */
 
 /* ==========================================================================
