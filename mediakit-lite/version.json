@@ -1,9 +1,9 @@
 {
-    "version": "1.9.2",
-    "description": "Fix Companies section card display logic to show cards with either name or logo",
+    "version": "1.12.0",
+    "description": "Major CSS refactoring, transparent backgrounds, masonry layouts, and improved media embeds",
     "download_url": "https://github.com/Finish-Line-Media/DMK_Lite/releases/latest/download/mediakit-lite.zip",
     "changelog_url": "https://github.com/Finish-Line-Media/DMK_Lite/blob/main/CHANGELOG.md",
-    "release_date": "2025-06-25",
+    "release_date": "2025-07-16",
     "min_wp_version": "5.8",
     "tested_up_to": "6.5",
     "php_version": "7.4"
