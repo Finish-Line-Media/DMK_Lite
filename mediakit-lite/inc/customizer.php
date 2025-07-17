@@ -1277,7 +1277,7 @@ function mkp_customize_register( $wp_customize ) {
         'title'       => __( 'Questions for the Media', 'mediakit-lite' ),
         'priority'    => 56,
         'description' => __( 'Suggested questions for media interviews.', 'mediakit-lite' ),
-    ) )
+    ) );
     
     // Enable Media Questions Section
     $wp_customize->add_setting( 'mkp_enable_section_media_questions', array(
