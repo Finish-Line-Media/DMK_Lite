@@ -376,6 +376,61 @@ function mkp_get_front_page_nav_items() {
                 return false;
             },
         ),
+        'featured_video' => array(
+            'id'    => 'featured-video',
+            'label' => __( 'Featured Video', 'mediakit-lite' ),
+            'url'   => $base_url . '#featured-video',
+            'check' => function() {
+                if ( ! get_theme_mod( 'mkp_enable_section_featured_video', false ) ) {
+                    return false;
+                }
+                return mkp_has_featured_video();
+            },
+        ),
+        'testimonials' => array(
+            'id'    => 'testimonials',
+            'label' => __( 'Testimonials', 'mediakit-lite' ),
+            'url'   => $base_url . '#testimonials',
+            'check' => function() {
+                if ( ! get_theme_mod( 'mkp_enable_section_testimonials', false ) ) {
+                    return false;
+                }
+                return mkp_has_testimonials();
+            },
+        ),
+        'awards' => array(
+            'id'    => 'awards',
+            'label' => __( 'Awards', 'mediakit-lite' ),
+            'url'   => $base_url . '#awards',
+            'check' => function() {
+                if ( ! get_theme_mod( 'mkp_enable_section_awards', false ) ) {
+                    return false;
+                }
+                return mkp_has_awards();
+            },
+        ),
+        'media_features' => array(
+            'id'    => 'media-features',
+            'label' => __( 'Featured In', 'mediakit-lite' ),
+            'url'   => $base_url . '#media-features',
+            'check' => function() {
+                if ( ! get_theme_mod( 'mkp_enable_section_media_features', false ) ) {
+                    return false;
+                }
+                return mkp_has_media_features();
+            },
+        ),
+        'stats' => array(
+            'id'    => 'stats',
+            'label' => __( 'Stats', 'mediakit-lite' ),
+            'url'   => $base_url . '#stats',
+            'check' => function() {
+                if ( ! get_theme_mod( 'mkp_enable_section_stats', false ) ) {
+                    return false;
+                }
+                return mkp_has_stats();
+            },
+        ),
         'in_the_media' => array(
             'id'    => 'in-the-media',
             'label' => __( 'In The Media', 'mediakit-lite' ),
