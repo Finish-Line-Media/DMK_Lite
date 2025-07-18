@@ -22,8 +22,9 @@ for ( $i = 1; $i <= 6; $i++ ) {
     }
 }
 
-// Determine section title based on count
-$section_title = ( $actual_company_count === 1 ) ? __( 'Company', 'mediakit-lite' ) : __( 'Companies', 'mediakit-lite' );
+// Get customizable section title (defaults to singular/plural based on count)
+$default_title = ( $actual_company_count === 1 ) ? __( 'Company', 'mediakit-lite' ) : __( 'Companies', 'mediakit-lite' );
+$section_title = get_theme_mod( 'mkp_corporations_section_title', $default_title );
 ?>
 
 <section id="corporations" class="<?php echo esc_attr( $section_class ); ?>" style="background-color: <?php echo esc_attr( $section_color ); ?>; color: <?php echo esc_attr( $text_color ); ?>">

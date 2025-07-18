@@ -50,6 +50,52 @@
         }
     }
     
+    /**
+     * Generic card section updater
+     * Simplifies adding live preview for card-based sections
+     * 
+     * @param {Object} config - Configuration object
+     * @param {string} config.sectionPrefix - Prefix for customizer settings (e.g., 'mkp_testimonial_')
+     * @param {string} config.sectionClass - Section class name (e.g., 'mkp-testimonials-section')
+     * @param {string} config.cardClass - Card class name (e.g., 'mkp-testimonial-card')
+     * @param {number} config.maxItems - Maximum number of items
+     * @param {Array} config.fields - Array of field configurations
+     */
+    function setupCardSectionUpdates( config ) {
+        const { sectionPrefix, sectionClass, cardClass, maxItems, fields } = config;
+        
+        // Handle section title if it exists
+        if ( wp.customize.has( sectionPrefix + 'section_title' ) ) {
+            wp.customize( sectionPrefix + 'section_title', function( value ) {
+                value.bind( function( to ) {
+                    $( '.' + sectionClass + ' .mkp-section__title' ).text( to );
+                } );
+            } );
+        }
+        
+        // Loop through items
+        for ( let i = 1; i <= maxItems; i++ ) {
+            ( function( itemNum ) {
+                fields.forEach( function( field ) {
+                    const settingName = sectionPrefix + itemNum + '_' + field.name;
+                    
+                    if ( wp.customize.has( settingName ) ) {
+                        wp.customize( settingName, function( value ) {
+                            value.bind( function( to ) {
+                                const $card = $( '.' + cardClass + '.' + sectionPrefix.replace('mkp_', 'mkp-').replace('_', '') + '--' + itemNum );
+                                
+                                // Call the field's update function
+                                if ( field.updateFn ) {
+                                    field.updateFn( $card, to, itemNum );
+                                }
+                            } );
+                        } );
+                    }
+                } );
+            } )( i );
+        }
+    }
+    
     // Other section background colors with auto-contrast
     const sections = [
         { setting: 'mkp_about_background_color', selector: '.mkp-about-section' },
@@ -57,7 +103,7 @@
         { setting: 'mkp_podcasts_background_color', selector: '.mkp-podcasts-section' },
         { setting: 'mkp_speaker_topics_background_color', selector: '.mkp-speaker-section' },
         { setting: 'mkp_corporations_background_color', selector: '.mkp-corporations-section' },
-        { setting: 'mkp_in_the_media_background_color', selector: '.mkp-in-the-media-section' },
+        { setting: 'mkp_in_the_media_background_color', selector: '.mkp-in-the-media' },
         { setting: 'mkp_media_questions_background_color', selector: '.mkp-media-questions-section' },
         { setting: 'mkp_investor_background_color', selector: '.mkp-investor-section' },
         { setting: 'mkp_contact_background_color', selector: '.mkp-contact-section' }
@@ -80,9 +126,6 @@
                 
                 // Special handling for contact section
                 if ( section.selector === '.mkp-contact-section' ) {
-                    console.log( 'Contact section background color update:', to );
-                    console.log( 'Contact section found:', $section.length );
-                    console.log( 'Contact section classes:', $section.attr('class') );
                     
                     // Let all contact elements inherit color from section - removed inline style overrides
                     
@@ -221,6 +264,99 @@
             } );
         } )( i );
     }
+    
+    // About Section
+    wp.customize( 'mkp_about_section_title', function( value ) {
+        value.bind( function( to ) {
+            $( '.mkp-about-section .mkp-section__title' ).text( to );
+        } );
+    } );
+    
+    wp.customize( 'mkp_about_content', function( value ) {
+        value.bind( function( to ) {
+            const $content = $( '.mkp-about-section__content' );
+            if ( to ) {
+                // Simple wpautop implementation for live preview
+                const formattedContent = '<p>' + to.replace(/\n\n/g, '</p><p>').replace(/\n/g, '<br />') + '</p>';
+                $content.html( formattedContent );
+            } else {
+                $content.empty();
+            }
+        } );
+    } );
+    
+    // Featured Video Section
+    wp.customize( 'mkp_featured_video_section_title', function( value ) {
+        value.bind( function( to ) {
+            $( '.mkp-featured-video-section .mkp-section__title' ).text( to );
+        } );
+    } );
+    
+    wp.customize( 'mkp_featured_video_url', function( value ) {
+        value.bind( function( to ) {
+            // Video URL changes require refresh for oEmbed processing
+            wp.customize.preview.send( 'refresh' );
+        } );
+    } );
+    
+    wp.customize( 'mkp_featured_video_title', function( value ) {
+        value.bind( function( to ) {
+            $( '.mkp-featured-video__title' ).text( to );
+        } );
+    } );
+    
+    wp.customize( 'mkp_featured_video_description', function( value ) {
+        value.bind( function( to ) {
+            const $description = $( '.mkp-featured-video__description' );
+            if ( to ) {
+                // Simple wpautop implementation for live preview
+                const formattedDesc = '<p>' + to.replace(/\n\n/g, '</p><p>').replace(/\n/g, '<br />') + '</p>';
+                $description.html( formattedDesc );
+            } else {
+                $description.empty();
+            }
+        } );
+    } );
+    
+    wp.customize( 'mkp_featured_video_primary_cta_text', function( value ) {
+        value.bind( function( to ) {
+            const $btn = $( '.mkp-featured-video__cta .mkp-btn--primary' );
+            if ( to ) {
+                $btn.text( to ).show();
+            } else {
+                $btn.hide();
+            }
+        } );
+    } );
+    
+    wp.customize( 'mkp_featured_video_primary_cta_url', function( value ) {
+        value.bind( function( to ) {
+            const $btn = $( '.mkp-featured-video__cta .mkp-btn--primary' );
+            if ( to ) {
+                $btn.attr( 'href', to );
+            }
+        } );
+    } );
+    
+    wp.customize( 'mkp_featured_video_secondary_cta_text', function( value ) {
+        value.bind( function( to ) {
+            const $btn = $( '.mkp-featured-video__cta .mkp-btn--secondary' );
+            if ( to ) {
+                $btn.text( to ).show();
+            } else {
+                $btn.hide();
+            }
+        } );
+    } );
+    
+    wp.customize( 'mkp_featured_video_secondary_cta_url', function( value ) {
+        value.bind( function( to ) {
+            const $btn = $( '.mkp-featured-video__cta .mkp-btn--secondary' );
+            if ( to ) {
+                $btn.attr( 'href', to );
+            }
+        } );
+    } );
     
     
     // Function to update companies section title
@@ -541,6 +677,366 @@
         } )( i );
     }
     
+    // Testimonials section updates
+    const maxTestimonials = 6;
+    
+    // Section title update
+    wp.customize( 'mkp_testimonials_section_title', function( value ) {
+        value.bind( function( to ) {
+            $( '.mkp-testimonials-section .mkp-section__title' ).text( to );
+        } );
+    } );
+    
+    for ( let i = 1; i <= maxTestimonials; i++ ) {
+        ( function( testimonialNum ) {
+            // Testimonial quote
+            wp.customize( 'mkp_testimonial_' + testimonialNum + '_quote', function( value ) {
+                value.bind( function( to ) {
+                    const $card = $( '.mkp-testimonial-card.mkp-testimonial--' + testimonialNum );
+                    const $quote = $card.find( '.mkp-testimonial-card__quote' );
+                    
+                    if ( to ) {
+                        // Simple wpautop implementation for live preview
+                        const formattedQuote = '<p>' + to.replace(/\n\n/g, '</p><p>').replace(/\n/g, '<br />') + '</p>';
+                        $quote.html( formattedQuote );
+                        $card.show();
+                    } else {
+                        $quote.empty();
+                        $card.hide();
+                    }
+                } );
+            } );
+            
+            // Author name
+            wp.customize( 'mkp_testimonial_' + testimonialNum + '_author', function( value ) {
+                value.bind( function( to ) {
+                    const $card = $( '.mkp-testimonial-card.mkp-testimonial--' + testimonialNum );
+                    $card.find( '.mkp-testimonial-card__author-name' ).text( to );
+                } );
+            } );
+            
+            // Author title
+            wp.customize( 'mkp_testimonial_' + testimonialNum + '_title', function( value ) {
+                value.bind( function( to ) {
+                    const $card = $( '.mkp-testimonial-card.mkp-testimonial--' + testimonialNum );
+                    updateAuthorDetails( $card, testimonialNum );
+                } );
+            } );
+            
+            // Organization
+            wp.customize( 'mkp_testimonial_' + testimonialNum + '_organization', function( value ) {
+                value.bind( function( to ) {
+                    const $card = $( '.mkp-testimonial-card.mkp-testimonial--' + testimonialNum );
+                    updateAuthorDetails( $card, testimonialNum );
+                } );
+            } );
+            
+            // Helper function to update author details
+            function updateAuthorDetails( $card, num ) {
+                const title = wp.customize( 'mkp_testimonial_' + num + '_title' ).get() || '';
+                const org = wp.customize( 'mkp_testimonial_' + num + '_organization' ).get() || '';
+                const $details = $card.find( '.mkp-testimonial-card__author-details' );
+                
+                const details = [];
+                if ( title ) details.push( title );
+                if ( org ) details.push( org );
+                
+                if ( details.length > 0 ) {
+                    $details.text( details.join( ', ' ) ).show();
+                } else {
+                    $details.hide();
+                }
+            }
+            
+            // Photo
+            wp.customize( 'mkp_testimonial_' + testimonialNum + '_photo', function( value ) {
+                value.bind( function( to ) {
+                    const $card = $( '.mkp-testimonial-card.mkp-testimonial--' + testimonialNum );
+                    const $photoContainer = $card.find( '.mkp-testimonial-card__photo' );
+                    
+                    if ( to ) {
+                        // If attachment ID, fetch URL
+                        if ( $.isNumeric( to ) ) {
+                            wp.media.attachment( to ).fetch().then( function() {
+                                const attachment = wp.media.attachment( to );
+                                const photoHtml = '<img src="' + attachment.get( 'url' ) + '" alt="" />';
+                                $photoContainer.html( photoHtml ).show();
+                            } );
+                        } else {
+                            // Direct URL
+                            const photoHtml = '<img src="' + to + '" alt="" />';
+                            $photoContainer.html( photoHtml ).show();
+                        }
+                    } else {
+                        $photoContainer.hide();
+                    }
+                } );
+            } );
+            
+            // Rating
+            wp.customize( 'mkp_testimonial_' + testimonialNum + '_rating', function( value ) {
+                value.bind( function( to ) {
+                    const $card = $( '.mkp-testimonial-card.mkp-testimonial--' + testimonialNum );
+                    const $rating = $card.find( '.mkp-testimonial-card__rating' );
+                    
+                    if ( to > 0 ) {
+                        let starsHtml = '';
+                        for ( let star = 1; star <= 5; star++ ) {
+                            const className = star <= to ? 'mkp-star--filled' : 'mkp-star--empty';
+                            starsHtml += '<span class="mkp-star ' + className + '">★</span>';
+                        }
+                        $rating.html( starsHtml ).show();
+                    } else {
+                        $rating.hide();
+                    }
+                } );
+            } );
+        } )( i );
+    }
+    
+    // Awards section updates
+    const maxAwards = 6;
+    
+    // Section title update
+    wp.customize( 'mkp_awards_section_title', function( value ) {
+        value.bind( function( to ) {
+            $( '.mkp-awards-section .mkp-section__title' ).text( to );
+        } );
+    } );
+    
+    for ( let i = 1; i <= maxAwards; i++ ) {
+        ( function( awardNum ) {
+            // Award logo
+            wp.customize( 'mkp_award_' + awardNum + '_logo', function( value ) {
+                value.bind( function( to ) {
+                    const $card = $( '.mkp-award-card.mkp-award--' + awardNum );
+                    const $logoContainer = $card.find( '.mkp-award-card__logo' );
+                    const $placeholder = $card.find( '.mkp-award-card__logo-placeholder' );
+                    
+                    if ( to ) {
+                        // If attachment ID, fetch URL
+                        if ( $.isNumeric( to ) ) {
+                            wp.media.attachment( to ).fetch().then( function() {
+                                const attachment = wp.media.attachment( to );
+                                const logoHtml = '<img src="' + attachment.get( 'url' ) + '" alt="" />';
+                                $logoContainer.html( logoHtml ).show();
+                                $placeholder.hide();
+                            } );
+                        } else {
+                            // Direct URL
+                            const logoHtml = '<img src="' + to + '" alt="" />';
+                            $logoContainer.html( logoHtml ).show();
+                            $placeholder.hide();
+                        }
+                    } else {
+                        $logoContainer.empty().hide();
+                        $placeholder.show();
+                    }
+                    
+                    updateAwardVisibility( awardNum );
+                } );
+            } );
+            
+            // Award title
+            wp.customize( 'mkp_award_' + awardNum + '_title', function( value ) {
+                value.bind( function( to ) {
+                    const $card = $( '.mkp-award-card.mkp-award--' + awardNum );
+                    $card.find( '.mkp-award-card__title' ).text( to );
+                    updateAwardVisibility( awardNum );
+                } );
+            } );
+            
+            // Award year
+            wp.customize( 'mkp_award_' + awardNum + '_year', function( value ) {
+                value.bind( function( to ) {
+                    const $card = $( '.mkp-award-card.mkp-award--' + awardNum );
+                    $card.find( '.mkp-award-card__year' ).text( to );
+                } );
+            } );
+            
+            // Award description
+            wp.customize( 'mkp_award_' + awardNum + '_description', function( value ) {
+                value.bind( function( to ) {
+                    const $card = $( '.mkp-award-card.mkp-award--' + awardNum );
+                    const $description = $card.find( '.mkp-award-card__description' );
+                    
+                    if ( to ) {
+                        // Simple wpautop implementation for live preview
+                        const formattedDesc = '<p>' + to.replace(/\n\n/g, '</p><p>').replace(/\n/g, '<br />') + '</p>';
+                        $description.html( formattedDesc );
+                    } else {
+                        $description.empty();
+                    }
+                } );
+            } );
+            
+            // Helper function to update award visibility
+            function updateAwardVisibility( num ) {
+                const $card = $( '.mkp-award-card.mkp-award--' + num );
+                const title = wp.customize( 'mkp_award_' + num + '_title' ).get() || '';
+                const logo = wp.customize( 'mkp_award_' + num + '_logo' ).get() || '';
+                
+                if ( title || logo ) {
+                    $card.show();
+                } else {
+                    $card.hide();
+                }
+            }
+        } )( i );
+    }
+    
+    // Stats section updates
+    const maxStats = 6;
+    
+    // Section title update
+    wp.customize( 'mkp_stats_section_title', function( value ) {
+        value.bind( function( to ) {
+            $( '.mkp-stats-section .mkp-section__title' ).text( to );
+        } );
+    } );
+    
+    for ( let i = 1; i <= maxStats; i++ ) {
+        ( function( statNum ) {
+            // Stat number
+            wp.customize( 'mkp_stat_' + statNum + '_number', function( value ) {
+                value.bind( function( to ) {
+                    const $stat = $( '.mkp-stat.mkp-stat--' + statNum );
+                    $stat.find( '.mkp-stat__number' ).text( to );
+                    
+                    // Show/hide stat based on content
+                    if ( to ) {
+                        $stat.show();
+                    } else {
+                        $stat.hide();
+                    }
+                } );
+            } );
+            
+            // Stat label
+            wp.customize( 'mkp_stat_' + statNum + '_label', function( value ) {
+                value.bind( function( to ) {
+                    const $stat = $( '.mkp-stat.mkp-stat--' + statNum );
+                    $stat.find( '.mkp-stat__label' ).text( to );
+                } );
+            } );
+            
+            // Stat prefix
+            wp.customize( 'mkp_stat_' + statNum + '_prefix', function( value ) {
+                value.bind( function( to ) {
+                    const $stat = $( '.mkp-stat.mkp-stat--' + statNum );
+                    $stat.find( '.mkp-stat__prefix' ).text( to );
+                } );
+            } );
+            
+            // Stat suffix
+            wp.customize( 'mkp_stat_' + statNum + '_suffix', function( value ) {
+                value.bind( function( to ) {
+                    const $stat = $( '.mkp-stat.mkp-stat--' + statNum );
+                    $stat.find( '.mkp-stat__suffix' ).text( to );
+                } );
+            } );
+            
+            // Stat icon
+            wp.customize( 'mkp_stat_' + statNum + '_icon', function( value ) {
+                value.bind( function( to ) {
+                    const $stat = $( '.mkp-stat.mkp-stat--' + statNum );
+                    const $icon = $stat.find( '.mkp-stat__icon .dashicons' );
+                    
+                    if ( to ) {
+                        // Update dashicon class
+                        $icon.removeClass().addClass( 'dashicons dashicons-' + to );
+                        $stat.find( '.mkp-stat__icon' ).show();
+                    } else {
+                        $stat.find( '.mkp-stat__icon' ).hide();
+                    }
+                } );
+            } );
+        } )( i );
+    }
+    
+    // Media Features section updates
+    const maxMediaFeatures = 8;
+    
+    // Section title update
+    wp.customize( 'mkp_media_features_section_title', function( value ) {
+        value.bind( function( to ) {
+            $( '.mkp-media-features-section .mkp-section__title' ).text( to );
+        } );
+    } );
+    
+    for ( let i = 1; i <= maxMediaFeatures; i++ ) {
+        ( function( featureNum ) {
+            // Media feature logo
+            wp.customize( 'mkp_media_feature_' + featureNum + '_logo', function( value ) {
+                value.bind( function( to ) {
+                    const $item = $( '.mkp-media-feature.mkp-media-feature--' + featureNum );
+                    const $logoContainer = $item.find( '.mkp-media-feature__logo' );
+                    
+                    if ( to ) {
+                        // If attachment ID, fetch URL
+                        if ( $.isNumeric( to ) ) {
+                            wp.media.attachment( to ).fetch().then( function() {
+                                const attachment = wp.media.attachment( to );
+                                const logoHtml = '<img src="' + attachment.get( 'url' ) + '" alt="" />';
+                                $logoContainer.html( logoHtml );
+                            } );
+                        } else {
+                            // Direct URL
+                            const logoHtml = '<img src="' + to + '" alt="" />';
+                            $logoContainer.html( logoHtml );
+                        }
+                    } else {
+                        $logoContainer.empty();
+                    }
+                    
+                    updateMediaFeatureVisibility( featureNum );
+                } );
+            } );
+            
+            // Media feature name
+            wp.customize( 'mkp_media_feature_' + featureNum + '_name', function( value ) {
+                value.bind( function( to ) {
+                    const $item = $( '.mkp-media-feature.mkp-media-feature--' + featureNum );
+                    $item.find( '.mkp-media-feature__name' ).text( to );
+                    updateMediaFeatureVisibility( featureNum );
+                } );
+            } );
+            
+            // Media feature link
+            wp.customize( 'mkp_media_feature_' + featureNum + '_link', function( value ) {
+                value.bind( function( to ) {
+                    const $item = $( '.mkp-media-feature.mkp-media-feature--' + featureNum );
+                    const $link = $item.find( 'a' );
+                    
+                    if ( to ) {
+                        $link.attr( 'href', to );
+                    } else {
+                        $link.attr( 'href', '#' );
+                    }
+                } );
+            } );
+            
+            // Helper function to update media feature visibility
+            function updateMediaFeatureVisibility( num ) {
+                const $item = $( '.mkp-media-feature.mkp-media-feature--' + num );
+                const logo = wp.customize( 'mkp_media_feature_' + num + '_logo' ).get() || '';
+                const name = wp.customize( 'mkp_media_feature_' + num + '_name' ).get() || '';
+                
+                if ( logo || name ) {
+                    $item.show();
+                } else {
+                    $item.hide();
+                }
+            }
+        } )( i );
+    }
+    
+    // Speaker Section Title
+    wp.customize( 'mkp_speaker_section_title', function( value ) {
+        value.bind( function( to ) {
+            $( '.mkp-speaker-section .mkp-section__title' ).text( to );
+        } );
+    } );
     
     // Speaker Topics List Style
     wp.customize( 'mkp_speaker_topics_list_style', function( value ) {
@@ -681,16 +1177,20 @@
                 value.bind( function( to ) {
                     const $section = $( '.mkp-media-questions-section' );
                     const $item = $( '.mkp-media-questions__item--' + questionNum );
+                    const $card = $( '.mkp-media-questions__card--' + questionNum );
                     const $placeholder = $( '.mkp-media-questions__placeholder' );
                     
                     if ( to ) {
-                        // Update text
+                        // Update text in both list and card layouts
                         $item.find( '.mkp-media-questions__text' ).text( to );
-                        // Show item
+                        $card.find( '.mkp-media-questions__card-text' ).text( to );
+                        // Show item/card
                         $item.show();
+                        $card.css( 'display', 'flex' );
                     } else {
-                        // Hide item
+                        // Hide item/card
                         $item.hide();
+                        $card.hide();
                     }
                     
                     // Check if any questions remain
@@ -737,19 +1237,6 @@
     } );
     */
     
-    // Function to update investor section title
-    function updateInvestorSectionTitle() {
-        let investorCount = 0;
-        for ( let i = 1; i <= 3; i++ ) {
-            const title = wp.customize( 'mkp_investor_' + i + '_title' ).get();
-            if ( title ) {
-                investorCount++;
-            }
-        }
-        
-        const title = investorCount === 1 ? 'Investor' : 'Investors';
-        $( '.mkp-investor-section .mkp-section__title' ).text( title );
-    }
     
     // Update investor options
     for ( let i = 1; i <= 3; i++ ) {
@@ -769,9 +1256,6 @@
                     } else {
                         $card.hide();
                     }
-                    
-                    // Update section title
-                    updateInvestorSectionTitle();
                     
                     // Check if any investors remain
                     let hasInvestors = false;
@@ -835,6 +1319,55 @@
     
     // Contact Section - simplified approach
     
+    // Contact Section Title
+    wp.customize( 'mkp_contact_section_title', function( value ) {
+        value.bind( function( to ) {
+            $( '.mkp-contact-section .mkp-section__title' ).text( to );
+        } );
+    } );
+    
+    // Gallery Section Title
+    wp.customize( 'mkp_gallery_section_title', function( value ) {
+        value.bind( function( to ) {
+            $( '.mkp-gallery-section .mkp-section__title' ).text( to );
+        } );
+    } );
+    
+    // Media Questions Section Title
+    wp.customize( 'mkp_media_questions_section_title', function( value ) {
+        value.bind( function( to ) {
+            $( '.mkp-media-questions-section .mkp-section__title' ).text( to );
+        } );
+    } );
+    
+    // Books Section Title
+    wp.customize( 'mkp_books_section_title', function( value ) {
+        value.bind( function( to ) {
+            $( '.mkp-books-section .mkp-section__title' ).text( to );
+        } );
+    } );
+    
+    // Podcasts Section Title
+    wp.customize( 'mkp_podcasts_section_title', function( value ) {
+        value.bind( function( to ) {
+            $( '.mkp-podcasts-section .mkp-section__title' ).text( to );
+        } );
+    } );
+    
+    // Corporations Section Title
+    wp.customize( 'mkp_corporations_section_title', function( value ) {
+        value.bind( function( to ) {
+            $( '.mkp-corporations-section .mkp-section__title' ).text( to );
+        } );
+    } );
+    
+    // Investor Section Title
+    wp.customize( 'mkp_investor_section_title', function( value ) {
+        value.bind( function( to ) {
+            $( '.mkp-investor-section .mkp-section__title' ).text( to );
+        } );
+    } );
+    
     // Function to check if contact section has content - similar to investor section
     function checkContactContent() {
         const $section = $( '.mkp-contact-section' );
@@ -879,19 +1412,14 @@
     emailTypes.forEach( function( type ) {
         wp.customize( 'mkp_contact_' + type + '_email', function( value ) {
             value.bind( function( to ) {
-                console.log( 'Contact email update:', type, to );
                 const $item = $( '.mkp-contact__item--' + type );
                 const $email = $item.find( '.mkp-contact__email' );
-                
-                console.log( 'Found item:', $item.length, 'Found email:', $email.length );
                 
                 if ( to ) {
                     $email.text( to ).attr( 'href', 'mailto:' + to );
                     $item.show();
-                    console.log( 'Showing item, classes:', $item.attr('class') );
                 } else {
                     $item.hide();
-                    console.log( 'Hiding item, classes:', $item.attr('class') );
                 }
                 
                 checkContactContent();
@@ -967,7 +1495,6 @@
     /*
     wp.customize( 'mkp_enable_section_contact', function( value ) {
         value.bind( function( to ) {
-            console.log( 'Contact section enable/disable:', to );
             const $section = $( '.mkp-contact-section' );
             
             if ( to ) {
@@ -985,7 +1512,7 @@
     // In The Media Section Title
     wp.customize( 'mkp_in_the_media_section_title', function( value ) {
         value.bind( function( to ) {
-            $( '.mkp-in-the-media-section .mkp-section__title' ).text( to );
+            $( '.mkp-in-the-media .mkp-section__title' ).text( to );
         } );
     } );
     
@@ -1019,23 +1546,10 @@
     
     // Initial checks when customizer loads
     $( document ).ready( function() {
-        console.log( 'Contact section customizer ready' );
-        
         // Small delay to ensure DOM is fully ready
         setTimeout( function() {
             checkSocialLinks();
             checkContactContent();
-            
-            // Log initial state for debugging
-            console.log( 'Initial contact items:', {
-                section: $( '.mkp-contact-section' ).length,
-                placeholder: $( '.mkp-contact__placeholder' ).length,
-                general: $( '.mkp-contact__item--general' ).length,
-                media: $( '.mkp-contact__item--media' ).length,
-                speaking: $( '.mkp-contact__item--speaking' ).length,
-                address: $( '.mkp-contact__address' ).length,
-                social: $( '.mkp-contact__social' ).length
-            } );
         }, 100 );
     } );
     

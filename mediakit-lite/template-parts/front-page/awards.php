@@ -22,13 +22,8 @@ for ( $i = 1; $i <= 6; $i++ ) {
     }
 }
 
-// For customizer preview, always render the section structure
+// For customizer preview
 $is_customizer = is_customize_preview();
-
-// Don't show section if no awards (unless in customizer)
-if ( $actual_award_count === 0 && ! $is_customizer ) {
-    return;
-}
 
 // Get section title
 $section_title = get_theme_mod( 'mkp_awards_section_title', __( 'Awards & Recognition', 'mediakit-lite' ) );

@@ -21,16 +21,12 @@ for ( $i = 1; $i <= 3; $i++ ) {
     }
 }
 
-// For customizer preview, always render the section structure
+// For customizer preview
 $is_customizer = is_customize_preview();
 
-// Don't show section if no podcasts (unless in customizer)
-if ( $actual_podcast_count === 0 && ! $is_customizer ) {
-    return;
-}
-
-// Determine section title based on count
-$section_title = ( $actual_podcast_count === 1 ) ? __( 'Podcast/Show', 'mediakit-lite' ) : __( 'Podcasts/Shows', 'mediakit-lite' );
+// Get customizable section title (defaults to singular/plural based on count)
+$default_title = ( $actual_podcast_count === 1 ) ? __( 'Podcast/Show', 'mediakit-lite' ) : __( 'Podcasts/Shows', 'mediakit-lite' );
+$section_title = get_theme_mod( 'mkp_podcasts_section_title', $default_title );
 ?>
 
 <section id="podcasts" class="<?php echo esc_attr( $section_class ); ?>" style="background-color: <?php echo esc_attr( $section_color ); ?>; color: <?php echo esc_attr( $text_color ); ?>">

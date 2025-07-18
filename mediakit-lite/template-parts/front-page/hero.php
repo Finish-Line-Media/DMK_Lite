@@ -25,17 +25,21 @@ $section_style = 'background-color: ' . esc_attr( $section_color ) . '; color: '
             for ( $i = 1; $i <= 2; $i++ ) {
                 $image = get_theme_mod( 'mkp_hero_image_' . $i );
                 $position = get_theme_mod( 'mkp_hero_image_' . $i . '_position', 'left' );
+                $size = get_theme_mod( 'mkp_hero_image_' . $i . '_size', 'medium' );
                 if ( $image && $position === 'left' ) {
-                    $left_images[] = $image;
+                    $left_images[] = array(
+                        'url' => $image,
+                        'size' => $size
+                    );
                 }
             }
             
             // Display left images
             if ( ! empty( $left_images ) ) : ?>
                 <div class="mkp-hero__images mkp-hero__images--left">
-                    <?php foreach ( $left_images as $image ) : ?>
-                        <div class="mkp-hero__image">
-                            <img src="<?php echo esc_url( $image ); ?>" alt="<?php echo esc_attr( get_theme_mod( 'mkp_hero_name', get_bloginfo( 'name' ) ) ); ?>" />
+                    <?php foreach ( $left_images as $image_data ) : ?>
+                        <div class="mkp-hero__image mkp-hero__image--<?php echo esc_attr( $image_data['size'] ); ?>">
+                            <img src="<?php echo esc_url( $image_data['url'] ); ?>" alt="<?php echo esc_attr( get_theme_mod( 'mkp_hero_name', get_bloginfo( 'name' ) ) ); ?>" />
                         </div>
                     <?php endforeach; ?>
                 </div>
@@ -88,17 +92,21 @@ $section_style = 'background-color: ' . esc_attr( $section_color ) . '; color: '
             for ( $i = 1; $i <= 2; $i++ ) {
                 $image = get_theme_mod( 'mkp_hero_image_' . $i );
                 $position = get_theme_mod( 'mkp_hero_image_' . $i . '_position', 'left' );
+                $size = get_theme_mod( 'mkp_hero_image_' . $i . '_size', 'medium' );
                 if ( $image && $position === 'right' ) {
-                    $right_images[] = $image;
+                    $right_images[] = array(
+                        'url' => $image,
+                        'size' => $size
+                    );
                 }
             }
             
             // Display right images
             if ( ! empty( $right_images ) ) : ?>
                 <div class="mkp-hero__images mkp-hero__images--right">
-                    <?php foreach ( $right_images as $image ) : ?>
-                        <div class="mkp-hero__image">
-                            <img src="<?php echo esc_url( $image ); ?>" alt="<?php echo esc_attr( get_theme_mod( 'mkp_hero_name', get_bloginfo( 'name' ) ) ); ?>" />
+                    <?php foreach ( $right_images as $image_data ) : ?>
+                        <div class="mkp-hero__image mkp-hero__image--<?php echo esc_attr( $image_data['size'] ); ?>">
+                            <img src="<?php echo esc_url( $image_data['url'] ); ?>" alt="<?php echo esc_attr( get_theme_mod( 'mkp_hero_name', get_bloginfo( 'name' ) ) ); ?>" />
                         </div>
                     <?php endforeach; ?>
                 </div>

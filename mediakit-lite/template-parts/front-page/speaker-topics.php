@@ -33,7 +33,7 @@ if ( ! $has_topics && ! $is_customizer ) {
 
 <section id="speaker_topics" class="<?php echo esc_attr( $section_class ); ?> mkp-speaker-section--<?php echo esc_attr( $list_style ); ?>" style="background-color: <?php echo esc_attr( $section_color ); ?>; color: <?php echo esc_attr( $text_color ); ?>">
     <div class="mkp-container">
-        <h2 class="mkp-section__title"><?php esc_html_e( 'Speaking Topics', 'mediakit-lite' ); ?></h2>
+        <h2 class="mkp-section__title"><?php echo esc_html( get_theme_mod( 'mkp_speaker_section_title', __( 'Speaking Topics', 'mediakit-lite' ) ) ); ?></h2>
         
         <?php if ( $list_style === 'bullets' || $list_style === 'numbers' ) : ?>
             <?php

@@ -22,13 +22,8 @@ for ( $i = 1; $i <= 4; $i++ ) {
     }
 }
 
-// For customizer preview, always render the section structure
+// For customizer preview
 $is_customizer = is_customize_preview();
-
-// Don't show section if no stats (unless in customizer)
-if ( $actual_stat_count === 0 && ! $is_customizer ) {
-    return;
-}
 
 // Get section title
 $section_title = get_theme_mod( 'mkp_stats_section_title', __( 'By The Numbers', 'mediakit-lite' ) );

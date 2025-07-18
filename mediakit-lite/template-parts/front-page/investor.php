@@ -36,8 +36,9 @@ for ( $i = 1; $i <= 3; $i++ ) {
     }
 }
 
-// Dynamic section title
-$section_title = ( $actual_investor_count === 1 ) ? __( 'Investment Vertical', 'mediakit-lite' ) : __( 'Investment Verticals', 'mediakit-lite' );
+// Get customizable section title (defaults to singular/plural based on count)
+$default_title = ( $actual_investor_count === 1 ) ? __( 'Investment Vertical', 'mediakit-lite' ) : __( 'Investment Verticals', 'mediakit-lite' );
+$section_title = get_theme_mod( 'mkp_investor_section_title', $default_title );
 ?>
 
 <section id="investor" class="<?php echo esc_attr( $section_class ); ?>" style="background-color: <?php echo esc_attr( $section_color ); ?>; color: <?php echo esc_attr( $text_color ); ?><?php echo ( ! $has_investors && $is_customizer ) ? '; display: none;' : ''; ?>">

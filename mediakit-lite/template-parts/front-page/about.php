@@ -17,7 +17,7 @@ $about_content = mkp_get_about_content(); // This will return default Lorem Ipsu
 
 <section id="about" class="<?php echo esc_attr( $section_class ); ?>" style="background-color: <?php echo esc_attr( $section_color ); ?>; color: <?php echo esc_attr( $text_color ); ?>">
     <div class="mkp-container">
-        <h2 class="mkp-section__title"><?php esc_html_e( 'About', 'mediakit-lite' ); ?></h2>
+        <h2 class="mkp-section__title"><?php echo esc_html( get_theme_mod( 'mkp_about_section_title', __( 'About', 'mediakit-lite' ) ) ); ?></h2>
         
         <div class="mkp-about-section__content">
             <?php echo wp_kses_post( wpautop( $about_content ) ); ?>

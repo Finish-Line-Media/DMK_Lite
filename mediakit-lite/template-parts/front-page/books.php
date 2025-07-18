@@ -21,16 +21,12 @@ for ( $i = 1; $i <= 4; $i++ ) {
     }
 }
 
-// For customizer preview, always render the section structure
+// For customizer preview
 $is_customizer = is_customize_preview();
 
-// Don't show section if no books (unless in customizer)
-if ( $actual_book_count === 0 && ! $is_customizer ) {
-    return;
-}
-
-// Determine section title based on count
-$section_title = ( $actual_book_count === 1 ) ? __( 'Book', 'mediakit-lite' ) : __( 'Books', 'mediakit-lite' );
+// Get customizable section title (defaults to singular/plural based on count)
+$default_title = ( $actual_book_count === 1 ) ? __( 'Book', 'mediakit-lite' ) : __( 'Books', 'mediakit-lite' );
+$section_title = get_theme_mod( 'mkp_books_section_title', $default_title );
 
 // Get books per row setting
 $books_per_row = get_theme_mod( 'mkp_books_per_row', '3' );

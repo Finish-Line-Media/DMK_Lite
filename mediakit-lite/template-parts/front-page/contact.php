@@ -45,7 +45,7 @@ if ( ! $has_contact_info && ! $is_customizer ) {
 
 <section id="contact" class="<?php echo esc_attr( $section_class ); ?>" style="background-color: <?php echo esc_attr( $section_color ); ?>; color: <?php echo esc_attr( $text_color ); ?><?php echo ( ! $has_contact_info && $is_customizer ) ? '; display: none;' : ''; ?>">
     <div class="mkp-container">
-        <h2 class="mkp-section__title"><?php esc_html_e( 'Contact', 'mediakit-lite' ); ?></h2>
+        <h2 class="mkp-section__title"><?php echo esc_html( get_theme_mod( 'mkp_contact_section_title', __( 'Contact', 'mediakit-lite' ) ) ); ?></h2>
         
         <div class="mkp-contact__wrapper">
             <div class="mkp-contact__info">

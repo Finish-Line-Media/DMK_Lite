@@ -15,13 +15,8 @@ $text_color = $colors['text'];
 // Get video URL
 $video_url = get_theme_mod( 'mkp_featured_video_url' );
 
-// For customizer preview, always render the section structure
+// For customizer preview
 $is_customizer = is_customize_preview();
-
-// Don't show section if no video URL (unless in customizer)
-if ( empty( $video_url ) && ! $is_customizer ) {
-    return;
-}
 
 // Get other settings
 $section_title = get_theme_mod( 'mkp_featured_video_section_title', __( 'Featured Video', 'mediakit-lite' ) );

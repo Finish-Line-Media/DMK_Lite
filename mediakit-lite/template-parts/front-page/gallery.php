@@ -8,13 +8,8 @@
 // Get gallery images
 $gallery_images_string = get_theme_mod( 'mkp_gallery_images', '' );
 
-// For customizer preview, always render the section structure
+// For customizer preview
 $is_customizer = is_customize_preview();
-
-// Don't show section if no images (unless in customizer)
-if ( empty( $gallery_images_string ) && ! $is_customizer ) {
-    return;
-}
 
 // Convert comma-separated string to array
 $gallery_images = ! empty( $gallery_images_string ) 
@@ -32,7 +27,7 @@ $section_class = 'mkp-gallery-section mkp-section';
 
 <section id="gallery" class="<?php echo esc_attr( $section_class ); ?>" style="background-color: <?php echo esc_attr( $section_color ); ?>; color: <?php echo esc_attr( $text_color ); ?>">
     <div class="mkp-container">
-        <h2 class="mkp-section__title"><?php esc_html_e( 'Image Gallery', 'mediakit-lite' ); ?></h2>
+        <h2 class="mkp-section__title"><?php echo esc_html( get_theme_mod( 'mkp_gallery_section_title', __( 'Image Gallery', 'mediakit-lite' ) ) ); ?></h2>
         
         <div class="mkp-gallery__grid">
             <?php foreach ( $gallery_images as $image_id ) : 
