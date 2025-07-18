@@ -17,6 +17,46 @@
         });
     }
     
+    // Close mobile menu when a navigation link is clicked
+    function closeMobileMenu() {
+        if (mobileToggle && navigation && navigation.classList.contains('mkp-nav--active')) {
+            mobileToggle.classList.remove('is-active');
+            navigation.classList.remove('mkp-nav--active');
+            mobileToggle.setAttribute('aria-expanded', 'false');
+        }
+    }
+    
+    // Auto-close mobile menu on navigation link click
+    $('.mkp-nav__link').on('click', function(e) {
+        // Check if we're in mobile view and menu is open
+        if (window.innerWidth <= 768) {
+            // If it's an anchor link, delay closing to ensure smooth scroll starts
+            const href = $(this).attr('href');
+            if (href && href.charAt(0) === '#') {
+                setTimeout(closeMobileMenu, 100);
+            } else {
+                closeMobileMenu();
+            }
+        }
+    });
+    
+    // Close mobile menu when clicking outside
+    $(document).on('click', function(e) {
+        if (navigation && navigation.classList.contains('mkp-nav--active')) {
+            // Check if click is outside menu and toggle button
+            if (!$(e.target).closest('.mkp-nav, .mkp-mobile-toggle').length) {
+                closeMobileMenu();
+            }
+        }
+    });
+    
+    // Close mobile menu on ESC key
+    $(document).on('keydown', function(e) {
+        if (e.key === 'Escape' && navigation && navigation.classList.contains('mkp-nav--active')) {
+            closeMobileMenu();
+        }
+    });
+    
     // Smooth Scroll for anchor links (only for hash links on the same page)
     $('a[href^="#"]:not([href="#"])').on('click', function(e) {
         // Only handle if it's a hash link (not full URL)
@@ -26,6 +66,10 @@
             
             if (target.length) {
                 e.preventDefault();
+                
+                // Close mobile menu if open
+                closeMobileMenu();
+                
                 $('html, body').animate({
                     scrollTop: target.offset().top - 100
                 }, 800);

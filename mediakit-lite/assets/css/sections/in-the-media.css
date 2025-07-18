@@ -15,19 +15,24 @@
 }
 
 .mkp-media-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
     margin-top: var(--mkp-spacing-xl);
     max-width: 1200px;
     margin-left: auto;
     margin-right: auto;
+    padding: 0 var(--mkp-spacing-md);
 }
 
 .mkp-media-embed {
     position: relative;
-    width: calc(50% - 10px);
-    margin-bottom: 20px;
+    flex: 1 1 calc(50% - 10px);
+    min-width: 0; /* Prevent flex items from overflowing */
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     border-radius: 8px;
     overflow: hidden;
+    background-color: rgba(0, 0, 0, 0.05);
 }
 
 /* Base responsive embed container */
@@ -92,10 +97,63 @@
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
 }
 
-/* Tablet and Mobile styles */
+/* Fix iframe overflow on all devices */
+.mkp-media-embed iframe,
+.mkp-media-embed video,
+.mkp-media-embed object,
+.mkp-media-embed embed {
+    max-width: 100% !important;
+    width: 100%;
+}
+
+/* WordPress responsive embed wrapper fix */
+.mkp-media-embed .wp-embed-responsive .wp-embed-aspect-16-9 .wp-block-embed__wrapper,
+.mkp-media-embed .wp-block-embed.is-type-video .wp-block-embed__wrapper {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+}
+
+.mkp-media-embed .wp-embed-responsive .wp-embed-aspect-16-9 .wp-block-embed__wrapper iframe,
+.mkp-media-embed .wp-block-embed.is-type-video .wp-block-embed__wrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* Tablet styles */
 @media (max-width: 800px) {
+    .mkp-media-grid {
+        gap: 15px;
+    }
+    
     .mkp-media-embed {
-        width: 100%;
-        margin-bottom: 20px;
+        flex: 1 1 100%;
+    }
+}
+
+/* Mobile styles - extra small viewports */
+@media (max-width: 480px) {
+    .mkp-media-grid {
+        padding: 0 var(--mkp-spacing-sm);
+        gap: 10px;
+    }
+    
+    .mkp-in-the-media {
+        padding: var(--mkp-spacing-xl) 0;
+    }
+    
+    /* Ensure embeds don't overflow viewport */
+    .mkp-embed-responsive {
+        max-width: 100vw;
+        margin-left: calc(-1 * var(--mkp-spacing-sm));
+        margin-right: calc(-1 * var(--mkp-spacing-sm));
+        width: calc(100% + 2 * var(--mkp-spacing-sm));
+    }
+    
+    .mkp-media-embed {
+        border-radius: 0;
     }
 }

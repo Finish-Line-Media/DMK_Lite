@@ -29,9 +29,29 @@ $text_color = $colors['text'];
 				if ( ! empty( $url ) ) :
 					$embed = wp_oembed_get( $url );
 					
-					if ( $embed ) : ?>
+					if ( $embed ) : 
+						// Determine embed type based on URL
+						$embed_class = 'mkp-embed--video'; // Default
+						if ( strpos( $url, 'youtube.com' ) !== false || strpos( $url, 'youtu.be' ) !== false ) {
+							$embed_class = 'mkp-embed--youtube';
+						} elseif ( strpos( $url, 'vimeo.com' ) !== false ) {
+							$embed_class = 'mkp-embed--vimeo';
+						} elseif ( strpos( $url, 'spotify.com' ) !== false ) {
+							$embed_class = 'mkp-embed--spotify';
+						} elseif ( strpos( $url, 'twitter.com' ) !== false || strpos( $url, 'x.com' ) !== false ) {
+							$embed_class = 'mkp-embed--twitter';
+						} elseif ( strpos( $url, 'instagram.com' ) !== false ) {
+							$embed_class = 'mkp-embed--instagram';
+						} elseif ( strpos( $url, 'facebook.com' ) !== false ) {
+							$embed_class = 'mkp-embed--facebook';
+						} elseif ( strpos( $url, 'tiktok.com' ) !== false ) {
+							$embed_class = 'mkp-embed--tiktok';
+						}
+						?>
 						<div class="mkp-media-embed">
-							<?php echo $embed; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+							<div class="mkp-embed-responsive <?php echo esc_attr( $embed_class ); ?>">
+								<?php echo $embed; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+							</div>
 						</div>
 					<?php endif;
 				endif;
