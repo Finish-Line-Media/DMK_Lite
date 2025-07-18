@@ -11,6 +11,6 @@ if ( ! mkp_should_show_sidebar() ) {
 }
 ?>
 
-<aside id="secondary" class="mkp-sidebar widget-area">
+<aside id="secondary" class="mkp-sidebar mkp-card widget-area">
     <?php dynamic_sidebar( 'sidebar-1' ); ?>
 </aside><!-- #secondary -->

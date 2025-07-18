@@ -251,6 +251,9 @@
     // Setup conditional control visibility
     function setupConditionalControls() {
         // Handle sidebar checkbox dependencies
+        // Commented out to allow refresh transport to work properly
+        // When using 'refresh' transport, the page reloads and PHP handles the state
+        /*
         wp.customize( 'mkp_enable_blog_sidebar', function( setting ) {
             function toggleSidebarOptions( enabled ) {
                 const sidebarControls = [
@@ -284,6 +287,7 @@
                 toggleSidebarOptions( newValue );
             });
         });
+        */
     }
     
 } )( jQuery );

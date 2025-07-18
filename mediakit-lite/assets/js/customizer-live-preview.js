@@ -1223,7 +1223,9 @@
     }
     
     // Handle enable/disable section toggle
-    // Commented out - now handled by Selective Refresh
+    // Note: Section enable/disable toggles use 'refresh' transport for reliability
+    // This ensures proper PHP conditional checks and theme functions run correctly
+    // The code below is kept for reference but not used:
     /*
     wp.customize( 'mkp_enable_section_media_questions', function( value ) {
         value.bind( function( to ) {
@@ -1303,7 +1305,9 @@
     }
     
     // Handle enable/disable investor section toggle
-    // Commented out - now handled by Selective Refresh
+    // Note: Section enable/disable toggles use 'refresh' transport for reliability
+    // This ensures proper PHP conditional checks and theme functions run correctly
+    // The code below is kept for reference but not used:
     /*
     wp.customize( 'mkp_enable_section_investor', function( value ) {
         value.bind( function( to ) {
@@ -1491,7 +1495,9 @@
     } );
     
     // Handle enable/disable contact section toggle
-    // Commented out - now handled by Selective Refresh
+    // Note: Section enable/disable toggles use 'refresh' transport for reliability
+    // This ensures proper PHP conditional checks and theme functions run correctly
+    // The code below is kept for reference but not used:
     /*
     wp.customize( 'mkp_enable_section_contact', function( value ) {
         value.bind( function( to ) {
@@ -1530,7 +1536,9 @@
     }
     
     // Handle enable/disable In The Media section toggle
-    // Commented out - now handled by Selective Refresh
+    // Note: Section enable/disable toggles use 'refresh' transport for reliability
+    // This ensures proper PHP conditional checks and theme functions run correctly
+    // The code below is kept for reference but not used:
     /*
     wp.customize( 'mkp_enable_section_in_the_media', function( value ) {
         value.bind( function( to ) {

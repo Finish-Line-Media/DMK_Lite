@@ -93,6 +93,9 @@ function mkp_register_blog_settings( $wp_customize ) {
         'section'     => 'mkp_blog_settings',
         'type'        => 'checkbox',
         'priority'    => 41,
+        'active_callback' => function() {
+            return get_theme_mod( 'mkp_enable_blog_sidebar', false );
+        },
     ) );
     
     // Show Sidebar on Blog
@@ -108,6 +111,9 @@ function mkp_register_blog_settings( $wp_customize ) {
         'section'     => 'mkp_blog_settings',
         'type'        => 'checkbox',
         'priority'    => 42,
+        'active_callback' => function() {
+            return get_theme_mod( 'mkp_enable_blog_sidebar', false );
+        },
     ) );
     
     // Show Sidebar on Archive
@@ -123,5 +129,8 @@ function mkp_register_blog_settings( $wp_customize ) {
         'section'     => 'mkp_blog_settings',
         'type'        => 'checkbox',
         'priority'    => 43,
+        'active_callback' => function() {
+            return get_theme_mod( 'mkp_enable_blog_sidebar', false );
+        },
     ) );
 }

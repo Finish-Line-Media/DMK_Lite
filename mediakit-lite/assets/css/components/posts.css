@@ -13,40 +13,40 @@
 .mkp-archive-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: 32px;
-    margin-bottom: 60px;
+    gap: var(--mkp-spacing-xl);
+    margin-bottom: var(--mkp-spacing-xxl);
 }
 
 /* Archive Page Header */
 .mkp-page-header {
     text-align: center;
-    margin-bottom: 60px;
+    margin-bottom: var(--mkp-spacing-xxl);
 }
 
 .mkp-page-title {
     font-size: 2.5rem;
     font-weight: 700;
-    margin-bottom: 16px;
-    color: var(--mkp-heading-color, #1a1a1a);
+    margin-bottom: var(--mkp-spacing-md);
+    color: inherit;
 }
 
 .mkp-archive-description {
     max-width: 600px;
     margin: 0 auto;
     font-size: 1.125rem;
-    color: var(--mkp-text-color, #666666);
+    opacity: 0.85;
     line-height: 1.6;
 }
 
 /* No Results */
 .mkp-no-results {
     text-align: center;
-    padding: 80px 0;
+    padding: var(--mkp-spacing-xxl) 0;
 }
 
 .mkp-no-results .mkp-page-title {
-    color: var(--mkp-heading-color, #1a1a1a);
-    margin-bottom: 24px;
+    color: inherit;
+    margin-bottom: var(--mkp-spacing-lg);
 }
 
 .mkp-no-results .mkp-page-content {
@@ -56,8 +56,8 @@
 
 .mkp-no-results p {
     font-size: 1.125rem;
-    color: var(--mkp-text-color, #666666);
-    margin-bottom: 32px;
+    opacity: 0.85;
+    margin-bottom: var(--mkp-spacing-xl);
 }
 
 /* ==========================================================================
@@ -258,9 +258,10 @@
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    /* Uses .mkp-glass-dark pattern */
-    background-color: rgba(0, 0, 0, 0.05);
-    color: var(--mkp-theme-neutral-dark);
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    color: inherit;
     transition: all 0.3s ease;
 }
 
@@ -276,6 +277,10 @@
     padding: var(--mkp-spacing-lg);
     display: flex;
     gap: var(--mkp-spacing-lg);
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: var(--mkp-radius-lg);
 }
 
 .mkp-author-avatar img {
