@@ -1,9 +1,9 @@
 {
-    "version": "1.12.0",
-    "description": "Major CSS refactoring, transparent backgrounds, masonry layouts, and improved media embeds",
+    "version": "2.0.0",
+    "description": "Major release: Hero image sizing options, mobile navigation improvements, responsive video embeds, social proof sections, and modular CSS architecture",
     "download_url": "https://github.com/Finish-Line-Media/DMK_Lite/releases/latest/download/mediakit-lite.zip",
     "changelog_url": "https://github.com/Finish-Line-Media/DMK_Lite/blob/main/CHANGELOG.md",
-    "release_date": "2025-07-16",
+    "release_date": "2025-07-18",
     "min_wp_version": "5.8",
     "tested_up_to": "6.5",
     "php_version": "7.4"
