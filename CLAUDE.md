@@ -42,14 +42,25 @@ composer fix-cs
 ### Theme Structure
 ```
 mediakit-lite/
-├── assets/              # CSS, JS, images
+├── assets/              # CSS, JS, images (modular CSS architecture)
+│   ├── css/            
+│   │   ├── base/       # Variables, reset, typography, WordPress core
+│   │   ├── components/ # Header, nav, cards, buttons, forms, etc.
+│   │   ├── layout/     # Containers, grid, utilities
+│   │   └── sections/   # Individual section styles
+│   └── js/             # JavaScript files including masonry layouts
 ├── inc/                 # PHP includes
-│   ├── customizer.php   # Theme customizer settings
+│   ├── customizer/      # Modular customizer architecture
+│   │   ├── customizer-main.php
+│   │   ├── helpers/     # Sanitization functions
+│   │   └── sections/    # Individual customizer sections
 │   ├── template-tags.php # Custom template functions
 │   ├── blocks.php       # Gutenberg block registration
 │   └── acf-fields.php   # ACF field configurations
 ├── template-parts/      # Reusable template components
 ├── templates/           # Page templates
+├── style.css            # Main theme stylesheet (imports modular CSS)
+├── style-old.css        # Legacy monolithic CSS (deprecated)
 └── functions.php        # Core theme functionality
 ```
 
@@ -113,10 +124,66 @@ The theme includes extensive customizer options organized into sections:
 4. Display in templates with escaping
 
 ### Modifying Styles
-1. Main styles in `style.css`
-2. Use CSS custom properties for theming
-3. Follow BEM naming convention: `.mkp-component__element--modifier`
-4. Ensure mobile-first responsive design
+1. **Modular CSS Architecture**: Styles are organized in `assets/css/` directories
+   - Base styles: Variables, reset, typography in `assets/css/base/`
+   - Components: Reusable UI elements in `assets/css/components/`
+   - Sections: Page section-specific styles in `assets/css/sections/`
+2. Main `style.css` uses `@import` to load all modules
+3. Use CSS custom properties for theming (defined in `assets/css/base/variables.css`)
+4. Follow BEM naming convention: `.mkp-component__element--modifier`
+5. Ensure mobile-first responsive design
+
+### Adding Customizer Live Preview
+When adding new sections with customizer controls that should update live:
+
+1. **Set transport to postMessage** in the customizer setting:
+```php
+$wp_customize->add_setting( 'mkp_field_name', array(
+    'default'           => '',
+    'sanitize_callback' => 'sanitize_text_field',
+    'transport'         => 'postMessage', // Enable live preview
+) );
+```
+
+2. **Add JavaScript handlers** in `assets/js/customizer-live-preview.js`:
+```javascript
+// Example for a simple text field
+wp.customize( 'mkp_field_name', function( value ) {
+    value.bind( function( to ) {
+        $( '.target-element' ).text( to );
+    } );
+} );
+```
+
+3. **Use the centralized pattern** for card-based sections:
+```javascript
+setupCardSectionUpdates({
+    sectionPrefix: 'mkp_example_',
+    sectionClass: 'mkp-example-section',
+    cardClass: 'mkp-example-card',
+    maxItems: 6,
+    fields: [
+        {
+            name: 'title',
+            updateFn: function( $card, value ) {
+                $card.find( '.mkp-example-card__title' ).text( value );
+            }
+        },
+        {
+            name: 'description',
+            updateFn: function( $card, value ) {
+                const formatted = '<p>' + value.replace(/\n\n/g, '</p><p>').replace(/\n/g, '<br />') + '</p>';
+                $card.find( '.mkp-example-card__description' ).html( formatted );
+            }
+        }
+    ]
+});
+```
+
+4. **Ensure proper DOM structure** with consistent class naming:
+   - Section: `.mkp-{section}-section`
+   - Cards: `.mkp-{item}-card.mkp-{item}--{number}`
+   - Elements: `.mkp-{item}-card__{element}`
 
 ## Security Best Practices
 - Escape all output: `esc_html()`, `esc_attr()`, `esc_url()`
@@ -130,10 +197,20 @@ The theme includes extensive customizer options organized into sections:
 - Use Query Monitor plugin for performance analysis
 - Test with Theme Check plugin before deployment
 
+## Development Philosophy
+- **"Less is More"**: Avoid unnecessary complexity in code. When faced with a choice, prefer the simpler solution that accomplishes the goal.
+- **Consolidation**: Keep related functionality together. Avoid scattering similar styles or functionality across multiple files when they can be consolidated.
+- **Maintainability First**: Write code that is easy to understand and maintain. Clear, simple code is better than clever, complex code.
+- **CSS Inheritance**: Leverage CSS inheritance rather than explicit declarations. Remove redundant styles and let elements inherit from their parents.
+- **Single Source of Truth**: Define styles, especially repeated patterns like glass-morphism effects, in one place rather than duplicating across multiple selectors.
+
 ## Development Memories
 - Remember to bump both the theme and the function header version number when bumping.
 - Remember to bump both the style and the function header version number when bumping.
 - Remember to ask me which build I'd like when I ask you to build.
+- **CSS Architecture**: The theme uses a modular CSS architecture. The main `style.css` imports all modules from `assets/css/`. Never edit `style-old.css` as it contains the deprecated monolithic CSS.
+- **Customizer Refactoring**: The customizer has been refactored from a single 1,861-line file into a modular structure under `inc/customizer/` with separate files for each section.
+- **Glass-morphism Cards**: All cards use a unified glass-morphism effect defined in the base `.mkp-card` class for consistency and maintainability.
 
 ## Known Issues
 - **Customizer Exit Behavior**: When exiting the WordPress Customizer without saving changes (clicking the X button), the theme may occasionally deactivate. This is an edge case related to how WordPress handles unsaved changesets. **Workaround**: Always save/publish your changes before exiting the Customizer. This ensures proper theme state persistence.

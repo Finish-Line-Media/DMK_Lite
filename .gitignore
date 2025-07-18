@@ -90,5 +90,13 @@ yarn-error.log
 /mediakit-lite/build/
 /mediakit-lite/dist/
 
+# Local sync scripts
+sync-to-wordpress.sh
+sync-*.sh
+
+# Development audit files
+/mediakit-lite/CUSTOMIZER_LIVE_PREVIEW_AUDIT.md
+/mediakit-lite/NAVIGATION_SYNC_PROPOSAL.md
+
 # Keep .gitkeep files
 !.gitkeep

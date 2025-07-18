@@ -12,7 +12,9 @@ get_header();
     
     <?php
     // Reset color rotation for this page load
-    mkp_reset_section_colors();
+    if ( function_exists( 'mkp_reset_section_colors' ) ) {
+        mkp_reset_section_colors();
+    }
     
     // Get front page sections configuration
     $sections = mkp_get_front_page_sections();
@@ -33,17 +35,9 @@ get_header();
             continue;
         }
         
-        // Check if section is enabled and has content
-        if ( ! empty( $section_config['check_function'] ) ) {
-            $has_content = call_user_func( $section_config['check_function'] );
-            if ( mkp_should_display_section( $section_id, array( $has_content ) ) ) {
-                get_template_part( $section_config['template'] );
-            }
-        } else {
-            // No content check needed, just check if enabled
-            if ( mkp_should_display_section( $section_id ) ) {
-                get_template_part( $section_config['template'] );
-            }
+        // Check if section is enabled
+        if ( get_theme_mod( 'mkp_enable_section_' . $section_id, false ) ) {
+            get_template_part( $section_config['template'] );
         }
     }
     ?>

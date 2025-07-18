@@ -1,0 +1,155 @@
+<?php
+/**
+ * MediaKit Lite functions and definitions
+ *
+ * @package MediaKit_Lite
+ * @since 1.0.0
+ */
+
+if ( ! defined( 'ABSPATH' ) ) {
+    exit; // Exit if accessed directly
+}
+
+/**
+ * Define Constants
+ */
+define( 'MKP_THEME_VERSION', '1.12.0' );
+define( 'MKP_THEME_DIR', get_template_directory() );
+define( 'MKP_THEME_URI', get_template_directory_uri() );
+
+/**
+ * Theme Setup
+ */
+function mkp_theme_setup() {
+    // Add theme support
+    add_theme_support( 'automatic-feed-links' );
+    add_theme_support( 'title-tag' );
+    add_theme_support( 'post-thumbnails' );
+    add_theme_support( 'html5', array(
+        'search-form',
+        'comment-form',
+        'comment-list',
+        'gallery',
+        'caption',
+        'style',
+        'script',
+    ) );
+    
+    // Add support for Block Styles
+    add_theme_support( 'wp-block-styles' );
+    
+    // Add support for full and wide align images
+    add_theme_support( 'align-wide' );
+    
+    // Add support for editor styles
+    add_theme_support( 'editor-styles' );
+    
+    // Add support for responsive embedded content
+    add_theme_support( 'responsive-embeds' );
+    
+    // Add support for customizer selective refresh
+    add_theme_support( 'customize-selective-refresh-widgets' );
+    
+    // Set content width
+    if ( ! isset( $content_width ) ) {
+        $content_width = 1200;
+    }
+}
+add_action( 'after_setup_theme', 'mkp_theme_setup' );
+
+/**
+ * Enqueue scripts and styles
+ */
+function mkp_scripts() {
+    // Enqueue main stylesheet
+    wp_enqueue_style( 'mediakit-lite-style', MKP_THEME_URI . '/style.css', array(), MKP_THEME_VERSION );
+    
+    // Enqueue main JavaScript
+    wp_enqueue_script( 'mediakit-lite-script', MKP_THEME_URI . '/assets/js/main.js', array('jquery'), MKP_THEME_VERSION, true );
+}
+add_action( 'wp_enqueue_scripts', 'mkp_scripts' );
+
+/**
+ * Include critical files only
+ */
+
+// Load customizer preview safety first
+$safety_file = MKP_THEME_DIR . '/inc/customizer-preview-safety.php';
+if ( file_exists( $safety_file ) ) {
+    require_once $safety_file;
+}
+
+// Critical files needed for basic functionality
+$critical_files = array(
+    '/inc/about-defaults.php',      // Has mkp_get_default_about_content
+    '/inc/template-functions.php',  // Has mkp_get_front_page_nav_items
+    '/inc/template-tags.php',
+    '/inc/section-order.php',       // Has mkp_get_section_order
+    '/inc/front-page-sections.php',
+    '/inc/social-icon-svgs.php',    // Needed for social icons
+);
+
+foreach ( $critical_files as $file ) {
+    $file_path = MKP_THEME_DIR . $file;
+    if ( file_exists( $file_path ) ) {
+        require_once $file_path;
+    }
+}
+
+/**
+ * Schema markup helper function - Required by header.php
+ */
+function mkp_schema_markup( $type = 'WebPage' ) {
+    $schema = array(
+        '@context' => 'https://schema.org',
+        '@type' => $type,
+        'name' => get_the_title(),
+        'url' => get_permalink(),
+    );
+    
+    if ( has_post_thumbnail() ) {
+        $schema['image'] = get_the_post_thumbnail_url( null, 'large' );
+    }
+    
+    echo '<script type="application/ld+json">' . wp_json_encode( $schema ) . '</script>' . "\n";
+}
+
+/**
+ * Custom excerpt length
+ */
+function mkp_excerpt_length( $length ) {
+    return 30;
+}
+add_filter( 'excerpt_length', 'mkp_excerpt_length', 999 );
+
+/**
+ * Custom excerpt more
+ */
+function mkp_excerpt_more( $more ) {
+    return '...';
+}
+add_filter( 'excerpt_more', 'mkp_excerpt_more' );
+
+/**
+ * Now carefully add customizer functionality
+ */
+
+// Load color themes first (needed by customizer-dynamic-styles)
+if ( file_exists( MKP_THEME_DIR . '/inc/color-themes.php' ) ) {
+    require_once MKP_THEME_DIR . '/inc/color-themes.php';
+}
+
+// Load customizer main file
+if ( file_exists( MKP_THEME_DIR . '/inc/customizer/customizer-main.php' ) ) {
+    require_once MKP_THEME_DIR . '/inc/customizer/customizer-main.php';
+}
+
+// Load customizer dynamic styles
+if ( file_exists( MKP_THEME_DIR . '/inc/customizer-dynamic-styles.php' ) ) {
+    require_once MKP_THEME_DIR . '/inc/customizer-dynamic-styles.php';
+}
+
+// Test adding theme color manager ONLY
+if ( file_exists( MKP_THEME_DIR . '/inc/theme-color-manager.php' ) ) {
+    require_once MKP_THEME_DIR . '/inc/theme-color-manager.php';
+}

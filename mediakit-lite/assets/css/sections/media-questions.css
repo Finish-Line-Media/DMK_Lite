@@ -36,3 +36,92 @@
 .mkp-media-questions__text {
     /* Text flows naturally inline for proper bullet alignment */
 }
+
+/* Card Style Layout */
+.mkp-media-questions__cards {
+    display: grid;
+    gap: var(--mkp-spacing-lg);
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Grid layouts based on question count */
+.mkp-media-questions__cards--count-1,
+.mkp-media-questions__cards--count-2 {
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+}
+
+.mkp-media-questions__cards--count-3,
+.mkp-media-questions__cards--count-4,
+.mkp-media-questions__cards--count-5,
+.mkp-media-questions__cards--count-6 {
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+}
+
+.mkp-media-questions__cards--count-7,
+.mkp-media-questions__cards--count-8,
+.mkp-media-questions__cards--count-9,
+.mkp-media-questions__cards--count-10,
+.mkp-media-questions__cards--count-11,
+.mkp-media-questions__cards--count-12 {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+/* Media Question Card */
+.mkp-media-questions__card {
+    padding: var(--mkp-spacing-xl);
+    display: flex;
+    align-items: flex-start;
+    gap: var(--mkp-spacing-md);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.mkp-media-questions__card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+}
+
+/* Question Icon */
+.mkp-media-questions__card-icon {
+    font-size: 2rem;
+    font-weight: 700;
+    color: inherit;
+    opacity: 0.7;
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+}
+
+/* Question Text */
+.mkp-media-questions__card-text {
+    margin: 0;
+    font-size: 1.125rem;
+    line-height: 1.6;
+    flex: 1;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .mkp-media-questions__cards {
+        grid-template-columns: 1fr;
+    }
+    
+    .mkp-media-questions__card {
+        padding: var(--mkp-spacing-lg);
+    }
+    
+    .mkp-media-questions__card-icon {
+        font-size: 1.5rem;
+        width: 32px;
+        height: 32px;
+    }
+    
+    .mkp-media-questions__card-text {
+        font-size: 1rem;
+    }
+}

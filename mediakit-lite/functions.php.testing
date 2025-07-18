@@ -1,0 +1,530 @@
+<?php
+/**
+ * MediaKit Lite functions and definitions
+ *
+ * @package MediaKit_Lite
+ * @since 1.0.0
+ */
+
+if ( ! defined( 'ABSPATH' ) ) {
+    exit; // Exit if accessed directly
+}
+
+/**
+ * Define Constants
+ */
+define( 'MKP_THEME_VERSION', '1.12.0' );
+define( 'MKP_THEME_DIR', get_template_directory() );
+define( 'MKP_THEME_URI', get_template_directory_uri() );
+
+/**
+ * Theme Setup
+ */
+function mkp_theme_setup() {
+    // Add theme support
+    add_theme_support( 'automatic-feed-links' );
+    add_theme_support( 'title-tag' );
+    add_theme_support( 'post-thumbnails' );
+    add_theme_support( 'html5', array(
+        'search-form',
+        'comment-form',
+        'comment-list',
+        'gallery',
+        'caption',
+        'style',
+        'script',
+    ) );
+    
+    
+    // Add support for Block Styles
+    add_theme_support( 'wp-block-styles' );
+    
+    // Add support for full and wide align images
+    add_theme_support( 'align-wide' );
+    
+    // Add support for editor styles
+    add_theme_support( 'editor-styles' );
+    
+    // Add support for responsive embedded content
+    add_theme_support( 'responsive-embeds' );
+    
+    // Add support for customizer selective refresh
+    add_theme_support( 'customize-selective-refresh-widgets' );
+    
+    // Navigation menus are not used in this theme
+    // The theme uses a dynamic navigation system based on front page sections
+    
+    // Set content width
+    if ( ! isset( $content_width ) ) {
+        $content_width = 1200;
+    }
+}
+add_action( 'after_setup_theme', 'mkp_theme_setup' );
+
+/**
+ * Register widget areas
+ */
+function mkp_widgets_init() {
+    // Register sidebar widget area
+    register_sidebar( array(
+        'name'          => esc_html__( 'Sidebar', 'mediakit-lite' ),
+        'id'            => 'sidebar-1',
+        'description'   => esc_html__( 'Add widgets here to appear in your sidebar on blog pages.', 'mediakit-lite' ),
+        'before_widget' => '<section id="%1$s" class="widget %2$s">',
+        'after_widget'  => '</section>',
+        'before_title'  => '<h2 class="widget-title">',
+        'after_title'   => '</h2>',
+    ) );
+}
+add_action( 'widgets_init', 'mkp_widgets_init' );
+
+/**
+ * Enqueue scripts and styles
+ */
+function mkp_scripts() {
+    // Enqueue main stylesheet
+    wp_enqueue_style( 'mediakit-lite-style', MKP_THEME_URI . '/style.css', array(), MKP_THEME_VERSION );
+    
+    // Enqueue Google Fonts based on selected fonts
+    $body_font = get_theme_mod( 'mkp_body_font', 'system' );
+    $heading_font = get_theme_mod( 'mkp_heading_font', 'system' );
+    $nav_font = get_theme_mod( 'mkp_nav_font', 'system' );
+    
+    $google_fonts = array();
+    $font_weights = array(
+        'inter' => 'Inter:wght@300;400;500;600;700',
+        'roboto' => 'Roboto:wght@300;400;500;700',
+        'opensans' => 'Open+Sans:wght@300;400;600;700',
+        'lato' => 'Lato:wght@300;400;700;900',
+        'montserrat' => 'Montserrat:wght@300;400;500;600;700',
+        'playfair' => 'Playfair+Display:wght@400;700',
+        'merriweather' => 'Merriweather:wght@300;400;700',
+        'poppins' => 'Poppins:wght@300;400;500;600;700',
+        'raleway' => 'Raleway:wght@300;400;500;600;700',
+    );
+    
+    // Add selected fonts to the array
+    foreach ( array( $body_font, $heading_font, $nav_font ) as $font ) {
+        if ( $font !== 'system' && $font !== 'georgia' && isset( $font_weights[ $font ] ) ) {
+            $google_fonts[ $font ] = $font_weights[ $font ];
+        }
+    }
+    
+    // Build Google Fonts URL if we have any non-system fonts
+    if ( ! empty( $google_fonts ) ) {
+        $fonts_url = 'https://fonts.googleapis.com/css2?family=' . implode( '&family=', array_values( $google_fonts ) ) . '&display=swap';
+        wp_enqueue_style( 'mediakit-lite-fonts', $fonts_url, array(), null );
+    }
+    
+    // Enqueue Dashicons for frontend use
+    wp_enqueue_style( 'dashicons' );
+    
+    // Enqueue main JavaScript
+    wp_enqueue_script( 'mediakit-lite-script', MKP_THEME_URI . '/assets/js/main.js', array('jquery'), MKP_THEME_VERSION, true );
+    
+    // Localize script
+    wp_localize_script( 'mediakit-lite-script', 'mkp_ajax', array(
+        'ajax_url' => admin_url( 'admin-ajax.php' ),
+        'nonce'    => wp_create_nonce( 'mkp_nonce' ),
+    ) );
+    
+    // Comment reply script
+    if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
+        wp_enqueue_script( 'comment-reply' );
+    }
+    
+    // Gallery lightbox script - only on front page if gallery is enabled
+    if ( is_front_page() && get_theme_mod( 'mkp_enable_section_gallery', false ) && mkp_has_gallery_images() ) {
+        wp_enqueue_script( 'mediakit-lite-gallery', MKP_THEME_URI . '/assets/js/gallery-lightbox.js', array( 'masonry', 'imagesloaded' ), MKP_THEME_VERSION, true );
+    }
+    
+    // Media masonry script - only on front page if media section is enabled
+    if ( is_front_page() && get_theme_mod( 'mkp_enable_section_in_the_media', false ) && mkp_has_media_items() ) {
+        wp_enqueue_script( 'mediakit-lite-media-masonry', MKP_THEME_URI . '/assets/js/media-masonry.js', array( 'masonry', 'imagesloaded' ), MKP_THEME_VERSION, true );
+    }
+    
+    // Books masonry script - only on front page if books section is enabled
+    if ( is_front_page() && get_theme_mod( 'mkp_enable_section_books', false ) && mkp_has_books() ) {
+        wp_enqueue_script( 'mediakit-lite-books-masonry', MKP_THEME_URI . '/assets/js/books-masonry.js', array( 'masonry', 'imagesloaded' ), MKP_THEME_VERSION, true );
+    }
+    
+    // Podcasts masonry script - only on front page if podcasts section is enabled
+    if ( is_front_page() && get_theme_mod( 'mkp_enable_section_podcasts', false ) && mkp_has_podcasts() ) {
+        wp_enqueue_script( 'mediakit-lite-podcasts-masonry', MKP_THEME_URI . '/assets/js/podcasts-masonry.js', array( 'masonry', 'imagesloaded' ), MKP_THEME_VERSION, true );
+    }
+}
+add_action( 'wp_enqueue_scripts', 'mkp_scripts' );
+
+
+
+/**
+ * Flush rewrite rules on theme activation
+ */
+function mkp_rewrite_flush() {
+    // Flush rewrite rules
+    flush_rewrite_rules();
+}
+add_action( 'after_switch_theme', 'mkp_rewrite_flush' );
+
+/**
+ * Theme activation hook
+ */
+function mkp_theme_activation() {
+    // Check if we've already run the setup
+    if ( get_option( 'mkp_theme_setup_complete' ) ) {
+        return;
+    }
+    
+    // Check if user already has a static front page configured
+    if ( 'page' === get_option( 'show_on_front' ) && get_option( 'page_on_front' ) ) {
+        // User already has configuration, just mark as complete
+        update_option( 'mkp_theme_setup_complete', true );
+        return;
+    }
+    
+    // Create default pages
+    $home_page_id = 0;
+    $blog_page_id = 0;
+    
+    // Check if a page called "Home" already exists
+    $home_page = get_page_by_title( 'Home' );
+    if ( ! $home_page ) {
+        // Create Home page
+        $home_page_id = wp_insert_post( array(
+            'post_title'    => 'Home',
+            'post_content'  => '',
+            'post_status'   => 'publish',
+            'post_type'     => 'page',
+            'comment_status' => 'closed',
+            'ping_status'   => 'closed',
+        ) );
+    } else {
+        $home_page_id = $home_page->ID;
+    }
+    
+    // Check if a page called "Blog" already exists
+    $blog_page = get_page_by_title( 'Blog' );
+    if ( ! $blog_page ) {
+        // Create Blog page
+        $blog_page_id = wp_insert_post( array(
+            'post_title'    => 'Blog',
+            'post_content'  => '',
+            'post_status'   => 'publish',
+            'post_type'     => 'page',
+            'comment_status' => 'closed',
+            'ping_status'   => 'closed',
+        ) );
+    } else {
+        $blog_page_id = $blog_page->ID;
+    }
+    
+    // Configure reading settings if pages were created successfully
+    if ( $home_page_id && $blog_page_id ) {
+        update_option( 'show_on_front', 'page' );
+        update_option( 'page_on_front', $home_page_id );
+        update_option( 'page_for_posts', $blog_page_id );
+    }
+    
+    // Mark setup as complete
+    update_option( 'mkp_theme_setup_complete', true );
+    
+    // Set flag for activation
+    add_option( 'mkp_theme_activated', true );
+}
+add_action( 'after_switch_theme', 'mkp_theme_activation' );
+
+/**
+ * Theme deactivation cleanup
+ */
+function mkp_theme_deactivation() {
+    // Clean up transients
+    delete_transient( 'mkp_theme_activation' );
+}
+add_action( 'switch_theme', 'mkp_theme_deactivation' );
+
+/**
+ * Custom excerpt length
+ */
+function mkp_excerpt_length( $length ) {
+    return 30;
+}
+add_filter( 'excerpt_length', 'mkp_excerpt_length', 999 );
+
+
+
+/**
+ * Custom excerpt more
+ */
+function mkp_excerpt_more( $more ) {
+    return '...';
+}
+add_filter( 'excerpt_more', 'mkp_excerpt_more' );
+
+/**
+ * Add custom image sizes
+ */
+function mkp_add_image_sizes() {
+    add_image_size( 'mkp-hero', 1920, 1080, true );
+}
+add_action( 'after_setup_theme', 'mkp_add_image_sizes' );
+
+/**
+ * Include additional files
+ */
+
+// Error handling for debugging
+if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
+    error_reporting( E_ALL );
+    ini_set( 'display_errors', 1 );
+}
+
+// Load customizer preview safety first
+$safety_file = MKP_THEME_DIR . '/inc/customizer-preview-safety.php';
+if ( file_exists( $safety_file ) ) {
+    require_once $safety_file;
+}
+
+// Ensure all files exist before requiring them
+$required_files = array(
+    '/inc/about-defaults.php',
+    '/inc/customizer-components.php',
+    '/inc/customizer-social-control.php',
+    '/inc/customizer-widget-fix.php',
+    '/inc/color-themes.php',
+    '/inc/theme-color-manager.php',
+    '/inc/customizer/customizer-main.php',
+    '/inc/customizer-dynamic-styles.php',
+    '/inc/template-tags.php',
+    '/inc/template-functions.php',
+    '/inc/front-page-sections.php',
+    '/inc/social-icon-svgs.php',
+    '/inc/section-order.php',
+    '/inc/form-submissions.php',
+    '/inc/update-notice.php',
+    '/inc/blocks.php',
+);
+
+foreach ( $required_files as $file ) {
+    $file_path = MKP_THEME_DIR . $file;
+    if ( file_exists( $file_path ) ) {
+        require_once $file_path;
+    } else {
+        if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
+            error_log( 'MediaKit Lite: Missing required file: ' . $file_path );
+        }
+    }
+}
+
+// Admin customizations - use safety check to prevent loading in preview
+if ( function_exists( 'mkp_should_load_admin_functions' ) && mkp_should_load_admin_functions() ) {
+    $admin_file = MKP_THEME_DIR . '/inc/admin-functions.php';
+    if ( file_exists( $admin_file ) ) {
+        require_once $admin_file;
+    }
+} elseif ( is_admin() && ! is_customize_preview() ) {
+    // Fallback if safety function not available
+    $admin_file = MKP_THEME_DIR . '/inc/admin-functions.php';
+    if ( file_exists( $admin_file ) ) {
+        require_once $admin_file;
+    }
+}
+
+/**
+ * Security: Sanitize upload file names
+ */
+function mkp_sanitize_upload_filename( $filename ) {
+    $sanitized_filename = remove_accents( $filename );
+    $sanitized_filename = preg_replace( '/[^a-zA-Z0-9._-]/', '', $sanitized_filename );
+    $sanitized_filename = strtolower( $sanitized_filename );
+    return $sanitized_filename;
+}
+add_filter( 'sanitize_file_name', 'mkp_sanitize_upload_filename', 10 );
+
+/**
+ * Add async/defer attributes to scripts
+ */
+function mkp_add_script_attributes( $tag, $handle ) {
+    $scripts_to_defer = array( 'mediakit-lite-script' );
+    
+    foreach( $scripts_to_defer as $defer_script ) {
+        if ( $defer_script === $handle ) {
+            return str_replace( ' src', ' defer src', $tag );
+        }
+    }
+    
+    return $tag;
+}
+add_filter( 'script_loader_tag', 'mkp_add_script_attributes', 10, 2 );
+
+/**
+ * Disable emojis for better performance
+ */
+function mkp_disable_emojis() {
+    remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
+    remove_action( 'admin_print_scripts', 'print_emoji_detection_script' );
+    remove_action( 'wp_print_styles', 'print_emoji_styles' );
+    remove_action( 'admin_print_styles', 'print_emoji_styles' );
+    remove_filter( 'the_content_feed', 'wp_staticize_emoji' );
+    remove_filter( 'comment_text_rss', 'wp_staticize_emoji' );
+    remove_filter( 'wp_mail', 'wp_staticize_emoji_for_email' );
+}
+add_action( 'init', 'mkp_disable_emojis' );
+
+/**
+ * Add support for SVG uploads (with security checks)
+ */
+function mkp_mime_types( $mimes ) {
+    $mimes['svg'] = 'image/svg+xml';
+    return $mimes;
+}
+add_filter( 'upload_mimes', 'mkp_mime_types' );
+
+/**
+ * Sanitize SVG uploads
+ */
+function mkp_sanitize_svg( $file ) {
+    if ( $file['type'] === 'image/svg+xml' ) {
+        $svg_content = file_get_contents( $file['tmp_name'] );
+        
+        // Basic SVG sanitization
+        $svg_content = preg_replace( '/<script[\s\S]*?<\/script>/i', '', $svg_content );
+        $svg_content = preg_replace( '/on\w+="[^"]*"/i', '', $svg_content );
+        
+        file_put_contents( $file['tmp_name'], $svg_content );
+    }
+    
+    return $file;
+}
+add_filter( 'wp_handle_upload_prefilter', 'mkp_sanitize_svg' );
+
+
+
+/**
+ * Add Open Graph meta tags
+ */
+function mkp_add_opengraph_tags() {
+    global $post;
+    
+    if ( is_single() || is_page() ) {
+        echo '<meta property="og:title" content="' . esc_attr( get_the_title() ) . '" />' . "\n";
+        echo '<meta property="og:type" content="article" />' . "\n";
+        echo '<meta property="og:url" content="' . esc_url( get_permalink() ) . '" />' . "\n";
+        echo '<meta property="og:site_name" content="' . esc_attr( get_bloginfo( 'name' ) ) . '" />' . "\n";
+        
+        if ( has_post_thumbnail() ) {
+            $thumbnail = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'large' );
+            echo '<meta property="og:image" content="' . esc_url( $thumbnail[0] ) . '" />' . "\n";
+        }
+        
+        if ( $post->post_excerpt ) {
+            echo '<meta property="og:description" content="' . esc_attr( $post->post_excerpt ) . '" />' . "\n";
+        }
+    }
+}
+add_action( 'wp_head', 'mkp_add_opengraph_tags' );
+
+/**
+ * Schema markup helper function
+ */
+function mkp_schema_markup( $type = 'WebPage' ) {
+    $schema = array(
+        '@context' => 'https://schema.org',
+        '@type' => $type,
+        'name' => get_the_title(),
+        'url' => get_permalink(),
+    );
+    
+    if ( has_post_thumbnail() ) {
+        $schema['image'] = get_the_post_thumbnail_url( null, 'large' );
+    }
+    
+    
+    echo '<script type="application/ld+json">' . wp_json_encode( $schema ) . '</script>' . "\n";
+}
+
+// Body classes are handled in inc/template-functions.php
+
+/**
+ * Custom walker for navigation
+ */
+class Mkp_Walker_Nav_Menu extends Walker_Nav_Menu {
+    
+    function start_lvl( &$output, $depth = 0, $args = null ) {
+        $indent = str_repeat( "\t", $depth );
+        $output .= "\n$indent<ul class=\"mkp-nav__submenu\">\n";
+    }
+    
+    function start_el( &$output, $item, $depth = 0, $args = null, $id = 0 ) {
+        $indent = ( $depth ) ? str_repeat( "\t", $depth ) : '';
+        
+        $classes = empty( $item->classes ) ? array() : (array) $item->classes;
+        $classes[] = 'mkp-nav__item';
+        
+        if ( in_array( 'current-menu-item', $classes ) ) {
+            $classes[] = 'mkp-nav__item--active';
+        }
+        
+        $class_names = join( ' ', apply_filters( 'nav_menu_css_class', array_filter( $classes ), $item, $args ) );
+        $class_names = $class_names ? ' class="' . esc_attr( $class_names ) . '"' : '';
+        
+        $output .= $indent . '<li' . $class_names .'>';
+        
+        $attributes = ! empty( $item->attr_title ) ? ' title="'  . esc_attr( $item->attr_title ) .'"' : '';
+        $attributes .= ! empty( $item->target )     ? ' target="' . esc_attr( $item->target     ) .'"' : '';
+        $attributes .= ! empty( $item->xfn )        ? ' rel="'    . esc_attr( $item->xfn        ) .'"' : '';
+        $attributes .= ! empty( $item->url )        ? ' href="'   . esc_attr( $item->url        ) .'"' : '';
+        $attributes .= ' class="mkp-nav__link"';
+        
+        $item_output = $args->before;
+        $item_output .= '<a'. $attributes .'>';
+        $item_output .= $args->link_before . apply_filters( 'the_title', $item->title, $item->ID ) . $args->link_after;
+        $item_output .= '</a>';
+        $item_output .= $args->after;
+        
+        $output .= apply_filters( 'walker_nav_menu_start_el', $item_output, $item, $depth, $args );
+    }
+}
+
+/**
+ * Add responsive wrapper to oEmbed content with provider detection
+ *
+ * @param string $html The returned oEmbed HTML
+ * @param string $url  URL of the content to be embedded
+ * @param array  $attr An array of shortcode attributes
+ * @param int    $post_id Post ID
+ * @return string Modified embed HTML
+ */
+function mkp_wrap_oembed_html( $html, $url, $attr, $post_id ) {
+    if ( empty( $html ) ) {
+        return $html;
+    }
+    
+    $classes = array( 'mkp-embed-responsive' );
+    
+    // Detect provider and add specific class
+    if ( false !== strpos( $url, 'youtube.com' ) || false !== strpos( $url, 'youtu.be' ) ) {
+        $classes[] = 'mkp-embed--youtube';
+    } elseif ( false !== strpos( $url, 'vimeo.com' ) ) {
+        $classes[] = 'mkp-embed--vimeo';
+    } elseif ( false !== strpos( $url, 'spotify.com' ) ) {
+        $classes[] = 'mkp-embed--spotify';
+    } elseif ( false !== strpos( $url, 'twitter.com' ) || false !== strpos( $url, 'x.com' ) ) {
+        $classes[] = 'mkp-embed--twitter';
+    } elseif ( false !== strpos( $url, 'instagram.com' ) ) {
+        $classes[] = 'mkp-embed--instagram';
+    } elseif ( false !== strpos( $url, 'tiktok.com' ) ) {
+        $classes[] = 'mkp-embed--tiktok';
+    } elseif ( false !== strpos( $url, 'facebook.com' ) ) {
+        $classes[] = 'mkp-embed--facebook';
+    } else {
+        // Generic video class for unknown providers
+        if ( preg_match( '/<iframe|<video/', $html ) ) {
+            $classes[] = 'mkp-embed--video';
+        }
+    }
+    
+    $classes_string = implode( ' ', $classes );
+    
+    return '<div class="' . esc_attr( $classes_string ) . '">' . $html . '</div>';
+}
+add_filter( 'embed_oembed_html', 'mkp_wrap_oembed_html', 10, 4 );

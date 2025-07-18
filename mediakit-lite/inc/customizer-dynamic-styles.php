@@ -175,17 +175,7 @@ function mkp_generate_dynamic_styles() {
             color: inherit;
         }
         
-        /* Card backgrounds - uses .mkp-glass-white pattern */
-        .mkp-book-card,
-        .mkp-podcast-card,
-        .mkp-corp-card,
-        .mkp-investor-card,
-        .mkp-media-item,
-        .mkp-speaker__topic {
-            background-color: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-        }
+        /* Glass-morphism is now applied via the base .mkp-card class */
         
         /* Speaker topic cards inherit section colors */
         .mkp-speaker-section--cards .mkp-speaker__topic-title {

@@ -6,7 +6,9 @@
  */
 
 .mkp-card {
-    background-color: var(--mkp-theme-neutral-light);
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     border-radius: 8px;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
     padding: var(--mkp-spacing-lg);
@@ -27,4 +29,19 @@
 .mkp-card__content {
     color: inherit;
     opacity: 0.85;
+}
+
+/* Dark card variant */
+.mkp-card--dark {
+    background-color: var(--mkp-theme-neutral-dark);
+}
+
+/* Primary colored card variant */
+.mkp-card--primary {
+    background-color: var(--mkp-theme-primary);
+}
+
+/* Accent colored card variant */
+.mkp-card--accent {
+    background-color: var(--mkp-theme-accent-1);
 }

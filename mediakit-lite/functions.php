@@ -10,6 +10,31 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit; // Exit if accessed directly
 }
 
+// Log theme activation start
+if ( defined( 'WP_DEBUG_LOG' ) && WP_DEBUG_LOG ) {
+    error_log( '[MediaKit] Functions.php loaded at ' . date( 'Y-m-d H:i:s' ) );
+    
+    // Log WordPress context
+    $context = array(
+        'doing_ajax' => defined( 'DOING_AJAX' ) && DOING_AJAX,
+        'doing_cron' => defined( 'DOING_CRON' ) && DOING_CRON,
+        'wp_installing' => function_exists( 'wp_installing' ) ? wp_installing() : 'unknown',
+        'is_admin' => function_exists( 'is_admin' ) ? is_admin() : 'unknown',
+        'current_theme' => get_option( 'stylesheet' ),
+        'current_template' => get_option( 'template' ),
+    );
+    error_log( '[MediaKit] Load context: ' . json_encode( $context ) );
+}
+
+// Emergency shutdown detection
+if ( get_transient( 'mkp_theme_loading' ) ) {
+    if ( defined( 'WP_DEBUG_LOG' ) && WP_DEBUG_LOG ) {
+        error_log( '[MediaKit] [ERROR] [EMERGENCY] Previous theme load did not complete properly - possible crash detected!' );
+        error_log( '[MediaKit] [ERROR] Theme was loading but shutdown hook never fired' );
+    }
+    delete_transient( 'mkp_theme_loading' );
+}
+
 /**
  * Define Constants
  */
@@ -21,6 +46,10 @@ define( 'MKP_THEME_URI', get_template_directory_uri() );
  * Theme Setup
  */
 function mkp_theme_setup() {
+    if ( defined( 'WP_DEBUG_LOG' ) && WP_DEBUG_LOG ) {
+        error_log( '[MediaKit] Theme setup function called' );
+    }
+    
     // Add theme support
     add_theme_support( 'automatic-feed-links' );
     add_theme_support( 'title-tag' );
@@ -82,9 +111,19 @@ add_action( 'widgets_init', 'mkp_widgets_init' );
  * Enqueue scripts and styles
  */
 function mkp_scripts() {
-    // Enqueue main stylesheet - using modular CSS architecture
-    // Note: Keeping old style.css for now, but using the new modular version
-    wp_enqueue_style( 'mediakit-lite-style', MKP_THEME_URI . '/style-modular.css', array(), MKP_THEME_VERSION );
+    if ( defined( 'WP_DEBUG_LOG' ) && WP_DEBUG_LOG ) {
+        error_log( '[MediaKit] mkp_scripts function called' );
+    }
+    
+    // Enqueue main stylesheet
+    if ( defined( 'WP_DEBUG_LOG' ) && WP_DEBUG_LOG ) {
+        error_log( '[MediaKit] About to enqueue stylesheet' );
+        error_log( '[MediaKit] Stylesheet URI: ' . MKP_THEME_URI . '/style.css' );
+    }
+    wp_enqueue_style( 'mediakit-lite-style', MKP_THEME_URI . '/style.css', array(), MKP_THEME_VERSION );
+    if ( defined( 'WP_DEBUG_LOG' ) && WP_DEBUG_LOG ) {
+        error_log( '[MediaKit] Stylesheet enqueued successfully' );
+    }
     
     // Enqueue Google Fonts based on selected fonts
     $body_font = get_theme_mod( 'mkp_body_font', 'system' );
@@ -121,7 +160,14 @@ function mkp_scripts() {
     wp_enqueue_style( 'dashicons' );
     
     // Enqueue main JavaScript
+    if ( defined( 'WP_DEBUG_LOG' ) && WP_DEBUG_LOG ) {
+        error_log( '[MediaKit] About to enqueue script' );
+        error_log( '[MediaKit] Script URI: ' . MKP_THEME_URI . '/assets/js/main.js' );
+    }
     wp_enqueue_script( 'mediakit-lite-script', MKP_THEME_URI . '/assets/js/main.js', array('jquery'), MKP_THEME_VERSION, true );
+    if ( defined( 'WP_DEBUG_LOG' ) && WP_DEBUG_LOG ) {
+        error_log( '[MediaKit] Script enqueued successfully' );
+    }
     
     // Localize script
     wp_localize_script( 'mediakit-lite-script', 'mkp_ajax', array(
@@ -153,9 +199,28 @@ function mkp_scripts() {
     if ( is_front_page() && get_theme_mod( 'mkp_enable_section_podcasts', false ) && mkp_has_podcasts() ) {
         wp_enqueue_script( 'mediakit-lite-podcasts-masonry', MKP_THEME_URI . '/assets/js/podcasts-masonry.js', array( 'masonry', 'imagesloaded' ), MKP_THEME_VERSION, true );
     }
+    
+    if ( defined( 'WP_DEBUG_LOG' ) && WP_DEBUG_LOG ) {
+        error_log( '[MediaKit] mkp_scripts function completed' );
+    }
 }
 add_action( 'wp_enqueue_scripts', 'mkp_scripts' );
 
+// Add early shutdown hook right after wp_enqueue_scripts
+add_action('shutdown', function() {
+    error_log('[MediaKit] Shutdown - Current theme: ' . get_option('stylesheet'));
+    error_log('[MediaKit] Shutdown - Template: ' . get_option('template'));
+}, 1); // Priority 1 to run early
+
+// Monitor all theme-related actions
+// DISABLED - Too verbose, creating excessive log entries
+/*
+add_action('all', function($tag) {
+    if (strpos($tag, 'theme') !== false || strpos($tag, 'switch') !== false) {
+        error_log('[MediaKit] Action fired: ' . $tag);
+    }
+});
+*/
 
 
 /**
@@ -171,8 +236,31 @@ add_action( 'after_switch_theme', 'mkp_rewrite_flush' );
  * Theme activation hook
  */
 function mkp_theme_activation() {
+    mkp_log_theme_event( 'ACTIVATION', 'Theme activation function called' );
+    
+    // Verify theme is actually active
+    $current_theme = wp_get_theme();
+    $verification_data = array(
+        'current_theme_name' => $current_theme->get( 'Name' ),
+        'current_theme_template' => $current_theme->get_template(),
+        'theme_root' => get_theme_root(),
+        'stylesheet_directory' => get_stylesheet_directory(),
+        'template_directory' => get_template_directory(),
+        'files_exist' => array(
+            'style.css' => file_exists( get_stylesheet_directory() . '/style.css' ),
+            'functions.php' => file_exists( get_stylesheet_directory() . '/functions.php' ),
+            'index.php' => file_exists( get_stylesheet_directory() . '/index.php' ),
+        ),
+    );
+    
+    mkp_log_theme_event( 'ACTIVATION_VERIFY', 'Verifying theme activation', $verification_data );
+    
+    // Set emergency shutdown detection flag
+    set_transient( 'mkp_theme_loading', true, 300 ); // 5 minutes
+    
     // Check if we've already run the setup
     if ( get_option( 'mkp_theme_setup_complete' ) ) {
+        mkp_log_theme_event( 'ACTIVATION', 'Theme setup already complete, skipping initialization' );
         return;
     }
     
@@ -235,13 +323,144 @@ function mkp_theme_activation() {
 add_action( 'after_switch_theme', 'mkp_theme_activation' );
 
 /**
+ * Dedicated logging function for theme events
+ */
+function mkp_log_theme_event( $event_type, $message, $data = array(), $level = 'info' ) {
+    if ( ! defined( 'WP_DEBUG_LOG' ) || ! WP_DEBUG_LOG ) {
+        return;
+    }
+    
+    $timestamp = date( 'Y-m-d H:i:s' );
+    $memory = round( memory_get_usage() / 1024 / 1024, 2 ) . 'MB';
+    $peak_memory = round( memory_get_peak_usage() / 1024 / 1024, 2 ) . 'MB';
+    
+    // Build log entry
+    $log_entry = sprintf(
+        '[MediaKit] [%s] [%s] %s | Memory: %s (Peak: %s)',
+        strtoupper( $level ),
+        $event_type,
+        $message,
+        $memory,
+        $peak_memory
+    );
+    
+    error_log( $log_entry );
+    
+    // Log additional data if provided
+    if ( ! empty( $data ) ) {
+        error_log( '[MediaKit] Additional data: ' . print_r( $data, true ) );
+    }
+    
+    // Log context information
+    $context = array(
+        'user_id' => get_current_user_id(),
+        'is_admin' => is_admin(),
+        'is_customizer' => is_customize_preview(),
+        'is_ajax' => wp_doing_ajax(),
+        'is_cron' => wp_doing_cron(),
+        'current_url' => isset( $_SERVER['REQUEST_URI'] ) ? $_SERVER['REQUEST_URI'] : 'N/A',
+    );
+    
+    error_log( '[MediaKit] Context: ' . print_r( $context, true ) );
+}
+
+/**
  * Theme deactivation cleanup
  */
 function mkp_theme_deactivation() {
+    mkp_log_theme_event( 'DEACTIVATION', 'Theme deactivation cleanup running' );
+    
     // Clean up transients
     delete_transient( 'mkp_theme_activation' );
 }
 add_action( 'switch_theme', 'mkp_theme_deactivation' );
+
+/**
+ * Enhanced theme switching logging
+ */
+add_action( 'switch_theme', function( $new_name, $new_theme, $old_theme ) {
+    // Get active plugins
+    $active_plugins = get_option( 'active_plugins', array() );
+    $plugin_names = array();
+    
+    // Only try to get plugin data if we're in admin context where plugin.php is loaded
+    if ( function_exists( 'get_plugin_data' ) ) {
+        foreach ( $active_plugins as $plugin ) {
+            $plugin_data = get_plugin_data( WP_PLUGIN_DIR . '/' . $plugin, false, false );
+            $plugin_names[] = $plugin_data['Name'] . ' (' . $plugin . ')';
+        }
+    } else {
+        // If get_plugin_data isn't available, just list the plugin files
+        $plugin_names = $active_plugins;
+    }
+    
+    // Capture request data safely
+    $request_data = array(
+        'method' => $_SERVER['REQUEST_METHOD'] ?? 'Unknown',
+        'user_agent' => $_SERVER['HTTP_USER_AGENT'] ?? 'Unknown',
+        'referer' => $_SERVER['HTTP_REFERER'] ?? 'None',
+    );
+    
+    // Check for customizer context
+    $customizer_data = array();
+    if ( isset( $_POST['customize_changeset_uuid'] ) ) {
+        $customizer_data['changeset_uuid'] = sanitize_text_field( $_POST['customize_changeset_uuid'] );
+    }
+    if ( isset( $_POST['customize_theme'] ) ) {
+        $customizer_data['customize_theme'] = sanitize_text_field( $_POST['customize_theme'] );
+    }
+    if ( isset( $_POST['action'] ) ) {
+        $customizer_data['action'] = sanitize_text_field( $_POST['action'] );
+    }
+    
+    $switch_data = array(
+        'old_theme' => array(
+            'name' => $old_theme->get( 'Name' ),
+            'version' => $old_theme->get( 'Version' ),
+            'template' => $old_theme->get_template(),
+            'stylesheet' => $old_theme->get_stylesheet(),
+        ),
+        'new_theme' => array(
+            'name' => $new_name,
+            'object' => is_object( $new_theme ) ? get_class( $new_theme ) : 'Not an object',
+        ),
+        'active_plugins' => $plugin_names,
+        'request_data' => $request_data,
+        'customizer_data' => $customizer_data,
+        'user_capability' => current_user_can( 'switch_themes' ) ? 'Can switch themes' : 'Cannot switch themes',
+    );
+    
+    mkp_log_theme_event( 'THEME_SWITCH', "Switching from {$old_theme->get('Name')} to {$new_name}", $switch_data, 'warning' );
+    
+    // Log simplified backtrace
+    $backtrace = debug_backtrace( DEBUG_BACKTRACE_IGNORE_ARGS, 15 );
+    $simplified_trace = array();
+    foreach ( $backtrace as $index => $trace ) {
+        $simplified_trace[] = sprintf(
+            '#%d %s%s%s() called at [%s:%s]',
+            $index,
+            $trace['class'] ?? '',
+            $trace['type'] ?? '',
+            $trace['function'] ?? 'Unknown',
+            $trace['file'] ?? 'Unknown',
+            $trace['line'] ?? '0'
+        );
+    }
+    mkp_log_theme_event( 'THEME_SWITCH_TRACE', 'Backtrace', array( 'trace' => $simplified_trace ), 'info' );
+}, 5, 3 );
+
+/**
+ * Enhanced theme switching log with backtrace
+ */
+add_action('switch_theme', function($new_name, $new_theme, $old_theme) {
+    error_log(sprintf(
+        "[THEME_SWITCH] From '%s' to '%s' at %s | Stack: %s",
+        $old_theme->get('Name'),
+        $new_name,
+        current_time('mysql'),
+        wp_debug_backtrace_summary()
+    ));
+}, 10, 3);
 
 /**
  * Custom excerpt length
@@ -289,12 +508,11 @@ if ( file_exists( $safety_file ) ) {
 $required_files = array(
     '/inc/about-defaults.php',
     '/inc/customizer-components.php',
-    '/inc/customizer-helpers.php',
     '/inc/customizer-social-control.php',
     '/inc/customizer-widget-fix.php',
     '/inc/color-themes.php',
     '/inc/theme-color-manager.php',
-    '/inc/customizer.php',
+    '/inc/customizer/customizer-main.php',
     '/inc/customizer-dynamic-styles.php',
     '/inc/template-tags.php',
     '/inc/template-functions.php',
@@ -309,10 +527,13 @@ $required_files = array(
 foreach ( $required_files as $file ) {
     $file_path = MKP_THEME_DIR . $file;
     if ( file_exists( $file_path ) ) {
+        if ( defined( 'WP_DEBUG_LOG' ) && WP_DEBUG_LOG ) {
+            error_log( '[MediaKit] Loading file: ' . $file );
+        }
         require_once $file_path;
     } else {
         if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
-            error_log( 'MediaKit Lite: Missing required file: ' . $file_path );
+            error_log( '[MediaKit] Missing required file: ' . $file_path );
         }
     }
 }
@@ -530,3 +751,413 @@ function mkp_wrap_oembed_html( $html, $url, $attr, $post_id ) {
     return '<div class="' . esc_attr( $classes_string ) . '">' . $html . '</div>';
 }
 add_filter( 'embed_oembed_html', 'mkp_wrap_oembed_html', 10, 4 );
+
+// Log completion of functions.php loading
+if ( defined( 'WP_DEBUG_LOG' ) && WP_DEBUG_LOG ) {
+    error_log( '[MediaKit] Functions.php completed loading' );
+}
+
+// Register shutdown function to clear emergency flag and log shutdown
+register_shutdown_function( function() {
+    // Log normal shutdown
+    if ( defined( 'WP_DEBUG_LOG' ) && WP_DEBUG_LOG ) {
+        $shutdown_data = array(
+            'memory_usage' => round( memory_get_usage() / 1024 / 1024, 2 ) . 'MB',
+            'peak_memory' => round( memory_get_peak_usage() / 1024 / 1024, 2 ) . 'MB',
+            'execution_time' => defined( 'WP_START_TIMESTAMP' ) ? round( microtime( true ) - WP_START_TIMESTAMP, 3 ) . 's' : 'unknown',
+        );
+        error_log( '[MediaKit] [INFO] [SHUTDOWN] Theme shutdown initiated | ' . json_encode( $shutdown_data ) );
+    }
+    
+    // Clear the emergency detection flag
+    delete_transient( 'mkp_theme_loading' );
+    
+    // Check for fatal errors
+    $error = error_get_last();
+    if ( $error && in_array( $error['type'], array( E_ERROR, E_PARSE, E_CORE_ERROR, E_COMPILE_ERROR ), true ) ) {
+        if ( defined( 'WP_DEBUG_LOG' ) && WP_DEBUG_LOG ) {
+            error_log( '[MediaKit] [ERROR] [SHUTDOWN] Fatal error detected: ' . print_r( $error, true ) );
+        }
+    } else {
+        if ( defined( 'WP_DEBUG_LOG' ) && WP_DEBUG_LOG ) {
+            error_log( '[MediaKit] [INFO] [SHUTDOWN] Clean shutdown completed' );
+        }
+    }
+} );
+
+// Add action logging for key WordPress hooks
+add_action( 'init', function() {
+    if ( defined( 'WP_DEBUG_LOG' ) && WP_DEBUG_LOG ) {
+        error_log( '[MediaKit] Init action fired' );
+    }
+}, 1 );
+
+add_action( 'wp', function() {
+    if ( defined( 'WP_DEBUG_LOG' ) && WP_DEBUG_LOG ) {
+        error_log( '[MediaKit] WP action fired' );
+    }
+}, 1 );
+
+add_action( 'template_redirect', function() {
+    if ( defined( 'WP_DEBUG_LOG' ) && WP_DEBUG_LOG ) {
+        error_log( '[MediaKit] Template redirect fired' );
+    }
+}, 1 );
+
+// Customizer-specific logging
+add_action( 'customize_register', function( $wp_customize ) {
+    mkp_log_theme_event( 'CUSTOMIZER', 'Customize register action fired' );
+}, 1 );
+
+add_action( 'customize_preview_init', function() {
+    mkp_log_theme_event( 'CUSTOMIZER', 'Entering customizer preview mode' );
+} );
+
+add_action( 'customize_controls_init', function() {
+    mkp_log_theme_event( 'CUSTOMIZER', 'Customizer controls initializing' );
+} );
+
+add_action( 'customize_save_after', function( $wp_customize ) {
+    $data = array(
+        'changeset_uuid' => $wp_customize->changeset_uuid(),
+        'changeset_status' => $wp_customize->changeset_post_id() ? get_post_status( $wp_customize->changeset_post_id() ) : 'none',
+    );
+    mkp_log_theme_event( 'CUSTOMIZER', 'Customizer saved', $data );
+} );
+
+
+// Monitor theme validation process
+add_filter( 'validate_current_theme', function( $validate ) {
+    if ( defined( 'WP_DEBUG_LOG' ) && WP_DEBUG_LOG ) {
+        // Log the initial value we received
+        error_log( '[MediaKit] [INFO] [THEME_VALIDATION] Filter called with initial value: ' . ( $validate ? 'true' : 'false' ) );
+        
+        // Only log details, don't interfere with validation
+        $current_theme = wp_get_theme();
+        $validation_data = array(
+            'input_value' => $validate,
+            'theme_name' => $current_theme->get( 'Name' ),
+            'theme_exists' => $current_theme->exists(),
+            'theme_errors' => $current_theme->errors() ? $current_theme->errors()->get_error_messages() : 'none',
+            'parent_theme' => $current_theme->parent() ? $current_theme->parent()->get( 'Name' ) : 'none',
+            'theme_root' => get_theme_root(),
+            'stylesheet' => get_option( 'stylesheet' ),
+            'template' => get_option( 'template' ),
+            'files_check' => array(
+                'style.css' => file_exists( get_stylesheet_directory() . '/style.css' ),
+                'index.php' => file_exists( get_stylesheet_directory() . '/index.php' ),
+                'functions.php' => file_exists( get_stylesheet_directory() . '/functions.php' ),
+            ),
+        );
+        
+        mkp_log_theme_event( 'THEME_VALIDATION', 'Validation filter processing', $validation_data );
+        
+        // Check for other filters that might be interfering
+        global $wp_filter;
+        if ( isset( $wp_filter['validate_current_theme'] ) ) {
+            $filter_count = count( $wp_filter['validate_current_theme']->callbacks );
+            error_log( '[MediaKit] Total filters on validate_current_theme: ' . $filter_count );
+        }
+        
+        // If WordPress is telling us not to validate, log why
+        if ( ! $validate ) {
+            error_log( '[MediaKit] [WARNING] WordPress passed false to validate_current_theme filter' );
+            error_log( '[MediaKit] This means WordPress wants to skip validation, not that validation failed' );
+            
+            // Log backtrace to understand why
+            $backtrace = debug_backtrace( DEBUG_BACKTRACE_IGNORE_ARGS, 10 );
+            $trace_summary = array();
+            foreach ( $backtrace as $i => $trace ) {
+                if ( $i > 5 ) break;
+                $trace_summary[] = sprintf(
+                    '#%d %s%s%s()',
+                    $i,
+                    isset( $trace['class'] ) ? $trace['class'] : '',
+                    isset( $trace['type'] ) ? $trace['type'] : '',
+                    isset( $trace['function'] ) ? $trace['function'] : 'unknown'
+                );
+            }
+            error_log( '[MediaKit] Called from: ' . implode( ' -> ', $trace_summary ) );
+        }
+    }
+    
+    // IMPORTANT: Always return the original value unchanged
+    return $validate;
+}, 999, 1 ); // Use high priority to run last
+
+// Track theme-related option changes
+add_action( 'updated_option', function( $option_name, $old_value, $value ) {
+    // List of theme-related options to monitor
+    $theme_options = array(
+        'template',           // Parent theme
+        'stylesheet',         // Child theme or current theme
+        'current_theme',      // Theme name
+        'theme_switched',     // Theme switch tracking
+        'theme_mods_' . get_option( 'stylesheet' ), // Theme modifications
+    );
+    
+    if ( in_array( $option_name, $theme_options, true ) || strpos( $option_name, 'theme_mods_' ) === 0 ) {
+        if ( defined( 'WP_DEBUG_LOG' ) && WP_DEBUG_LOG ) {
+            error_log( '[MediaKit] [WARNING] [OPTION_CHANGE] Theme-related option changed: ' . $option_name );
+            error_log( '[MediaKit] OLD VALUE: ' . print_r( $old_value, true ) );
+            error_log( '[MediaKit] NEW VALUE: ' . print_r( $value, true ) );
+            
+            // Get simplified backtrace
+            $backtrace = debug_backtrace( DEBUG_BACKTRACE_IGNORE_ARGS, 10 );
+            $trace_summary = array();
+            foreach ( $backtrace as $i => $trace ) {
+                $trace_summary[] = sprintf(
+                    '#%d %s%s%s() in %s:%d',
+                    $i,
+                    isset( $trace['class'] ) ? $trace['class'] : '',
+                    isset( $trace['type'] ) ? $trace['type'] : '',
+                    isset( $trace['function'] ) ? $trace['function'] : 'unknown',
+                    isset( $trace['file'] ) ? basename( $trace['file'] ) : 'unknown',
+                    isset( $trace['line'] ) ? $trace['line'] : 0
+                );
+            }
+            error_log( '[MediaKit] BACKTRACE: ' . implode( ' -> ', $trace_summary ) );
+            
+            // Additional context
+            $context = array(
+                'is_admin' => is_admin(),
+                'is_customizer' => is_customize_preview(),
+                'user_can_switch' => current_user_can( 'switch_themes' ),
+                'doing_ajax' => wp_doing_ajax(),
+                'current_action' => current_action(),
+            );
+            error_log( '[MediaKit] CONTEXT: ' . json_encode( $context ) );
+        }
+    }
+}, 10, 3 );
+
+// Also monitor when options are added (in case of first-time setup)
+add_action( 'added_option', function( $option_name, $value ) {
+    $theme_options = array( 'template', 'stylesheet', 'current_theme' );
+    
+    if ( in_array( $option_name, $theme_options, true ) ) {
+        if ( defined( 'WP_DEBUG_LOG' ) && WP_DEBUG_LOG ) {
+            error_log( '[MediaKit] [INFO] [OPTION_ADD] Theme option added: ' . $option_name . ' = ' . print_r( $value, true ) );
+        }
+    }
+}, 10, 2 );
+
+/**
+ * JavaScript/AJAX Theme Switch Detection
+ */
+add_action('admin_footer-themes.php', function() {
+    ?>
+    <script>
+    console.log('[MediaKit] Theme monitoring active');
+    
+    // Monitor all AJAX requests
+    const originalSend = XMLHttpRequest.prototype.send;
+    XMLHttpRequest.prototype.send = function(data) {
+        console.log('[MediaKit] AJAX Request:', this.responseURL, data);
+        
+        // Log theme-related requests
+        if (data && (data.toString().includes('switch') || data.toString().includes('theme'))) {
+            console.error('[MediaKit] Theme-related AJAX data:', data);
+        }
+        
+        this.addEventListener('load', function() {
+            // Log ALL heartbeat responses
+            if (data && data.toString().includes('heartbeat')) {
+                console.log('[MediaKit] Heartbeat response:', this.responseText);
+            }
+            
+            // Check for theme switches
+            if (this.responseText && (this.responseText.includes('switch') || this.responseText.includes('theme'))) {
+                console.error('[MediaKit] Theme-related AJAX response:', this.responseText.substring(0, 500));
+            }
+        });
+        
+        originalSend.apply(this, arguments);
+    };
+    
+    // Monitor fetch requests
+    const originalFetch = window.fetch;
+    window.fetch = function(...args) {
+        console.log('[MediaKit] Fetch request:', args);
+        
+        // Check if request body contains theme-related data
+        if (args[1] && args[1].body) {
+            const body = args[1].body.toString();
+            if (body.includes('switch') || body.includes('theme')) {
+                console.error('[MediaKit] Theme-related fetch body:', body);
+            }
+        }
+        
+        return originalFetch.apply(this, args).then(response => {
+            // Clone response to read it without consuming
+            const cloned = response.clone();
+            cloned.text().then(text => {
+                if (text.includes('switch') || text.includes('theme')) {
+                    console.error('[MediaKit] Theme-related fetch response:', text.substring(0, 500));
+                }
+            });
+            return response;
+        });
+    };
+    
+    // Monitor theme state every second
+    let currentTheme = '<?php echo get_option('stylesheet'); ?>';
+    setInterval(function() {
+        // Check if theme has changed in DOM
+        const activeTheme = document.querySelector('.theme.active');
+        if (activeTheme) {
+            const themeName = activeTheme.getAttribute('data-slug');
+            if (themeName && themeName !== currentTheme) {
+                console.error('[MediaKit] Theme changed in DOM!', 'From:', currentTheme, 'To:', themeName);
+                currentTheme = themeName;
+            }
+        }
+    }, 1000);
+    
+    // Monitor localStorage/sessionStorage
+    const storageProxy = function(storage, name) {
+        const original = storage.setItem;
+        storage.setItem = function(key, value) {
+            if (key.includes('theme') || value.includes('theme')) {
+                console.error('[MediaKit] ' + name + ' theme-related:', key, value);
+            }
+            original.apply(this, arguments);
+        };
+    };
+    
+    storageProxy(localStorage, 'localStorage');
+    storageProxy(sessionStorage, 'sessionStorage');
+    
+    // Heartbeat monitoring disabled - was causing excessive logging
+    </script>
+    <?php
+});
+
+/**
+ * Database Theme Reference Check
+ */
+function mkp_check_theme_references() {
+    global $wpdb;
+    
+    // Check for any options containing theme references
+    $results = $wpdb->get_results(
+        "SELECT option_name, option_value 
+         FROM {$wpdb->options} 
+         WHERE (option_value LIKE '%twentytwenty%' 
+            OR option_value LIKE '%theme%switch%'
+            OR option_value LIKE '%switch%theme%')
+         AND option_name NOT LIKE '%transient%'
+         LIMIT 20"
+    );
+    
+    if ( ! empty( $results ) && defined( 'WP_DEBUG_LOG' ) && WP_DEBUG_LOG ) {
+        error_log( '[MediaKit] [DB_CHECK] Found theme references in database:' );
+        foreach ( $results as $row ) {
+            $value_preview = substr( $row->option_value, 0, 200 );
+            error_log( '[MediaKit] [DB_CHECK] ' . $row->option_name . ' => ' . $value_preview );
+        }
+    }
+    
+    // Also check specific theme options
+    $theme_options = array(
+        'template' => get_option( 'template' ),
+        'stylesheet' => get_option( 'stylesheet' ),
+        'current_theme' => get_option( 'current_theme' ),
+        'theme_switched' => get_option( 'theme_switched' ),
+    );
+    
+    error_log( '[MediaKit] [DB_CHECK] Current theme options: ' . json_encode( $theme_options ) );
+}
+
+// Run database check on specific actions
+add_action( 'after_switch_theme', 'mkp_check_theme_references' );
+add_action( 'admin_init', function() {
+    // Check once per admin session
+    if ( ! get_transient( 'mkp_db_check_done' ) ) {
+        mkp_check_theme_references();
+        set_transient( 'mkp_db_check_done', true, HOUR_IN_SECONDS );
+    }
+} );
+
+/**
+ * Enhanced AJAX Action Logging
+ */
+add_action( 'admin_init', function() {
+    // Log all AJAX actions
+    if ( wp_doing_ajax() && defined( 'WP_DEBUG_LOG' ) && WP_DEBUG_LOG ) {
+        $action = isset( $_REQUEST['action'] ) ? $_REQUEST['action'] : 'unknown';
+        
+        // Log theme-related AJAX actions
+        if ( strpos( $action, 'theme' ) !== false || strpos( $action, 'switch' ) !== false ) {
+            error_log( '[MediaKit] [AJAX] Theme-related action: ' . $action );
+            error_log( '[MediaKit] [AJAX] Request data: ' . json_encode( $_REQUEST ) );
+        }
+    }
+} );
+
+/**
+ * Heartbeat API Monitoring - DISABLED
+ * Commented out to reduce excessive logging
+ */
+/*
+add_filter('heartbeat_received', function($response, $data) {
+    error_log('[MediaKit] Heartbeat received on themes page: ' . json_encode($data));
+    error_log('[MediaKit] Heartbeat response: ' . json_encode($response));
+    error_log('[MediaKit] Current theme at heartbeat: ' . get_option('stylesheet'));
+    return $response;
+}, 10, 2);
+*/
+
+/**
+ * Debug theme availability check
+ */
+add_action( 'after_setup_theme', function() {
+    if ( defined( 'WP_DEBUG_LOG' ) && WP_DEBUG_LOG ) {
+        $theme = wp_get_theme();
+        $parent = $theme->parent();
+        
+        error_log( '[MediaKit] [THEME_AVAILABILITY_DEBUG] Current theme: ' . $theme->get('Name') );
+        error_log( '[MediaKit] [THEME_AVAILABILITY_DEBUG] Theme exists: ' . ( $theme->exists() ? 'yes' : 'no' ) );
+        error_log( '[MediaKit] [THEME_AVAILABILITY_DEBUG] Theme errors: ' . ( $theme->errors() ? json_encode( $theme->errors()->get_error_messages() ) : 'none' ) );
+        error_log( '[MediaKit] [THEME_AVAILABILITY_DEBUG] Parent theme: ' . ( $parent ? $parent->get('Name') : 'none' ) );
+        error_log( '[MediaKit] [THEME_AVAILABILITY_DEBUG] Theme root: ' . get_theme_root() );
+        error_log( '[MediaKit] [THEME_AVAILABILITY_DEBUG] Stylesheet directory: ' . get_stylesheet_directory() );
+        error_log( '[MediaKit] [THEME_AVAILABILITY_DEBUG] Template directory: ' . get_template_directory() );
+        
+        // Check if theme files are readable
+        $required_files = array(
+            'style.css' => get_stylesheet_directory() . '/style.css',
+            'index.php' => get_stylesheet_directory() . '/index.php',
+            'functions.php' => get_stylesheet_directory() . '/functions.php',
+        );
+        
+        foreach ( $required_files as $file => $path ) {
+            error_log( '[MediaKit] [THEME_AVAILABILITY_DEBUG] ' . $file . ' exists: ' . ( file_exists( $path ) ? 'yes' : 'no' ) );
+            error_log( '[MediaKit] [THEME_AVAILABILITY_DEBUG] ' . $file . ' readable: ' . ( is_readable( $path ) ? 'yes' : 'no' ) );
+        }
+        
+        // Check if it's a symlink issue
+        $theme_path = get_stylesheet_directory();
+        error_log( '[MediaKit] [THEME_AVAILABILITY_DEBUG] Theme path is symlink: ' . ( is_link( $theme_path ) ? 'yes' : 'no' ) );
+        if ( is_link( $theme_path ) ) {
+            error_log( '[MediaKit] [THEME_AVAILABILITY_DEBUG] Symlink target: ' . readlink( $theme_path ) );
+            error_log( '[MediaKit] [THEME_AVAILABILITY_DEBUG] Symlink target exists: ' . ( file_exists( readlink( $theme_path ) ) ? 'yes' : 'no' ) );
+        }
+    }
+}, 1 );
+
+/**
+ * Try to prevent theme from being switched if it's valid
+ */
+/*
+// DISABLED FOR SAFETY - This was forcing validation
+add_filter( 'validate_current_theme', function( $validate ) {
+    // If this is MediaKit Lite, always validate it
+    $current_theme = get_option( 'stylesheet' );
+    if ( $current_theme === 'mediakit-lite' ) {
+        error_log( '[MediaKit] [THEME_VALIDATION_OVERRIDE] Forcing MediaKit Lite validation to true' );
+        return true;
+    }
+    return $validate;
+}, 999 ); // High priority to run last
+*/
