@@ -1,9 +1,9 @@
 {
-  "version": "1.9.1",
-  "description": "Fix Companies section card display logic to show cards with either name or logo",
-  "download_url": "https://github.com/Finish-Line-Media/DMK_Lite/releases/download/v1.9.1/mediakit-lite.zip",
-  "changelog_url": "https://github.com/Finish-Line-Media/DMK_Lite/releases/tag/v1.9.1",
-  "release_date": "2025-06-25",
+  "version": "2.0.1",
+  "description": "Standardize card CSS with glass morphism across all sections including comments and sidebar",
+  "download_url": "https://github.com/Finish-Line-Media/DMK_Lite/releases/download/v2.0.1/mediakit-lite.zip",
+  "changelog_url": "https://github.com/Finish-Line-Media/DMK_Lite/releases/tag/v2.0.1",
+  "release_date": "2025-07-18",
   "min_wp_version": "5.8",
   "tested_up_to": "6.5",
   "php_version": "7.4"
