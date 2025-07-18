@@ -86,6 +86,10 @@ mediakit-lite/
 - Responsive design with mobile-first approach
 - Accessibility features (ARIA labels, keyboard navigation)
 - SEO optimization with schema markup
+- Masonry layouts for Books and Podcasts sections using Masonry.js
+- Dynamic color system with rotating section backgrounds
+- Glass-morphism design pattern for cards and containers
+- SQLite database compatibility with custom fixes
 
 ### Customizer Options
 The theme includes extensive customizer options organized into sections:
@@ -132,6 +136,8 @@ The theme includes extensive customizer options organized into sections:
 3. Use CSS custom properties for theming (defined in `assets/css/base/variables.css`)
 4. Follow BEM naming convention: `.mkp-component__element--modifier`
 5. Ensure mobile-first responsive design
+6. **Card Pattern**: All card-like elements (blog cards, sidebar, comments, etc.) should use the `.mkp-card` base class for consistent glass-morphism effect
+7. **Color Inheritance**: Use `color: inherit` and `opacity` modifiers instead of hardcoded colors to respect dynamic section colors
 
 ### Adding Customizer Live Preview
 When adding new sections with customizer controls that should update live:
@@ -211,6 +217,8 @@ setupCardSectionUpdates({
 - **CSS Architecture**: The theme uses a modular CSS architecture. The main `style.css` imports all modules from `assets/css/`. Never edit `style-old.css` as it contains the deprecated monolithic CSS.
 - **Customizer Refactoring**: The customizer has been refactored from a single 1,861-line file into a modular structure under `inc/customizer/` with separate files for each section.
 - **Glass-morphism Cards**: All cards use a unified glass-morphism effect defined in the base `.mkp-card` class for consistency and maintainability.
+- **Deployment Process**: Use the deployment process documented in `DEPLOYMENT_PROCESS.md`. The theme now includes a `CHANGELOG.md` file in the mediakit-lite directory which is required for GitHub Actions auto-release.
+- **Version Bumping**: When bumping version, update it in three places: `style.css`, `functions.php` (MKP_THEME_VERSION), and `version.json`. Also update `CHANGELOG.md` before pushing.
 
 ## Known Issues
 - **Customizer Exit Behavior**: When exiting the WordPress Customizer without saving changes (clicking the X button), the theme may occasionally deactivate. This is an edge case related to how WordPress handles unsaved changesets. **Workaround**: Always save/publish your changes before exiting the Customizer. This ensures proper theme state persistence.
