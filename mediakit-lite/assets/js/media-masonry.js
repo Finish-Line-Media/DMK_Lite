@@ -19,10 +19,14 @@
         
         // Initialize Masonry
         if ( typeof Masonry !== 'undefined' ) {
+            // Calculate column width based on container
+            const containerWidth = mediaGrid.offsetWidth;
+            const columnWidth = Math.floor((containerWidth - 20) / 2); // 2 columns with 20px gutter
+            
             masonryInstance = new Masonry( mediaGrid, {
                 itemSelector: '.mkp-media-embed',
-                columnWidth: '.mkp-media-embed',
-                percentPosition: true,
+                columnWidth: columnWidth,
+                percentPosition: false,
                 gutter: 20,
                 transitionDuration: '0.3s'
             });

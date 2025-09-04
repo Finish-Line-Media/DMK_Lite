@@ -185,10 +185,10 @@ function mkp_scripts() {
         wp_enqueue_script( 'mediakit-lite-gallery', MKP_THEME_URI . '/assets/js/gallery-lightbox.js', array( 'masonry', 'imagesloaded' ), MKP_THEME_VERSION, true );
     }
     
-    // Media masonry script - only on front page if media section is enabled
-    if ( is_front_page() && get_theme_mod( 'mkp_enable_section_in_the_media', false ) && mkp_has_media_items() ) {
-        wp_enqueue_script( 'mediakit-lite-media-masonry', MKP_THEME_URI . '/assets/js/media-masonry.js', array( 'masonry', 'imagesloaded' ), MKP_THEME_VERSION, true );
-    }
+    // Media masonry script - DISABLED - using CSS Grid instead
+    // if ( is_front_page() && get_theme_mod( 'mkp_enable_section_in_the_media', false ) && mkp_has_media_items() ) {
+    //     wp_enqueue_script( 'mediakit-lite-media-masonry', MKP_THEME_URI . '/assets/js/media-masonry.js', array( 'masonry', 'imagesloaded' ), MKP_THEME_VERSION, true );
+    // }
     
     // Books masonry script - only on front page if books section is enabled
     if ( is_front_page() && get_theme_mod( 'mkp_enable_section_books', false ) && mkp_has_books() ) {
