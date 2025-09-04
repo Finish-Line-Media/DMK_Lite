@@ -5,6 +5,27 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.2] - 2025-09-04
+
+### Added
+- Universal masonry card height control system for all masonry sections
+- Read more/less functionality with smooth animations for overflow content
+- Automatic overflow detection and gradient fade effects for clamped content
+- Enhanced masonry relayout integration for Books, Podcasts, Awards, and Investors sections
+- New masonry-cards.js for universal height management across all card-based sections
+
+### Fixed
+- Media grid positioning issues by replacing conflicting flexbox with CSS Grid
+- Uneven card heights in Books and Podcasts sections with consistent 120px description limit
+- Masonry positioning conflicts causing items to stack at same coordinates
+- Disabled problematic Masonry JavaScript for media embeds in favor of reliable CSS Grid
+
+### Changed
+- Media section now uses CSS Grid instead of Masonry for better reliability
+- All masonry sections now use shared CSS classes for maintainable code
+- Enhanced masonry scripts to listen for universal relayout events
+- Improved accessibility with proper ARIA attributes for expandable content
+
 ## [2.0.1] - 2025-07-18
 
 ### Changed
