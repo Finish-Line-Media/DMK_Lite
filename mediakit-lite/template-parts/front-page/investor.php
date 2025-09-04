@@ -58,7 +58,7 @@ $section_title = get_theme_mod( 'mkp_investor_section_title', $default_title );
                     <div class="mkp-investor-card mkp-card mkp-investor--<?php echo esc_attr( $i ); ?>" <?php echo ( ! $title && $is_customizer ) ? 'style="display: none;"' : ''; ?>>
                         <h3 class="mkp-investor-card__title"><?php echo esc_html( $title ); ?></h3>
                         <?php if ( $description ) : ?>
-                            <div class="mkp-investor-card__description">
+                            <div class="mkp-investor-card__description mkp-masonry-card__description">
                                 <?php echo wp_kses_post( wpautop( $description ) ); ?>
                             </div>
                         <?php endif; ?>

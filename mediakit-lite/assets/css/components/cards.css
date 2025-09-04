@@ -45,3 +45,70 @@
 .mkp-card--accent {
     background-color: var(--mkp-theme-accent-1);
 }
+
+/* ========================================================================
+   Universal Masonry Card Height Control
+   ======================================================================== */
+
+/* Description containers in masonry cards */
+.mkp-masonry-card__description {
+    position: relative;
+    max-height: 120px;
+    overflow: hidden;
+    margin-bottom: var(--mkp-spacing-md);
+    line-height: 1.6;
+    transition: max-height 0.3s ease;
+}
+
+/* Expanded state */
+.mkp-masonry-card__description.mkp-description--expanded {
+    max-height: none;
+    overflow: visible;
+}
+
+/* Gradient fade for clamped content */
+.mkp-masonry-card__description.mkp-description--clamped::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 40px;
+    background: linear-gradient(transparent, rgba(255, 255, 255, 0.95));
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+/* Gradient that respects card background */
+.mkp-card.mkp-card--has-overflow .mkp-masonry-card__description.mkp-description--clamped::after {
+    background: linear-gradient(transparent, var(--mkp-card-bg, rgba(255, 255, 255, 0.15)));
+}
+
+/* Read more/less button */
+.mkp-read-more-btn {
+    background: none;
+    border: none;
+    color: currentColor;
+    cursor: pointer;
+    font-size: 0.875rem;
+    text-decoration: underline;
+    padding: 0;
+    margin-top: var(--mkp-spacing-sm);
+    display: inline-block;
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+}
+
+.mkp-read-more-btn:hover {
+    opacity: 1;
+}
+
+.mkp-read-more-btn:focus {
+    outline: 2px solid currentColor;
+    outline-offset: 2px;
+}
+
+/* Hide gradient when expanded */
+.mkp-masonry-card__description.mkp-description--expanded.mkp-description--clamped::after {
+    opacity: 0;
+}

@@ -200,6 +200,18 @@ function mkp_scripts() {
         wp_enqueue_script( 'mediakit-lite-podcasts-masonry', MKP_THEME_URI . '/assets/js/podcasts-masonry.js', array( 'masonry', 'imagesloaded' ), MKP_THEME_VERSION, true );
     }
     
+    // Universal masonry card height control - load on front page if any masonry sections exist
+    if ( is_front_page() && ( 
+        ( get_theme_mod( 'mkp_enable_section_books', false ) && mkp_has_books() ) ||
+        ( get_theme_mod( 'mkp_enable_section_podcasts', false ) && mkp_has_podcasts() ) ||
+        ( get_theme_mod( 'mkp_enable_section_gallery', false ) && mkp_has_gallery_images() ) ||
+        ( get_theme_mod( 'mkp_enable_section_testimonials', false ) && mkp_has_testimonials() ) ||
+        ( get_theme_mod( 'mkp_enable_section_awards', false ) && mkp_has_awards() ) ||
+        ( get_theme_mod( 'mkp_enable_section_investor', false ) && mkp_has_investors() )
+    ) ) {
+        wp_enqueue_script( 'mediakit-lite-masonry-cards', MKP_THEME_URI . '/assets/js/masonry-cards.js', array(), MKP_THEME_VERSION, true );
+    }
+    
     if ( defined( 'WP_DEBUG_LOG' ) && WP_DEBUG_LOG ) {
         error_log( '[MediaKit] mkp_scripts function completed' );
     }

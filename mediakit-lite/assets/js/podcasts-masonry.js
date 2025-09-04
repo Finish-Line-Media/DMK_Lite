@@ -47,4 +47,11 @@
         }
     });
     
+    // Listen for universal relayout events from masonry-cards.js
+    window.addEventListener( 'masonryRelayout', function() {
+        if ( masonryInstance ) {
+            masonryInstance.layout();
+        }
+    });
+    
 })();

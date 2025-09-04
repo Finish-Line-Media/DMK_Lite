@@ -65,7 +65,7 @@ $section_title = get_theme_mod( 'mkp_awards_section_title', __( 'Awards & Recogn
                         <?php endif; ?>
                         
                         <?php if ( $description ) : ?>
-                            <div class="mkp-award-card__description">
+                            <div class="mkp-award-card__description mkp-masonry-card__description">
                                 <?php echo wp_kses_post( wpautop( $description ) ); ?>
                             </div>
                         <?php endif; ?>

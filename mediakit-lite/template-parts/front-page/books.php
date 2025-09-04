@@ -67,7 +67,7 @@ if ( $books_per_row === '1' || $actual_book_count === 1 ) {
                     <div class="mkp-book-card__content">
                         <h3 class="mkp-book-card__title"><?php echo esc_html( $title ); ?></h3>
                         
-                        <div class="mkp-book-card__description">
+                        <div class="mkp-book-card__description mkp-masonry-card__description">
                             <?php if ( $description ) : ?>
                                 <?php echo wp_kses_post( wpautop( $description ) ); ?>
                             <?php endif; ?>

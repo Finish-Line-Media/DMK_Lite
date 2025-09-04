@@ -55,7 +55,7 @@ $section_title = get_theme_mod( 'mkp_podcasts_section_title', $default_title );
                     <div class="mkp-podcast-card__content">
                         <h3 class="mkp-podcast-card__title"><?php echo esc_html( $title ); ?></h3>
                         
-                        <div class="mkp-podcast-card__description">
+                        <div class="mkp-podcast-card__description mkp-masonry-card__description">
                             <?php if ( $description ) : ?>
                                 <?php echo wp_kses_post( wpautop( $description ) ); ?>
                             <?php endif; ?>
