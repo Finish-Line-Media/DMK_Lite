@@ -219,6 +219,9 @@ setupCardSectionUpdates({
 - **Glass-morphism Cards**: All cards use a unified glass-morphism effect defined in the base `.mkp-card` class for consistency and maintainability.
 - **Deployment Process**: Use the deployment process documented in `DEPLOYMENT_PROCESS.md`. The theme now includes a `CHANGELOG.md` file in the mediakit-lite directory which is required for GitHub Actions auto-release.
 - **Version Bumping**: When bumping version, update it in three places: `style.css`, `functions.php` (MKP_THEME_VERSION), and `version.json`. Also update `CHANGELOG.md` before pushing.
+- **Media Grid Layout**: The media section uses CSS Grid instead of Masonry due to positioning conflicts with embedded content. Other sections (Books, Podcasts, Gallery, Awards) continue using Masonry for optimal content flow.
+- **Universal Masonry Card Heights**: All masonry sections use shared `.mkp-masonry-card__description` class with 120px height limit, automatic read more/less functionality, and relayout integration. The universal system is managed by `masonry-cards.js` and shared CSS in `components/cards.css`.
+- **Hybrid Layout Strategy**: The theme uses different layout approaches based on content type - CSS Grid for variable embedded content (media section) and Masonry for consistent card content (books, podcasts, awards, investors).
 
 ## Known Issues
 - **Customizer Exit Behavior**: When exiting the WordPress Customizer without saving changes (clicking the X button), the theme may occasionally deactivate. This is an edge case related to how WordPress handles unsaved changesets. **Workaround**: Always save/publish your changes before exiting the Customizer. This ensures proper theme state persistence.
