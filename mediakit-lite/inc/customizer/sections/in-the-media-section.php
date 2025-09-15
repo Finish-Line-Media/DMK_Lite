@@ -51,8 +51,8 @@ function mkp_register_in_the_media_section( $wp_customize ) {
     ) );
     
     // Background Color
-    // Media Items (up to 8)
-    for ( $i = 1; $i <= 8; $i++ ) {
+    // Media Items (up to 12)
+    for ( $i = 1; $i <= 12; $i++ ) {
         // URL only
         $wp_customize->add_setting( 'mkp_media_item_' . $i . '_url', array(
             'default'           => '',

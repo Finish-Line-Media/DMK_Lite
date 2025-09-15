@@ -1523,7 +1523,7 @@
     } );
     
     // Update media items (simplified - URL only)
-    const maxMediaItems = 8;
+    const maxMediaItems = 12;
     for ( let i = 1; i <= maxMediaItems; i++ ) {
         ( function( itemNum ) {
             // Media item URL - force refresh as embeds need server-side processing

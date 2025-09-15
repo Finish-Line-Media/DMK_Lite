@@ -22,7 +22,7 @@ $text_color = $colors['text'];
 	<div class="mkp-container">
 		<h2 class="mkp-section__title"><?php echo esc_html( get_theme_mod( 'mkp_in_the_media_section_title', __( 'In The Media', 'mediakit-lite' ) ) ); ?></h2>
 		<div class="mkp-media-grid">
-			<?php for ( $i = 1; $i <= 8; $i++ ) :
+			<?php for ( $i = 1; $i <= 12; $i++ ) :
 				$url = get_theme_mod( 'mkp_media_item_' . $i . '_url' );
 
 				if ( ! empty( $url ) ) :
