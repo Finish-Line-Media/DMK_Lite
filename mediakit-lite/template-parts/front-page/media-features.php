@@ -15,7 +15,7 @@ $text_color = $colors['text'];
 
 // Count actual media features
 $actual_media_count = 0;
-for ( $i = 1; $i <= 12; $i++ ) {
+for ( $i = 1; $i <= 14; $i++ ) {
     $logo = get_theme_mod( 'mkp_media_feature_' . $i . '_logo' );
     if ( $logo ) {
         $actual_media_count++;
@@ -34,7 +34,7 @@ $section_title = get_theme_mod( 'mkp_media_features_section_title', __( 'Feature
         <h2 class="mkp-section__title"><?php echo esc_html( $section_title ); ?></h2>
         
         <div class="mkp-media-features__grid mkp-media-features__grid--count-<?php echo esc_attr( $actual_media_count ); ?>">
-            <?php for ( $i = 1; $i <= 12; $i++ ) : 
+            <?php for ( $i = 1; $i <= 14; $i++ ) : 
                 $logo = get_theme_mod( 'mkp_media_feature_' . $i . '_logo' );
                 $name = get_theme_mod( 'mkp_media_feature_' . $i . '_name' );
                 $link = get_theme_mod( 'mkp_media_feature_' . $i . '_link' );

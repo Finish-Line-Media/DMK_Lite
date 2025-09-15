@@ -49,8 +49,8 @@ function mkp_register_media_features_section( $wp_customize ) {
         'priority'        => 5,
     ) );
     
-    // Media Logos (up to 12)
-    for ( $i = 1; $i <= 12; $i++ ) {
+    // Media Logos (up to 14)
+    for ( $i = 1; $i <= 14; $i++ ) {
         // Logo
         $wp_customize->add_setting( 'mkp_media_feature_' . $i . '_logo', array(
             'default'           => '',

@@ -955,7 +955,7 @@
     }
     
     // Media Features section updates
-    const maxMediaFeatures = 8;
+    const maxMediaFeatures = 14;
     
     // Section title update
     wp.customize( 'mkp_media_features_section_title', function( value ) {
