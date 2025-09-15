@@ -14,7 +14,7 @@ $text_color = $colors['text'];
 
 // Count actual stats
 $actual_stat_count = 0;
-for ( $i = 1; $i <= 4; $i++ ) {
+for ( $i = 1; $i <= 6; $i++ ) {
     $number = get_theme_mod( 'mkp_stat_' . $i . '_number' );
     $label = get_theme_mod( 'mkp_stat_' . $i . '_label' );
     if ( $number && $label ) {
@@ -50,7 +50,7 @@ $available_icons = array(
         <h2 class="mkp-section__title"><?php echo esc_html( $section_title ); ?></h2>
         
         <div class="mkp-stats__grid mkp-stats__grid--count-<?php echo esc_attr( $actual_stat_count ); ?>">
-            <?php for ( $i = 1; $i <= 4; $i++ ) : 
+            <?php for ( $i = 1; $i <= 6; $i++ ) : 
                 $number = get_theme_mod( 'mkp_stat_' . $i . '_number' );
                 $label = get_theme_mod( 'mkp_stat_' . $i . '_label' );
                 $prefix = get_theme_mod( 'mkp_stat_' . $i . '_prefix', '' );

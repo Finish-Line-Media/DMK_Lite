@@ -49,8 +49,8 @@ function mkp_register_stats_section( $wp_customize ) {
         'priority'        => 5,
     ) );
     
-    // Stats (up to 4)
-    for ( $i = 1; $i <= 4; $i++ ) {
+    // Stats (up to 6)
+    for ( $i = 1; $i <= 6; $i++ ) {
         // Number
         $wp_customize->add_setting( 'mkp_stat_' . $i . '_number', array(
             'default'           => '',
