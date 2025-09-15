@@ -87,8 +87,8 @@ function mkp_register_books_section( $wp_customize ) {
         'priority'    => 2,
     ) );
     
-    // Book entries (up to 4)
-    for ( $i = 1; $i <= 4; $i++ ) {
+    // Book entries (up to 6)
+    for ( $i = 1; $i <= 6; $i++ ) {
         // Book Title
         $wp_customize->add_setting( 'mkp_book_' . $i . '_title', array(
             'default'           => '',

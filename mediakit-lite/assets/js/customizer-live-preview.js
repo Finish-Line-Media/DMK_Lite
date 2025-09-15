@@ -476,7 +476,7 @@
     // Function to update books section title
     function updateBooksSectionTitle() {
         let bookCount = 0;
-        for ( let i = 1; i <= 4; i++ ) {
+        for ( let i = 1; i <= 6; i++ ) {
             if ( wp.customize.has( 'mkp_book_' + i + '_title' ) ) {
                 const title = wp.customize( 'mkp_book_' + i + '_title' ).get();
                 if ( title ) {
@@ -490,7 +490,7 @@
     }
     
     // Books section updates
-    const maxBooks = 4;
+    const maxBooks = 6;
     for ( let i = 1; i <= maxBooks; i++ ) {
         ( function( bookNum ) {
             // Book title

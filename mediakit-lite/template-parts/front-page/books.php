@@ -14,7 +14,7 @@ $text_color = $colors['text'];
 
 // Count actual books with titles
 $actual_book_count = 0;
-for ( $i = 1; $i <= 4; $i++ ) {
+for ( $i = 1; $i <= 6; $i++ ) {
     $title = get_theme_mod( 'mkp_book_' . $i . '_title' );
     if ( $title ) {
         $actual_book_count++;
@@ -50,7 +50,7 @@ if ( $books_per_row === '1' || $actual_book_count === 1 ) {
         <h2 class="mkp-section__title"><?php echo esc_html( $section_title ); ?></h2>
         
         <div class="mkp-books__grid<?php echo esc_attr( $grid_class ); ?>">
-            <?php for ( $i = 1; $i <= 4; $i++ ) : 
+            <?php for ( $i = 1; $i <= 6; $i++ ) : 
                 $title = get_theme_mod( 'mkp_book_' . $i . '_title' );
                 $cover = get_theme_mod( 'mkp_book_' . $i . '_cover' );
                 $description = get_theme_mod( 'mkp_book_' . $i . '_description' );
