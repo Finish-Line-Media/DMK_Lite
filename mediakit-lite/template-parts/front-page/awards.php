@@ -14,7 +14,7 @@ $text_color = $colors['text'];
 
 // Count actual awards
 $actual_award_count = 0;
-for ( $i = 1; $i <= 6; $i++ ) {
+for ( $i = 1; $i <= 8; $i++ ) {
     $title = get_theme_mod( 'mkp_award_' . $i . '_title' );
     $logo = get_theme_mod( 'mkp_award_' . $i . '_logo' );
     if ( $title || $logo ) {
@@ -34,7 +34,7 @@ $section_title = get_theme_mod( 'mkp_awards_section_title', __( 'Awards & Recogn
         <h2 class="mkp-section__title"><?php echo esc_html( $section_title ); ?></h2>
         
         <div class="mkp-awards__grid mkp-awards__grid--count-<?php echo esc_attr( $actual_award_count ); ?>">
-            <?php for ( $i = 1; $i <= 6; $i++ ) : 
+            <?php for ( $i = 1; $i <= 8; $i++ ) : 
                 $title = get_theme_mod( 'mkp_award_' . $i . '_title' );
                 $logo = get_theme_mod( 'mkp_award_' . $i . '_logo' );
                 $year = get_theme_mod( 'mkp_award_' . $i . '_year' );

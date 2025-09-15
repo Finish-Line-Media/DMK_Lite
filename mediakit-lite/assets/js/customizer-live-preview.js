@@ -795,7 +795,7 @@
     }
     
     // Awards section updates
-    const maxAwards = 6;
+    const maxAwards = 8;
     
     // Section title update
     wp.customize( 'mkp_awards_section_title', function( value ) {

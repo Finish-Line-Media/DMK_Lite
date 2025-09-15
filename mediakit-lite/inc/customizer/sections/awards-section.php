@@ -49,8 +49,8 @@ function mkp_register_awards_section( $wp_customize ) {
         'priority'        => 5,
     ) );
     
-    // Awards (up to 6)
-    for ( $i = 1; $i <= 6; $i++ ) {
+    // Awards (up to 8)
+    for ( $i = 1; $i <= 8; $i++ ) {
         // Logo
         $wp_customize->add_setting( 'mkp_award_' . $i . '_logo', array(
             'default'           => '',
