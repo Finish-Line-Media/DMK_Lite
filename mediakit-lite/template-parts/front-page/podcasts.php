@@ -14,7 +14,7 @@ $text_color = $colors['text'];
 
 // Count actual podcasts with titles
 $actual_podcast_count = 0;
-for ( $i = 1; $i <= 3; $i++ ) {
+for ( $i = 1; $i <= 5; $i++ ) {
     $title = get_theme_mod( 'mkp_podcast_' . $i . '_title' );
     if ( $title ) {
         $actual_podcast_count++;
@@ -34,7 +34,7 @@ $section_title = get_theme_mod( 'mkp_podcasts_section_title', $default_title );
         <h2 class="mkp-section__title"><?php echo esc_html( $section_title ); ?></h2>
         
         <div class="mkp-podcasts__grid">
-            <?php for ( $i = 1; $i <= 3; $i++ ) : 
+            <?php for ( $i = 1; $i <= 5; $i++ ) : 
                 $title = get_theme_mod( 'mkp_podcast_' . $i . '_title' );
                 $logo = get_theme_mod( 'mkp_podcast_' . $i . '_logo' );
                 $description = get_theme_mod( 'mkp_podcast_' . $i . '_description' );

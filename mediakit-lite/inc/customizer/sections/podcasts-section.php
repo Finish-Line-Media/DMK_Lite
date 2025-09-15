@@ -49,8 +49,8 @@ function mkp_register_podcasts_section( $wp_customize ) {
         'priority'        => 2,
     ) );
     
-    // Podcast entries (up to 3)
-    for ( $i = 1; $i <= 3; $i++ ) {
+    // Podcast entries (up to 5)
+    for ( $i = 1; $i <= 5; $i++ ) {
         // Podcast Title
         $wp_customize->add_setting( 'mkp_podcast_' . $i . '_title', array(
             'default'           => '',

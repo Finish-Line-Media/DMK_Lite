@@ -578,7 +578,7 @@
     // Function to update podcasts section title
     function updatePodcastsSectionTitle() {
         let podcastCount = 0;
-        for ( let i = 1; i <= 3; i++ ) {
+        for ( let i = 1; i <= 5; i++ ) {
             if ( wp.customize.has( 'mkp_podcast_' + i + '_title' ) ) {
                 const title = wp.customize( 'mkp_podcast_' + i + '_title' ).get();
                 if ( title ) {
@@ -592,7 +592,7 @@
     }
     
     // Podcasts section updates
-    const maxPodcasts = 3;
+    const maxPodcasts = 5;
     for ( let i = 1; i <= maxPodcasts; i++ ) {
         ( function( podcastNum ) {
             // Podcast title
