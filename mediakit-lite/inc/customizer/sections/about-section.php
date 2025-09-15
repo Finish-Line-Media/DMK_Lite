@@ -64,7 +64,7 @@ function mkp_register_about_section( $wp_customize ) {
         'description' => __( 'Choose how the text should be aligned', 'mediakit-lite' ),
         'section'     => 'mkp_about_section',
         'type'        => 'select',
-        'priority'    => 15,
+        'priority'    => 7,
         'choices'     => array(
             'left'    => __( 'Left Aligned', 'mediakit-lite' ),
             'justify' => __( 'Justified', 'mediakit-lite' ),
