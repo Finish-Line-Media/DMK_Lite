@@ -678,7 +678,7 @@
     }
     
     // Testimonials section updates
-    const maxTestimonials = 6;
+    const maxTestimonials = 8;
     
     // Section title update
     wp.customize( 'mkp_testimonials_section_title', function( value ) {

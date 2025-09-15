@@ -68,8 +68,8 @@ function mkp_register_testimonials_section( $wp_customize ) {
         ),
     ) );
     
-    // Testimonials (up to 6)
-    for ( $i = 1; $i <= 6; $i++ ) {
+    // Testimonials (up to 8)
+    for ( $i = 1; $i <= 8; $i++ ) {
         // Quote
         $wp_customize->add_setting( 'mkp_testimonial_' . $i . '_quote', array(
             'default'           => '',

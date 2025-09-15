@@ -14,7 +14,7 @@ $text_color = $colors['text'];
 
 // Count actual testimonials
 $actual_testimonial_count = 0;
-for ( $i = 1; $i <= 6; $i++ ) {
+for ( $i = 1; $i <= 8; $i++ ) {
     $quote = get_theme_mod( 'mkp_testimonial_' . $i . '_quote' );
     if ( $quote ) {
         $actual_testimonial_count++;
@@ -37,7 +37,7 @@ $quote_class = 'mkp-testimonial-card__quote mkp-text-align-' . $text_align;
         <h2 class="mkp-section__title"><?php echo esc_html( $section_title ); ?></h2>
         
         <div class="mkp-testimonials__grid mkp-testimonials__grid--count-<?php echo esc_attr( $actual_testimonial_count ); ?>">
-            <?php for ( $i = 1; $i <= 6; $i++ ) : 
+            <?php for ( $i = 1; $i <= 8; $i++ ) : 
                 $quote = get_theme_mod( 'mkp_testimonial_' . $i . '_quote' );
                 $author = get_theme_mod( 'mkp_testimonial_' . $i . '_author' );
                 $title = get_theme_mod( 'mkp_testimonial_' . $i . '_title' );
