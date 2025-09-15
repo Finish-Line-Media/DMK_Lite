@@ -49,8 +49,8 @@ function mkp_register_investor_section( $wp_customize ) {
         'priority'        => 2,
     ) );
     
-    // Investor options (up to 3)
-    for ( $i = 1; $i <= 3; $i++ ) {
+    // Investor options (up to 5)
+    for ( $i = 1; $i <= 5; $i++ ) {
         // Title
         $wp_customize->add_setting( 'mkp_investor_' . $i . '_title', array(
             'default'           => '',

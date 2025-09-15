@@ -89,8 +89,8 @@ function mkp_register_media_questions_section( $wp_customize ) {
         'priority'    => 5,
     ) );
     
-    // Media questions (up to 12)
-    for ( $i = 1; $i <= 12; $i++ ) {
+    // Media questions (up to 14)
+    for ( $i = 1; $i <= 14; $i++ ) {
         $wp_customize->add_setting( 'mkp_media_question_' . $i, array(
             'default'           => '',
             'sanitize_callback' => 'sanitize_text_field',

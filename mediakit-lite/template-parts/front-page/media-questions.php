@@ -20,7 +20,7 @@ $question_class = 'mkp-media-questions__question mkp-text-align-' . $text_align;
 // Check if we have any questions and count them
 $has_questions = false;
 $question_count = 0;
-for ( $i = 1; $i <= 12; $i++ ) {
+for ( $i = 1; $i <= 14; $i++ ) {
     if ( get_theme_mod( 'mkp_media_question_' . $i ) ) {
         $has_questions = true;
         $question_count++;
@@ -46,7 +46,7 @@ if ( ! $has_questions && ! $is_customizer ) {
                 $list_class = 'mkp-media-questions__list mkp-media-questions__list--' . esc_attr( $list_style );
                 ?>
                 <<?php echo $tag; ?> class="<?php echo esc_attr( $list_class ); ?>">
-                    <?php for ( $i = 1; $i <= 12; $i++ ) : 
+                    <?php for ( $i = 1; $i <= 14; $i++ ) : 
                         $question = get_theme_mod( 'mkp_media_question_' . $i );
                         if ( ! $question && ! $is_customizer ) {
                             continue;
@@ -59,7 +59,7 @@ if ( ! $has_questions && ! $is_customizer ) {
                 </<?php echo $tag; ?>>
             <?php else : // cards style ?>
                 <div class="mkp-media-questions__cards mkp-media-questions__cards--count-<?php echo esc_attr( $question_count ); ?>">
-                    <?php for ( $i = 1; $i <= 12; $i++ ) : 
+                    <?php for ( $i = 1; $i <= 14; $i++ ) : 
                         $question = get_theme_mod( 'mkp_media_question_' . $i );
                         if ( ! $question && ! $is_customizer ) {
                             continue;

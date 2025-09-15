@@ -1171,7 +1171,7 @@
     } );
     
     // Update media questions text
-    for ( let i = 1; i <= 12; i++ ) {
+    for ( let i = 1; i <= 14; i++ ) {
         ( function( questionNum ) {
             wp.customize( 'mkp_media_question_' + questionNum, function( value ) {
                 value.bind( function( to ) {
@@ -1241,7 +1241,7 @@
     
     
     // Update investor options
-    for ( let i = 1; i <= 3; i++ ) {
+    for ( let i = 1; i <= 5; i++ ) {
         ( function( investorNum ) {
             // Investor title
             wp.customize( 'mkp_investor_' + investorNum + '_title', function( value ) {
@@ -1261,7 +1261,7 @@
                     
                     // Check if any investors remain
                     let hasInvestors = false;
-                    for ( let j = 1; j <= 3; j++ ) {
+                    for ( let j = 1; j <= 5; j++ ) {
                         if ( wp.customize( 'mkp_investor_' + j + '_title' ).get() ) {
                             hasInvestors = true;
                             break;

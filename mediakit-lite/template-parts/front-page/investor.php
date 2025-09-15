@@ -14,7 +14,7 @@ $text_color = $colors['text'];
 
 // Check if we have any investor options
 $has_investors = false;
-for ( $i = 1; $i <= 3; $i++ ) {
+for ( $i = 1; $i <= 5; $i++ ) {
     if ( get_theme_mod( 'mkp_investor_' . $i . '_title' ) ) {
         $has_investors = true;
         break;
@@ -30,7 +30,7 @@ if ( ! $has_investors && ! $is_customizer ) {
 
 // Count actual investor options for dynamic title
 $actual_investor_count = 0;
-for ( $i = 1; $i <= 3; $i++ ) {
+for ( $i = 1; $i <= 5; $i++ ) {
     if ( get_theme_mod( 'mkp_investor_' . $i . '_title' ) ) {
         $actual_investor_count++;
     }
@@ -47,7 +47,7 @@ $section_title = get_theme_mod( 'mkp_investor_section_title', $default_title );
         
         <?php if ( $has_investors || $is_customizer ) : ?>
             <div class="mkp-investor__grid">
-                <?php for ( $i = 1; $i <= 3; $i++ ) : 
+                <?php for ( $i = 1; $i <= 5; $i++ ) : 
                     $title = get_theme_mod( 'mkp_investor_' . $i . '_title' );
                     $description = get_theme_mod( 'mkp_investor_' . $i . '_description' );
                     
