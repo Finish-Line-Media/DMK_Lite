@@ -1047,7 +1047,7 @@
     } );
     
     // Update speaker topics text
-    for ( let i = 1; i <= 6; i++ ) {
+    for ( let i = 1; i <= 8; i++ ) {
         ( function( topicNum ) {
             wp.customize( 'mkp_speaker_topic_' + topicNum, function( value ) {
                 value.bind( function( to ) {

@@ -89,8 +89,8 @@ function mkp_register_speaker_section( $wp_customize ) {
         'priority'    => 3,
     ) );
     
-    // Speaker topics (up to 6)
-    for ( $i = 1; $i <= 6; $i++ ) {
+    // Speaker topics (up to 8)
+    for ( $i = 1; $i <= 8; $i++ ) {
         $wp_customize->add_setting( 'mkp_speaker_topic_' . $i, array(
             'default'           => '',
             'sanitize_callback' => 'sanitize_text_field',
