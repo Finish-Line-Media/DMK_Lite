@@ -49,6 +49,25 @@ function mkp_register_speaker_section( $wp_customize ) {
         'priority'        => 2,
     ) );
     
+    // Text Alignment Setting
+    $wp_customize->add_setting( 'mkp_speaker_text_align', array(
+        'default'           => 'left',
+        'sanitize_callback' => 'mkp_sanitize_select',
+        'transport'         => 'postMessage',
+    ) );
+    
+    $wp_customize->add_control( 'mkp_speaker_text_align', array(
+        'label'       => __( 'Text Alignment', 'mediakit-lite' ),
+        'description' => __( 'Choose how topic descriptions should be aligned', 'mediakit-lite' ),
+        'section'     => 'mkp_speaker_section',
+        'type'        => 'select',
+        'priority'    => 3,
+        'choices'     => array(
+            'left'    => __( 'Left Aligned', 'mediakit-lite' ),
+            'justify' => __( 'Justified', 'mediakit-lite' ),
+        ),
+    ) );
+    
     // Speaker Topics Background Color
     // List Style
     $wp_customize->add_setting( 'mkp_speaker_topics_list_style', array(

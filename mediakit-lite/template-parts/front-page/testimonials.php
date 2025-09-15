@@ -26,6 +26,10 @@ $is_customizer = is_customize_preview();
 
 // Get section title
 $section_title = get_theme_mod( 'mkp_testimonials_section_title', __( 'Testimonials', 'mediakit-lite' ) );
+
+// Get text alignment setting
+$text_align = get_theme_mod( 'mkp_testimonials_text_align', 'left' );
+$quote_class = 'mkp-testimonial-card__quote mkp-text-align-' . $text_align;
 ?>
 
 <section id="testimonials" class="<?php echo esc_attr( $section_class ); ?>" style="background-color: <?php echo esc_attr( $section_color ); ?>; color: <?php echo esc_attr( $text_color ); ?>">
@@ -52,7 +56,7 @@ $section_title = get_theme_mod( 'mkp_testimonials_section_title', __( 'Testimoni
                         </div>
                     <?php endif; ?>
                     
-                    <blockquote class="mkp-testimonial-card__quote">
+                    <blockquote class="<?php echo esc_attr( $quote_class ); ?>">
                         <?php echo wp_kses_post( wpautop( $quote ) ); ?>
                     </blockquote>
                     

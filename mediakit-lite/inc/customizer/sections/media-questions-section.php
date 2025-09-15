@@ -49,6 +49,25 @@ function mkp_register_media_questions_section( $wp_customize ) {
         'priority'        => 2,
     ) );
     
+    // Text Alignment Setting
+    $wp_customize->add_setting( 'mkp_media_questions_text_align', array(
+        'default'           => 'left',
+        'sanitize_callback' => 'mkp_sanitize_select',
+        'transport'         => 'postMessage',
+    ) );
+    
+    $wp_customize->add_control( 'mkp_media_questions_text_align', array(
+        'label'       => __( 'Text Alignment', 'mediakit-lite' ),
+        'description' => __( 'Choose how questions should be aligned', 'mediakit-lite' ),
+        'section'     => 'mkp_media_questions_section',
+        'type'        => 'select',
+        'priority'    => 3,
+        'choices'     => array(
+            'left'    => __( 'Left Aligned', 'mediakit-lite' ),
+            'justify' => __( 'Justified', 'mediakit-lite' ),
+        ),
+    ) );
+    
     // Media Questions Background Color
     // List Style
     $wp_customize->add_setting( 'mkp_media_questions_list_style', array(

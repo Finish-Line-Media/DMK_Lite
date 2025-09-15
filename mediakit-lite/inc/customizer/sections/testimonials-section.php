@@ -49,6 +49,25 @@ function mkp_register_testimonials_section( $wp_customize ) {
         'priority'        => 5,
     ) );
     
+    // Text Alignment Setting
+    $wp_customize->add_setting( 'mkp_testimonials_text_align', array(
+        'default'           => 'left',
+        'sanitize_callback' => 'mkp_sanitize_select',
+        'transport'         => 'postMessage',
+    ) );
+    
+    $wp_customize->add_control( 'mkp_testimonials_text_align', array(
+        'label'       => __( 'Text Alignment', 'mediakit-lite' ),
+        'description' => __( 'Choose how testimonial text should be aligned', 'mediakit-lite' ),
+        'section'     => 'mkp_testimonials_section',
+        'type'        => 'select',
+        'priority'    => 6,
+        'choices'     => array(
+            'left'    => __( 'Left Aligned', 'mediakit-lite' ),
+            'justify' => __( 'Justified', 'mediakit-lite' ),
+        ),
+    ) );
+    
     // Testimonials (up to 6)
     for ( $i = 1; $i <= 6; $i++ ) {
         // Quote

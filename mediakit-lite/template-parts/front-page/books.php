@@ -31,6 +31,10 @@ $section_title = get_theme_mod( 'mkp_books_section_title', $default_title );
 // Get books per row setting
 $books_per_row = get_theme_mod( 'mkp_books_per_row', '3' );
 
+// Get text alignment setting
+$text_align = get_theme_mod( 'mkp_books_text_align', 'left' );
+$description_class = 'mkp-masonry-card__description mkp-text-align-' . $text_align;
+
 // Always add a column class
 if ( $books_per_row === '1' || $actual_book_count === 1 ) {
     $grid_class = ' mkp-books__grid--one-column';
@@ -67,7 +71,7 @@ if ( $books_per_row === '1' || $actual_book_count === 1 ) {
                     <div class="mkp-book-card__content">
                         <h3 class="mkp-book-card__title"><?php echo esc_html( $title ); ?></h3>
                         
-                        <div class="mkp-book-card__description mkp-masonry-card__description">
+                        <div class="<?php echo esc_attr( $description_class ); ?>">
                             <?php if ( $description ) : ?>
                                 <?php echo wp_kses_post( wpautop( $description ) ); ?>
                             <?php endif; ?>

@@ -40,3 +40,24 @@
 .mkp-glass-white {
     background-color: rgba(255, 255, 255, 0.1);
 }
+
+/* ==========================================================================
+   Text Alignment Utilities
+   ========================================================================== */
+
+/* Left aligned text */
+.mkp-text-align-left,
+.mkp-text-align-left p,
+.mkp-text-align-left li,
+.mkp-text-align-left blockquote {
+    text-align: left;
+}
+
+/* Justified text */
+.mkp-text-align-justify,
+.mkp-text-align-justify p,
+.mkp-text-align-justify li,
+.mkp-text-align-justify blockquote {
+    text-align: justify;
+    text-justify: inter-word;
+}

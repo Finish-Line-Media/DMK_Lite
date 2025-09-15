@@ -13,6 +13,10 @@ $section_color = $colors['background'];
 $text_color = $colors['text'];
 $list_style = get_theme_mod( 'mkp_media_questions_list_style', 'bullets' );
 
+// Get text alignment setting
+$text_align = get_theme_mod( 'mkp_media_questions_text_align', 'left' );
+$question_class = 'mkp-media-questions__question mkp-text-align-' . $text_align;
+
 // Check if we have any questions and count them
 $has_questions = false;
 $question_count = 0;
@@ -48,7 +52,7 @@ if ( ! $has_questions && ! $is_customizer ) {
                             continue;
                         }
                         ?>
-                        <li class="mkp-media-questions__item mkp-media-questions__item--<?php echo esc_attr( $i ); ?>" <?php echo ( ! $question && $is_customizer ) ? 'style="display: none;"' : ''; ?>>
+                        <li class="mkp-media-questions__item mkp-media-questions__item--<?php echo esc_attr( $i ); ?> <?php echo esc_attr( $question_class ); ?>" <?php echo ( ! $question && $is_customizer ) ? 'style="display: none;"' : ''; ?>>
                             <span class="mkp-media-questions__text"><?php echo esc_html( $question ); ?></span>
                         </li>
                     <?php endfor; ?>

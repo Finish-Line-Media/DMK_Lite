@@ -48,8 +48,7 @@
 }
 
 .mkp-corp-card__bio p {
-    text-align: justify;
-    text-justify: inter-word;
+    /* Text alignment controlled by utility classes */
 }
 
 /* Mobile styles */

@@ -25,6 +25,10 @@ for ( $i = 1; $i <= 6; $i++ ) {
 // Get customizable section title (defaults to singular/plural based on count)
 $default_title = ( $actual_company_count === 1 ) ? __( 'Company', 'mediakit-lite' ) : __( 'Companies', 'mediakit-lite' );
 $section_title = get_theme_mod( 'mkp_corporations_section_title', $default_title );
+
+// Get text alignment setting
+$text_align = get_theme_mod( 'mkp_corporations_text_align', 'left' );
+$bio_class = 'mkp-corp-card__bio mkp-text-align-' . $text_align;
 ?>
 
 <section id="corporations" class="<?php echo esc_attr( $section_class ); ?>" style="background-color: <?php echo esc_attr( $section_color ); ?>; color: <?php echo esc_attr( $text_color ); ?>">
@@ -50,7 +54,7 @@ $section_title = get_theme_mod( 'mkp_corporations_section_title', $default_title
                     <h3 class="mkp-corp-card__name"><?php echo esc_html( $name ); ?></h3>
                     <?php endif; ?>
                     
-                    <div class="mkp-corp-card__bio">
+                    <div class="<?php echo esc_attr( $bio_class ); ?>">
                         <?php if ( $bio ) : ?>
                             <?php echo wp_kses_post( wpautop( $bio ) ); ?>
                         <?php endif; ?>

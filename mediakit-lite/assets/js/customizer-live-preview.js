@@ -1552,6 +1552,47 @@
     } );
     */
     
+    // Text Alignment Live Preview
+    wp.customize( 'mkp_about_text_align', function( value ) {
+        value.bind( function( to ) {
+            const $content = $( '.mkp-about-section__content' );
+            $content.removeClass( 'mkp-text-align-left mkp-text-align-justify' );
+            $content.addClass( 'mkp-text-align-' + to );
+        } );
+    } );
+    
+    wp.customize( 'mkp_corporations_text_align', function( value ) {
+        value.bind( function( to ) {
+            const $bios = $( '.mkp-corp-card__bio' );
+            $bios.removeClass( 'mkp-text-align-left mkp-text-align-justify' );
+            $bios.addClass( 'mkp-text-align-' + to );
+        } );
+    } );
+    
+    wp.customize( 'mkp_books_text_align', function( value ) {
+        value.bind( function( to ) {
+            const $descriptions = $( '.mkp-book-card__description, .mkp-masonry-card__description' );
+            $descriptions.removeClass( 'mkp-text-align-left mkp-text-align-justify' );
+            $descriptions.addClass( 'mkp-text-align-' + to );
+        } );
+    } );
+    
+    wp.customize( 'mkp_media_questions_text_align', function( value ) {
+        value.bind( function( to ) {
+            const $questions = $( '.mkp-media-questions__item, .mkp-media-questions__question' );
+            $questions.removeClass( 'mkp-text-align-left mkp-text-align-justify' );
+            $questions.addClass( 'mkp-text-align-' + to );
+        } );
+    } );
+    
+    wp.customize( 'mkp_testimonials_text_align', function( value ) {
+        value.bind( function( to ) {
+            const $quotes = $( '.mkp-testimonial-card__quote' );
+            $quotes.removeClass( 'mkp-text-align-left mkp-text-align-justify' );
+            $quotes.addClass( 'mkp-text-align-' + to );
+        } );
+    } );
+    
     // Initial checks when customizer loads
     $( document ).ready( function() {
         // Small delay to ensure DOM is fully ready

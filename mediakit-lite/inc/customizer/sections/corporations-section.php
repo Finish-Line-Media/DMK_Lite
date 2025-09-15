@@ -49,6 +49,25 @@ function mkp_register_corporations_section( $wp_customize ) {
         'priority'        => 2,
     ) );
     
+    // Text Alignment Setting
+    $wp_customize->add_setting( 'mkp_corporations_text_align', array(
+        'default'           => 'left',
+        'sanitize_callback' => 'mkp_sanitize_select',
+        'transport'         => 'postMessage',
+    ) );
+    
+    $wp_customize->add_control( 'mkp_corporations_text_align', array(
+        'label'       => __( 'Text Alignment', 'mediakit-lite' ),
+        'description' => __( 'Choose how the description text should be aligned', 'mediakit-lite' ),
+        'section'     => 'mkp_corporations_section',
+        'type'        => 'select',
+        'priority'    => 3,
+        'choices'     => array(
+            'left'    => __( 'Left Aligned', 'mediakit-lite' ),
+            'justify' => __( 'Justified', 'mediakit-lite' ),
+        ),
+    ) );
+    
     // Corporation entries
     for ( $i = 1; $i <= 6; $i++ ) {
         // Corporation Name
