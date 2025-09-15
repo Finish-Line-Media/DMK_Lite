@@ -14,7 +14,7 @@ $text_color = $colors['text'];
 
 // Count actual companies with names or logos
 $actual_company_count = 0;
-for ( $i = 1; $i <= 6; $i++ ) {
+for ( $i = 1; $i <= 8; $i++ ) {
     $name = get_theme_mod( 'mkp_corp_' . $i . '_name' );
     $logo = get_theme_mod( 'mkp_corp_' . $i . '_logo' );
     if ( $name || $logo ) {
@@ -36,7 +36,7 @@ $bio_class = 'mkp-corp-card__bio mkp-text-align-' . $text_align;
         <h2 class="mkp-section__title"><?php echo esc_html( $section_title ); ?></h2>
         
         <div class="mkp-corporations__grid mkp-corporations__grid--count-<?php echo esc_attr( $actual_company_count ); ?>">
-            <?php for ( $i = 1; $i <= 6; $i++ ) : 
+            <?php for ( $i = 1; $i <= 8; $i++ ) : 
                 $name = get_theme_mod( 'mkp_corp_' . $i . '_name' );
                 $logo = get_theme_mod( 'mkp_corp_' . $i . '_logo' );
                 $bio = get_theme_mod( 'mkp_corp_' . $i . '_bio' );

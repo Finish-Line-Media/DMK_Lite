@@ -362,7 +362,7 @@
     // Function to update companies section title
     function updateCompaniesSectionTitle() {
         let companyCount = 0;
-        for ( let i = 1; i <= 4; i++ ) {
+        for ( let i = 1; i <= 8; i++ ) {
             const nameExists = wp.customize.has( 'mkp_corp_' + i + '_name' );
             const logoExists = wp.customize.has( 'mkp_corp_' + i + '_logo' );
             const name = nameExists ? wp.customize( 'mkp_corp_' + i + '_name' ).get() : '';
@@ -377,7 +377,7 @@
     }
     
     // Companies (Corporations) section updates
-    const maxCorps = 4;
+    const maxCorps = 8;
     for ( let i = 1; i <= maxCorps; i++ ) {
         ( function( corpNum ) {
             // Company name

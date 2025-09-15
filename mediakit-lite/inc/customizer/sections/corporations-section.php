@@ -69,7 +69,7 @@ function mkp_register_corporations_section( $wp_customize ) {
     ) );
     
     // Corporation entries
-    for ( $i = 1; $i <= 6; $i++ ) {
+    for ( $i = 1; $i <= 8; $i++ ) {
         // Corporation Name
         $wp_customize->add_setting( 'mkp_corp_' . $i . '_name', array(
             'default'           => '',
