@@ -102,8 +102,8 @@ function mkp_register_hero_section( $wp_customize ) {
         'priority'    => 21,
     ) ) );
     
-    // Professional Tags (1-5)
-    for ( $i = 1; $i <= 5; $i++ ) {
+    // Professional Tags (1-7)
+    for ( $i = 1; $i <= 7; $i++ ) {
         $wp_customize->add_setting( 'mkp_hero_tag_' . $i, array(
             'default'           => '',
             'sanitize_callback' => 'sanitize_text_field',

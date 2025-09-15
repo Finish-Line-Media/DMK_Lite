@@ -62,7 +62,7 @@ $section_style = 'background-color: ' . esc_attr( $section_color ) . '; color: '
             <?php 
             // Professional Tags
             $tags = array();
-            for ( $i = 1; $i <= 5; $i++ ) {
+            for ( $i = 1; $i <= 7; $i++ ) {
                 $tag = get_theme_mod( 'mkp_hero_tag_' . $i );
                 if ( $tag ) {
                     $tags[] = $tag;

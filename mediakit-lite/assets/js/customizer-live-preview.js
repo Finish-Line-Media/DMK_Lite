@@ -238,7 +238,7 @@
     } );
     
     // Hero tags update
-    for ( let i = 1; i <= 5; i++ ) {
+    for ( let i = 1; i <= 7; i++ ) {
         ( function( tagNum ) {
             wp.customize( 'mkp_hero_tag_' + tagNum, function( value ) {
                 value.bind( function( to ) {
@@ -247,7 +247,7 @@
                     const tags = [];
                     
                     // Collect all tag values
-                    for ( let j = 1; j <= 5; j++ ) {
+                    for ( let j = 1; j <= 7; j++ ) {
                         const tagValue = j === tagNum ? to : ( wp.customize( 'mkp_hero_tag_' + j ).get() || '' );
                         if ( tagValue ) {
                             tags.push( tagValue );
