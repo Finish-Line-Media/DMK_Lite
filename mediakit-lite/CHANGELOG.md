@@ -1,9 +1,21 @@
-# MediaKit Lite Changelog
+# MediaKit Lite Theme Changelog
 
-All notable changes to this project will be documented in this file.
+All notable changes to the MediaKit Lite theme will be documented in this file.
+
+## [2.0.4] - 2025-09-16
+
+### Changed
+- Fixed text alignment CSS specificity issue
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [2.0.4] - 2025-09-16
+
+### Fixed
+- Text alignment CSS specificity issue that prevented customizer text alignment settings from working properly
+- Added !important flag to text alignment utility classes to ensure they override section-specific styles
+- This fix affects all sections with text alignment options: About, Books, Corporations, Media Questions, and Testimonials
 
 ## [2.0.3] - 2025-09-15
 
