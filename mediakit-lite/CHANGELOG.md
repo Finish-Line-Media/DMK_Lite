@@ -5,6 +5,30 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.3] - 2025-09-15
+
+### Added
+- Expanded customizer options for all major sections:
+  - In The Media section: Increased from 8 to 12 media items
+  - Hero section: Increased from 5 to 7 professional tags
+  - Companies section: Increased from 6 to 8 companies
+  - Books section: Increased from 4 to 6 books
+  - Podcasts section: Increased from 3 to 5 podcasts
+  - Speaker Topics section: Increased from 6 to 8 topics
+  - Testimonials section: Increased from 6 to 8 testimonials
+  - Awards section: Increased from 6 to 8 awards
+  - Media Features section: Increased from 12 to 14 media outlets
+  - Stats section: Increased from 4 to 6 stats
+  - Media Questions section: Increased from 12 to 14 questions
+  - Investors section: Increased from 3 to 5 investors
+
+### Changed
+- Reordered About section customizer controls: Text Alignment now appears between Section Title and About Content for better UX
+
+### Technical
+- Updated all corresponding template files and JavaScript live preview handlers to support the expanded item counts
+- Maintained consistent implementation patterns across all section expansions
+
 ## [2.0.2] - 2025-09-04
 
 ### Added
