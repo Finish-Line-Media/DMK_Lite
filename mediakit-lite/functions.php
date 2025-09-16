@@ -38,7 +38,7 @@ if ( get_transient( 'mkp_theme_loading' ) ) {
 /**
  * Define Constants
  */
-define( 'MKP_THEME_VERSION', '2.0.4' );
+define( 'MKP_THEME_VERSION', '2.0.5' );
 define( 'MKP_THEME_DIR', get_template_directory() );
 define( 'MKP_THEME_URI', get_template_directory_uri() );
 
@@ -657,6 +657,32 @@ function mkp_add_opengraph_tags() {
     }
 }
 add_action( 'wp_head', 'mkp_add_opengraph_tags' );
+
+/**
+ * Output alignment styles directly in head to ensure they work
+ * This fixes issues with @import statements not loading on some servers
+ */
+function mkp_output_alignment_styles() {
+    ?>
+    <style id="mkp-alignment-overrides">
+    /* Text alignment overrides to ensure customizer settings work */
+    .mkp-text-align-left,
+    .mkp-text-align-left p,
+    .mkp-text-align-left li,
+    .mkp-text-align-left blockquote {
+        text-align: left !important;
+    }
+    .mkp-text-align-justify,
+    .mkp-text-align-justify p,
+    .mkp-text-align-justify li,
+    .mkp-text-align-justify blockquote {
+        text-align: justify !important;
+        text-justify: inter-word !important;
+    }
+    </style>
+    <?php
+}
+add_action( 'wp_head', 'mkp_output_alignment_styles', 999 );
 
 /**
  * Schema markup helper function

@@ -2,13 +2,20 @@
 
 All notable changes to the MediaKit Lite theme will be documented in this file.
 
-## [2.0.4] - 2025-09-16
+## [2.0.5] - 2025-09-16
 
 ### Changed
-- Fixed text alignment CSS specificity issue
+- Fixed text alignment not working on live sites
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [2.0.5] - 2025-09-16
+
+### Fixed
+- Text alignment not working on live sites due to CSS @import loading issues
+- Added inline alignment styles output directly in wp_head to ensure they always load
+- This guarantees text alignment settings work on all server configurations
 
 ## [2.0.4] - 2025-09-16
 
