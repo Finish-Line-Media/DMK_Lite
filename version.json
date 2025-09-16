@@ -1,9 +1,9 @@
 {
-  "version": "2.0.2",
-  "description": "Standardize card CSS with glass morphism across all sections including comments and sidebar",
-  "download_url": "https://github.com/Finish-Line-Media/DMK_Lite/releases/download/v2.0.2/mediakit-lite.zip",
-  "changelog_url": "https://github.com/Finish-Line-Media/DMK_Lite/releases/tag/v2.0.2",
-  "release_date": "2025-09-04",
+  "version": "2.0.3",
+  "description": "Added more content items across all sections and fixed About section text alignment",
+  "download_url": "https://github.com/Finish-Line-Media/DMK_Lite/releases/download/v2.0.3/mediakit-lite.zip",
+  "changelog_url": "https://github.com/Finish-Line-Media/DMK_Lite/releases/tag/v2.0.3",
+  "release_date": "2025-09-16",
   "min_wp_version": "5.8",
   "tested_up_to": "6.5",
   "php_version": "7.4"
