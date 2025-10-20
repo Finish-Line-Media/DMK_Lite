@@ -37,7 +37,7 @@ function mkp_register_books_section( $wp_customize ) {
     
     // Section Title
     $wp_customize->add_setting( 'mkp_books_section_title', array(
-        'default'           => __( 'Books', 'mediakit-lite' ),
+        'default'           => __( 'Publications', 'mediakit-lite' ),
         'sanitize_callback' => 'sanitize_text_field',
         'transport'         => 'postMessage',
     ) );

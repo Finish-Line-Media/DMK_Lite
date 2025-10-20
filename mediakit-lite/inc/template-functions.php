@@ -303,7 +303,7 @@ function mkp_get_front_page_nav_items() {
         ),
         'books' => array(
             'id'    => 'books',
-            'label' => __( 'Books', 'mediakit-lite' ),
+            'label' => __( 'Publications', 'mediakit-lite' ),
             'url'   => $base_url . '#books',
             'check' => function() {
                 return get_theme_mod( 'mkp_enable_section_books', false );

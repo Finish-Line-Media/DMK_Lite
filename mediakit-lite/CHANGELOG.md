@@ -2,6 +2,16 @@
 
 All notable changes to the MediaKit Lite theme will be documented in this file.
 
+## [2.0.6] - 2025-10-20
+
+### Fixed
+- Mobile navigation menu overflow issue - menu is now scrollable when content exceeds viewport height
+- Hidden scrollbar in mobile navigation for cleaner appearance while maintaining scroll functionality
+
+### Changed
+- Updated "Books" navigation label to "Publications" for better terminology
+- Updated default section title from "Books" to "Publications"
+
 ## [2.0.5] - 2025-09-16
 
 ### Changed
