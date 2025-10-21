@@ -2,7 +2,14 @@
 
 All notable changes to the MediaKit Lite theme will be documented in this file.
 
+## [2.0.8] - 2025-10-21
+
+### Changed
+- Enhanced Sahara Sunset theme with darker color scheme and full-width sticky footer
+
 ## [Unreleased]
+
+## [2.0.8] - 2025-10-21
 
 ### Changed
 - Updated "Sahara Sunset" color theme to use darker color scheme with black navigation/footer and darker section rotations

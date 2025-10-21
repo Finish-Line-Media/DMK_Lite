@@ -1,9 +1,9 @@
 {
-  "version": "2.0.6",
-  "description": "Fixed text alignment not working on live sites",
-  "download_url": "https://github.com/Finish-Line-Media/DMK_Lite/releases/download/v2.0.6/mediakit-lite.zip",
-  "changelog_url": "https://github.com/Finish-Line-Media/DMK_Lite/releases/tag/v2.0.6",
-  "release_date": "2025-10-20",
+  "version": "2.0.8",
+  "description": "Enhanced Sahara Sunset theme with darker color scheme and full-width sticky footer",
+  "download_url": "https://github.com/Finish-Line-Media/DMK_Lite/releases/download/v2.0.8/mediakit-lite.zip",
+  "changelog_url": "https://github.com/Finish-Line-Media/DMK_Lite/releases/tag/v2.0.8",
+  "release_date": "2025-10-21",
   "min_wp_version": "5.8",
   "tested_up_to": "6.5",
   "php_version": "7.4"

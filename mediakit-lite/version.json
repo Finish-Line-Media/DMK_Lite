@@ -1,6 +1,6 @@
 {
-    "version": "2.0.7",
-    "description": "Fixed mobile navigation overflow and renamed Books to Publications",
+    "version": "2.0.8",
+    "description": "Enhanced Sahara Sunset theme with darker color scheme and full-width sticky footer",
     "download_url": "https://github.com/Finish-Line-Media/DMK_Lite/releases/latest/download/mediakit-lite.zip",
     "changelog_url": "https://github.com/Finish-Line-Media/DMK_Lite/blob/main/CHANGELOG.md",
     "release_date": "2025-10-21",
