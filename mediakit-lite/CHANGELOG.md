@@ -11,6 +11,7 @@ All notable changes to the MediaKit Lite theme will be documented in this file.
 - Replaced Masonry layout with CSS Grid for Publications section to prevent card repositioning
 - "Read More" button now only expands the clicked card, not all cards simultaneously
 - Added unique IDs and defensive checks to prevent cross-card interference
+- Publications cards no longer stretch vertically when adjacent cards expand (CSS Grid align-items fix)
 
 ### Changed
 - Publications section now uses CSS Grid instead of Masonry layout for better order preservation
