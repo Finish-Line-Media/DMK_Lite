@@ -1,9 +1,9 @@
 {
-    "version": "2.0.6",
+    "version": "2.0.7",
     "description": "Fixed mobile navigation overflow and renamed Books to Publications",
     "download_url": "https://github.com/Finish-Line-Media/DMK_Lite/releases/latest/download/mediakit-lite.zip",
     "changelog_url": "https://github.com/Finish-Line-Media/DMK_Lite/blob/main/CHANGELOG.md",
-    "release_date": "2025-10-20",
+    "release_date": "2025-10-21",
     "min_wp_version": "5.8",
     "tested_up_to": "6.5",
     "php_version": "7.4"

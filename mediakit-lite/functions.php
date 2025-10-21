@@ -38,7 +38,7 @@ if ( get_transient( 'mkp_theme_loading' ) ) {
 /**
  * Define Constants
  */
-define( 'MKP_THEME_VERSION', '2.0.6' );
+define( 'MKP_THEME_VERSION', '2.0.7' );
 define( 'MKP_THEME_DIR', get_template_directory() );
 define( 'MKP_THEME_URI', get_template_directory_uri() );
 
