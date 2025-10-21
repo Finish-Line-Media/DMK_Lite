@@ -37,33 +37,54 @@
                         <?php dynamic_sidebar( 'footer-1' ); ?>
                     </div>
                 <?php endif; ?>
-                
+
                 <?php if ( is_active_sidebar( 'footer-2' ) ) : ?>
                     <div class="mkp-footer__section">
                         <?php dynamic_sidebar( 'footer-2' ); ?>
                     </div>
                 <?php endif; ?>
-                
+
                 <?php if ( is_active_sidebar( 'footer-3' ) ) : ?>
                     <div class="mkp-footer__section">
                         <?php dynamic_sidebar( 'footer-3' ); ?>
                     </div>
                 <?php endif; ?>
             </div>
-            
+
+            <?php if ( $current_theme !== 'sahara_sunset' ) : ?>
+                <!-- For non-Sahara themes, copyright stays inside container -->
+                <div class="mkp-footer__bottom" style="background-color: <?php echo esc_attr( $copyright_bg ); ?>; color: <?php echo esc_attr( $copyright_text ); ?>; padding: var(--mkp-spacing-lg) 0; margin-top: var(--mkp-spacing-xl);">
+                    <div class="mkp-footer__copyright">
+                        <?php
+                        printf(
+                            /* translators: 1: Copyright symbol and year, 2: Site name */
+                            esc_html__( '%1$s %2$s. All rights reserved.', 'mediakit-lite' ),
+                            '&copy; ' . date( 'Y' ),
+                            get_bloginfo( 'name' )
+                        );
+                        ?>
+                    </div>
+                </div>
+            <?php endif; ?>
+        </div>
+
+        <?php if ( $current_theme === 'sahara_sunset' ) : ?>
+            <!-- For Sahara Sunset, copyright is full-width outside container -->
             <div class="mkp-footer__bottom" style="background-color: <?php echo esc_attr( $copyright_bg ); ?>; color: <?php echo esc_attr( $copyright_text ); ?>; padding: var(--mkp-spacing-lg) 0; margin-top: var(--mkp-spacing-xl);">
-                <div class="mkp-footer__copyright">
-                    <?php
-                    printf(
-                        /* translators: 1: Copyright symbol and year, 2: Site name */
-                        esc_html__( '%1$s %2$s. All rights reserved.', 'mediakit-lite' ),
-                        '&copy; ' . date( 'Y' ),
-                        get_bloginfo( 'name' )
-                    );
-                    ?>
+                <div class="mkp-container">
+                    <div class="mkp-footer__copyright">
+                        <?php
+                        printf(
+                            /* translators: 1: Copyright symbol and year, 2: Site name */
+                            esc_html__( '%1$s %2$s. All rights reserved.', 'mediakit-lite' ),
+                            '&copy; ' . date( 'Y' ),
+                            get_bloginfo( 'name' )
+                        );
+                        ?>
+                    </div>
                 </div>
             </div>
-        </div>
+        <?php endif; ?>
     </footer>
 </div><!-- #page -->
 
