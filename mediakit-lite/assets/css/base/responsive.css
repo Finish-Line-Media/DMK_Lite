@@ -42,9 +42,6 @@
         visibility: hidden;
         transition: var(--mkp-transition);
         text-align: center;
-        max-height: calc(100vh - 80px);
-        overflow-y: auto;
-        -webkit-overflow-scrolling: touch;
         background-color: var(--mkp-theme-neutral-light);
         /* Hide scrollbar */
         scrollbar-width: none; /* Firefox */
@@ -55,11 +52,14 @@
     .mkp-nav::-webkit-scrollbar {
         display: none;
     }
-    
+
     .mkp-nav--active {
         transform: translateY(0);
         opacity: 1;
         visibility: visible;
+        max-height: 70vh;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
     }
     
     .mkp-nav__item {

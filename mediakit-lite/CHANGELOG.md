@@ -2,6 +2,12 @@
 
 All notable changes to the MediaKit Lite theme will be documented in this file.
 
+## [Unreleased]
+
+### Fixed
+- Improved mobile navigation scrolling compatibility for Android devices
+- Mobile navigation overflow now only applies when menu is open, preventing conflicts with position and transform properties
+
 ## [2.0.6] - 2025-10-20
 
 ### Fixed
