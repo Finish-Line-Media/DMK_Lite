@@ -396,21 +396,21 @@ function mkp_get_color_themes() {
         ),
         'sahara_sunset' => array(
             'name' => __( 'Sahara Sunset (Brown/Gold)', 'mediakit-lite' ),
-            'primary' => '#745D34',
-            'primary_text' => '#FFFFFF',
-            'section_1' => '#D09B3D',
-            'section_1_text' => '#221E17',
-            'section_2' => '#F8E596',
-            'section_2_text' => '#745D34',
+            'primary' => '#221E17',
+            'primary_text' => '#F8E596',
+            'section_1' => '#745D34',
+            'section_1_text' => '#F8E596',
+            'section_2' => '#D09B3D',
+            'section_2_text' => '#221E17',
             'section_3' => '#ECC159',
             'section_3_text' => '#221E17',
             'accent_1' => '#D09B3D',
-            'accent_1_text' => '#FFFFFF',
-            'accent_2' => '#745D34',
-            'accent_2_text' => '#FFFFFF',
+            'accent_1_text' => '#221E17',
+            'accent_2' => '#ECC159',
+            'accent_2_text' => '#221E17',
             'neutral_light' => '#F8E596',
             'neutral_dark' => '#221E17',
-            'border' => '#D09B3D'
+            'border' => '#745D34'
         )
     );
 }
