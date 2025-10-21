@@ -4,6 +4,9 @@ All notable changes to the MediaKit Lite theme will be documented in this file.
 
 ## [Unreleased]
 
+### Added
+- New "Sahara Sunset" color theme with warm brown and gold tones
+
 ### Fixed
 - Improved mobile navigation scrolling compatibility for Android devices
 - Mobile navigation overflow now only applies when menu is open, preventing conflicts with position and transform properties
