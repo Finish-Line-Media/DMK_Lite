@@ -4,6 +4,8 @@ All notable changes to the MediaKit Lite theme will be documented in this file.
 
 ## [Unreleased]
 
+## [2.0.7] - 2025-10-21
+
 ### Added
 - New "Sahara Sunset" color theme with warm brown and gold tones
 
