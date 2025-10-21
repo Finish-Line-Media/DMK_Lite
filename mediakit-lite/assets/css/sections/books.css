@@ -9,8 +9,10 @@
     padding: var(--mkp-spacing-xxl) 0;
 }
 
-/* Books Grid - Masonry layout */
+/* Books Grid - CSS Grid layout (maintains card order) */
 .mkp-books__grid {
+    display: grid;
+    gap: 20px;
     max-width: 1200px;
     margin: 0 auto;
 }
@@ -20,31 +22,24 @@
     display: none !important;
 }
 
-/* Book card widths for masonry */
+/* Book card base styles */
 .mkp-book-card {
-    margin-bottom: 20px;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Column layouts for masonry */
-.mkp-books__grid--one-column .mkp-book-card {
-    width: 100%;
-}
-
+/* Column layouts using CSS Grid */
 .mkp-books__grid--one-column {
+    grid-template-columns: 1fr;
     max-width: 600px;
 }
 
-.mkp-books__grid--two-columns .mkp-book-card {
-    width: calc(50% - 10px);
-}
-
 .mkp-books__grid--two-columns {
+    grid-template-columns: repeat(2, 1fr);
     max-width: 900px;
 }
 
-.mkp-books__grid--three-columns .mkp-book-card {
-    width: calc(33.333% - 14px);
+.mkp-books__grid--three-columns {
+    grid-template-columns: repeat(3, 1fr);
 }
 
 /* Hover effect for book cards */
@@ -95,11 +90,11 @@
 
 /* Mobile styles */
 @media (max-width: 768px) {
-    .mkp-books__grid--two-columns .mkp-book-card,
-    .mkp-books__grid--three-columns .mkp-book-card {
-        width: 100%;
+    .mkp-books__grid--two-columns,
+    .mkp-books__grid--three-columns {
+        grid-template-columns: 1fr;
     }
-    
+
     .mkp-book-card__cover {
         height: 300px;
         max-height: 40vh;

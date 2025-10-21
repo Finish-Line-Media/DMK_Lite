@@ -7,6 +7,11 @@ All notable changes to the MediaKit Lite theme will be documented in this file.
 ### Fixed
 - Improved mobile navigation scrolling compatibility for Android devices
 - Mobile navigation overflow now only applies when menu is open, preventing conflicts with position and transform properties
+- Publications (Books) cards now maintain their original order when card heights differ
+- Replaced Masonry layout with CSS Grid for Publications section to prevent card repositioning
+
+### Changed
+- Publications section now uses CSS Grid instead of Masonry layout for better order preservation
 
 ## [2.0.6] - 2025-10-20
 

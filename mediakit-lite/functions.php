@@ -190,10 +190,12 @@ function mkp_scripts() {
     //     wp_enqueue_script( 'mediakit-lite-media-masonry', MKP_THEME_URI . '/assets/js/media-masonry.js', array( 'masonry', 'imagesloaded' ), MKP_THEME_VERSION, true );
     // }
     
-    // Books masonry script - only on front page if books section is enabled
-    if ( is_front_page() && get_theme_mod( 'mkp_enable_section_books', false ) && mkp_has_books() ) {
-        wp_enqueue_script( 'mediakit-lite-books-masonry', MKP_THEME_URI . '/assets/js/books-masonry.js', array( 'masonry', 'imagesloaded' ), MKP_THEME_VERSION, true );
-    }
+    // Books masonry script - DISABLED - Using CSS Grid instead to maintain card order
+    // Books section now uses CSS Grid layout which preserves the original card order
+    // instead of Masonry which repositions cards when heights differ
+    // if ( is_front_page() && get_theme_mod( 'mkp_enable_section_books', false ) && mkp_has_books() ) {
+    //     wp_enqueue_script( 'mediakit-lite-books-masonry', MKP_THEME_URI . '/assets/js/books-masonry.js', array( 'masonry', 'imagesloaded' ), MKP_THEME_VERSION, true );
+    // }
     
     // Podcasts masonry script - only on front page if podcasts section is enabled
     if ( is_front_page() && get_theme_mod( 'mkp_enable_section_podcasts', false ) && mkp_has_podcasts() ) {
