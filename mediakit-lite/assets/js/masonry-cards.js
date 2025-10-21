@@ -88,13 +88,19 @@
         button.className = 'mkp-read-more-btn';
         button.textContent = 'Read more';
         button.setAttribute( 'aria-expanded', 'false' );
-        
-        // Add click handler
+
+        // Store reference to the specific description this button controls
+        button.dataset.targetId = description.id || '';
+
+        // Add click handler with closure capturing the specific description
         button.addEventListener( 'click', function( e ) {
             e.preventDefault();
+            e.stopPropagation(); // Prevent event bubbling
+
+            // Ensure we're only toggling THIS specific description
             toggleDescription( description, button );
         });
-        
+
         return button;
     }
     
@@ -102,26 +108,38 @@
      * Toggle description expanded/collapsed state
      */
     function toggleDescription( description, button ) {
+        // Defensive check: ensure we have valid elements
+        if ( ! description || ! button ) {
+            console.warn( 'Invalid description or button element' );
+            return;
+        }
+
+        // Defensive check: ensure this description element still exists in DOM
+        if ( ! document.body.contains( description ) ) {
+            console.warn( 'Description element not in DOM' );
+            return;
+        }
+
         const isExpanded = description.classList.contains( 'mkp-description--expanded' );
-        
+
         if ( isExpanded ) {
-            // Collapse
+            // Collapse - only affect THIS specific description element
             description.classList.remove( 'mkp-description--expanded' );
             button.textContent = 'Read more';
             button.setAttribute( 'aria-expanded', 'false' );
-            
+
             // Scroll to top of card for better UX
-            description.scrollIntoView({ 
-                behavior: 'smooth', 
-                block: 'start' 
+            description.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
             });
         } else {
-            // Expand
+            // Expand - only affect THIS specific description element
             description.classList.add( 'mkp-description--expanded' );
             button.textContent = 'Read less';
             button.setAttribute( 'aria-expanded', 'true' );
         }
-        
+
         // Trigger masonry relayout if available
         relayoutMasonry();
     }

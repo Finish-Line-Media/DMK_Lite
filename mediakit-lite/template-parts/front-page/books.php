@@ -70,8 +70,8 @@ if ( $books_per_row === '1' || $actual_book_count === 1 ) {
                     
                     <div class="mkp-book-card__content">
                         <h3 class="mkp-book-card__title"><?php echo esc_html( $title ); ?></h3>
-                        
-                        <div class="<?php echo esc_attr( $description_class ); ?>">
+
+                        <div id="book-description-<?php echo esc_attr( $i ); ?>" class="<?php echo esc_attr( $description_class ); ?>" data-card-id="book-<?php echo esc_attr( $i ); ?>">
                             <?php if ( $description ) : ?>
                                 <?php echo wp_kses_post( wpautop( $description ) ); ?>
                             <?php endif; ?>

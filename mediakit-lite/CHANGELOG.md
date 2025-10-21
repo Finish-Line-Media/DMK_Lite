@@ -9,6 +9,8 @@ All notable changes to the MediaKit Lite theme will be documented in this file.
 - Mobile navigation overflow now only applies when menu is open, preventing conflicts with position and transform properties
 - Publications (Books) cards now maintain their original order when card heights differ
 - Replaced Masonry layout with CSS Grid for Publications section to prevent card repositioning
+- "Read More" button now only expands the clicked card, not all cards simultaneously
+- Added unique IDs and defensive checks to prevent cross-card interference
 
 ### Changed
 - Publications section now uses CSS Grid instead of Masonry layout for better order preservation
