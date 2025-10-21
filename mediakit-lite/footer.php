@@ -37,6 +37,9 @@
                 margin: 0;
                 padding: 0;
             }
+            body {
+                background-color: <?php echo esc_attr( $copyright_bg ); ?>;
+            }
             .mkp-site {
                 display: flex;
                 flex-direction: column;

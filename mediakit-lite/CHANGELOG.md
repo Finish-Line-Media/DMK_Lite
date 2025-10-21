@@ -11,7 +11,7 @@ All notable changes to the MediaKit Lite theme will be documented in this file.
 - Sahara Sunset footer now sticks to bottom of viewport on short pages with increased height for stronger visual presence
 
 ### Fixed
-- Eliminated gap below Sahara Sunset footer by extending sticky footer CSS to html and body elements
+- Eliminated gap below Sahara Sunset footer by setting body background to match footer color (black)
 
 ## [2.0.7] - 2025-10-21
 
