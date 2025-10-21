@@ -6,6 +6,8 @@ All notable changes to the MediaKit Lite theme will be documented in this file.
 
 ### Added
 - Horizontal scrolling navigation on desktop/tablet when there are 7+ menu items to prevent double-line wrapping
+- Left and right arrow buttons for scrolling the navigation menu on desktop/tablet
+- Auto-hiding scroll arrows that only appear when navigation is scrollable
 
 ### Changed
 - Updated "Sahara Sunset" color theme to use darker color scheme with black navigation/footer and darker section rotations

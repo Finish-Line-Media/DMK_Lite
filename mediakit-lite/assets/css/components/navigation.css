@@ -97,11 +97,19 @@
 
 /* Horizontal scrolling navbar for desktop/tablet */
 @media (min-width: 769px) {
+    .mkp-nav-wrapper {
+        position: relative;
+        display: flex;
+        align-items: center;
+        gap: var(--mkp-spacing-sm);
+    }
+
     .mkp-nav {
         overflow-x: auto;
         flex-wrap: nowrap;
         scrollbar-width: none; /* Firefox */
         -ms-overflow-style: none; /* IE/Edge */
+        scroll-behavior: smooth;
     }
 
     .mkp-nav::-webkit-scrollbar {
@@ -110,5 +118,44 @@
 
     .mkp-nav__item {
         flex-shrink: 0; /* Prevent items from shrinking */
+    }
+
+    /* Scroll arrow buttons */
+    .mkp-nav-scroll {
+        background: var(--mkp-theme-primary);
+        color: var(--mkp-theme-primary-text);
+        border: none;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+        transition: var(--mkp-transition);
+        flex-shrink: 0;
+    }
+
+    .mkp-nav-scroll:hover {
+        opacity: 0.8;
+        transform: scale(1.1);
+    }
+
+    .mkp-nav-scroll:active {
+        transform: scale(0.95);
+    }
+
+    /* Hide arrows when not needed */
+    .mkp-nav-scroll--hidden {
+        opacity: 0;
+        pointer-events: none;
+    }
+}
+
+/* Hide scroll buttons on mobile */
+@media (max-width: 768px) {
+    .mkp-nav-scroll {
+        display: none;
     }
 }
