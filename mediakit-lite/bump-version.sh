@@ -90,6 +90,17 @@ if [ -f "version.json" ]; then
     sed -i '' "s/\"release_date\": \".*\"/\"release_date\": \"${TODAY}\"/" version.json
 fi
 
+# Update CHANGELOG.md
+if [ -f "CHANGELOG.md" ]; then
+    # Get today's date if not already set
+    if [ -z "$TODAY" ]; then
+        TODAY=$(date +%Y-%m-%d)
+    fi
+    # Replace ## [Unreleased] with ## [Unreleased]\n\n## [VERSION] - DATE
+    # Using perl for reliable multi-line replacement
+    perl -i -pe "s/## \[Unreleased\]/## [Unreleased]\n\n## [${VERSION}] - ${TODAY}/" CHANGELOG.md
+fi
+
 echo -e "${GREEN}Version bumped to ${VERSION}${NC}"
 
 # Git operations
@@ -97,6 +108,10 @@ git add style.css readme.txt functions.php
 # Add version.json if it exists
 if [ -f "version.json" ]; then
     git add version.json
+fi
+# Add CHANGELOG.md if it exists
+if [ -f "CHANGELOG.md" ]; then
+    git add CHANGELOG.md
 fi
 git commit -m "Bump version to ${VERSION}"
 
