@@ -168,7 +168,10 @@ function mkp_scripts() {
     if ( defined( 'WP_DEBUG_LOG' ) && WP_DEBUG_LOG ) {
         error_log( '[MediaKit] Script enqueued successfully' );
     }
-    
+
+    // Navbar scroll arrows script
+    wp_enqueue_script( 'mediakit-lite-navbar-scroll', MKP_THEME_URI . '/assets/js/navbar-scroll.js', array(), MKP_THEME_VERSION, true );
+
     // Localize script
     wp_localize_script( 'mediakit-lite-script', 'mkp_ajax', array(
         'ajax_url' => admin_url( 'admin-ajax.php' ),

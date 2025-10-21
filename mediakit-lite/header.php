@@ -37,6 +37,8 @@
                 // Always display section navigation
                 $nav_items = mkp_get_front_page_nav_items();
                 if ( ! empty( $nav_items ) ) {
+                    echo '<div class="mkp-nav-wrapper">';
+                    echo '<button class="mkp-nav-scroll mkp-nav-scroll--left" aria-label="' . esc_attr__( 'Scroll navigation left', 'mediakit-lite' ) . '">&larr;</button>';
                     echo '<ul id="primary-menu" class="mkp-nav">';
                     foreach ( $nav_items as $item ) {
                         // Check if this is the search item
@@ -62,6 +64,8 @@
                         }
                     }
                     echo '</ul>';
+                    echo '<button class="mkp-nav-scroll mkp-nav-scroll--right" aria-label="' . esc_attr__( 'Scroll navigation right', 'mediakit-lite' ) . '">&rarr;</button>';
+                    echo '</div>';
                 }
                 ?>
             </nav>
