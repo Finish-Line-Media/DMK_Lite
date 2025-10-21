@@ -50,6 +50,7 @@
             }
             .mkp-footer {
                 flex-shrink: 0;
+                padding-bottom: 0 !important;
             }
         </style>
     <?php endif; ?>
