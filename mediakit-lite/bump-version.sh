@@ -15,6 +15,14 @@ fi
 
 VERSION=$1
 
+# Get the directory where this script is located
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+# Change to the script's directory (mediakit-lite/)
+cd "$SCRIPT_DIR"
+
+echo "Working directory: $SCRIPT_DIR"
+
 # Check for uncommitted changes
 if ! git diff --quiet || ! git diff --cached --quiet; then
     echo -e "${YELLOW}Warning: You have uncommitted changes:${NC}"
