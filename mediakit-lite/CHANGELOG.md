@@ -4,6 +4,9 @@ All notable changes to the MediaKit Lite theme will be documented in this file.
 
 ## [Unreleased]
 
+### Added
+- Horizontal scrolling navigation on desktop/tablet when there are 7+ menu items to prevent double-line wrapping
+
 ### Changed
 - Updated "Sahara Sunset" color theme to use darker color scheme with black navigation/footer and darker section rotations
 - Sahara Sunset theme now displays copyright footer with navbar colors (black background, white text) for consistent branding

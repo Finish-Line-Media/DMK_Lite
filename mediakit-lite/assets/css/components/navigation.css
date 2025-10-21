@@ -94,3 +94,21 @@
     margin: 5px 0;
     transition: var(--mkp-transition);
 }
+
+/* Horizontal scrolling navbar for desktop/tablet */
+@media (min-width: 769px) {
+    .mkp-nav {
+        overflow-x: auto;
+        flex-wrap: nowrap;
+        scrollbar-width: none; /* Firefox */
+        -ms-overflow-style: none; /* IE/Edge */
+    }
+
+    .mkp-nav::-webkit-scrollbar {
+        display: none; /* Chrome/Safari */
+    }
+
+    .mkp-nav__item {
+        flex-shrink: 0; /* Prevent items from shrinking */
+    }
+}
