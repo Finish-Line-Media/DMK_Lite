@@ -10,11 +10,23 @@
 ?>
     </div><!-- #content -->
     
-    <?php 
+    <?php
     // Get the colors from the last section
     $footer_colors = mkp_get_last_section_color();
     $footer_bg = $footer_colors['background'];
     $footer_text = $footer_colors['text'];
+
+    // Check if Sahara Sunset theme - use navbar colors for copyright section
+    $current_theme = get_theme_mod( 'mkp_color_theme', 'ocean_depths' );
+    if ( $current_theme === 'sahara_sunset' ) {
+        $copyright_colors = mkp_get_header_colors();
+        $copyright_bg = $copyright_colors['background'];
+        $copyright_text = '#FFFFFF'; // Force white text for Sahara Sunset
+    } else {
+        // Other themes use footer colors for copyright
+        $copyright_bg = $footer_bg;
+        $copyright_text = $footer_text;
+    }
     ?>
     
     <footer id="colophon" class="mkp-footer" style="background-color: <?php echo esc_attr( $footer_bg ); ?>; color: <?php echo esc_attr( $footer_text ); ?>;">
@@ -39,7 +51,7 @@
                 <?php endif; ?>
             </div>
             
-            <div class="mkp-footer__bottom">
+            <div class="mkp-footer__bottom" style="background-color: <?php echo esc_attr( $copyright_bg ); ?>; color: <?php echo esc_attr( $copyright_text ); ?>; padding: var(--mkp-spacing-lg) 0; margin-top: var(--mkp-spacing-xl);">
                 <div class="mkp-footer__copyright">
                     <?php
                     printf(
