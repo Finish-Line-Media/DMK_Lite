@@ -1,6 +1,6 @@
 {
-    "version": "2.0.9",
-    "description": "Added horizontal scrolling navigation with arrow buttons for desktop/tablet",
+    "version": "2.0.11",
+    "description": "Fixed Publications grid fallback and scrollable menu CSS with color fallbacks and !important flags",
     "download_url": "https://github.com/Finish-Line-Media/DMK_Lite/releases/latest/download/mediakit-lite.zip",
     "changelog_url": "https://github.com/Finish-Line-Media/DMK_Lite/blob/main/CHANGELOG.md",
     "release_date": "2025-10-21",

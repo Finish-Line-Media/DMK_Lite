@@ -2,6 +2,11 @@
 
 All notable changes to the MediaKit Lite theme will be documented in this file.
 
+## [2.0.11] - 2025-10-21
+
+### Changed
+- Fixed Publications grid fallback and scrollable menu CSS with color fallbacks and !important flags
+
 ## [2.0.9] - 2025-10-21
 
 ### Changed
