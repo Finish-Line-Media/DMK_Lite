@@ -2,6 +2,11 @@
 
 All notable changes to the MediaKit Lite theme will be documented in this file.
 
+## [2.0.9] - 2025-10-21
+
+### Changed
+- Added horizontal scrolling navigation with arrow buttons for desktop/tablet
+
 ## [Unreleased]
 
 ### Added
