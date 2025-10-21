@@ -32,6 +32,11 @@
     <?php if ( $current_theme === 'sahara_sunset' ) : ?>
         <!-- Sticky footer CSS for Sahara Sunset theme -->
         <style>
+            html, body {
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
             .mkp-site {
                 display: flex;
                 flex-direction: column;
