@@ -8,6 +8,7 @@ All notable changes to the MediaKit Lite theme will be documented in this file.
 - Updated "Sahara Sunset" color theme to use darker color scheme with black navigation/footer and darker section rotations
 - Sahara Sunset theme now displays copyright footer with navbar colors (black background, white text) for consistent branding
 - Sahara Sunset copyright footer now spans full screen width for enhanced visual impact
+- Sahara Sunset footer now sticks to bottom of viewport on short pages with increased height for stronger visual presence
 
 ## [2.0.7] - 2025-10-21
 

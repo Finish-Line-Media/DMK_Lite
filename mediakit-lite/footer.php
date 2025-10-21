@@ -28,6 +28,23 @@
         $copyright_text = $footer_text;
     }
     ?>
+
+    <?php if ( $current_theme === 'sahara_sunset' ) : ?>
+        <!-- Sticky footer CSS for Sahara Sunset theme -->
+        <style>
+            .mkp-site {
+                display: flex;
+                flex-direction: column;
+                min-height: 100vh;
+            }
+            #content {
+                flex: 1 0 auto;
+            }
+            .mkp-footer {
+                flex-shrink: 0;
+            }
+        </style>
+    <?php endif; ?>
     
     <footer id="colophon" class="mkp-footer" style="background-color: <?php echo esc_attr( $footer_bg ); ?>; color: <?php echo esc_attr( $footer_text ); ?>;">
         <div class="mkp-container">
@@ -70,7 +87,7 @@
 
         <?php if ( $current_theme === 'sahara_sunset' ) : ?>
             <!-- For Sahara Sunset, copyright is full-width outside container -->
-            <div class="mkp-footer__bottom" style="background-color: <?php echo esc_attr( $copyright_bg ); ?>; color: <?php echo esc_attr( $copyright_text ); ?>; padding: var(--mkp-spacing-lg) 0; margin-top: var(--mkp-spacing-xl);">
+            <div class="mkp-footer__bottom" style="background-color: <?php echo esc_attr( $copyright_bg ); ?>; color: <?php echo esc_attr( $copyright_text ); ?>; padding: var(--mkp-spacing-xxl) 0; margin-top: var(--mkp-spacing-xl);">
                 <div class="mkp-container">
                     <div class="mkp-footer__copyright">
                         <?php
