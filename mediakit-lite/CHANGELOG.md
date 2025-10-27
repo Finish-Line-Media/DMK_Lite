@@ -39,6 +39,8 @@ All notable changes to the MediaKit Lite theme will be documented in this file.
 
 ## [Unreleased]
 
+## [2.0.14] - 2025-10-27
+
 ## [2.0.13] - 2025-10-27
 
 ## [2.0.12] - 2025-10-27
