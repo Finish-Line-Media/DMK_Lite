@@ -2,6 +2,15 @@
 
 All notable changes to the MediaKit Lite theme will be documented in this file.
 
+## [2.0.13] - 2025-10-27
+
+### Fixed
+- Fixed stats grid layout for 5-6 achievement items to display 3 per row instead of stacking vertically on desktop
+- Fixed mobile horizontal white space by preventing overflow on html and body elements
+
+### Changed
+- Reduced row spacing in stats section from 3rem to 0.5rem for more compact layout
+
 ## [2.0.12] - 2025-10-27
 
 ### Fixed

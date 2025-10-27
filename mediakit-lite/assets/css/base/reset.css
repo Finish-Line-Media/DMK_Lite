@@ -35,9 +35,14 @@ time, mark, audio, video {
 }
 
 /* HTML5 display-role reset */
-article, aside, details, figcaption, figure, 
+article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
     display: block;
+}
+
+/* Prevent horizontal overflow on mobile */
+html {
+    overflow-x: hidden;
 }
 
 body {
@@ -47,4 +52,6 @@ body {
     background-color: var(--mkp-theme-neutral-light);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+    width: 100%;
 }
