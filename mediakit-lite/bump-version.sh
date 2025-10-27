@@ -73,6 +73,9 @@ fi
 # Update style.css
 sed -i '' "s/Version: .*/Version: ${VERSION}/" style.css
 
+# Update all CSS @import version parameters for cache busting
+sed -i '' "s/?ver=[0-9.]*/?ver=${VERSION}/g" style.css
+
 # Update readme.txt
 sed -i '' "s/Stable tag: .*/Stable tag: ${VERSION}/" readme.txt
 
