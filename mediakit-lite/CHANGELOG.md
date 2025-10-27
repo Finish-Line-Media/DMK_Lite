@@ -22,6 +22,8 @@ All notable changes to the MediaKit Lite theme will be documented in this file.
 
 ## [Unreleased]
 
+## [2.0.12] - 2025-10-27
+
 ### Added
 - Horizontal scrolling navigation on desktop/tablet when there are 7+ menu items to prevent double-line wrapping
 - Left and right arrow buttons for scrolling the navigation menu on desktop/tablet
