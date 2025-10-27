@@ -2,6 +2,14 @@
 
 All notable changes to the MediaKit Lite theme will be documented in this file.
 
+## [2.0.14] - 2025-10-27
+
+### Fixed
+- Added version query parameters to all CSS @import statements to force browser cache refresh
+
+### Changed
+- All CSS module imports now include ?ver parameter for better cache control
+
 ## [2.0.13] - 2025-10-27
 
 ### Fixed
