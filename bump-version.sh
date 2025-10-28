@@ -37,6 +37,49 @@ if [[ ! "$BUMP_TYPE" =~ ^(major|minor|patch)$ ]]; then
     usage
 fi
 
+# Safety check: Check for uncommitted changes
+if ! git diff --quiet || ! git diff --cached --quiet; then
+    echo -e "${YELLOW}Warning: You have uncommitted changes:${NC}"
+    echo ""
+    git status --short
+    echo ""
+
+    CHANGED_FILES=$(git diff --name-only)
+    STAGED_FILES=$(git diff --cached --name-only)
+
+    if [ ! -z "$CHANGED_FILES" ]; then
+        echo -e "${YELLOW}Modified files:${NC}"
+        echo "$CHANGED_FILES" | sed 's/^/  /'
+        echo ""
+    fi
+
+    if [ ! -z "$STAGED_FILES" ]; then
+        echo -e "${YELLOW}Staged files:${NC}"
+        echo "$STAGED_FILES" | sed 's/^/  /'
+        echo ""
+    fi
+
+    echo -e "${RED}Error: Please commit your changes before bumping the version.${NC}"
+    echo ""
+    echo "You can either:"
+    echo "  1. Commit your changes: git add . && git commit -m 'Your message'"
+    echo "  2. Stash your changes: git stash"
+    echo "  3. Discard your changes: git checkout -- ."
+    echo ""
+    exit 1
+fi
+
+# Safety check: Verify we're on the main branch
+CURRENT_BRANCH=$(git branch --show-current)
+if [ "$CURRENT_BRANCH" != "main" ]; then
+    echo -e "${YELLOW}Warning: You are on branch '$CURRENT_BRANCH', not 'main'.${NC}"
+    read -p "Do you want to continue? (y/N) " -n 1 -r
+    echo
+    if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+        exit 1
+    fi
+fi
+
 # Get current version
 CURRENT_VERSION=$(grep "Version:" mediakit-lite/style.css | sed 's/.*Version: //' | tr -d '[:space:]')
 
@@ -78,6 +121,10 @@ echo -e "\n${BLUE}Updating version numbers...${NC}"
 # Update style.css
 sed -i.bak "s/Version: .*/Version: $NEW_VERSION/" mediakit-lite/style.css && rm mediakit-lite/style.css.bak
 echo -e "${GREEN}✓${NC} Updated style.css"
+
+# Update all CSS @import version parameters for cache busting
+sed -i.bak "s/?ver=[0-9.]*/?ver=$NEW_VERSION/g" mediakit-lite/style.css && rm mediakit-lite/style.css.bak
+echo -e "${GREEN}✓${NC} Updated CSS import versions for cache busting"
 
 # Update functions.php
 sed -i.bak "s/define( 'MKP_THEME_VERSION', '.*' );/define( 'MKP_THEME_VERSION', '$NEW_VERSION' );/" mediakit-lite/functions.php && rm mediakit-lite/functions.php.bak
@@ -156,11 +203,26 @@ git commit -m "Bump version to $NEW_VERSION
 
 echo -e "${GREEN}✓${NC} Changes committed"
 
+# Create git tag
+echo -e "\n${BLUE}Creating git tag...${NC}"
+git tag -a "v$NEW_VERSION" -m "Release version $NEW_VERSION"
+echo -e "${GREEN}✓${NC} Created tag v$NEW_VERSION"
+
 # Push to trigger the release
 echo -e "\n${BLUE}Pushing to GitHub...${NC}"
-git push origin main
+if git push origin main; then
+    echo -e "${GREEN}✓${NC} Pushed to main branch"
+else
+    echo -e "${RED}✗ Failed to push to main branch${NC}"
+    exit 1
+fi
 
-echo -e "${GREEN}✓${NC} Pushed to GitHub"
+if git push origin "v$NEW_VERSION"; then
+    echo -e "${GREEN}✓${NC} Pushed tag v$NEW_VERSION"
+else
+    echo -e "${RED}✗ Failed to push tag${NC}"
+    exit 1
+fi
 
 echo -e "\n${GREEN}Success!${NC} Version bumped to $NEW_VERSION"
 echo -e "${YELLOW}GitHub Actions will now automatically create the release.${NC}"

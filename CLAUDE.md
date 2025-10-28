@@ -211,14 +211,18 @@ setupCardSectionUpdates({
 - **Single Source of Truth**: Define styles, especially repeated patterns like glass-morphism effects, in one place rather than duplicating across multiple selectors.
 
 ## Development Memories
-- Remember to bump both the theme and the function header version number when bumping.
-- Remember to bump both the style and the function header version number when bumping.
+- Remember to use `./bump-version.sh` which automatically updates all version numbers (style.css, functions.php, version.json, and CSS cache busting parameters).
 - Remember to ask me which build I'd like when I ask you to build.
 - **CSS Architecture**: The theme uses a modular CSS architecture. The main `style.css` imports all modules from `assets/css/`. Never edit `style-old.css` as it contains the deprecated monolithic CSS.
 - **Customizer Refactoring**: The customizer has been refactored from a single 1,861-line file into a modular structure under `inc/customizer/` with separate files for each section.
 - **Glass-morphism Cards**: All cards use a unified glass-morphism effect defined in the base `.mkp-card` class for consistency and maintainability.
 - **Deployment Process**: Use the deployment process documented in `DEPLOYMENT_PROCESS.md`. The theme now includes a `CHANGELOG.md` file in the mediakit-lite directory which is required for GitHub Actions auto-release.
-- **Version Bumping**: When bumping version, update it in three places: `style.css`, `functions.php` (MKP_THEME_VERSION), and `version.json`. Also update `CHANGELOG.md` before pushing.
+- **Version Bumping**: ALWAYS use the ROOT `./bump-version.sh` script (NOT `mediakit-lite/bump-version.sh`). The root script automatically handles:
+  - Version updates in `style.css`, `functions.php` (MKP_THEME_VERSION), and `version.json` files
+  - CHANGELOG.md entry generation
+  - **CSS Cache Busting**: Updates all `?ver=X.X.X` parameters in CSS `@import` statements to prevent browser caching issues
+  - Git commit, tag creation, and push to trigger GitHub Actions release
+  - Usage: `./bump-version.sh patch "Description of changes"` (or `minor`/`major` for bigger releases)
 - **Media Grid Layout**: The media section uses CSS Grid instead of Masonry due to positioning conflicts with embedded content. Other sections (Books, Podcasts, Gallery, Awards) continue using Masonry for optimal content flow.
 - **Universal Masonry Card Heights**: All masonry sections use shared `.mkp-masonry-card__description` class with 120px height limit, automatic read more/less functionality, and relayout integration. The universal system is managed by `masonry-cards.js` and shared CSS in `components/cards.css`.
 - **Hybrid Layout Strategy**: The theme uses different layout approaches based on content type - CSS Grid for variable embedded content (media section) and Masonry for consistent card content (books, podcasts, awards, investors).
