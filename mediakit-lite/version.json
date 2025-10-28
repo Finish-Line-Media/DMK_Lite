@@ -1,6 +1,6 @@
 {
-    "version": "2.0.15",
-    "description": "Fix navbar positioning to fixed top and adjust spacing",
+    "version": "2.0.16",
+    "description": "Fix CSS cache busting for navbar positioning changes",
     "download_url": "https://github.com/Finish-Line-Media/DMK_Lite/releases/latest/download/mediakit-lite.zip",
     "changelog_url": "https://github.com/Finish-Line-Media/DMK_Lite/blob/main/CHANGELOG.md",
     "release_date": "2025-10-28",

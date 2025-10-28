@@ -2,6 +2,11 @@
 
 All notable changes to the MediaKit Lite theme will be documented in this file.
 
+## [2.0.16] - 2025-10-28
+
+### Changed
+- Fix CSS cache busting for navbar positioning changes
+
 ## [2.0.15] - 2025-10-28
 
 ### Changed

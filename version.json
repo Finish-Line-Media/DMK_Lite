@@ -1,8 +1,8 @@
 {
-  "version": "2.0.15",
-  "description": "Fix navbar positioning to fixed top and adjust spacing",
-  "download_url": "https://github.com/Finish-Line-Media/DMK_Lite/releases/download/v2.0.15/mediakit-lite.zip",
-  "changelog_url": "https://github.com/Finish-Line-Media/DMK_Lite/releases/tag/v2.0.15",
+  "version": "2.0.16",
+  "description": "Fix CSS cache busting for navbar positioning changes",
+  "download_url": "https://github.com/Finish-Line-Media/DMK_Lite/releases/download/v2.0.16/mediakit-lite.zip",
+  "changelog_url": "https://github.com/Finish-Line-Media/DMK_Lite/releases/tag/v2.0.16",
   "release_date": "2025-10-28",
   "min_wp_version": "5.8",
   "tested_up_to": "6.5",
