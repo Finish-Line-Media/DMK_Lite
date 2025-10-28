@@ -380,16 +380,17 @@
     .mkp-social {
         display: none;
     }
-    
+
     body {
         font-size: 12pt;
         line-height: 1.5;
+        padding-top: 0 !important; /* Remove padding when header is hidden in print */
     }
-    
+
     a {
         text-decoration: underline;
     }
-    
+
     h1, h2, h3, h4, h5, h6 {
         page-break-after: avoid;
     }

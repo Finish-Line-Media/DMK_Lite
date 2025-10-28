@@ -67,6 +67,7 @@
 /* Main Content Area */
 .mkp-main {
     min-height: 70vh;
+    margin: 0;
 }
 
 /* Single Post Layout */

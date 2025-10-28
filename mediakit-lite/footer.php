@@ -35,9 +35,9 @@
             html, body {
                 height: 100%;
                 margin: 0;
-                padding: 0;
             }
             body {
+                padding-top: 60px !important; /* Preserve offset for fixed header */
                 background-color: <?php echo esc_attr( $copyright_bg ); ?>;
             }
             .mkp-site {

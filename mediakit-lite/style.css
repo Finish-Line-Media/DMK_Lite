@@ -24,57 +24,57 @@ Requires PHP: 7.4
 /* ==========================================================================
    Base Styles
    ========================================================================== */
-@import url('assets/css/base/variables.css?ver=2.0.14');
-@import url('assets/css/base/reset.css?ver=2.0.14');
-@import url('assets/css/base/typography.css?ver=2.0.14');
+@import url('assets/css/base/variables.css?ver=2.0.15');
+@import url('assets/css/base/reset.css?ver=2.0.15');
+@import url('assets/css/base/typography.css?ver=2.0.15');
 
 /* ==========================================================================
    Layout
    ========================================================================== */
-@import url('assets/css/layout/containers.css?ver=2.0.14');
-@import url('assets/css/layout/grid.css?ver=2.0.14');
-@import url('assets/css/layout/utilities.css?ver=2.0.14');
+@import url('assets/css/layout/containers.css?ver=2.0.15');
+@import url('assets/css/layout/grid.css?ver=2.0.15');
+@import url('assets/css/layout/utilities.css?ver=2.0.15');
 
 /* ==========================================================================
    Components
    ========================================================================== */
-@import url('assets/css/components/header.css?ver=2.0.14');
-@import url('assets/css/components/navigation.css?ver=2.0.14');
-@import url('assets/css/components/hero.css?ver=2.0.14');
-@import url('assets/css/components/buttons.css?ver=2.0.14');
-@import url('assets/css/components/cards.css?ver=2.0.14');
-@import url('assets/css/components/forms.css?ver=2.0.14');
-@import url('assets/css/components/footer.css?ver=2.0.14');
-@import url('assets/css/components/blog.css?ver=2.0.14');
-@import url('assets/css/components/posts.css?ver=2.0.14');
-@import url('assets/css/components/comments.css?ver=2.0.14');
-@import url('assets/css/components/social.css?ver=2.0.14');
+@import url('assets/css/components/header.css?ver=2.0.15');
+@import url('assets/css/components/navigation.css?ver=2.0.15');
+@import url('assets/css/components/hero.css?ver=2.0.15');
+@import url('assets/css/components/buttons.css?ver=2.0.15');
+@import url('assets/css/components/cards.css?ver=2.0.15');
+@import url('assets/css/components/forms.css?ver=2.0.15');
+@import url('assets/css/components/footer.css?ver=2.0.15');
+@import url('assets/css/components/blog.css?ver=2.0.15');
+@import url('assets/css/components/posts.css?ver=2.0.15');
+@import url('assets/css/components/comments.css?ver=2.0.15');
+@import url('assets/css/components/social.css?ver=2.0.15');
 
 /* ==========================================================================
    Sections
    ========================================================================== */
-@import url('assets/css/sections/about.css?ver=2.0.14');
-@import url('assets/css/sections/books.css?ver=2.0.14');
-@import url('assets/css/sections/podcasts.css?ver=2.0.14');
-@import url('assets/css/sections/corporations.css?ver=2.0.14');
-@import url('assets/css/sections/speaker.css?ver=2.0.14');
-@import url('assets/css/sections/featured-video.css?ver=2.0.14');
-@import url('assets/css/sections/gallery.css?ver=2.0.14');
-@import url('assets/css/sections/testimonials.css?ver=2.0.14');
-@import url('assets/css/sections/awards.css?ver=2.0.14');
-@import url('assets/css/sections/media-features.css?ver=2.0.14');
-@import url('assets/css/sections/stats.css?ver=2.0.14');
-@import url('assets/css/sections/in-the-media.css?ver=2.0.14');
-@import url('assets/css/sections/media-questions.css?ver=2.0.14');
-@import url('assets/css/sections/investor.css?ver=2.0.14');
-@import url('assets/css/sections/contact.css?ver=2.0.14');
+@import url('assets/css/sections/about.css?ver=2.0.15');
+@import url('assets/css/sections/books.css?ver=2.0.15');
+@import url('assets/css/sections/podcasts.css?ver=2.0.15');
+@import url('assets/css/sections/corporations.css?ver=2.0.15');
+@import url('assets/css/sections/speaker.css?ver=2.0.15');
+@import url('assets/css/sections/featured-video.css?ver=2.0.15');
+@import url('assets/css/sections/gallery.css?ver=2.0.15');
+@import url('assets/css/sections/testimonials.css?ver=2.0.15');
+@import url('assets/css/sections/awards.css?ver=2.0.15');
+@import url('assets/css/sections/media-features.css?ver=2.0.15');
+@import url('assets/css/sections/stats.css?ver=2.0.15');
+@import url('assets/css/sections/in-the-media.css?ver=2.0.15');
+@import url('assets/css/sections/media-questions.css?ver=2.0.15');
+@import url('assets/css/sections/investor.css?ver=2.0.15');
+@import url('assets/css/sections/contact.css?ver=2.0.15');
 
 /* ==========================================================================
    WordPress Core
    ========================================================================== */
-@import url('assets/css/base/wordpress.css?ver=2.0.14');
+@import url('assets/css/base/wordpress.css?ver=2.0.15');
 
 /* ==========================================================================
    Responsive & Accessibility
    ========================================================================== */
-@import url('assets/css/base/responsive.css?ver=2.0.14');
+@import url('assets/css/base/responsive.css?ver=2.0.15');
