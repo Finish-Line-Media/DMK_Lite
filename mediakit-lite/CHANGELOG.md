@@ -2,6 +2,11 @@
 
 All notable changes to the MediaKit Lite theme will be documented in this file.
 
+## [2.0.15] - 2025-10-28
+
+### Changed
+- Fix navbar positioning to fixed top and adjust spacing
+
 ## [2.0.14] - 2025-10-27
 
 ### Fixed
