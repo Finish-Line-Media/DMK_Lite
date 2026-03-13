@@ -1,8 +1,8 @@
 {
-  "version": "2.0.18",
-  "description": "Fix stats grid row gap spacing between rows",
-  "download_url": "https://github.com/Finish-Line-Media/DMK_Lite/releases/download/v2.0.18/mediakit-lite.zip",
-  "changelog_url": "https://github.com/Finish-Line-Media/DMK_Lite/releases/tag/v2.0.18",
+  "version": "2.0.19",
+  "description": "Fix stats section: allow single field display and fix text overflow in narrow columns",
+  "download_url": "https://github.com/Finish-Line-Media/DMK_Lite/releases/download/v2.0.19/mediakit-lite.zip",
+  "changelog_url": "https://github.com/Finish-Line-Media/DMK_Lite/releases/tag/v2.0.19",
   "release_date": "2026-03-13",
   "min_wp_version": "5.8",
   "tested_up_to": "6.5",

@@ -2,6 +2,11 @@
 
 All notable changes to the MediaKit Lite theme will be documented in this file.
 
+## [2.0.19] - 2026-03-13
+
+### Changed
+- Fix stats section: allow single field display and fix text overflow in narrow columns
+
 ## [2.0.18] - 2026-03-13
 
 ### Changed
