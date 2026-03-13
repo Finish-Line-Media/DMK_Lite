@@ -2,6 +2,11 @@
 
 All notable changes to the MediaKit Lite theme will be documented in this file.
 
+## [2.0.21] - 2026-03-13
+
+### Changed
+- Fix stats items to stack vertically and size to content width
+
 ## [2.0.20] - 2026-03-13
 
 ### Changed
