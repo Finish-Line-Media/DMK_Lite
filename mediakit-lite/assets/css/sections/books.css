@@ -84,6 +84,11 @@
     padding: var(--mkp-spacing-lg);
 }
 
+.mkp-book-card__content .mkp-btn {
+    display: table;
+    margin: var(--mkp-spacing-md) auto 0;
+}
+
 .mkp-book-card__title {
     font-size: 1.5rem;
     margin-bottom: var(--mkp-spacing-md);
