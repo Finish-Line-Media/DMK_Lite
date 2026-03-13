@@ -2,6 +2,11 @@
 
 All notable changes to the MediaKit Lite theme will be documented in this file.
 
+## [2.0.18] - 2026-03-13
+
+### Changed
+- Fix stats grid row gap spacing between rows
+
 ## [2.0.17] - 2026-03-13
 
 ### Changed
