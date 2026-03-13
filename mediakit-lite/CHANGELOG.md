@@ -2,6 +2,11 @@
 
 All notable changes to the MediaKit Lite theme will be documented in this file.
 
+## [2.0.23] - 2026-03-13
+
+### Changed
+- Fix book and podcast card buttons to appear centered below Read more link
+
 ## [2.0.22] - 2026-03-13
 
 ### Changed
