@@ -1,6 +1,6 @@
 {
-    "version": "2.0.19",
-    "description": "Fix stats section: allow single field display and fix text overflow in narrow columns",
+    "version": "2.0.20",
+    "description": "Reduce stats number font size and widen grid for better column spacing",
     "download_url": "https://github.com/Finish-Line-Media/DMK_Lite/releases/latest/download/mediakit-lite.zip",
     "changelog_url": "https://github.com/Finish-Line-Media/DMK_Lite/blob/main/CHANGELOG.md",
     "release_date": "2026-03-13",

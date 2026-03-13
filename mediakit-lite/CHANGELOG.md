@@ -2,6 +2,11 @@
 
 All notable changes to the MediaKit Lite theme will be documented in this file.
 
+## [2.0.20] - 2026-03-13
+
+### Changed
+- Reduce stats number font size and widen grid for better column spacing
+
 ## [2.0.19] - 2026-03-13
 
 ### Changed
