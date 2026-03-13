@@ -1,9 +1,9 @@
 {
-  "version": "2.0.16",
-  "description": "Fix CSS cache busting for navbar positioning changes",
-  "download_url": "https://github.com/Finish-Line-Media/DMK_Lite/releases/download/v2.0.16/mediakit-lite.zip",
-  "changelog_url": "https://github.com/Finish-Line-Media/DMK_Lite/releases/tag/v2.0.16",
-  "release_date": "2025-10-28",
+  "version": "2.0.17",
+  "description": "Fix stats section horizontal overflow with min-width and flex-wrap",
+  "download_url": "https://github.com/Finish-Line-Media/DMK_Lite/releases/download/v2.0.17/mediakit-lite.zip",
+  "changelog_url": "https://github.com/Finish-Line-Media/DMK_Lite/releases/tag/v2.0.17",
+  "release_date": "2026-03-13",
   "min_wp_version": "5.8",
   "tested_up_to": "6.5",
   "php_version": "7.4"

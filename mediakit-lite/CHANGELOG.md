@@ -2,6 +2,11 @@
 
 All notable changes to the MediaKit Lite theme will be documented in this file.
 
+## [2.0.17] - 2026-03-13
+
+### Changed
+- Fix stats section horizontal overflow with min-width and flex-wrap
+
 ## [2.0.16] - 2025-10-28
 
 ### Changed
