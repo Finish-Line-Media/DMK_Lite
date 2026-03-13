@@ -94,6 +94,9 @@
 
 .mkp-stat__value {
     display: inline-block;
+    min-width: 0;
+    max-width: 100%;
+    word-break: break-word;
 }
 
 /* Stat Label */

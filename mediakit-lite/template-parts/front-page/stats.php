@@ -17,7 +17,7 @@ $actual_stat_count = 0;
 for ( $i = 1; $i <= 6; $i++ ) {
     $number = get_theme_mod( 'mkp_stat_' . $i . '_number' );
     $label = get_theme_mod( 'mkp_stat_' . $i . '_label' );
-    if ( $number && $label ) {
+    if ( $number || $label ) {
         $actual_stat_count++;
     }
 }
@@ -57,7 +57,7 @@ $available_icons = array(
                 $suffix = get_theme_mod( 'mkp_stat_' . $i . '_suffix', '' );
                 $icon = get_theme_mod( 'mkp_stat_' . $i . '_icon', 'star' );
                 
-                if ( ! $number || ! $label ) {
+                if ( ! $number && ! $label ) {
                     continue;
                 }
                 

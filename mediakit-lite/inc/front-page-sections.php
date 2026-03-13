@@ -327,7 +327,7 @@ function mkp_has_stats() {
     for ( $i = 1; $i <= 4; $i++ ) {
         $number = get_theme_mod( 'mkp_stat_' . $i . '_number' );
         $label = get_theme_mod( 'mkp_stat_' . $i . '_label' );
-        if ( $number && $label ) {
+        if ( $number || $label ) {
             return true;
         }
     }
