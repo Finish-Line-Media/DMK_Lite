@@ -13,8 +13,8 @@
 .mkp-stats__grid {
     display: grid;
     row-gap: var(--mkp-spacing-xl);
-    column-gap: var(--mkp-spacing-xl);
-    max-width: 1000px;
+    column-gap: var(--mkp-spacing-lg);
+    max-width: 100%;
     margin: 0 auto;
 }
 
@@ -49,7 +49,7 @@
 /* Stat Item */
 .mkp-stat-item {
     text-align: center;
-    padding: var(--mkp-spacing-lg);
+    padding: var(--mkp-spacing-lg) var(--mkp-spacing-md);
     transition: transform 0.3s ease;
     min-width: 0; /* Prevent grid items from overflowing their column */
     overflow-wrap: break-word;
@@ -74,7 +74,7 @@
 
 /* Stat Number */
 .mkp-stat__number {
-    font-size: 3rem;
+    font-size: 2.25rem;
     font-weight: 700;
     line-height: 1.2;
     margin-bottom: var(--mkp-spacing-sm);
@@ -87,7 +87,7 @@
 
 .mkp-stat__prefix,
 .mkp-stat__suffix {
-    font-size: 2rem;
+    font-size: 1.5rem;
     font-weight: 500;
     opacity: 0.8;
 }
@@ -143,12 +143,12 @@
     }
     
     .mkp-stat__number {
-        font-size: 2.5rem;
+        font-size: 2rem;
     }
-    
+
     .mkp-stat__prefix,
     .mkp-stat__suffix {
-        font-size: 1.75rem;
+        font-size: 1.375rem;
     }
     
     .mkp-stat__label {
@@ -172,12 +172,12 @@
     }
     
     .mkp-stat__number {
-        font-size: 2rem;
+        font-size: 1.75rem;
     }
-    
+
     .mkp-stat__prefix,
     .mkp-stat__suffix {
-        font-size: 1.5rem;
+        font-size: 1.25rem;
     }
 }
 
