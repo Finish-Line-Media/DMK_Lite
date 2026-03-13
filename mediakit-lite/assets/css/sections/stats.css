@@ -51,6 +51,8 @@
     text-align: center;
     padding: var(--mkp-spacing-lg);
     transition: transform 0.3s ease;
+    min-width: 0; /* Prevent grid items from overflowing their column */
+    overflow-wrap: break-word;
 }
 
 .mkp-stat-item:hover {
@@ -77,6 +79,7 @@
     line-height: 1.2;
     margin-bottom: var(--mkp-spacing-sm);
     display: flex;
+    flex-wrap: wrap;
     align-items: baseline;
     justify-content: center;
     gap: 0.25rem;
