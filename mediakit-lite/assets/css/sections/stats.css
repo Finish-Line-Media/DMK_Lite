@@ -12,7 +12,7 @@
 /* Stats Grid */
 .mkp-stats__grid {
     display: grid;
-    row-gap: 0.5rem;
+    row-gap: var(--mkp-spacing-xl);
     column-gap: var(--mkp-spacing-xl);
     max-width: 1000px;
     margin: 0 auto;
