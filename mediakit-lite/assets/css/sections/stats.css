@@ -11,39 +11,12 @@
 
 /* Stats Grid */
 .mkp-stats__grid {
-    display: grid;
-    row-gap: var(--mkp-spacing-xl);
-    column-gap: var(--mkp-spacing-lg);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--mkp-spacing-xl) var(--mkp-spacing-lg);
     max-width: 100%;
     margin: 0 auto;
-}
-
-/* Grid layouts based on count */
-.mkp-stats__grid--count-1 {
-    grid-template-columns: 1fr;
-    max-width: 300px;
-}
-
-.mkp-stats__grid--count-2 {
-    grid-template-columns: repeat(2, 1fr);
-    max-width: 600px;
-}
-
-.mkp-stats__grid--count-3 {
-    grid-template-columns: repeat(3, 1fr);
-    max-width: 900px;
-}
-
-.mkp-stats__grid--count-4 {
-    grid-template-columns: repeat(4, 1fr);
-}
-
-.mkp-stats__grid--count-5 {
-    grid-template-columns: repeat(3, 1fr);
-}
-
-.mkp-stats__grid--count-6 {
-    grid-template-columns: repeat(3, 1fr);
 }
 
 /* Stat Item */
@@ -51,7 +24,9 @@
     text-align: center;
     padding: var(--mkp-spacing-lg) var(--mkp-spacing-md);
     transition: transform 0.3s ease;
-    min-width: 0; /* Prevent grid items from overflowing their column */
+    flex: 0 0 auto;
+    width: max-content;
+    max-width: 220px;
     overflow-wrap: break-word;
 }
 
@@ -79,10 +54,9 @@
     line-height: 1.2;
     margin-bottom: var(--mkp-spacing-sm);
     display: flex;
-    flex-wrap: wrap;
-    align-items: baseline;
-    justify-content: center;
-    gap: 0.25rem;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.1rem;
 }
 
 .mkp-stat__prefix,
@@ -135,13 +109,6 @@
 
 /* Tablet styles */
 @media (max-width: 768px) {
-    .mkp-stats__grid--count-3,
-    .mkp-stats__grid--count-4,
-    .mkp-stats__grid--count-5,
-    .mkp-stats__grid--count-6 {
-        grid-template-columns: repeat(2, 1fr);
-    }
-    
     .mkp-stat__number {
         font-size: 2rem;
     }
@@ -150,11 +117,11 @@
     .mkp-stat__suffix {
         font-size: 1.375rem;
     }
-    
+
     .mkp-stat__label {
         font-size: 1rem;
     }
-    
+
     .mkp-stat__icon .dashicons {
         font-size: 40px;
         width: 40px;
@@ -163,14 +130,10 @@
 }
 
 @media (max-width: 480px) {
-    .mkp-stats__grid--count-2,
-    .mkp-stats__grid--count-3,
-    .mkp-stats__grid--count-4,
-    .mkp-stats__grid--count-5,
-    .mkp-stats__grid--count-6 {
-        grid-template-columns: 1fr;
+    .mkp-stat-item {
+        max-width: 160px;
     }
-    
+
     .mkp-stat__number {
         font-size: 1.75rem;
     }
