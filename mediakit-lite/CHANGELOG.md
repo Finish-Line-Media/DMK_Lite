@@ -2,6 +2,11 @@
 
 All notable changes to the MediaKit Lite theme will be documented in this file.
 
+## [2.0.24] - 2026-03-27
+
+### Changed
+- Fix hero image mobile sizing by removing double padding
+
 ## [2.0.23] - 2026-03-13
 
 ### Changed
