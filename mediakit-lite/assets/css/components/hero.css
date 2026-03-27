@@ -53,20 +53,20 @@
 
 /* Small size images */
 .mkp-hero__image--small {
-    max-width: 100px;
-    max-height: 240px;
+    max-width: 180px;
+    max-height: 380px;
 }
 
 /* Medium size images (default) */
 .mkp-hero__image--medium {
-    max-width: 125px;
-    max-height: 300px;
+    max-width: 260px;
+    max-height: 500px;
 }
 
 /* Large size images */
 .mkp-hero__image--large {
-    max-width: 175px;
-    max-height: 420px;
+    max-width: 360px;
+    max-height: 660px;
 }
 
 .mkp-hero__image img {
@@ -146,40 +146,37 @@
     .mkp-hero__images {
         flex: 0 0 auto;
         width: 100%;
-        max-width: 200px;
+        max-width: none;
+        padding: 0 var(--mkp-spacing-md);
         margin: 0 auto;
     }
-    
+
     .mkp-hero__content {
         order: 2;
         margin: var(--mkp-spacing-lg) 0;
     }
-    
+
     .mkp-hero__images--left {
         order: 1;
     }
-    
+
     .mkp-hero__images--right {
         order: 3;
     }
-    
-    /* Responsive image sizes */
-    .mkp-hero__image--small {
-        max-width: 80px;
-        max-height: 160px;
-    }
-    
-    .mkp-hero__image--medium {
-        max-width: 100px;
-        max-height: 200px;
-    }
-    
+
+    /* Full width on mobile — remove size caps */
+    .mkp-hero__image--small,
+    .mkp-hero__image--medium,
     .mkp-hero__image--large {
-        max-width: 120px;
-        max-height: 240px;
+        max-width: 100%;
+        max-height: none;
+        width: 100%;
     }
-    
+
     .mkp-hero__image img {
+        width: 100%;
+        max-height: 60vh;
+        object-fit: cover;
         border-radius: 6px;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     }
@@ -188,17 +185,17 @@
 /* Tablet styles */
 @media (min-width: 769px) and (max-width: 1024px) {
     .mkp-hero__image--small {
-        max-width: 90px;
-        max-height: 216px;
+        max-width: 140px;
+        max-height: 300px;
     }
-    
+
     .mkp-hero__image--medium {
-        max-width: 110px;
-        max-height: 264px;
+        max-width: 200px;
+        max-height: 400px;
     }
-    
+
     .mkp-hero__image--large {
-        max-width: 150px;
-        max-height: 360px;
+        max-width: 280px;
+        max-height: 520px;
     }
 }
