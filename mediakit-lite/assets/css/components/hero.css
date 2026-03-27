@@ -53,20 +53,20 @@
 
 /* Small size images */
 .mkp-hero__image--small {
-    max-width: 180px;
-    max-height: 380px;
+    max-width: 240px;
+    max-height: 480px;
 }
 
 /* Medium size images (default) */
 .mkp-hero__image--medium {
-    max-width: 260px;
-    max-height: 500px;
+    max-width: 340px;
+    max-height: 620px;
 }
 
 /* Large size images */
 .mkp-hero__image--large {
-    max-width: 360px;
-    max-height: 660px;
+    max-width: 460px;
+    max-height: 800px;
 }
 
 .mkp-hero__image img {
@@ -147,8 +147,11 @@
         flex: 0 0 auto;
         width: 100%;
         max-width: none;
-        padding: 0 var(--mkp-spacing-md);
         margin: 0 auto;
+    }
+
+    .mkp-hero__image {
+        width: 100%;
     }
 
     .mkp-hero__content {
@@ -175,7 +178,7 @@
 
     .mkp-hero__image img {
         width: 100%;
-        max-height: 60vh;
+        max-height: 80vh;
         object-fit: cover;
         border-radius: 6px;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
