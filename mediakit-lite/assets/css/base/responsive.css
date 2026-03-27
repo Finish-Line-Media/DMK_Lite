@@ -92,52 +92,6 @@
     }
     
     /* ==========================================================================
-       Hero Section
-       ========================================================================== */
-    .mkp-hero__title {
-        font-size: 2rem;
-    }
-    
-    .mkp-hero__name {
-        font-size: 2rem;
-    }
-    
-    .mkp-hero__name-image {
-        max-width: 300px;
-    }
-    
-    .mkp-hero__wrapper {
-        flex-direction: column;
-        gap: var(--mkp-spacing-md);
-    }
-    
-    .mkp-hero__images {
-        flex: 0 0 auto;
-        width: 100%;
-        max-width: 200px;
-        margin: 0 auto;
-    }
-    
-    .mkp-hero__content {
-        order: 2;
-        margin: var(--mkp-spacing-lg) 0;
-    }
-    
-    .mkp-hero__images--left {
-        order: 1;
-        margin-bottom: var(--mkp-spacing-md);
-    }
-    
-    .mkp-hero__images--right {
-        order: 3;
-        margin-top: var(--mkp-spacing-md);
-    }
-    
-    .mkp-hero__image img {
-        max-height: 200px;
-    }
-    
-    /* ==========================================================================
        Books & Podcasts Sections
        ========================================================================== */
     /* Mobile - all book layouts become single column */
