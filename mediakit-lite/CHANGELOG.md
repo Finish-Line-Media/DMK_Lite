@@ -2,6 +2,11 @@
 
 All notable changes to the MediaKit Lite theme will be documented in this file.
 
+## [2.0.27] - 2026-03-30
+
+### Changed
+- Match hero image mobile side padding to site standard
+
 ## [2.0.26] - 2026-03-27
 
 ### Changed
