@@ -152,8 +152,8 @@
     .mkp-hero__images {
         display: block;
         width: 100%;
-        padding-left: var(--mkp-spacing-sm);
-        padding-right: var(--mkp-spacing-sm);
+        padding-left: var(--mkp-spacing-lg);
+        padding-right: var(--mkp-spacing-lg);
         box-sizing: border-box;
     }
 
