@@ -116,12 +116,27 @@ function mkp_register_corporations_section( $wp_customize ) {
             'default'           => '',
             'sanitize_callback' => 'esc_url_raw',
         ) );
-        
+
         $wp_customize->add_control( 'mkp_corp_' . $i . '_link', array(
             'label'       => sprintf( __( 'Company %d Website', 'mediakit-lite' ), $i ),
             'section'     => 'mkp_corporations_section',
             'type'        => 'url',
             'priority'    => 13 + ($i * 10),
+        ) );
+
+        // Corporation Button Text
+        $wp_customize->add_setting( 'mkp_corp_' . $i . '_button_text', array(
+            'default'           => __( 'Visit Website', 'mediakit-lite' ),
+            'sanitize_callback' => 'sanitize_text_field',
+            'transport'         => 'postMessage',
+        ) );
+
+        $wp_customize->add_control( 'mkp_corp_' . $i . '_button_text', array(
+            'label'       => sprintf( __( 'Company %d Button Text', 'mediakit-lite' ), $i ),
+            'description' => __( 'Defaults to "Visit Website" if left empty.', 'mediakit-lite' ),
+            'section'     => 'mkp_corporations_section',
+            'type'        => 'text',
+            'priority'    => 14 + ($i * 10),
         ) );
     }
 }

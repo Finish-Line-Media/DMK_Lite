@@ -456,17 +456,31 @@
                 value.bind( function( to ) {
                     const $card = $( '.mkp-corp-card.mkp-corp--' + corpNum );
                     const $link = $card.find( '.mkp-btn' );
-                    
+                    const buttonText = wp.customize.has( 'mkp_corp_' + corpNum + '_button_text' )
+                        ? ( wp.customize( 'mkp_corp_' + corpNum + '_button_text' ).get() || 'Visit Website' )
+                        : 'Visit Website';
+
                     if ( to ) {
                         if ( $link.length ) {
                             $link.attr( 'href', to );
                         } else {
                             // Create the link if it doesn't exist
-                            $card.append( '<a href="' + to + '" class="mkp-btn mkp-btn--secondary mkp-btn--small" target="_blank" rel="noopener">Visit Website</a>' );
+                            $card.append( '<a href="' + to + '" class="mkp-btn mkp-btn--secondary mkp-btn--small" target="_blank" rel="noopener">' + buttonText + '</a>' );
                         }
                     } else {
                         // Remove the link if URL is empty
                         $link.remove();
+                    }
+                } );
+            } );
+
+            // Company button text
+            wp.customize( 'mkp_corp_' + corpNum + '_button_text', function( value ) {
+                value.bind( function( to ) {
+                    const $card = $( '.mkp-corp-card.mkp-corp--' + corpNum );
+                    const $link = $card.find( '.mkp-btn' );
+                    if ( $link.length ) {
+                        $link.text( to || 'Visit Website' );
                     }
                 } );
             } );

@@ -41,6 +41,10 @@ $bio_class = 'mkp-corp-card__bio mkp-text-align-' . $text_align;
                 $logo = get_theme_mod( 'mkp_corp_' . $i . '_logo' );
                 $bio = get_theme_mod( 'mkp_corp_' . $i . '_bio' );
                 $link = get_theme_mod( 'mkp_corp_' . $i . '_link' );
+                $button_text = get_theme_mod( 'mkp_corp_' . $i . '_button_text', __( 'Visit Website', 'mediakit-lite' ) );
+                if ( '' === trim( $button_text ) ) {
+                    $button_text = __( 'Visit Website', 'mediakit-lite' );
+                }
                 ?>
                 <?php if ( $name || $logo ) : ?>
                 <div class="mkp-corp-card mkp-card mkp-corp--<?php echo esc_attr( $i ); ?>">
@@ -62,7 +66,7 @@ $bio_class = 'mkp-corp-card__bio mkp-text-align-' . $text_align;
                     
                     <?php if ( $link ) : ?>
                         <a href="<?php echo esc_url( $link ); ?>" class="mkp-btn mkp-btn--secondary mkp-btn--small" target="_blank" rel="noopener">
-                            <?php esc_html_e( 'Visit Website', 'mediakit-lite' ); ?>
+                            <?php echo esc_html( $button_text ); ?>
                         </a>
                     <?php endif; ?>
                 </div>
