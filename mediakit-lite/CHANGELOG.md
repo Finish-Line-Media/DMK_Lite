@@ -2,6 +2,11 @@
 
 All notable changes to the MediaKit Lite theme will be documented in this file.
 
+## [2.0.28] - 2026-04-15
+
+### Changed
+- Add customizable button text per company
+
 ## [2.0.27] - 2026-03-30
 
 ### Changed
