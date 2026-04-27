@@ -2,6 +2,11 @@
 
 All notable changes to the MediaKit Lite theme will be documented in this file.
 
+## [2.0.29] - 2026-04-27
+
+### Changed
+- Fix hero content and tags overflow on mobile
+
 ## [2.0.28] - 2026-04-15
 
 ### Changed

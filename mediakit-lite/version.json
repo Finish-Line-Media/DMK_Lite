@@ -1,9 +1,9 @@
 {
-    "version": "2.0.28",
-    "description": "Add customizable button text per company",
+    "version": "2.0.29",
+    "description": "Fix hero content and tags overflow on mobile",
     "download_url": "https://github.com/Finish-Line-Media/DMK_Lite/releases/latest/download/mediakit-lite.zip",
     "changelog_url": "https://github.com/Finish-Line-Media/DMK_Lite/blob/main/CHANGELOG.md",
-    "release_date": "2026-04-15",
+    "release_date": "2026-04-27",
     "min_wp_version": "5.8",
     "tested_up_to": "6.5",
     "php_version": "7.4"
