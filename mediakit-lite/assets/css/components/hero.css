@@ -162,6 +162,34 @@
         margin: var(--mkp-spacing-lg) 0;
         padding-left: var(--mkp-spacing-lg);
         padding-right: var(--mkp-spacing-lg);
+        min-width: 0;
+        box-sizing: border-box;
+        width: 100%;
+    }
+
+    .mkp-hero__tags {
+        flex-direction: column;
+        gap: var(--mkp-spacing-xs);
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+
+    .mkp-hero__tag-group {
+        white-space: normal;
+        text-align: center;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+    }
+
+    .mkp-hero__tag {
+        white-space: normal;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+    }
+
+    .mkp-hero__separator {
+        display: inline-block;
+        margin: 0 0 0 0.75em;
     }
 
     .mkp-hero__images--left {
