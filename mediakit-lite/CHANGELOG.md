@@ -2,6 +2,11 @@
 
 All notable changes to the MediaKit Lite theme will be documented in this file.
 
+## [2.0.30] - 2026-05-01
+
+### Changed
+- Add Social Share Image for Open Graph support with fallback chain and SEO plugin detection
+
 ## [2.0.29] - 2026-04-27
 
 ### Changed

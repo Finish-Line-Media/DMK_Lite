@@ -1,9 +1,9 @@
 {
-  "version": "2.0.29",
-  "description": "Fix hero content and tags overflow on mobile",
-  "download_url": "https://github.com/Finish-Line-Media/DMK_Lite/releases/download/v2.0.29/mediakit-lite.zip",
-  "changelog_url": "https://github.com/Finish-Line-Media/DMK_Lite/releases/tag/v2.0.29",
-  "release_date": "2026-04-27",
+  "version": "2.0.30",
+  "description": "Add Social Share Image for Open Graph support with fallback chain and SEO plugin detection",
+  "download_url": "https://github.com/Finish-Line-Media/DMK_Lite/releases/download/v2.0.30/mediakit-lite.zip",
+  "changelog_url": "https://github.com/Finish-Line-Media/DMK_Lite/releases/tag/v2.0.30",
+  "release_date": "2026-05-01",
   "min_wp_version": "5.8",
   "tested_up_to": "6.5",
   "php_version": "7.4"
