@@ -643,25 +643,87 @@ add_filter( 'wp_handle_upload_prefilter', 'mkp_sanitize_svg' );
  * Add Open Graph meta tags
  */
 function mkp_add_opengraph_tags() {
+    // Skip if an SEO plugin is handling Open Graph tags.
+    if ( defined( 'WPSEO_VERSION' ) || defined( 'RANK_MATH_VERSION' ) || defined( 'FLAVOR_SEO_VERSION' ) || defined( 'FLAVOR_FLAVOR_VERSION' ) ) {
+        return;
+    }
+    // Also check for All in One SEO and SEOPress.
+    if ( class_exists( 'AIOSEO\\Plugin\\AIOSEO' ) || defined( 'SEOPRESS_VERSION' ) ) {
+        return;
+    }
+
     global $post;
-    
-    if ( is_single() || is_page() ) {
-        echo '<meta property="og:title" content="' . esc_attr( get_the_title() ) . '" />' . "\n";
-        echo '<meta property="og:type" content="article" />' . "\n";
-        echo '<meta property="og:url" content="' . esc_url( get_permalink() ) . '" />' . "\n";
-        echo '<meta property="og:site_name" content="' . esc_attr( get_bloginfo( 'name' ) ) . '" />' . "\n";
-        
+
+    if ( is_front_page() || is_home() ) {
+        $title       = get_bloginfo( 'name' );
+        $url         = home_url( '/' );
+        $type        = 'website';
+        $description = get_bloginfo( 'description' );
+        $og_image    = mkp_get_og_image();
+    } elseif ( is_single() || is_page() ) {
+        $title       = get_the_title();
+        $url         = get_permalink();
+        $type        = 'article';
+        $description = $post->post_excerpt;
+
+        // Fallback chain: Featured Image → Social Share Image → Hero Image → Site Logo.
         if ( has_post_thumbnail() ) {
             $thumbnail = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'large' );
-            echo '<meta property="og:image" content="' . esc_url( $thumbnail[0] ) . '" />' . "\n";
+            $og_image  = $thumbnail ? $thumbnail[0] : '';
+        } else {
+            $og_image = mkp_get_og_image();
         }
-        
-        if ( $post->post_excerpt ) {
-            echo '<meta property="og:description" content="' . esc_attr( $post->post_excerpt ) . '" />' . "\n";
-        }
+    } else {
+        return;
+    }
+
+    echo '<meta property="og:title" content="' . esc_attr( $title ) . '" />' . "\n";
+    echo '<meta property="og:type" content="' . esc_attr( $type ) . '" />' . "\n";
+    echo '<meta property="og:url" content="' . esc_url( $url ) . '" />' . "\n";
+    echo '<meta property="og:site_name" content="' . esc_attr( get_bloginfo( 'name' ) ) . '" />' . "\n";
+
+    if ( ! empty( $og_image ) ) {
+        echo '<meta property="og:image" content="' . esc_url( $og_image ) . '" />' . "\n";
+    }
+
+    if ( ! empty( $description ) ) {
+        echo '<meta property="og:description" content="' . esc_attr( $description ) . '" />' . "\n";
     }
 }
 add_action( 'wp_head', 'mkp_add_opengraph_tags' );
+
+/**
+ * Get the default Open Graph image using the fallback chain:
+ * 1. Social Share Image (customizer)
+ * 2. Hero Image 1
+ * 3. Custom Logo
+ *
+ * @return string Image URL or empty string.
+ */
+function mkp_get_og_image() {
+    // 1. Social Share Image from customizer.
+    $social_image = get_theme_mod( 'mkp_social_share_image', '' );
+    if ( ! empty( $social_image ) ) {
+        return $social_image;
+    }
+
+    // 2. Hero background image.
+    $hero_image = get_theme_mod( 'mkp_hero_image_1', '' );
+    if ( ! empty( $hero_image ) ) {
+        return $hero_image;
+    }
+
+    // 3. Custom logo.
+    $custom_logo_id = get_theme_mod( 'custom_logo' );
+    if ( $custom_logo_id ) {
+        $logo = wp_get_attachment_image_src( $custom_logo_id, 'full' );
+        if ( $logo ) {
+            return $logo[0];
+        }
+    }
+
+    return '';
+}
 
 /**
  * Output alignment styles directly in head to ensure they work

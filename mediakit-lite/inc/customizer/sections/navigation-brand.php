@@ -37,6 +37,20 @@ function mkp_register_navigation_brand_section( $wp_customize ) {
         ),
     ) );
     
+    // Social Share Image
+    $wp_customize->add_setting( 'mkp_social_share_image', array(
+        'default'           => '',
+        'sanitize_callback' => 'esc_url_raw',
+        'transport'         => 'refresh',
+    ) );
+
+    $wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'mkp_social_share_image', array(
+        'label'       => __( 'Social Share Image', 'mediakit-lite' ),
+        'description' => __( 'Default image shown when your site is shared on LinkedIn, Facebook, WhatsApp, etc. Recommended size: 1200 × 630 pixels.', 'mediakit-lite' ),
+        'section'     => 'title_tagline',
+        'priority'    => 15,
+    ) ) );
+
     // Enable Search in Navigation
     $wp_customize->add_setting( 'mkp_enable_search', array(
         'default'           => false,
