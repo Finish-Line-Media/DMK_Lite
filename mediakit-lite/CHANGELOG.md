@@ -2,6 +2,11 @@
 
 All notable changes to the MediaKit Lite theme will be documented in this file.
 
+## [2.0.31] - 2026-05-04
+
+### Changed
+- Fix Social Share Image priority in Open Graph fallback chain
+
 ## [2.0.30] - 2026-05-01
 
 ### Changed
