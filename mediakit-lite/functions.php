@@ -666,8 +666,11 @@ function mkp_add_opengraph_tags() {
         $type        = 'article';
         $description = $post->post_excerpt;
 
-        // Fallback chain: Featured Image → Social Share Image → Hero Image → Site Logo.
-        if ( has_post_thumbnail() ) {
+        // Fallback chain: Social Share Image → Featured Image → Hero Image → Site Logo.
+        $social_image = get_theme_mod( 'mkp_social_share_image', '' );
+        if ( ! empty( $social_image ) ) {
+            $og_image = $social_image;
+        } elseif ( has_post_thumbnail() ) {
             $thumbnail = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'large' );
             $og_image  = $thumbnail ? $thumbnail[0] : '';
         } else {
