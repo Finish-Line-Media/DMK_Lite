@@ -1,9 +1,9 @@
 {
-  "version": "2.0.31",
-  "description": "Fix Social Share Image priority in Open Graph fallback chain",
-  "download_url": "https://github.com/Finish-Line-Media/DMK_Lite/releases/download/v2.0.31/mediakit-lite.zip",
-  "changelog_url": "https://github.com/Finish-Line-Media/DMK_Lite/releases/tag/v2.0.31",
-  "release_date": "2026-05-04",
+  "version": "2.0.32",
+  "description": "Rework Open Graph to use Site Icon as primary social share image fallback",
+  "download_url": "https://github.com/Finish-Line-Media/DMK_Lite/releases/download/v2.0.32/mediakit-lite.zip",
+  "changelog_url": "https://github.com/Finish-Line-Media/DMK_Lite/releases/tag/v2.0.32",
+  "release_date": "2026-05-05",
   "min_wp_version": "5.8",
   "tested_up_to": "6.5",
   "php_version": "7.4"

@@ -2,6 +2,11 @@
 
 All notable changes to the MediaKit Lite theme will be documented in this file.
 
+## [2.0.32] - 2026-05-05
+
+### Changed
+- Rework Open Graph to use Site Icon as primary social share image fallback
+
 ## [2.0.31] - 2026-05-04
 
 ### Changed
