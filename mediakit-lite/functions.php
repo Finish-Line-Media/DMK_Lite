@@ -672,9 +672,11 @@ function mkp_add_opengraph_tags() {
     echo '<meta property="og:url" content="' . esc_url( $url ) . '" />' . "\n";
     echo '<meta property="og:site_name" content="' . esc_attr( get_bloginfo( 'name' ) ) . '" />' . "\n";
 
-    // Only set og:image if the page has a Featured Image.
-    // Otherwise, let social platforms find the Site Icon (favicon) on their own.
-    if ( ( is_single() || is_page() ) && has_post_thumbnail() ) {
+    // Image priority: Social Share Image → Featured Image → none.
+    $social_image = get_theme_mod( 'mkp_social_share_image', '' );
+    if ( ! empty( $social_image ) ) {
+        echo '<meta property="og:image" content="' . esc_url( $social_image ) . '" />' . "\n";
+    } elseif ( ( is_single() || is_page() ) && has_post_thumbnail() ) {
         $thumbnail = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'large' );
         if ( $thumbnail ) {
             echo '<meta property="og:image" content="' . esc_url( $thumbnail[0] ) . '" />' . "\n";
