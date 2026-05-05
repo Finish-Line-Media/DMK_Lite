@@ -644,10 +644,9 @@ add_filter( 'wp_handle_upload_prefilter', 'mkp_sanitize_svg' );
  */
 function mkp_add_opengraph_tags() {
     // Skip if an SEO plugin is handling Open Graph tags.
-    if ( defined( 'WPSEO_VERSION' ) || defined( 'RANK_MATH_VERSION' ) || defined( 'FLAVOR_SEO_VERSION' ) || defined( 'FLAVOR_FLAVOR_VERSION' ) ) {
+    if ( defined( 'WPSEO_VERSION' ) || defined( 'RANK_MATH_VERSION' ) ) {
         return;
     }
-    // Also check for All in One SEO and SEOPress.
     if ( class_exists( 'AIOSEO\\Plugin\\AIOSEO' ) || defined( 'SEOPRESS_VERSION' ) ) {
         return;
     }
@@ -666,11 +665,8 @@ function mkp_add_opengraph_tags() {
         $type        = 'article';
         $description = $post->post_excerpt;
 
-        // Fallback chain: Social Share Image → Featured Image → Hero Image → Site Logo.
-        $social_image = get_theme_mod( 'mkp_social_share_image', '' );
-        if ( ! empty( $social_image ) ) {
-            $og_image = $social_image;
-        } elseif ( has_post_thumbnail() ) {
+        // Use Featured Image if set, otherwise use the default fallback.
+        if ( has_post_thumbnail() ) {
             $thumbnail = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'large' );
             $og_image  = $thumbnail ? $thumbnail[0] : '';
         } else {
@@ -697,17 +693,20 @@ add_action( 'wp_head', 'mkp_add_opengraph_tags' );
 
 /**
  * Get the default Open Graph image using the fallback chain:
- * 1. Social Share Image (customizer)
+ * 1. Site Icon (full-size version)
  * 2. Hero Image 1
  * 3. Custom Logo
  *
  * @return string Image URL or empty string.
  */
 function mkp_get_og_image() {
-    // 1. Social Share Image from customizer.
-    $social_image = get_theme_mod( 'mkp_social_share_image', '' );
-    if ( ! empty( $social_image ) ) {
-        return $social_image;
+    // 1. Site Icon (use the full-size original, not the cropped version).
+    $site_icon_id = get_option( 'site_icon' );
+    if ( $site_icon_id ) {
+        $icon = wp_get_attachment_image_src( $site_icon_id, 'full' );
+        if ( $icon ) {
+            return $icon[0];
+        }
     }
 
     // 2. Hero background image.
