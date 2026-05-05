@@ -2,6 +2,11 @@
 
 All notable changes to the MediaKit Lite theme will be documented in this file.
 
+## [2.0.34] - 2026-05-05
+
+### Changed
+- Add Social Share Image for Open Graph support
+
 ## [2.0.33] - 2026-05-05
 
 ### Changed
