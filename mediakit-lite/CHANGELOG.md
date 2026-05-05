@@ -2,6 +2,11 @@
 
 All notable changes to the MediaKit Lite theme will be documented in this file.
 
+## [2.0.33] - 2026-05-05
+
+### Changed
+- Simplify Open Graph to show favicon icon when sharing links
+
 ## [2.0.32] - 2026-05-05
 
 ### Changed
