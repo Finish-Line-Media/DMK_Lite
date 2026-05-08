@@ -2,6 +2,11 @@
 
 All notable changes to the MediaKit Lite theme will be documented in this file.
 
+## [3.0.0] - 2026-05-08
+
+### Changed
+- Add Fun Facts section with card grid and modal popup
+
 ## [2.0.34] - 2026-05-05
 
 ### Changed
