@@ -53,6 +53,11 @@ function mkp_get_all_sections_config() {
             'template' => 'template-parts/front-page/gallery',
             'check_function' => 'mkp_has_gallery_images',
         ),
+        'fun_facts' => array(
+            'title' => __( 'Fun Facts Section', 'mediakit-lite' ),
+            'template' => 'template-parts/front-page/fun-facts',
+            'check_function' => 'mkp_has_fun_facts',
+        ),
         'testimonials' => array(
             'title' => __( 'Testimonials Section', 'mediakit-lite' ),
             'template' => 'template-parts/front-page/testimonials',
@@ -136,6 +141,20 @@ function mkp_should_display_section( $section_name, $content_checks = array() ) 
 function mkp_has_speaker_topics() {
     for ( $i = 1; $i <= 6; $i++ ) {
         if ( get_theme_mod( 'mkp_speaker_topic_' . $i ) ) {
+            return true;
+        }
+    }
+    return false;
+}
+
+/**
+ * Check if fun facts section has content
+ *
+ * @return bool
+ */
+function mkp_has_fun_facts() {
+    for ( $i = 1; $i <= 6; $i++ ) {
+        if ( get_theme_mod( 'mkp_fun_fact_' . $i . '_title' ) ) {
             return true;
         }
     }

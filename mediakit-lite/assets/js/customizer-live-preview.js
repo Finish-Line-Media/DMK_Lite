@@ -1607,6 +1607,80 @@
         } );
     } );
     
+    // Fun Facts Section Title
+    wp.customize( 'mkp_fun_facts_section_title', function( value ) {
+        value.bind( function( to ) {
+            $( '.mkp-fun-facts-section .mkp-section__title' ).text( to );
+        } );
+    } );
+
+    // Fun Facts individual items
+    for ( let i = 1; i <= 6; i++ ) {
+        ( function( factNum ) {
+            // Title update
+            wp.customize( 'mkp_fun_fact_' + factNum + '_title', function( value ) {
+                value.bind( function( to ) {
+                    const $card = $( '.mkp-fun-fact--' + factNum );
+                    $card.find( '.mkp-fun-fact-card__title' ).text( to );
+
+                    // Show/hide card based on content
+                    if ( to ) {
+                        $card.css( 'display', 'block' );
+                    } else {
+                        $card.hide();
+                    }
+
+                    // Update JSON data for modal
+                    mkpUpdateFunFactsData();
+                } );
+            } );
+
+            // Image update
+            wp.customize( 'mkp_fun_fact_' + factNum + '_image', function( value ) {
+                value.bind( function( to ) {
+                    const $card = $( '.mkp-fun-fact--' + factNum );
+                    const $wrap = $card.find( '.mkp-fun-fact-card__image-wrap' );
+
+                    if ( to ) {
+                        $wrap.removeClass( 'mkp-fun-fact-card__image-wrap--placeholder' );
+                        $wrap.html( '<img class="mkp-fun-fact-card__image" src="' + to + '" alt="" loading="lazy" />' );
+                    } else {
+                        $wrap.addClass( 'mkp-fun-fact-card__image-wrap--placeholder' );
+                        $wrap.html( '<span class="mkp-fun-fact-card__placeholder">&#9733;</span>' );
+                    }
+
+                    mkpUpdateFunFactsData();
+                } );
+            } );
+
+            // Description update
+            wp.customize( 'mkp_fun_fact_' + factNum + '_description', function( value ) {
+                value.bind( function( to ) {
+                    mkpUpdateFunFactsData();
+                } );
+            } );
+        } )( i );
+    }
+
+    // Helper to update the JSON data script tag for the modal
+    function mkpUpdateFunFactsData() {
+        var data = {};
+        for ( var i = 1; i <= 6; i++ ) {
+            var title = wp.customize( 'mkp_fun_fact_' + i + '_title' );
+            if ( title && title() ) {
+                data[ i ] = {
+                    title: title(),
+                    image: wp.customize( 'mkp_fun_fact_' + i + '_image' ) ? wp.customize( 'mkp_fun_fact_' + i + '_image' )() : '',
+                    description: wp.customize( 'mkp_fun_fact_' + i + '_description' ) ? wp.customize( 'mkp_fun_fact_' + i + '_description' )() : ''
+                };
+            }
+        }
+        var $dataEl = $( '#mkp-fun-facts-data' );
+        if ( $dataEl.length ) {
+            $dataEl.text( JSON.stringify( data ) );
+        }
+    }
+
     // Initial checks when customizer loads
     $( document ).ready( function() {
         // Small delay to ensure DOM is fully ready

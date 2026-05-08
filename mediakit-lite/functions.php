@@ -187,6 +187,11 @@ function mkp_scripts() {
     if ( is_front_page() && get_theme_mod( 'mkp_enable_section_gallery', false ) && mkp_has_gallery_images() ) {
         wp_enqueue_script( 'mediakit-lite-gallery', MKP_THEME_URI . '/assets/js/gallery-lightbox.js', array( 'masonry', 'imagesloaded' ), MKP_THEME_VERSION, true );
     }
+
+    // Fun facts modal script - only on front page if fun facts is enabled
+    if ( is_front_page() && get_theme_mod( 'mkp_enable_section_fun_facts', false ) && mkp_has_fun_facts() ) {
+        wp_enqueue_script( 'mediakit-lite-fun-facts', MKP_THEME_URI . '/assets/js/fun-facts-modal.js', array(), MKP_THEME_VERSION, true );
+    }
     
     // Media masonry script - DISABLED - using CSS Grid instead
     // if ( is_front_page() && get_theme_mod( 'mkp_enable_section_in_the_media', false ) && mkp_has_media_items() ) {

@@ -1,0 +1,226 @@
+/**
+ * Fun Facts Section
+ * Card grid with modal popup
+ *
+ * @package MediaKit_Lite
+ */
+
+.mkp-fun-facts-section {
+    padding: var(--mkp-spacing-xxl) 0;
+}
+
+/* Card Grid - 3 per row */
+.mkp-fun-facts__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--mkp-spacing-lg);
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Individual Card */
+.mkp-fun-fact-card {
+    cursor: pointer;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: center;
+}
+
+.mkp-fun-fact-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* Card Image */
+.mkp-fun-fact-card__image-wrap {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mkp-fun-fact-card__image-wrap--placeholder {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.mkp-fun-fact-card__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.mkp-fun-fact-card__placeholder {
+    font-size: 3rem;
+    opacity: 0.3;
+}
+
+/* Card Title */
+.mkp-fun-fact-card__title {
+    font-size: 1.15rem;
+    margin: 0;
+    padding: var(--mkp-spacing-md);
+    color: inherit;
+}
+
+/* ==========================================================================
+   Modal Styles
+   ========================================================================== */
+
+.mkp-fun-fact-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10000;
+    align-items: center;
+    justify-content: center;
+}
+
+.mkp-fun-fact-modal--active {
+    display: flex;
+}
+
+.mkp-fun-fact-modal__overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(4px);
+}
+
+.mkp-fun-fact-modal__content {
+    position: relative;
+    background: #fff;
+    border-radius: 12px;
+    max-width: 850px;
+    width: 90%;
+    max-height: 85vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    z-index: 1;
+    animation: mkpFunFactFadeIn 0.3s ease;
+}
+
+@keyframes mkpFunFactFadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95) translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+.mkp-fun-fact-modal__close {
+    position: absolute;
+    top: 12px;
+    right: 16px;
+    background: none;
+    border: none;
+    font-size: 2rem;
+    cursor: pointer;
+    color: #666;
+    z-index: 2;
+    line-height: 1;
+    padding: 4px 8px;
+    transition: color 0.2s ease;
+}
+
+.mkp-fun-fact-modal__close:hover {
+    color: #000;
+}
+
+/* Modal Body - image left, text right */
+.mkp-fun-fact-modal__body {
+    display: flex;
+    gap: 0;
+}
+
+.mkp-fun-fact-modal__image-col {
+    flex: 0 0 45%;
+    min-height: 300px;
+}
+
+.mkp-fun-fact-modal__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border-radius: 12px 0 0 12px;
+}
+
+.mkp-fun-fact-modal__text-col {
+    flex: 1;
+    padding: var(--mkp-spacing-xl);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.mkp-fun-fact-modal__title {
+    font-size: 1.5rem;
+    margin: 0 0 var(--mkp-spacing-md) 0;
+    color: #222;
+}
+
+.mkp-fun-fact-modal__description {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: #444;
+}
+
+.mkp-fun-fact-modal__description p {
+    margin: 0 0 var(--mkp-spacing-sm) 0;
+}
+
+.mkp-fun-fact-modal__description p:last-child {
+    margin-bottom: 0;
+}
+
+/* ==========================================================================
+   Responsive
+   ========================================================================== */
+
+@media (max-width: 900px) {
+    .mkp-fun-facts__grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .mkp-fun-fact-modal__body {
+        flex-direction: column;
+    }
+
+    .mkp-fun-fact-modal__image-col {
+        flex: none;
+        min-height: 200px;
+        max-height: 250px;
+    }
+
+    .mkp-fun-fact-modal__image {
+        border-radius: 12px 12px 0 0;
+    }
+
+    .mkp-fun-fact-modal__text-col {
+        padding: var(--mkp-spacing-lg);
+    }
+}
+
+@media (max-width: 480px) {
+    .mkp-fun-facts__grid {
+        grid-template-columns: 1fr;
+    }
+
+    .mkp-fun-fact-modal__content {
+        width: 95%;
+    }
+}

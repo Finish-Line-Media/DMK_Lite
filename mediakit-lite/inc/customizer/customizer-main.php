@@ -18,6 +18,7 @@ require_once get_template_directory() . '/inc/customizer/sections/about-section.
 require_once get_template_directory() . '/inc/customizer/sections/books-section.php';
 require_once get_template_directory() . '/inc/customizer/sections/podcasts-section.php';
 require_once get_template_directory() . '/inc/customizer/sections/gallery-section.php';
+require_once get_template_directory() . '/inc/customizer/sections/fun-facts-section.php';
 require_once get_template_directory() . '/inc/customizer/sections/corporations-section.php';
 require_once get_template_directory() . '/inc/customizer/sections/speaker-section.php';
 require_once get_template_directory() . '/inc/customizer/sections/featured-video-section.php';
@@ -76,6 +77,7 @@ function mkp_customize_register( $wp_customize ) {
     mkp_register_books_section( $wp_customize );
     mkp_register_podcasts_section( $wp_customize );
     mkp_register_gallery_section( $wp_customize );
+    mkp_register_fun_facts_section( $wp_customize );
     mkp_register_corporations_section( $wp_customize );
     mkp_register_speaker_section( $wp_customize );
     mkp_register_featured_video_section( $wp_customize );
