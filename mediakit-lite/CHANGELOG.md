@@ -2,6 +2,11 @@
 
 All notable changes to the MediaKit Lite theme will be documented in this file.
 
+## [3.0.1] - 2026-06-05
+
+### Changed
+- Fix Featured In section single-column layout bug
+
 ## [3.0.0] - 2026-05-08
 
 ### Changed
