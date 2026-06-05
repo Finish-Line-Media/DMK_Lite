@@ -12,6 +12,7 @@
 /* Media Features Grid */
 .mkp-media-features__grid {
     display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     gap: var(--mkp-spacing-xl);
     max-width: 1200px;
     margin: 0 auto;
@@ -48,6 +49,11 @@
 .mkp-media-features__grid--count-11,
 .mkp-media-features__grid--count-12 {
     grid-template-columns: repeat(6, 1fr);
+}
+
+.mkp-media-features__grid--count-13,
+.mkp-media-features__grid--count-14 {
+    grid-template-columns: repeat(7, 1fr);
 }
 
 /* Media Feature Item */
@@ -103,7 +109,9 @@
     .mkp-media-features__grid--count-9,
     .mkp-media-features__grid--count-10,
     .mkp-media-features__grid--count-11,
-    .mkp-media-features__grid--count-12 {
+    .mkp-media-features__grid--count-12,
+    .mkp-media-features__grid--count-13,
+    .mkp-media-features__grid--count-14 {
         grid-template-columns: repeat(4, 1fr);
     }
 }
@@ -120,10 +128,12 @@
     .mkp-media-features__grid--count-9,
     .mkp-media-features__grid--count-10,
     .mkp-media-features__grid--count-11,
-    .mkp-media-features__grid--count-12 {
+    .mkp-media-features__grid--count-12,
+    .mkp-media-features__grid--count-13,
+    .mkp-media-features__grid--count-14 {
         grid-template-columns: repeat(3, 1fr);
     }
-    
+
     .mkp-media-feature__logo {
         max-height: 60px;
     }
@@ -139,7 +149,9 @@
     .mkp-media-features__grid--count-9,
     .mkp-media-features__grid--count-10,
     .mkp-media-features__grid--count-11,
-    .mkp-media-features__grid--count-12 {
+    .mkp-media-features__grid--count-12,
+    .mkp-media-features__grid--count-13,
+    .mkp-media-features__grid--count-14 {
         grid-template-columns: repeat(2, 1fr);
     }
     
